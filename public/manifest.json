@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "경기대학교 웹지거북이",
+  "name": "경기대학교 웹지거북이",
   "icons": [
     {
       "src": "favicon.ico",
