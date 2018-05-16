@@ -1,19 +1,5 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es6": true
-    },
-    "extends": "airbnb",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "experimentalObjectRestSpread": true,
-            "jsx": true
-        },
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
+    "extends": "react-app",
     "rules": {
         "jsx-a11y/label-has-for": 0,
         "jsx-a11y/anchor-is-valid": 0,
