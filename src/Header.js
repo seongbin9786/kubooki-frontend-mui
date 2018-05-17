@@ -59,6 +59,8 @@ class ButtonAppBar extends Component {
           <NavDrawer
             open={drawer}
             toggleDrawer={this.handleOpen('drawer')}
+            toggleLogin={this.handleOpen('login')}
+            toggleRegister={this.handleOpen('register')}
           />
           <Typography variant="title" color="inherit" className={classes.flex}>
             경기대학교 웹지거북이
