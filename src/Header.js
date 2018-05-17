@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+
 import NavDrawer from './NavDrawer';
 
 const styles = {
@@ -35,28 +36,26 @@ class ButtonAppBar extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Menu"
-              onClick={this.toggleDrawer}
-            >
-              <MenuIcon />
-            </IconButton>
-            <NavDrawer
-              open={this.state.drawerOpen}
-              toggleDrawer={this.toggleDrawer}
-            />
-            <Typography variant="title" color="inherit" className={classes.flex}>
-              경기대학교 웹지거북이
-            </Typography>
-            <Button color="inherit">로그인</Button>
-          </Toolbar>
-        </AppBar>
-      </div>
+      <AppBar position="static" className={classes.root}>
+        <Toolbar>
+          <IconButton
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="Menu"
+            onClick={this.toggleDrawer}
+          >
+            <MenuIcon />
+          </IconButton>
+          <NavDrawer
+            open={this.state.drawerOpen}
+            toggleDrawer={this.toggleDrawer}
+          />
+          <Typography variant="title" color="inherit" className={classes.flex}>
+            경기대학교 웹지거북이
+          </Typography>
+          <Button color="inherit">로그인</Button>
+        </Toolbar>
+      </AppBar>
     );
   }
 }

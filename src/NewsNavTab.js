@@ -15,6 +15,8 @@ const styles = {
 
 const CenteredTabs = ({ classes, history, location: { pathname } }) => {
   const index = TabList.findIndex(([, tabPath]) => tabPath === pathname);
+  if (index === -1) return null;
+
   const tabs = TabList.map(([name, path]) =>
     <Tab
       label={name}
