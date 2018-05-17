@@ -7,21 +7,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import StarIcon from '@material-ui/icons/Star';
-import SendIcon from '@material-ui/icons/Send';
 import MailIcon from '@material-ui/icons/Mail';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ReportIcon from '@material-ui/icons/Report';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const mailFolderListItems = (
-  <div>
-    <ListItem>
+  <React.Fragment>
+    <ListItem button>
       <ListItemIcon
         color="inherit"
         aria-label="Menu"
-        onClick={this.togglerawer}
       >
         <MenuIcon />
       </ListItemIcon>
@@ -34,18 +28,18 @@ const mailFolderListItems = (
       </ListItemIcon>
       <ListItemText primary="로그인" />
     </ListItem>
-  </div>
+  </React.Fragment>
 );
 
 const otherMailFolderListItems = (
-  <div>
+  <React.Fragment>
     <ListItem button>
       <ListItemIcon>
         <MailIcon />
       </ListItemIcon>
       <ListItemText primary="알림 목록" />
     </ListItem>
-  </div>
+  </React.Fragment>
 );
 
 const styles = {
@@ -54,37 +48,29 @@ const styles = {
   },
 };
 
-class TemporaryDrawer extends React.Component {
-  state = {
-    open: false,
-  };
+function NavDrawer({ classes, open, toggleDrawer }) {
+  const sideList = (
+    <div className={classes.list}>
+      <List>{mailFolderListItems}</List>
+      <Divider />
+      <List>{otherMailFolderListItems}</List>
+    </div>
+  );
 
-  render() {
-    const { classes, open, toggleDrawer } = this.props;
-
-    const sideList = (
-      <div className={classes.list}>
-        <List>{mailFolderListItems}</List>
-        <Divider />
-        <List>{otherMailFolderListItems}</List>
-      </div>
-    );
-
-    return (
-      <div>
-        <Drawer open={open} onClose={toggleDrawer}>
-          <div
-            tabIndex={0}
-            role="button"
-            onClick={toggleDrawer}
-            onKeyDown={toggleDrawer}
-          >
-            {sideList}
-          </div>
-        </Drawer>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Drawer open={open} onClose={toggleDrawer}>
+        <div
+          tabIndex={0}
+          role="button"
+          onClick={toggleDrawer}
+          onKeyDown={toggleDrawer}
+        >
+          {sideList}
+        </div>
+      </Drawer>
+    </div>
+  );
 }
 
-export default withStyles(styles)(TemporaryDrawer);
+export default withStyles(styles)(NavDrawer);

@@ -1,5 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import Layout from './Layout';
+import MainPage from './MainPage';
+
+ReactDOM.render(
+  <BrowserRouter>
+    <Layout>
+      <Switch>
+        <Route path='/' component={MainPage} />
+      </Switch>
+    </Layout>
+  </BrowserRouter>,
+  document.getElementById('root')
+);

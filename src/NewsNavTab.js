@@ -1,8 +1,11 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+
+import { TabList } from './TabConfig';
 
 const styles = {
   root: {
@@ -10,36 +13,29 @@ const styles = {
   },
 };
 
-class CenteredTabs extends React.Component {
-  state = {
-    value: 0,
-  };
+const CenteredTabs = ({ classes, history, location: { pathname } }) => {
+  const index = TabList.findIndex(([, tabPath]) => tabPath === pathname);
+  const tabs = TabList.map(([name, path]) =>
+    <Tab
+      label={name}
+      key={name}
+      onClick={() => history.push(path)}
+    />
+  );
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
+  return (
+    <Paper className={classes.root}>
+      <Tabs
+        value={index}
+        indicatorColor="primary"
+        textColor="primary"
+        fullWidth
+        centered
+      >
+        {tabs}
+      </Tabs>
+    </Paper>
+  );
+};
 
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <Paper className={classes.root}>
-        <Tabs
-          value={this.state.value}
-          onChange={this.handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          fullWidth
-          centered
-        >
-          <Tab label="추천" />
-          <Tab label="경기소식" />
-          <Tab label="기획연재" />
-          <Tab label="경대피플" />
-        </Tabs>
-      </Paper>
-    );
-  }
-}
-
-export default withStyles(styles)(CenteredTabs);
+export default withStyles(styles)(withRouter(CenteredTabs));
