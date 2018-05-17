@@ -8,6 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import NavDrawer from './NavDrawer';
+import LoginDialog from './LoginDialog';
+import RegisterDialog from './RegisterDialog';
 
 const styles = {
   root: {
@@ -24,17 +26,25 @@ const styles = {
 
 class ButtonAppBar extends Component {
   state = {
-    drawerOpen: false,
+    drawer: false,
+    login: false,
+    register: false,
   }
 
-  toggleDrawer = () => {
-    this.setState({
-      drawerOpen: !this.state.drawerOpen
-    });
-  };
+  handleOpen = open => () => this.setState({ [open]: !this.state[open] });
+
+  handleLoginSubmit = data => {
+    //TODO: 로그인 버튼을 누를 때
+  }
+
+  handleRegisterSubmit = data => {
+    //TODO: 회원가입 버튼을 누를 때
+  }
 
   render() {
     const { classes } = this.props;
+    const { drawer, login, register } = this.state;
+
     return (
       <AppBar position="static" className={classes.root}>
         <Toolbar>
@@ -42,18 +52,34 @@ class ButtonAppBar extends Component {
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
-            onClick={this.toggleDrawer}
+            onClick={this.handleOpen('drawer')}
           >
             <MenuIcon />
           </IconButton>
           <NavDrawer
-            open={this.state.drawerOpen}
-            toggleDrawer={this.toggleDrawer}
+            open={drawer}
+            toggleDrawer={this.handleOpen('drawer')}
           />
           <Typography variant="title" color="inherit" className={classes.flex}>
             경기대학교 웹지거북이
           </Typography>
-          <Button color="inherit">로그인</Button>
+          <LoginDialog
+            open={login}
+            handleClose={this.handleOpen('login')}
+            onRegisterClick={this.handleOpen('register')}
+            onSubmit={this.handleLoginSubmit}
+          />
+          <RegisterDialog
+            open={register}
+            handleClose={this.handleOpen('register')}
+            onSubmit={this.handleRegisterSubmit}
+          />
+          <Button
+            color="inherit"
+            onClick={this.handleOpen('login')}
+          >
+            로그인
+          </Button>
         </Toolbar>
       </AppBar>
     );
