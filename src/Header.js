@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import compose from 'recompose/compose';
+import withWidth from '@material-ui/core/withWidth';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -14,6 +16,7 @@ import RegisterDialog from './RegisterDialog';
 const styles = {
   root: {
     flexGrow: 1,
+    width: '100%'
   },
   flex: {
     flex: 1,
@@ -42,50 +45,53 @@ class ButtonAppBar extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, width } = this.props;
     const { drawer, login, register } = this.state;
 
     return (
-      <AppBar position="static" className={classes.root}>
-        <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-            onClick={this.handleOpen('drawer')}
-          >
-            <MenuIcon />
-          </IconButton>
-          <NavDrawer
-            open={drawer}
-            toggleDrawer={this.handleOpen('drawer')}
-            toggleLogin={this.handleOpen('login')}
-            toggleRegister={this.handleOpen('register')}
-          />
-          <Typography variant="title" color="inherit" className={classes.flex}>
-            경기대학교 웹지거북이
-          </Typography>
-          <LoginDialog
-            open={login}
-            handleClose={this.handleOpen('login')}
-            onRegisterClick={this.handleOpen('register')}
-            onSubmit={this.handleLoginSubmit}
-          />
-          <RegisterDialog
-            open={register}
-            handleClose={this.handleOpen('register')}
-            onSubmit={this.handleRegisterSubmit}
-          />
-          <Button
-            color="inherit"
-            onClick={this.handleOpen('login')}
-          >
-            로그인
-          </Button>
-        </Toolbar>
-      </AppBar>
+      <React.Fragment>
+        <AppBar position="fixed" className={classes.root}>
+          <Toolbar>
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+              onClick={this.handleOpen('drawer')}
+            >
+              <MenuIcon />
+            </IconButton>
+            <NavDrawer
+              open={drawer}
+              toggleDrawer={this.handleOpen('drawer')}
+              toggleLogin={this.handleOpen('login')}
+              toggleRegister={this.handleOpen('register')}
+            />
+            <Typography variant="title" color="inherit" className={classes.flex}>
+              경기대학교 웹지거북이
+            </Typography>
+            <LoginDialog
+              open={login}
+              handleClose={this.handleOpen('login')}
+              onRegisterClick={this.handleOpen('register')}
+              onSubmit={this.handleLoginSubmit}
+            />
+            <RegisterDialog
+              open={register}
+              handleClose={this.handleOpen('register')}
+              onSubmit={this.handleRegisterSubmit}
+            />
+            <Button
+              color="inherit"
+              onClick={this.handleOpen('login')}
+            >
+              로그인
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <div style={{ height: width === 'xs' ? 56 : 64 }} />
+      </React.Fragment>
     );
   }
 }
 
-export default withStyles(styles)(ButtonAppBar);
+export default compose(withStyles(styles), withWidth())(ButtonAppBar);
