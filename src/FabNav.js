@@ -15,14 +15,14 @@ const BASE = 24;
 
 const styles = theme => ({
   nav: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: theme.spacing.unit * 2,
     right: theme.spacing.unit * 2,
     width: BIG_FAB_SIZE,
     height: BIG_FAB_SIZE
   },
   hidden: {
-    position: 'absolute',
+    position: 'fixed',
     right: GAP_FOR_HIDE,
     transition: 'all 0.3s',
     width: SMALL_FAB_SIZE,
@@ -76,7 +76,6 @@ class FloatingActionButtons extends Component {
 
     return (
       <div>
-        {/* {console.log(buttons)} */}
         {buttons}
         <Button
           variant="fab"

@@ -17,8 +17,8 @@ const styles = {
 };
 
 function NavDrawer({ classes, open, toggleDrawer, toggleLogin, toggleRegister }) {
-  const families = FamilyLinks.map(link =>
-    <ListItem button>
+  const families = FamilyLinks.map((link, index) =>
+    <ListItem button key={index}>
       <ListItemIcon>
         <i className="fas fa-lg fa-graduation-cap"></i>
       </ListItemIcon>
