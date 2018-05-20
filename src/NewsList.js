@@ -57,7 +57,7 @@ function NewsGridList(props) {
         spacing={16}
       >
         <NewsItem headline />
-        {newsList.map(news => pathname === '/' || currentTab === news.category ? <NewsItem news={news} /> : null)}
+        {newsList.map(news => pathname === '/' || currentTab === news.category ? <NewsItem news={news} key={news.id} /> : null)}
       </GridList >
 
       <Button

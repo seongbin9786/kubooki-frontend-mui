@@ -27,6 +27,9 @@ const styles = theme => ({
     fontWeight: 400,
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
   },
+  titleLink: {
+    textDecoration: 'none',
+  },
   Paper: {
     margin: 3,
     padding: 10,
@@ -122,18 +125,20 @@ class NewsItem extends Component {
     const { hover } = this.state;
 
     const tempImg = 'https://www.creativeboom.com/uploads/articles/2b/2be47fa48493c19a47bb27edee9d03e4c0335b04_630.jpg';
+    const tempId = 1;
 
     /* Headline 컴포넌트는 작동 안 됨 */
     return headline ?
-      <Grid item key='headline' xs={12} lg={7} className={width === 'xs' ? classes.marginMobile : classes.marginPC}>
+      <Grid item xs={12} lg={7} className={width === 'xs' ? classes.marginMobile : classes.marginPC}>
         <div className={classes.Paper}>
           <div className={classes.imgContainer}>
-            <Link to='/'>
+            <Link to={`/news/${tempId}`}>
               <img className={classes.imgTemp} src={tempImg} alt='배경이미지' />
               <span
                 className={classes.darkOverlay}
                 onMouseOver={this.handleHover}
-                onMouseLeave={this.handleHover}></span>
+                onMouseLeave={this.handleHover}>
+              </span>
             </Link>
             <div className={classes.info}>
               <Typography variant="display3" className={classes.title}>
@@ -146,22 +151,26 @@ class NewsItem extends Component {
                 20.05.2018
               </Typography>
             </div>
-            <a className={hover ? classes.readMoreBtnHover : classes.readMoreBtn} href="/">Read More</a>
+            <Link className={hover ? classes.readMoreBtnHover : classes.readMoreBtn} to={`/news/${tempId}`}>Read More</Link>
           </div>
         </div>
       </Grid>
       :
-      <Grid item key={news.id} xs={12} sm={6} lg={4} className={width === 'xs' ? classes.marginMobile : classes.marginPC}>
+      <Grid item xs={12} sm={6} lg={4} className={width === 'xs' ? classes.marginMobile : classes.marginPC}>
         <div className={classes.Paper}>
-          <img src={news.img} alt="기사 이미지" className={classes.img} />
+          <Link to={`/news/${news.id}`}>
+            <img src={news.img} alt="기사 이미지" className={classes.img} />
+          </Link>
           <div className={classes.categoryContainer}>
             <span className={classes.categoryText}>
               {news.category}
             </span>
           </div>
-          <Typography variant="headline">
-            {news.title}
-          </Typography>
+          <Link to={`/news/${news.id}`} className={classes.titleLink}>
+            <Typography variant="headline">
+              {news.title}
+            </Typography>
+          </Link>
           <Typography variant="caption" className={classes.date}>
             {news.date}
           </Typography>
