@@ -19,7 +19,7 @@ export default class extends Component {
     const { open, handleClose, onSubmit, onRegisterClick } = this.props;
     const { id, password } = this.state;
 
-    console.log('LoginDialog is rendered...');
+    setTimeout(() => document.getElementById('id').focus(), 300);
 
     return (
       <div>
@@ -30,7 +30,6 @@ export default class extends Component {
           <DialogTitle>로그인</DialogTitle>
           <DialogContent>
             <TextField
-              autoFocus
               margin="dense"
               id="id"
               label="아이디"
