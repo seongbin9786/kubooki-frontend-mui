@@ -22,7 +22,8 @@ function NavDrawer({
   open,
   toggleDrawer,
   toggleLogin,
-  toggleRegister
+  toggleRegister,
+  toggleSettings
 }) {
   const families = FamilyLinks.map(([name, link], index) =>
     <ListItem button key={index} onClick={() => window.location = link}>
@@ -97,7 +98,10 @@ function NavDrawer({
   );
 
   const settings = (
-    <ListItem button onClick={() => history.push('/settings')}>
+    <ListItem
+      button
+      onClick={toggleSettings}
+    >
       <ListItemIcon>
         <i className="fas fa-lg fa-cogs"></i>
       </ListItemIcon>

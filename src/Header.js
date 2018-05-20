@@ -12,6 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NavDrawer from './NavDrawer';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
+import SettingsDialog from './SettingsDialog';
 
 const styles = {
   root: {
@@ -32,6 +33,7 @@ class ButtonAppBar extends Component {
     drawer: false,
     login: false,
     register: false,
+    settings: false,
   }
 
   handleOpen = open => () => this.setState({ [open]: !this.state[open] });
@@ -46,7 +48,7 @@ class ButtonAppBar extends Component {
 
   render() {
     const { classes, width } = this.props;
-    const { drawer, login, register } = this.state;
+    const { drawer, login, register, settings } = this.state;
 
     return (
       <React.Fragment>
@@ -65,6 +67,7 @@ class ButtonAppBar extends Component {
               toggleDrawer={this.handleOpen('drawer')}
               toggleLogin={this.handleOpen('login')}
               toggleRegister={this.handleOpen('register')}
+              toggleSettings={this.handleOpen('settings')}
             />
             <Typography variant="title" color="inherit" className={classes.flex}>
               경기대학교 웹지거북이
@@ -82,6 +85,13 @@ class ButtonAppBar extends Component {
                 open={register}
                 handleClose={this.handleOpen('register')}
                 onSubmit={this.handleRegisterSubmit}
+              />
+              : null
+            }
+            {settings ?
+              <SettingsDialog
+                open={settings}
+                handleClose={this.handleOpen('settings')}
               />
               : null
             }
