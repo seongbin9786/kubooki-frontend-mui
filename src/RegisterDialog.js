@@ -41,17 +41,19 @@ export default withStyles(styles)(class extends Component {
     const { open, handleClose, onSubmit, classes } = this.props;
     const { id, password, passwordAgain, name, college, identity } = this.state;
 
+    console.log('RegisterDialog is rendered...');
+
+    setTimeout(() => document.getElementById('id').focus(), 300);
+
     return (
       <div>
         <Dialog
           open={open}
           onClose={handleClose}
-          aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">회원가입</DialogTitle>
+          <DialogTitle>회원가입</DialogTitle>
           <DialogContent>
             <TextField
-              autoFocus
               margin="dense"
               id="id"
               label="아이디"

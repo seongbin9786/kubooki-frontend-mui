@@ -19,14 +19,15 @@ export default class extends Component {
     const { open, handleClose, onSubmit, onRegisterClick } = this.props;
     const { id, password } = this.state;
 
+    console.log('LoginDialog is rendered...');
+
     return (
       <div>
         <Dialog
           open={open}
           onClose={handleClose}
-          aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">로그인</DialogTitle>
+          <DialogTitle>로그인</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus

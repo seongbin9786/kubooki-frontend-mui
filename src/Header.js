@@ -69,17 +69,22 @@ class ButtonAppBar extends Component {
             <Typography variant="title" color="inherit" className={classes.flex}>
               경기대학교 웹지거북이
             </Typography>
-            <LoginDialog
-              open={login}
-              handleClose={this.handleOpen('login')}
-              onRegisterClick={this.handleOpen('register')}
-              onSubmit={this.handleLoginSubmit}
-            />
-            <RegisterDialog
-              open={register}
-              handleClose={this.handleOpen('register')}
-              onSubmit={this.handleRegisterSubmit}
-            />
+            {login ?
+              <LoginDialog
+                open={login}
+                handleClose={this.handleOpen('login')}
+                onRegisterClick={this.handleOpen('register')}
+                onSubmit={this.handleLoginSubmit}
+              /> : null
+            }
+            {register ?
+              <RegisterDialog
+                open={register}
+                handleClose={this.handleOpen('register')}
+                onSubmit={this.handleRegisterSubmit}
+              />
+              : null
+            }
             <Button
               color="inherit"
               onClick={this.handleOpen('login')}
