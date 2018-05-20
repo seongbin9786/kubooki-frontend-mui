@@ -41,4 +41,11 @@ export const newsList = [
     'date': '15.05.2018',
     'img': 'https://www.creativeboom.com/uploads/articles/42/42b32bd3ad7e61ed3fb03d8568050d42f4c3dd78_630.jpg',
   },
+  {
+    'id': 7,
+    'category': '경기소식',
+    'title': 'Juno Calypso\'s new series is set in Avon cosmetics founder\'s Cold War underground home',
+    'date': '15.05.2018',
+    'img': 'https://www.creativeboom.com/uploads/articles/bc/bcb8dc807536164d94e7d9f77e22728c970d1bee_1100.jpg',
+  },
 ];
