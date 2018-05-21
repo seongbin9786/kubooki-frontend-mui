@@ -50,6 +50,13 @@ export const newsList = [
   },
 ];
 
+export const writerDemo = {
+  name: '김성빈',
+  position: '수습 기자',
+  introduction: '안녕하세요. 명함 구성 요소가 뭐가 있어야 할까요?',
+  profileImg: 'https://st.depositphotos.com/2218212/2938/i/950/depositphotos_29387653-stock-photo-facebook-profile.jpg',
+};
+
 export const newsDetail = {
   'category': '경기소식',
   'title': '경기대학교 신입생들을 위한 새내기팁! 첫 번째, 통학버스와 고양이버스 안내',

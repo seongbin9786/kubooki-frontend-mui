@@ -3,7 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 
-import { newsDetail as news, newsDetailPageParagraphs, newsDetailpageImages } from './store';
+import { newsDetail as news, newsDetailPageParagraphs, newsDetailpageImages, writerDemo } from './store';
+import NameCard from './NameCard';
 
 const styles = theme => ({
   article: {
@@ -129,10 +130,13 @@ export default withStyles(styles)(({ classes }) => (
 
     </footer>
 
+    <NameCard writer={writerDemo} />
+
   </article>
 
   // --------------------------------------------------
   // TODO: 명함 영역
+
 
   // --------------------------------------------------
   // TODO: 댓글 영역 (댓글 불러오기 버튼)
