@@ -3,8 +3,11 @@ import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 
-import { newsDetail as news, newsDetailPageParagraphs, newsDetailpageImages, writerDemo } from './store';
+import NewsList from './NewsList';
 import NameCard from './NameCard';
+import { TabList } from './TabConfig';
+import { newsDetail as news, newsDetailPageParagraphs, newsDetailpageImages, writerDemo } from './store';
+import { Divider } from '@material-ui/core';
 
 const styles = theme => ({
   article: {
@@ -63,10 +66,18 @@ const styles = theme => ({
     display: 'block',
     marginTop: '20px',
     color: '#b2b2b2',
+  },
+  listContainer: {
+    width: '100%',
+    textAlign: 'center'
+  },
+  listIndicator: {
+    margin: '50px 0',
+    color: theme.palette.primary.main
   }
 });
 
-export default withStyles(styles)(({ classes }) => (
+const NewsDetail = ({ classes }) => (
   <article className={classes.article}>
 
     <header className={classes.header}>
@@ -132,16 +143,16 @@ export default withStyles(styles)(({ classes }) => (
 
     <NameCard writer={writerDemo} />
 
+    <Divider />
+
+    <div className={classes.listContainer}>
+      <Typography variant='headline' className={classes.listIndicator}>
+        <i className="fas fa-md fa-code-branch"></i> 같은 분류의 다른 기사
+      </Typography>
+      <NewsList index={TabList.findIndex(([category]) => category === news.category)} />
+    </div>
+
   </article>
+);
 
-  // --------------------------------------------------
-  // TODO: 명함 영역
-
-
-  // --------------------------------------------------
-  // TODO: 댓글 영역 (댓글 불러오기 버튼)
-
-  // --------------------------------------------------
-  // TODO: 같은 분류의 기사 보기
-
-));
+export default withStyles(styles)(NewsDetail);

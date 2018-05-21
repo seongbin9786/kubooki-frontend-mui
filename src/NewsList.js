@@ -43,12 +43,17 @@ const styles = theme => ({
   }
 });
 
-function NewsGridList(props) {
-  const { classes, location: { pathname } } = props;
-  const index = TabList.findIndex(([, tabPath]) => tabPath === pathname);
+function NewsGridList({ classes, location: { pathname }, index }) {
+  // 1. index를 pathname의 값으로 결정한다. 
+  // 2. 뉴스 상세 페이지 등에서는 index를 category에 판단하여 props로 제공한다.
+  // 3. [2]의 경우에는 제공된 index에 맞는 기사 목록을 보인다.
+  // 4. 올바른 탭 URL이 아닌 경우 렌더링하지 않는다. (index 값이 -1인 경우)
+  index = index || TabList.findIndex(([, tabPath]) => tabPath === pathname);
   if (index === -1) return null;
 
   const [currentTab] = TabList[index];
+
+  console.log('NewsList is indeed rendered now!');
 
   return (
     <div className={classes.root}>
@@ -56,7 +61,7 @@ function NewsGridList(props) {
         className={classes.gridList}
         spacing={16}
       >
-        <NewsItem headline />
+        {index === 0 ? <NewsItem headline /> : null}
         {newsList.map(news => pathname === '/' || currentTab === news.category ? <NewsItem news={news} key={news.id} /> : null)}
       </GridList >
 
