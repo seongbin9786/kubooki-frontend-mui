@@ -1,13 +1,13 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
+import { Typography, Divider } from '@material-ui/core';
 
 import NewsList from './NewsList';
 import NameCard from './NameCard';
+import CommentList from './CommentList';
 import { TabList } from './TabConfig';
-import { newsDetail as news, newsDetailPageParagraphs, newsDetailpageImages, writerDemo } from './store';
-import { Divider } from '@material-ui/core';
+import { newsDetail as news, newsDetailPageParagraphs, newsDetailpageImages, writerDemo, commentList, userDemo } from './store';
 
 const styles = theme => ({
   article: {
@@ -141,7 +141,16 @@ const NewsDetail = ({ classes }) => (
 
     </footer>
 
-    <NameCard writer={writerDemo} />
+    <NameCard
+      writer={writerDemo}
+    />
+
+    <Divider />
+
+    <CommentList
+      list={commentList}
+      user={userDemo}
+    />
 
     <Divider />
 
@@ -149,7 +158,10 @@ const NewsDetail = ({ classes }) => (
       <Typography variant='headline' className={classes.listIndicator}>
         <i className="fas fa-md fa-code-branch"></i> 같은 분류의 다른 기사
       </Typography>
-      <NewsList index={TabList.findIndex(([category]) => category === news.category)} />
+
+      <NewsList
+        index={TabList.findIndex(([category]) => category === news.category)}
+      />
     </div>
 
   </article>

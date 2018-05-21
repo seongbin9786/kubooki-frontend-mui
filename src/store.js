@@ -50,6 +50,43 @@ export const newsList = [
   },
 ];
 
+export const userDemo = {
+  name: '김성빈',
+  position: '수습 기자',
+  introduction: '안녕하세요. 명함 구성 요소가 뭐가 있어야 할까요?',
+  profileImg: 'https://st.depositphotos.com/2218212/2938/i/950/depositphotos_29387653-stock-photo-facebook-profile.jpg',
+};
+
+export const commentList = [
+  {
+    id: '1',
+    writer: '김성빈',
+    date: '7시간 전',
+    likes: '1',
+    liked: false,
+    hated: false,
+    content: '댓글 테스트 1'
+  },
+  {
+    id: '2',
+    writer: '김성빈',
+    date: '8시간 전',
+    likes: '5',
+    liked: true,
+    hated: false,
+    content: '댓글 테스트 2'
+  },
+  {
+    id: '3',
+    writer: '김성빈',
+    date: '9시간 전',
+    likes: '-1',
+    liked: false,
+    hated: true,
+    content: '댓글 테스트 3'
+  },
+];
+
 export const writerDemo = {
   name: '김성빈',
   position: '수습 기자',
