@@ -1,3 +1,7 @@
+import User from './User';
+
+export const userAdmin = new User('김성빈', 'ADMIN', '국장');
+
 export const newsList = [
   {
     'id': 1,

@@ -15,7 +15,7 @@ export default [
     ]
   },
   {
-    level: 'USER',
+    level: 'DIRECTOR',
     subHeader: '기능 제한 설정',
     options: [
       ['정정요청', 'corretion'],

@@ -13,6 +13,7 @@ import NavDrawer from './NavDrawer';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
 import SettingsDialog from './SettingsDialog';
+import { userAdmin } from './store';
 
 const styles = {
   root: {
@@ -63,6 +64,7 @@ class ButtonAppBar extends Component {
               <MenuIcon />
             </IconButton>
             <NavDrawer
+              user={userAdmin}
               open={drawer}
               toggleDrawer={this.handleOpen('drawer')}
               toggleLogin={this.handleOpen('login')}
