@@ -34,16 +34,16 @@ export default withStyles(styles)(class extends Component {
     identity: '',
   };
 
+  componentDidMount() {
+    setTimeout(() => document.getElementById('id').focus(), 300);
+  }
+
   handleChange = inputName => ({ target: { value } }) =>
     this.setState({ [inputName]: value });
 
   render() {
     const { open, handleClose, onSubmit, classes } = this.props;
     const { id, password, passwordAgain, name, college, identity } = this.state;
-
-    console.log('RegisterDialog is rendered...');
-
-    setTimeout(() => document.getElementById('id').focus(), 300);
 
     return (
       <div>

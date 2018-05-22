@@ -12,14 +12,16 @@ export default class extends Component {
     password: '',
   };
 
+  componentDidMount() {
+    setTimeout(() => document.getElementById('id').focus(), 300);
+  }
+
   handleChange = inputName => ({ target: { value } }) =>
     this.setState({ [inputName]: value });
 
   render() {
     const { open, handleClose, onSubmit, onRegisterClick } = this.props;
     const { id, password } = this.state;
-
-    setTimeout(() => document.getElementById('id').focus(), 300);
 
     return (
       <div>
