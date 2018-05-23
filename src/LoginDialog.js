@@ -50,16 +50,18 @@ export default class extends Component {
               fullWidth
             />
           </DialogContent>
-          <DialogActions>
+          <DialogActions style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Button onClick={onRegisterClick} color="primary">
-              아이디가 없으신가요? 회원가입
+              회원가입
             </Button>
-            <Button onClick={handleClose} color="primary">
-              취소
-            </Button>
-            <Button onClick={onSubmit} color="primary" variant='raised'>
-              로그인
-            </Button>
+            <div>
+              <Button onClick={handleClose} color="primary">
+                취소
+              </Button>
+              <Button onClick={onSubmit} color="primary" variant='raised'>
+                로그인
+              </Button>
+            </div>
           </DialogActions>
         </Dialog>
       </div>
