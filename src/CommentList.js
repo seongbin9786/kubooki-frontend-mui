@@ -42,8 +42,8 @@ function CommentList({ classes, list, user }) {
       >
         {list ?
           list.map((comment, index) =>
-            <React.Fragment>
-              <CommentItem comment={comment} key={index} />
+            <React.Fragment key={index}>
+              <CommentItem comment={comment} />
               <Divider />
             </React.Fragment>)
           : <Typography

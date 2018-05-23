@@ -61,6 +61,39 @@ export const userDemo = {
   profileImg: 'https://st.depositphotos.com/2218212/2938/i/950/depositphotos_29387653-stock-photo-facebook-profile.jpg',
 };
 
+export const feedbackList = [
+  {
+    id: '1',
+    title: '영문서류 클리닉 신청 안내',
+    writers: ['김성빈', '홍길동'],
+    short: true,
+    feedbackCount: 3,
+    lastReqDate: '12.05.2018',
+    lastResDate: '23.05.2018',
+    status: '피드백 완료됨',
+  },
+  {
+    id: '2',
+    title: '전공 선택 유연화 제도 설명회',
+    writers: ['김성빈'],
+    short: false,
+    feedbackCount: 2,
+    lastReqDate: '13.05.2018',
+    lastResDate: '-',
+    status: '피드백 요청됨',
+  },
+  {
+    id: '3',
+    title: '2018학년도 \'봄, 소풍\' 봄 축제 3일차 거리행사',
+    writers: ['김성빈'],
+    short: false,
+    feedbackCount: 2,
+    lastReqDate: '15.05.2018',
+    lastResDate: '-',
+    status: '피드백 요청됨',
+  },
+];
+
 export const commentList = [
   {
     id: '1',

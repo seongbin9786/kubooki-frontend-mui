@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 
 import NewsItem from './NewsItem';
 import { TabList } from './TabConfig';
-import { newsList } from './store';
 
 const styles = theme => ({
   root: {
@@ -43,7 +42,7 @@ const styles = theme => ({
   }
 });
 
-function NewsGridList({ classes, location: { pathname }, index }) {
+function NewsGridList({ classes, location: { pathname }, index, newsList }) {
   // 1. index를 pathname의 값으로 결정한다. 
   // 2. 뉴스 상세 페이지 등에서는 index를 category에 판단하여 props로 제공한다.
   // 3. [2]의 경우에는 제공된 index에 맞는 기사 목록을 보인다.

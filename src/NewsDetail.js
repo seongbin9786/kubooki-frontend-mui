@@ -7,7 +7,15 @@ import NewsList from './NewsList';
 import NameCard from './NameCard';
 import CommentList from './CommentList';
 import { TabList } from './TabConfig';
-import { newsDetail as news, newsDetailPageParagraphs, newsDetailpageImages, writerDemo, commentList, userDemo } from './store';
+import {
+  newsDetail as news,
+  newsDetailPageParagraphs,
+  newsDetailpageImages,
+  writerDemo,
+  commentList,
+  userDemo,
+  newsList
+} from './store';
 
 const styles = theme => ({
   article: {
@@ -161,6 +169,7 @@ const NewsDetail = ({ classes }) => (
 
       <NewsList
         index={TabList.findIndex(([category]) => category === news.category)}
+        newsList={newsList}
       />
     </div>
 
