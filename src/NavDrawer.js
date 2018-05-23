@@ -5,6 +5,7 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
@@ -27,27 +28,21 @@ function NavDrawer({
   toggleSettings
 }) {
   const kubooki = (
-    <React.Fragment>
-      <ListItem button onClick={() => history.push('/')}>
-        <ListItemIcon aria-label="Menu">
-          <i className="fas fa-lg fa-bars"></i>
-        </ListItemIcon>
-        <ListItemText primary="거북이" />
-      </ListItem>
-      <Divider />
-    </React.Fragment>
+    <ListItem button onClick={() => history.push('/')}>
+      <ListItemIcon aria-label="Menu">
+        <i className="fas fa-lg fa-bars"></i>
+      </ListItemIcon>
+      <ListItemText primary="거북이" />
+    </ListItem>
   );
 
   const apply = (
-    <React.Fragment>
-      <ListItem button onClick={() => history.push('/apply/form')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-pencil-alt"></i>
-        </ListItemIcon>
-        <ListItemText primary="수습기자 지원" />
-      </ListItem>
-      <Divider />
-    </React.Fragment>
+    <ListItem button onClick={() => history.push('/apply/form')}>
+      <ListItemIcon>
+        <i className="fas fa-lg fa-pencil-alt"></i>
+      </ListItemIcon>
+      <ListItemText primary="수습기자 지원" />
+    </ListItem>
   );
 
   const settings = (
@@ -63,7 +58,7 @@ function NavDrawer({
   );
 
   const families = (
-    <React.Fragment>
+    <List subheader={<ListSubheader>패밀리 사이트</ListSubheader>}>
       {FamilyLinks.map(([name, link], index) =>
         <ListItem button key={index} onClick={() => window.location = link}>
           <ListItemIcon>
@@ -73,11 +68,11 @@ function NavDrawer({
         </ListItem>
       )}
       <Divider />
-    </React.Fragment>
+    </List>
   );
 
   const accountList = (
-    <React.Fragment>
+    <List>
       <ListItem
         button
         onClick={toggleLogin}
@@ -98,11 +93,11 @@ function NavDrawer({
         <ListItemText primary="회원가입" />
       </ListItem>
       <Divider />
-    </React.Fragment>
+    </List>
   );
 
   const guestList = (
-    <React.Fragment>
+    <List>
       <ListItem button onClick={() => history.push('/events')}>
         <ListItemIcon>
           <i className="fas fa-lg fa-calendar-alt"></i>
@@ -124,11 +119,11 @@ function NavDrawer({
         <ListItemText primary="이용 약관" />
       </ListItem>
       <Divider />
-    </React.Fragment>
+    </List>
   );
 
   const userList = (
-    <React.Fragment>
+    <List subheader={<ListSubheader>사용자 메뉴</ListSubheader>}>
       <ListItem button onClick={() => history.push('/news/report')}>
         <ListItemIcon>
           <i className="fas fa-lg fa-plus"></i>
@@ -151,11 +146,11 @@ function NavDrawer({
       </ListItem>
 
       <Divider />
-    </React.Fragment>
+    </List>
   );
 
   const trackList = (
-    <React.Fragment>
+    <List subheader={<ListSubheader>개인화 메뉴</ListSubheader>}>
       <ListItem button onClick={() => history.push('/news?sort=like')}>
         <ListItemIcon>
           <i className="fas fa-lg fa-thumbs-up"></i>
@@ -171,11 +166,11 @@ function NavDrawer({
       </ListItem>
 
       <Divider />
-    </React.Fragment>
+    </List>
   );
 
   const journalistGroupList = (
-    <React.Fragment>
+    <List subheader={<ListSubheader>기자 메뉴</ListSubheader>}>
       <ListItem button onClick={() => history.push('/announcements')}>
         <ListItemIcon>
           <i className="fas fa-lg fa-bullhorn"></i>
@@ -212,11 +207,11 @@ function NavDrawer({
       </ListItem>
 
       <Divider />
-    </React.Fragment>
+    </List>
   );
 
   const journalistList = (
-    <React.Fragment>
+    <List subheader={<ListSubheader>정기자 메뉴</ListSubheader>}>
       <ListItem button onClick={() => history.push('/events/manage')}>
         <ListItemIcon>
           <i className="fas fa-lg fa-wrench"></i>
@@ -232,11 +227,11 @@ function NavDrawer({
       </ListItem>
 
       <Divider />
-    </React.Fragment>
+    </List>
   );
 
   const managerList = (
-    <React.Fragment>
+    <List subheader={<ListSubheader>부장 메뉴</ListSubheader>}>
       <ListItem button onClick={() => history.push('/attendance/manage')}>
         <ListItemIcon>
           <i className="fas fa-lg fa-user-tie"></i>
@@ -244,12 +239,11 @@ function NavDrawer({
         <ListItemText primary="출석 관리" />
       </ListItem>
       <Divider />
-    </React.Fragment>
+    </List>
   );
 
-
   const directorList = (
-    <React.Fragment>
+    <List subheader={<ListSubheader>국장 메뉴</ListSubheader>}>
       <ListItem button onClick={() => history.push('/journalists/manage')}>
         <ListItemIcon>
           <i className="fas fa-lg fa-users-cog"></i>
@@ -257,7 +251,7 @@ function NavDrawer({
         <ListItemText primary="기자 관리" />
       </ListItem>
       <Divider />
-    </React.Fragment>
+    </List>
   );
 
   return (
@@ -270,23 +264,21 @@ function NavDrawer({
           onKeyDown={toggleDrawer}
         >
           <div className={classes.list}>
-            <List>
-              {kubooki}
-              {user.is('GUEST') ? accountList : null}
-              {guestList}
-              {user.is('USER') ? userList : null}
-              {trackList}
-              {user.isJournalistGroup ? journalistGroupList : apply}
-              {user.hasRole('JOURNALIST') ? journalistList : null}
-              {user.hasRole('MANAGER') ? managerList : null}
-              {user.hasRole('DIRECTOR') ? directorList : null}
-              {families}
-              {settings}
-            </List>
+            {kubooki}
+            {user.is('GUEST') ? accountList : null}
+            {guestList}
+            {user.is('USER') ? userList : null}
+            {trackList}
+            {user.isJournalistGroup() ? journalistGroupList : apply}
+            {user.hasRole('JOURNALIST') ? journalistList : null}
+            {user.hasRole('MANAGER') ? managerList : null}
+            {user.hasRole('DIRECTOR') ? directorList : null}
+            {families}
+            {settings}
           </div>
         </div>
       </Drawer>
-    </div>
+    </div >
   );
 }
 

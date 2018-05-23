@@ -1,4 +1,4 @@
-import { hasHigherRole, isJournalistGroup } from './RoleComparer';
+import { hasHigherRole, hasJournalistRole } from './RoleComparer';
 
 class User {
   constructor(name, role, depart) {
@@ -14,12 +14,8 @@ class User {
     return this.role === reqRole;
   }
 
-  is(reqRole, reqDepart) {
-    return this.role === reqRole && this.depart === reqDepart;
-  }
-
   isJournalistGroup() {
-    return isJournalistGroup(this.role);
+    return hasJournalistRole(this.role);
   }
 }
 
