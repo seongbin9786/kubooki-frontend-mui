@@ -13,7 +13,7 @@ export default class extends Component {
   };
 
   componentDidMount() {
-    setTimeout(() => document.getElementById('id').focus(), 300);
+    setTimeout(() => document.getElementById('login_id').focus(), 300);
   }
 
   handleChange = inputName => ({ target: { value } }) =>
@@ -33,7 +33,7 @@ export default class extends Component {
           <DialogContent>
             <TextField
               margin="dense"
-              id="id"
+              id="login_id"
               label="아이디"
               value={id}
               onChange={this.handleChange('id')}

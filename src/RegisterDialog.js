@@ -35,7 +35,7 @@ export default withStyles(styles)(class extends Component {
   };
 
   componentDidMount() {
-    setTimeout(() => document.getElementById('id').focus(), 300);
+    setTimeout(() => document.getElementById('register_id').focus(), 300);
   }
 
   handleChange = inputName => ({ target: { value } }) =>
@@ -55,7 +55,7 @@ export default withStyles(styles)(class extends Component {
           <DialogContent>
             <TextField
               margin="dense"
-              id="id"
+              id="register_id"
               label="아이디"
               value={id}
               onChange={this.handleChange('id')}
