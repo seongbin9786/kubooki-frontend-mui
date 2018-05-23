@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
 import NewsFeedbackList from './NewsFeedbackList';
 import NameCard from './NameCard';
 import MyNewsList from './MyNewsList';
+import NewsWriteDialog from './NewsWriteDialog';
 import { writerDemo } from './store';
 import { Typography, Button } from '@material-ui/core';
 
@@ -28,31 +29,53 @@ const styles = theme => ({
   TODO 2. 기사 쓰기 버튼
   TODO 3. 피드백 현황 (댓글 목록 처럼)
 */
-function NewsPage({ classes }) {
-  return (
-    <div className={classes.root}>
-      <header className={classes.header}>
-        <Typography
-          variant='display2'
-        >
-          기사 작성 페이지
-        </Typography>
-        <Button
-          variant="raised"
-          color="primary"
-          className={classes.writeBtn}
-        >
-          기사 작성&nbsp;&nbsp;<i className="fas fa-md fa-pencil-alt"></i>
-        </Button>
-      </header>
+class NewsWritePage extends Component {
+  state = {
+    writeDialogOpen: false,
+  }
 
-      <NameCard writer={writerDemo} />
+  toggleDialog = () => this.setState(({ writeDialogOpen }) => ({
+    writeDialogOpen: !writeDialogOpen
+  }))
 
-      <NewsFeedbackList />
+  render() {
+    const { classes } = this.props;
+    const { writeDialogOpen } = this.state;
 
-      <MyNewsList />
-    </div>
-  );
-};
+    return (
+      <React.Fragment>
+        <div className={classes.root}>
+          <header className={classes.header}>
+            <Typography
+              variant='display2'
+            >
+              기사 작성 페이지
+            </Typography>
+            <Button
+              variant="raised"
+              color="primary"
+              className={classes.writeBtn}
+              onClick={this.toggleDialog}
+            >
+              기사 작성&nbsp;&nbsp;<i className="fas fa-md fa-pencil-alt"></i>
+            </Button>
+          </header>
 
-export default withStyles(styles)(NewsPage);
+          <NameCard writer={writerDemo} />
+
+          <NewsFeedbackList />
+
+          <MyNewsList />
+        </div>
+        {writeDialogOpen ?
+          <NewsWriteDialog
+            open={writeDialogOpen}
+            handleClose={this.toggleDialog}
+          />
+          : null}
+      </React.Fragment>
+    );
+  }
+}
+
+export default withStyles(styles)(NewsWritePage);
