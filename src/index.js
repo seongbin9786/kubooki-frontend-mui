@@ -4,6 +4,7 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 import Layout from './Layout';
 import MainPage from './MainPage';
+import EventPage from './EventPage';
 import NewsDetail from './NewsDetail';
 import NewsWritePage from './NewsWritePage';
 
@@ -11,6 +12,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Layout>
       <Switch>
+        <Route path='/events' component={EventPage} />
         <Route path='/news/write' component={NewsWritePage} />
         <Route path='/news/*' component={NewsDetail} />
         <Route path='/' component={MainPage} />

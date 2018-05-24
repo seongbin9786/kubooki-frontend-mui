@@ -61,6 +61,63 @@ export const userDemo = {
   profileImg: 'https://st.depositphotos.com/2218212/2938/i/950/depositphotos_29387653-stock-photo-facebook-profile.jpg',
 };
 
+export const eventList = [
+  {
+    id: '1',
+    title: '경기대생 계절밥상 수원갤러리아점 할인 이벤트',
+    thumbnail: 'https://www.kyonggiup.com:40220/files/attach/images/18011/822/672/005/162c900735d64d11d4ef499543774448.jpg',
+    startDate: '16.10.2017',
+    endDate: '25.05.2018',
+    prize: '방문 시 할인',
+    resultDate: '-',
+  },
+  {
+    id: '2',
+    title: '경기대생 제휴 영월 동강 래프팅 이벤트',
+    thumbnail: 'https://www.kyonggiup.com:40220/files/attach/images/18011/098/365/005/0ee6654d14f45737742beb540c9bee6a.jpg',
+    startDate: '18.06.2017',
+    endDate: '25.05.2018',
+    prize: '1인 49,000 할인',
+    resultDate: '-',
+  },
+  {
+    id: '3',
+    title: '봄!봄!봄!의 3가지 테마를 맞춰주세요!',
+    thumbnail: 'https://www.kyonggiup.com:40220/files/attach/images/18011/193/273/005/44eb6efd949eae4c8815f94d04253d2d.jpg',
+    startDate: '20.05.2018',
+    endDate: '24.05.2018',
+    prize: '푸드트럭 이용권',
+    resultDate: '25.05.2018',
+  },
+  {
+    id: '4',
+    title: '경기대생 계절밥상 수원갤러리아점 할인 이벤트',
+    thumbnail: 'https://www.kyonggiup.com:40220/files/attach/images/18011/822/672/005/162c900735d64d11d4ef499543774448.jpg',
+    startDate: '16.10.2017',
+    endDate: '25.05.2018',
+    prize: '방문 시 할인',
+    resultDate: '-',
+  },
+  {
+    id: '5',
+    title: '경기대생 제휴 영월 동강 래프팅 이벤트',
+    thumbnail: 'https://www.kyonggiup.com:40220/files/attach/images/18011/098/365/005/0ee6654d14f45737742beb540c9bee6a.jpg',
+    startDate: '18.06.2017',
+    endDate: '25.05.2018',
+    prize: '1인 49,000 할인',
+    resultDate: '-',
+  },
+  {
+    id: '6',
+    title: '봄!봄!봄!의 3가지 테마를 맞춰주세요!',
+    thumbnail: 'https://www.kyonggiup.com:40220/files/attach/images/18011/193/273/005/44eb6efd949eae4c8815f94d04253d2d.jpg',
+    startDate: '20.05.2018',
+    endDate: '24.05.2018',
+    prize: '푸드트럭 이용권',
+    resultDate: '25.05.2018',
+  },
+];
+
 export const feedbackList = [
   {
     id: '1',

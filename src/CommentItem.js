@@ -7,7 +7,6 @@ const styles = theme => ({
     padding: theme.spacing.unit,
 
     display: 'flex',
-
   },
   commentRoot: {
     padding: theme.spacing.unit,
@@ -19,9 +18,6 @@ const styles = theme => ({
   name: {
     marginTop: -3,
     marginRight: 5,
-  },
-  content: {
-
   },
   vote: {
     width: 16,
@@ -68,7 +64,7 @@ function CommentItem({ classes, comment }) {
           <Typography variant='subheading' className={classes.name}>{writer}</Typography>
           <Typography variant='caption'>{date}</Typography>
         </header>
-        <Typography variant='subheading' className={classes.content}>{content}</Typography>
+        <Typography variant='subheading'>{content}</Typography>
       </div>
     </div>
   );

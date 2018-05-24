@@ -57,6 +57,10 @@ const styles = theme => ({
     width: 118,
     textAlign: 'right',
   },
+  status: {
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
   statusBar: {
     marginTop: 10,
     color: 'white',
@@ -75,16 +79,6 @@ const styles = theme => ({
     marginRight: 20,
   }
 });
-
-const dimmerCSS = {
-  position: 'absolute',
-  top: '0',
-  left: '0',
-  height: '100%',
-  width: '100%',
-  background: 'black',
-  opacity: '0.2',
-};
 
 /*
   id: '3',
@@ -108,7 +102,7 @@ function FeedbackItem({ classes, item }) {
         </div>
         <span className={classes.counterContainer}><b className={classes.counter}>{feedbackCount}</b>회</span>
       </header>
-      <main style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <main className={classes.status}>
         <div>
           <Typography variant='subheading' className={classes.writers}>{writers.toString()}</Typography>
           <Typography variant='subheading' className={classes.date}>{lastReqDate + ' 요청'}</Typography>
