@@ -2,55 +2,82 @@ import User from './User';
 
 export const userAdmin = new User('김성빈', 'ADMIN', '국장');
 
+export const faqList = [
+  {
+    id: 1,
+    type: '질문 분류',
+    question: '질문입니다.질문입니다.질문입니다.',
+    answer: '답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.',
+  },
+  {
+    id: 2,
+    type: '질문 분류',
+    question: '질문입니다.질문입니다.질문입니다.',
+    answer: '답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.',
+  },
+  {
+    id: 3,
+    type: '질문 분류',
+    question: '질문입니다.질문입니다.질문입니다.',
+    answer: '답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.',
+  },
+  {
+    id: 4,
+    type: '질문 분류',
+    question: '질문입니다.질문입니다.질문입니다.',
+    answer: '답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.',
+  },
+];
+
 export const newsList = [
   {
-    'id': 1,
-    'category': '경대피플',
-    'title': 'Juno Calypso\'s new series is set in Avon cosmetics founder\'s Cold War underground home',
-    'date': '15.05.2018',
-    'img': 'https://www.creativeboom.com/uploads/articles/bc/bcb8dc807536164d94e7d9f77e22728c970d1bee_1100.jpg',
+    id: 1,
+    category: '경대피플',
+    title: 'Juno Calypso\'s new series is set in Avon cosmetics founder\'s Cold War underground home',
+    date: '15.05.2018',
+    img: 'https://www.creativeboom.com/uploads/articles/bc/bcb8dc807536164d94e7d9f77e22728c970d1bee_1100.jpg',
   },
   {
-    'id': 2,
-    'category': '기획연재',
-    'title': 'Katharine Le Hardy\'s paintings of small islands found along the River Thames',
-    'date': '15.05.2018',
-    'img': 'https://www.creativeboom.com/uploads/articles/f0/f085f84180bca8f92e308261405ad481bec99bd3_630.jpg',
+    id: 2,
+    category: '기획연재',
+    title: 'Katharine Le Hardy\'s paintings of small islands found along the River Thames',
+    date: '15.05.2018',
+    img: 'https://www.creativeboom.com/uploads/articles/f0/f085f84180bca8f92e308261405ad481bec99bd3_630.jpg',
   },
   {
-    'id': 3,
-    'category': '경기소식',
-    'title': 'A guide to Innsbruck: City culture and outdoor adventure in the capital of the Alps',
-    'date': '15.05.2018',
-    'img': 'https://www.creativeboom.com/uploads/articles/42/42b32bd3ad7e61ed3fb03d8568050d42f4c3dd78_630.jpg',
+    id: 3,
+    category: '경기소식',
+    title: 'A guide to Innsbruck: City culture and outdoor adventure in the capital of the Alps',
+    date: '15.05.2018',
+    img: 'https://www.creativeboom.com/uploads/articles/42/42b32bd3ad7e61ed3fb03d8568050d42f4c3dd78_630.jpg',
   },
   {
-    'id': 4,
-    'category': '경기소식',
-    'title': 'Juno Calypso\'s new series is set in Avon cosmetics founder\'s Cold War underground home',
-    'date': '15.05.2018',
-    'img': 'https://www.creativeboom.com/uploads/articles/bc/bcb8dc807536164d94e7d9f77e22728c970d1bee_1100.jpg',
+    id: 4,
+    category: '경기소식',
+    title: 'Juno Calypso\'s new series is set in Avon cosmetics founder\'s Cold War underground home',
+    date: '15.05.2018',
+    img: 'https://www.creativeboom.com/uploads/articles/bc/bcb8dc807536164d94e7d9f77e22728c970d1bee_1100.jpg',
   },
   {
-    'id': 5,
-    'category': '기획연재',
-    'title': 'Katharine Le Hardy\'s paintings of small islands found along the River Thames',
-    'date': '15.05.2018',
-    'img': 'https://www.creativeboom.com/uploads/articles/f0/f085f84180bca8f92e308261405ad481bec99bd3_630.jpg',
+    id: 5,
+    category: '기획연재',
+    title: 'Katharine Le Hardy\'s paintings of small islands found along the River Thames',
+    date: '15.05.2018',
+    img: 'https://www.creativeboom.com/uploads/articles/f0/f085f84180bca8f92e308261405ad481bec99bd3_630.jpg',
   },
   {
-    'id': 6,
-    'category': '경대피플',
-    'title': 'A guide to Innsbruck: City culture and outdoor adventure in the capital of the Alps',
-    'date': '15.05.2018',
-    'img': 'https://www.creativeboom.com/uploads/articles/42/42b32bd3ad7e61ed3fb03d8568050d42f4c3dd78_630.jpg',
+    id: 6,
+    category: '경대피플',
+    title: 'A guide to Innsbruck: City culture and outdoor adventure in the capital of the Alps',
+    date: '15.05.2018',
+    img: 'https://www.creativeboom.com/uploads/articles/42/42b32bd3ad7e61ed3fb03d8568050d42f4c3dd78_630.jpg',
   },
   {
-    'id': 7,
-    'category': '경기소식',
-    'title': 'Juno Calypso\'s new series is set in Avon cosmetics founder\'s Cold War underground home',
-    'date': '15.05.2018',
-    'img': 'https://www.creativeboom.com/uploads/articles/bc/bcb8dc807536164d94e7d9f77e22728c970d1bee_1100.jpg',
+    id: 7,
+    category: '경기소식',
+    title: 'Juno Calypso\'s new series is set in Avon cosmetics founder\'s Cold War underground home',
+    date: '15.05.2018',
+    img: 'https://www.creativeboom.com/uploads/articles/bc/bcb8dc807536164d94e7d9f77e22728c970d1bee_1100.jpg',
   },
 ];
 
@@ -189,10 +216,10 @@ export const writerDemo = {
 };
 
 export const newsDetail = {
-  'category': '경기소식',
-  'title': '경기대학교 신입생들을 위한 새내기팁! 첫 번째, 통학버스와 고양이버스 안내',
-  'writer': '김성빈',
-  'lastUpdatedDate': '18.05.2018',
+  category: '경기소식',
+  title: '경기대학교 신입생들을 위한 새내기팁! 첫 번째, 통학버스와 고양이버스 안내',
+  writer: '김성빈',
+  lastUpdatedDate: '18.05.2018',
 };
 
 export const newsDetailPageParagraphs = [
