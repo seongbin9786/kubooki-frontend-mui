@@ -150,26 +150,6 @@ function NavDrawer({
     </List>
   );
 
-  const trackList = (
-    <List subheader={<ListSubheader>개인화 메뉴</ListSubheader>}>
-      <ListItem button onClick={() => history.push('/news?sort=like')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-thumbs-up"></i>
-        </ListItemIcon>
-        <ListItemText primary="좋아한 기사" />
-      </ListItem>
-
-      <ListItem button onClick={() => history.push('/comments')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-comments"></i>
-        </ListItemIcon>
-        <ListItemText primary="내가 쓴 댓글" />
-      </ListItem>
-
-      <Divider />
-    </List>
-  );
-
   const journalistGroupList = (
     <List subheader={<ListSubheader>기자 메뉴</ListSubheader>}>
       <ListItem button onClick={() => history.push('/announcements')}>
@@ -269,7 +249,6 @@ function NavDrawer({
             {user.is('GUEST') ? accountList : null}
             {guestList}
             {user.is('USER') ? userList : null}
-            {trackList}
             {user.isJournalistGroup() ? journalistGroupList : apply}
             {user.hasRole('JOURNALIST') ? journalistList : null}
             {user.hasRole('MANAGER') ? managerList : null}
