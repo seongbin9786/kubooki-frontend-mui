@@ -8,12 +8,17 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import NavDrawer from './NavDrawer';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
 import SettingsDialog from './SettingsDialog';
-import { userAdmin } from './store';
+import { Avatar } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+
+import { personalMenuList } from './store';
 
 const styles = {
   root: {
@@ -27,15 +32,43 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
+  avatar: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  menus: {
+    marginTop: 35,
+  }
 };
 
 class ButtonAppBar extends Component {
-  state = {
-    drawer: false,
-    login: false,
-    register: false,
-    settings: false,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      drawer: false,
+      login: false,
+      register: false,
+      settings: false,
+      menusParentEl: null,
+
+      loggedIn: props.user.isLoggedIn(),
+    };
   }
+
+  handleAvatarClick = ({ currentTarget }) => this.setState({ menusParentEl: currentTarget });
+
+  handleMenuClose = () => this.setState({ menusParentEl: null });
+
+  handleMenuClick = link => () => {
+    const { history } = this.props;
+
+    this.handleMenuClose();
+    history.push(link);
+  }
+
+  //TODO: 로그아웃 구현
+  handleLogout = () => this.handleMenuClose();
 
   handleOpen = open => () => this.setState({ [open]: !this.state[open] });
 
@@ -48,8 +81,10 @@ class ButtonAppBar extends Component {
   }
 
   render() {
-    const { classes, width } = this.props;
-    const { drawer, login, register, settings } = this.state;
+    const { classes, width, user } = this.props;
+    const { drawer, login, register, settings, menusParentEl, loggedIn } = this.state;
+    const menus = Boolean(menusParentEl);
+    console.log(menusParentEl, menus);
 
     return (
       <React.Fragment>
@@ -64,7 +99,7 @@ class ButtonAppBar extends Component {
               <MenuIcon />
             </IconButton>
             <NavDrawer
-              user={userAdmin}
+              user={user}
               open={drawer}
               toggleDrawer={this.handleOpen('drawer')}
               toggleLogin={this.handleOpen('login')}
@@ -97,12 +132,34 @@ class ButtonAppBar extends Component {
               />
               : null
             }
-            <Button
-              color="inherit"
-              onClick={this.handleOpen('login')}
-            >
-              로그인
-            </Button>
+            {loggedIn ?
+              <div
+                className={classes.avatar}
+                onClick={this.handleAvatarClick}
+              >
+                <Avatar alt={user.getName()} src={user.getProfilePic()} />
+              </div>
+              : <Button
+                color="inherit"
+                onClick={this.handleOpen('login')}
+              >
+                로그인
+              </Button>
+            }
+            {menus ?
+              <Menu
+                className={classes.menus}
+                anchorEl={menusParentEl}
+                open={menus}
+                onClose={this.handleMenuClose}
+              >
+                {personalMenuList.map(({ name, link }, index) =>
+                  <MenuItem onClick={this.handleMenuClick(link)}>{name}</MenuItem>
+                )}
+                <MenuItem onClick={this.handleLogout}>로그아웃</MenuItem>
+              </Menu>
+              : null
+            }
           </Toolbar>
         </AppBar>
         <div style={{ height: width === 'xs' ? 56 : 64 }} />
@@ -111,4 +168,4 @@ class ButtonAppBar extends Component {
   }
 }
 
-export default compose(withStyles(styles), withWidth())(ButtonAppBar);
+export default compose(withStyles(styles), withWidth())(withRouter(ButtonAppBar));

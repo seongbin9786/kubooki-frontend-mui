@@ -1,6 +1,21 @@
 import User from './User';
 
-export const userAdmin = new User('김성빈', 'ADMIN', '국장');
+export const globalUser = new User('김성빈', 'ADMIN');
+
+export const personalMenuList = [
+  {
+    name: '나의 계정 설정',
+    link: '/account/settings',
+  },
+  {
+    name: '내가 좋아한 기사',
+    link: '/account/articles?filter=liked',
+  },
+  {
+    name: '내가 쓴 댓글',
+    link: '/account/comments',
+  },
+];
 
 export const article = {
   id: 1,
