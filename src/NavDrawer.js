@@ -10,6 +10,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { FamilyLinks } from './FamilyLinkConfig';
+import SearchBar from './SearchBar';
 
 const styles = {
   list: {
@@ -261,9 +262,9 @@ function NavDrawer({
           tabIndex={0}
           role="button"
           onClick={toggleDrawer}
-          onKeyDown={toggleDrawer}
         >
           <div className={classes.list}>
+            <SearchBar />
             {kubooki}
             {user.is('GUEST') ? accountList : null}
             {guestList}
