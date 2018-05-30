@@ -173,13 +173,6 @@ function NavDrawer({
         <ListItemText primary="대시 보드" />
       </ListItem>
 
-      <ListItem button onClick={() => history.push('/news/corrections')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-check"></i>
-        </ListItemIcon>
-        <ListItemText primary="들어온 정정 요청" />
-      </ListItem>
-
       <ListItem button onClick={() => history.push('/logs/meeting')}>
         <ListItemIcon>
           <i className="fas fa-lg fa-comment-alt"></i>
@@ -187,50 +180,6 @@ function NavDrawer({
         <ListItemText primary="회의록" />
       </ListItem>
 
-      <Divider />
-    </List>
-  );
-
-  const journalistList = (
-    <List subheader={<ListSubheader>정기자 메뉴</ListSubheader>}>
-      <ListItem button onClick={() => history.push('/events/manage')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-wrench"></i>
-        </ListItemIcon>
-        <ListItemText primary="이벤트 관리" />
-      </ListItem>
-
-      <ListItem button onClick={() => history.push('/popups/manage')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-wrench"></i>
-        </ListItemIcon>
-        <ListItemText primary="팝업 관리" />
-      </ListItem>
-
-      <Divider />
-    </List>
-  );
-
-  const managerList = (
-    <List subheader={<ListSubheader>부장 메뉴</ListSubheader>}>
-      <ListItem button onClick={() => history.push('/attendance/manage')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-user-tie"></i>
-        </ListItemIcon>
-        <ListItemText primary="출석 관리" />
-      </ListItem>
-      <Divider />
-    </List>
-  );
-
-  const directorList = (
-    <List subheader={<ListSubheader>국장 메뉴</ListSubheader>}>
-      <ListItem button onClick={() => history.push('/journalists/manage')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-users-cog"></i>
-        </ListItemIcon>
-        <ListItemText primary="기자 관리" />
-      </ListItem>
       <Divider />
     </List>
   );
@@ -250,9 +199,6 @@ function NavDrawer({
             {guestList}
             {user.is('USER') ? userList : null}
             {user.isJournalistGroup() ? journalistGroupList : apply}
-            {user.hasRole('JOURNALIST') ? journalistList : null}
-            {user.hasRole('MANAGER') ? managerList : null}
-            {user.hasRole('DIRECTOR') ? directorList : null}
             {families}
             {settings}
           </div>

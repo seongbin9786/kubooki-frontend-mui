@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import GridListTemplate from './GridListTemplate';
 import HeadlineNewsItem from './HeadlineNewsItem';
 import NewsItem from './NewsItem';
-import { TabList } from './TabConfig';
+import { TabList } from './NewsTabConfig';
 
 function NewsList({ classes, location: { pathname }, index, newsList }) {
   // 1. index를 pathname의 값으로 결정한다. 

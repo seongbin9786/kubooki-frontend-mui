@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 
-import { TabList } from './TabConfig';
+import { TabList } from './NewsTabConfig';
 
 const BIG_FAB_SIZE = 64;
 const SMALL_FAB_SIZE = 56;

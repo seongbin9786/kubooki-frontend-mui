@@ -6,7 +6,7 @@ import { Typography, Divider } from '@material-ui/core';
 import NewsList from './NewsList';
 import NameCard from './NameCard';
 import CommentList from './CommentList';
-import { TabList } from './TabConfig';
+import { TabList } from './NewsTabConfig';
 import {
   newsDetail as news,
   newsDetailPageParagraphs,

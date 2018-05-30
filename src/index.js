@@ -9,11 +9,13 @@ import FAQPage from './FAQPage';
 import NewsDetail from './NewsDetail';
 import NewsWritePage from './NewsWritePage';
 import TermsOfService from './TermsOfService';
+import Dashboard from './Dashboard';
 
 ReactDOM.render(
   <BrowserRouter>
     <Layout>
       <Switch>
+        <Route path='/dashboard' component={Dashboard} />
         <Route path='/terms' component={TermsOfService} />
         <Route path='/faq' component={FAQPage} />
         <Route path='/events' component={EventPage} />
