@@ -2,6 +2,19 @@ import User from './User';
 
 export const userAdmin = new User('김성빈', 'ADMIN', '국장');
 
+export const article = {
+  id: 1,
+  title: '이용 약관',
+  content: `
+    <h3>경기대학교 웹지 거북이에 오신 것을 환영합니다.</h3>
+      <p>거북이 제품 및 서비스(‘서비스’)를 이용해 주셔서 감사합니다.
+      서비스는 경기대학교 수원캠퍼스 신학관 508호(5층)에서 제공합니다.</p>
+    `,
+  creationDate: '30.05.2018',
+  lastUpdateDate: '30.05.2018',
+  category: '이용 약관',
+};
+
 export const faqList = [
   {
     id: 1,

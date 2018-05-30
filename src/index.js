@@ -8,11 +8,13 @@ import EventPage from './EventPage';
 import FAQPage from './FAQPage';
 import NewsDetail from './NewsDetail';
 import NewsWritePage from './NewsWritePage';
+import TermsOfService from './TermsOfService';
 
 ReactDOM.render(
   <BrowserRouter>
     <Layout>
       <Switch>
+        <Route path='/terms' component={TermsOfService} />
         <Route path='/faq' component={FAQPage} />
         <Route path='/events' component={EventPage} />
         <Route path='/news/write' component={NewsWritePage} />
