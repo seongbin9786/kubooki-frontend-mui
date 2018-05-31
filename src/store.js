@@ -240,6 +240,52 @@ export const feedbackList = [
   },
 ];
 
+/* 내 댓글이므로, 좋아요/싫어요를 할 수 없음 */
+export const myCommentList = [
+  {
+    id: '1',
+    date: '7시간 전',
+    likes: '1',
+    targetNews: 1,
+    content: '댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1'
+  },
+  {
+    id: '2',
+    date: '2주 전',
+    likes: '5',
+    targetNews: 1,
+    content: '댓글 테스트 2'
+  },
+  {
+    id: '3',
+    date: '1달 전',
+    likes: '-1',
+    targetNews: 1,
+    content: '댓글 테스트 3'
+  },
+  {
+    id: '4',
+    date: '3개월 전',
+    likes: '0',
+    targetNews: 1,
+    content: '댓글 테스트 1'
+  },
+  {
+    id: '5',
+    date: '9개월 전',
+    likes: '0',
+    targetNews: 1,
+    content: '댓글 테스트 2'
+  },
+  {
+    id: '6',
+    date: '10개월 전',
+    likes: '0',
+    targetNews: 1,
+    content: '댓글 테스트 3'
+  },
+];
+
 export const commentList = [
   {
     id: '1',
@@ -248,7 +294,7 @@ export const commentList = [
     likes: '1',
     liked: false,
     hated: false,
-    content: '댓글 테스트 1'
+    content: '댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1'
   },
   {
     id: '2',

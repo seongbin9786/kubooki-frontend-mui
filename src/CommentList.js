@@ -11,13 +11,12 @@ const styles = theme => ({
   }
 });
 
-function CommentList({ classes, list, user }) {
-
+function CommentList({ classes, list, writebox, user, myCommentView }) {
   const titleMsg = <span><b className={classes.counter}>{list.length}</b> 개의 댓글</span>;
   const noContentMsg = <span><i className="fas fa-lg fa-comment-dots"></i> 작성된 댓글이 없습니다.</span>;
   const items = list.map((comment, index) =>
     <React.Fragment key={index}>
-      <CommentItem comment={comment} />
+      <CommentItem comment={comment} myCommentView={myCommentView} />
       <Divider />
     </React.Fragment>
   );
@@ -26,7 +25,7 @@ function CommentList({ classes, list, user }) {
     <FlatListTemplate
       title={titleMsg}
       titleType='title'
-      subHeader={<CommentWriteBox user={user} />}
+      subHeader={writebox ? <CommentWriteBox user={user} /> : null}
       items={items}
       noContentMsg={noContentMsg}
       paperWrap

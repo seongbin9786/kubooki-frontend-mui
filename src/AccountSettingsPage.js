@@ -17,7 +17,7 @@ const styles = theme => ({
   root: {
     margin: '0 auto',
     marginTop: 20,
-    width: '50%',
+    maxWidth: 900,
     minWidth: 350,
     padding: '20px',
   },

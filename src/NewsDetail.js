@@ -158,6 +158,7 @@ const NewsDetail = ({ classes }) => (
     <CommentList
       list={commentList}
       user={userDemo}
+      writebox
     />
 
     <Divider />
