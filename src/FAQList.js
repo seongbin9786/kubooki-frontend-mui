@@ -14,9 +14,11 @@ const titleStyle = {
   margin: '10px'
 };
 
+const FIRST_ITEM = 0;
+
 class ControlledExpansionPanels extends Component {
   state = {
-    expanded: -1,
+    expanded: FIRST_ITEM,
   };
 
   handleOpen = index => (event, expanded) => {
