@@ -18,7 +18,7 @@ import SettingsDialog from './SettingsDialog';
 import { Avatar } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
-import { personalMenuList } from './store';
+import personalMenuList from './MyPageTabConfig';
 
 const styles = {
   root: {
@@ -153,7 +153,7 @@ class ButtonAppBar extends Component {
                 open={menus}
                 onClose={this.handleMenuClose}
               >
-                {personalMenuList.map(({ name, link }, index) =>
+                {personalMenuList.map(([name, link], index) =>
                   <MenuItem onClick={this.handleMenuClick(link)}>{name}</MenuItem>
                 )}
                 <MenuItem onClick={this.handleLogout}>로그아웃</MenuItem>

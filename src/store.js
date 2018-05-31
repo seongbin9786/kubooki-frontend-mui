@@ -2,21 +2,6 @@ import User from './User';
 
 export const globalUser = new User('김성빈', 'MANAGER');
 
-export const personalMenuList = [
-  {
-    name: '나의 계정 설정',
-    link: '/account/settings',
-  },
-  {
-    name: '내가 좋아한 기사',
-    link: '/account/articles?filter=liked',
-  },
-  {
-    name: '내가 쓴 댓글',
-    link: '/account/comments',
-  },
-];
-
 export const article = {
   id: 1,
   title: '이용 약관',
