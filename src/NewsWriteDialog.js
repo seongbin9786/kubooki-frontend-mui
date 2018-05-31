@@ -14,6 +14,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import QuillEditor from './QuillEditor';
 import 'react-quill/dist/quill.snow.css'; // ES6
 
+import ImagePreview from './ImagePreview';
+import UploadBtn from './UploadBtn';
+
 const styles = theme => ({
   root: {
     maxWidth: 1100,
@@ -28,15 +31,6 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between'
   },
-  thumbnailContainer: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit,
-  },
-  uploadBtn: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-    marginLeft: 2
-  }
 });
 
 export default withStyles(styles)(class extends Component {
@@ -101,19 +95,8 @@ export default withStyles(styles)(class extends Component {
             onChange={this.handleQuillChange}
           />
 
-          <div className={classes.thumbnailContainer}>
-            <InputLabel>섬네일</InputLabel>
-            <br />
-            <Button className={classes.uploadBtn} variant="raised" color="default">
-              업로드&nbsp;<i className="fas fa-md fa-upload"></i>
-            </Button>
-            <br />
-            <img
-              style={{ height: 'auto', width: '100%' }}
-              alt='섬네일'
-              src={imgUrl}
-            />
-          </div>
+          <ImagePreview name='섬네일' value={imgUrl} isForm />
+          <UploadBtn btnStr='업로드' />
 
         </DialogContent>
         <DialogActions className={classes.actions}>
