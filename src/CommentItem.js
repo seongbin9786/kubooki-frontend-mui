@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Typography, withStyles, Button } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 import { withRouter } from 'react-router-dom';
+
+import FaIconBtn from './FaIconBtn';
 
 const styles = theme => ({
   root: {
@@ -9,10 +11,14 @@ const styles = theme => ({
 
     position: 'relative',
     display: 'flex',
+
+    minHeight: 80,
   },
   commentRoot: {
     padding: theme.spacing.unit,
     marginRight: 72,
+
+    width: '90%',
   },
   header: {
     display: 'flex',
@@ -52,58 +58,112 @@ const styles = theme => ({
     padding: '0',
     minWidth: 72,
     minHeight: 32,
-  }
+  },
+  authorMenu: {
+    position: 'absolute',
+    right: theme.spacing.unit,
+    bottom: theme.spacing.unit,
+  },
+  btn: {
+    margin: 0,
+    color: grey[500],
+    fontSize: 16,
+    width: 'auto',
+    height: 'auto',
+    padding: 10,
+  },
+  input: {
+    color: '#555',
+    border: 'none',
+    resize: 'none',
+    maxHeight: '100%',
+    width: '100%',
+
+    fontFamily: '"Roboto", sans-serif',
+    display: 'block',
+    fontSize: '1rem',
+    boxSizing: 'border-box',
+  },
 });
 
-function CommentItem({ classes, comment, myCommentView, history }) {
-  /*
-    id: '1',
-    writer: '김성빈',
-    date: '7시간 전',
-    likes: '1',
-    liked: false,
-    comment: '댓글 테스트 1'
-  */
-  /*
-      id: '1',
-      date: '7시간 전',
-      likes: '1',
-      targetNews: 1,
-      content: '댓글 테스트 1'
-  */
-  const { id, writer, date, likes, liked, hated, content, targetNews } = comment;
+//TODO: 수정, 삭제 버튼 눌렸을 때 처리
+class CommentItem extends Component {
+  state = {
+    isEditing: false,
+    editText: this.props.comment.content,
+  }
 
-  return (
-    <div className={classes.root}>
-      <div className={classes.vote}>
-        <button
-          disabled={myCommentView}
-          className={liked ? classes.voteBtnActive : classes.voteBtn}
-        >
-          <i className="fas fa-lg fa-caret-up"></i>
-        </button>
-        <div>{likes}</div>
-        <button
-          disabled={myCommentView}
-          className={hated ? classes.voteBtnActive : classes.voteBtn}>
-          <i className="fas fa-lg fa-caret-down"></i>
-        </button>
-      </div>
-      <div className={classes.commentRoot}>
-        <header className={classes.header}>
-          <Typography variant='subheading' className={classes.name}>{writer}</Typography>
-          <Typography variant='caption'>{date}</Typography>
-        </header>
-        <Typography variant='subheading'>{content}</Typography>
-      </div>
-      {myCommentView ?
-        <Button variant="outlined" className={classes.warpMenu} onClick={() => history.push(`/news/${targetNews}`)}>
-          원문보기
-        </Button>
-        : null
-      }
-    </div >
-  );
+  handleInputChange = event => this.setState({ editText: event.target.value });
+  handleEditBtnClick = () => this.setState({ isEditing: true });
+  handleEditCancelBtnClick = () => this.setState({ isEditing: false, editText: this.props.comment.content });
+  handleSubmitBtnClick = () => this.setState({ isEditing: false });
+
+  render() {
+    const { isEditing, editText } = this.state;
+    const { classes, comment, myCommentView, history } = this.props;
+    const { id, writer, date, likes, liked, hated, content, targetNews } = comment;
+
+    return (
+      <React.Fragment>
+        <div className={classes.root}>
+
+          <div className={classes.vote}>
+            <button
+              disabled={myCommentView}
+              className={liked ? classes.voteBtnActive : classes.voteBtn}
+            >
+              <i className="fas fa-lg fa-caret-up"></i>
+            </button>
+            <div>{likes}</div>
+            <button
+              disabled={myCommentView}
+              className={hated ? classes.voteBtnActive : classes.voteBtn}>
+              <i className="fas fa-lg fa-caret-down"></i>
+            </button>
+          </div>
+
+          <div className={classes.commentRoot}>
+            <header className={classes.header}>
+              <Typography variant='subheading' className={classes.name}>{writer}</Typography>
+              <Typography variant='caption'>{date}</Typography>
+            </header>
+            {isEditing ?
+              <textarea
+                className={classes.input}
+                onChange={this.handleInputChange}
+                value={console.log(editText) || editText}
+              />
+              : <Typography variant='subheading'>{content}</Typography>
+            }
+          </div>
+
+          {myCommentView ?
+            <Button variant="outlined" className={classes.warpMenu} onClick={() => history.push(`/news/${targetNews}`)}>
+              원문보기
+            </Button>
+            : null
+          }
+
+          <div className={classes.authorMenu}>
+            <FaIconBtn
+              type={isEditing ? 'check' : 'edit'}
+              onlyIcon
+              sm
+              className={classes.btn}
+              onClick={isEditing ? this.handleSubmitBtnClick : this.handleEditBtnClick}
+            />
+            <FaIconBtn
+              type={isEditing ? 'times-circle' : 'trash'}
+              onlyIcon
+              sm
+              className={classes.btn}
+              onClick={isEditing ? this.handleEditCancelBtnClick : null}
+            />
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
 export default withStyles(styles)(withRouter(CommentItem));

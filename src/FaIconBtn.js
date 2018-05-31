@@ -1,12 +1,12 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Button, IconButton } from '@material-ui/core';
 
-export default withStyles()(({ btnStr, type, ...props }) => {
+export default withStyles()(({ btnStr, type, sm, onlyIcon, ...props }) => {
+  const Component = onlyIcon ? IconButton : Button;
 
   return (
-    <Button {...props}>
-      {btnStr}&nbsp;<i className={`fas fa-md fa-${type}`}></i>
-    </Button >
+    <Component {...props}>
+      {onlyIcon ? '' : btnStr}<i className={`fas fa-${sm ? 'sm' : 'md'} fa-${type}`}></i>
+    </Component>
   );
 });
