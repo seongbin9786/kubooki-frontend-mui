@@ -15,6 +15,55 @@ export const article = {
   category: '이용 약관',
 };
 
+export const myFavoriteNewsList = [
+  {
+    date: '31.05.2018',
+    list: [
+      {
+        id: 4,
+        title: '2018학년도 잔디공원 돌 줍기 행사',
+        writers: ['김성빈', '성빈킴'],
+        category: '경기 소식',
+        creationDate: '31.05.2018',
+        lastUpdateDate: '31.05.2018',
+        thumbnailUrl: 'http://www.kubooki.com/xe/files/thumbnails/151/262/320x240.crop.jpg',
+      },
+      {
+        id: 3,
+        title: '전공 선택 유연화 제도 설명회',
+        writers: ['김성빈'],
+        category: '경기 소식',
+        creationDate: '22.05.2018',
+        lastUpdateDate: null,
+        thumbnailUrl: 'http://www.kubooki.com/xe/files/thumbnails/697/261/320x240.crop.jpg',
+      },
+    ],
+  },
+  {
+    date: '30.05.2018',
+    list: [
+      {
+        id: 2,
+        title: '2018학년도 ‘봄, 소풍’ 봄 축제 3일차 거리행사',
+        writers: ['김성빈'],
+        category: '경기 소식',
+        creationDate: '17.05.2018',
+        lastUpdateDate: null,
+        thumbnailUrl: 'http://www.kubooki.com/xe/files/thumbnails/421/261/320x240.crop.jpg',
+      },
+      {
+        id: 1,
+        title: '몰래 카메라 범죄, 사각지대에 놓인 인권과 책임의 행방',
+        writers: ['김성빈'],
+        category: '기획 연재',
+        creationDate: '30.05.2018',
+        lastUpdateDate: null,
+        thumbnailUrl: 'http://www.kubooki.com/xe/files/thumbnails/129/262/320x240.crop.jpg',
+      },
+    ],
+  }
+];
+
 export const faqList = [
   {
     id: 1,

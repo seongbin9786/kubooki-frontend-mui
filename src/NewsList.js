@@ -30,7 +30,7 @@ function NewsList({ classes, location: { pathname }, index, newsList }) {
   return (
     <GridListTemplate
       items={items}
-      moreBtnStr='기사 더 불러오기'
+      btnStr='기사 더 불러오기'
     />
   );
 }

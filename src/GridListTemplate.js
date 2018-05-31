@@ -3,8 +3,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
-import Button from '@material-ui/core/Button';
 import { Typography } from '@material-ui/core';
+
+import LoadMoreBtn from './LoadMoreBtn';
 
 const styles = theme => ({
   root: {
@@ -35,18 +36,9 @@ const styles = theme => ({
   subheader: {
     width: '100%',
   },
-  moreButton: {
-    width: '100%',
-    marginLeft: 16,
-    marginRight: 16,
-    marginTop: 30,
-    height: 48,
-    fontSize: 24,
-    borderRadius: 12
-  }
 });
 
-export default withStyles(styles)(withRouter(({ classes, title, titleType, subHeader, items, moreBtnStr, spacing }) => {
+export default withStyles(styles)(withRouter(({ classes, title, titleType, subHeader, items, spacing, btnStr }) => {
 
   return (
     <React.Fragment>
@@ -61,13 +53,7 @@ export default withStyles(styles)(withRouter(({ classes, title, titleType, subHe
           {items}
         </GridList >
 
-        <Button
-          variant="raised"
-          color="primary"
-          className={classes.moreButton}
-        >
-          {moreBtnStr}
-        </Button>
+        <LoadMoreBtn btnStr={btnStr} />
       </div >
     </React.Fragment>
   );

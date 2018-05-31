@@ -70,9 +70,9 @@ class EventList extends Component {
           titleType='display1'
           subHeader={subHeader}
           items={items}
-          moreBtnStr='이벤트 더 불러오기'
           spacing={16}
           titleLeftmargin={24}
+          btnStr='이벤트 더 불러오기'
         />
       </React.Fragment>
     );
