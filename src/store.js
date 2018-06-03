@@ -2,6 +2,20 @@ import User from './User';
 
 export const globalUser = new User('김성빈', 'MANAGER');
 
+export const boardListViewData = {
+  title: '게시판',
+  totalItems: 20,
+  list: [
+    {
+      id: 1,
+      title: '경기대학교 웹지 거북이에 오신 것을 환영합니다.경기대학교 웹지 거북이에 오신',
+      writer: '김성빈',
+      creationDate: '31.05.2018',
+      views: '3',
+    }
+  ]
+};
+
 export const article = {
   id: 1,
   title: '이용 약관',
