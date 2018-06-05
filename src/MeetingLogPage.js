@@ -12,6 +12,7 @@ function MeetingLogPage({ classes }) {
   return (
     <BoardList
       boardTitle='회의록'
+      addButtonRightAlign
       boardList={meetingLogListViewData}
     />
   );

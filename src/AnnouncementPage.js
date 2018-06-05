@@ -7,6 +7,7 @@ export default function AnnouncementPage({ classes }) {
   return (
     <BoardList
       boardTitle='공지사항'
+      addButtonRightAlign
       boardList={announcementListViewData}
     />
   );
