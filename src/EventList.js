@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { withStyles, Typography } from '@material-ui/core';
 
 import GridListTemplate from './GridListTemplate';
@@ -19,42 +20,35 @@ const styles = theme => ({
   }
 });
 
-class EventList extends Component {
-  state = {
-  }
+function EventList({ eventList, classes, history }) {
+  const handleClick = eventNum => () => history.push(`/events/${eventNum}`);
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.checked });
-  };
+  const items = eventList.map(
+    (event, index) => <EventItem event={event} key={index} handleClick={handleClick} />
+  );
 
-  render() {
-    const { eventList, classes } = this.props;
+  const subHeader = (
+    <div className={classes.subHeader}>
+      <Typography variant='headline' className={classes.sortTitle}>진행중인 이벤트</Typography>
+    </div>
+  );
 
-    const items = eventList.map(
-      (event, index) => <EventItem event={event} key={index} />
-    );
+  return (
+    <React.Fragment>
 
-    const subHeader = (
-      <div className={classes.subHeader}>
-        <Typography variant='headline' className={classes.sortTitle}>진행중인 이벤트</Typography>
-      </div>
-    );
+      <EventHeadlineItem />
 
-    return (
-      <React.Fragment>
-        <EventHeadlineItem />
+      <GridListTemplate
+        titleType='display1'
+        items={items}
+        subHeader={subHeader}
+        spacing={16}
+        titleLeftmargin={24}
+        noMoreLoadBtn
+      />
 
-        <GridListTemplate
-          titleType='display1'
-          items={items}
-          subHeader={subHeader}
-          spacing={16}
-          titleLeftmargin={24}
-          noMoreLoadBtn
-        />
-      </React.Fragment>
-    );
-  }
+    </React.Fragment>
+  );
 }
 
-export default withStyles(styles)(EventList);
+export default withStyles(styles)(withRouter(EventList));

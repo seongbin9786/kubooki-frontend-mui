@@ -13,6 +13,15 @@ import FaIcon from './FaIcon';
 const styles = theme => ({
   card: {
     margin: theme.spacing.unit * 3,
+    transition: 'transform 0.15s',
+
+    '&:hover': {
+      transform: 'translateY(-15px)',
+      boxShadow:
+        `0px 3px 5px -1px rgba(0, 0, 0, 0.2), 
+         0px 5px 8px 0px rgba(0, 0, 0, 0.14), 
+         0px 1px 14px 0px rgba(0, 0, 0, 0.12)`,
+    },
   },
   marginPC: {
     height: 'auto !important',
@@ -49,12 +58,12 @@ const styles = theme => ({
   prize: '학생증 제시 30% 할인',
   resultDate: '-',
 */
-function EventItem({ classes, width, event }) {
+function EventItem({ classes, width, event, handleClick }) {
   const { id, title, thumbnail, startDate, endDate, prize, resultDate } = event;
 
   return (
     <Grid item xs={12} sm={6} lg={4} className={width === 'xs' ? classes.marginMobile : classes.marginPC}>
-      <Card className={classes.card}>
+      <Card className={classes.card} onClick={handleClick(id)}>
         <CardMedia
           className={classes.image}
           image={thumbnail}
