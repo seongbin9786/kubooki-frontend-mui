@@ -4,6 +4,7 @@ import { Divider, withStyles } from '@material-ui/core';
 import FlatListTemplate from './FlatListTemplate';
 import CommentItem from './CommentItem';
 import CommentWriteBox from './CommentWriteBox';
+import LoadMoreBtn from './LoadMoreBtn';
 
 const styles = theme => ({
   counter: {
@@ -11,15 +12,14 @@ const styles = theme => ({
   }
 });
 
-function CommentList({ classes, list, writebox, user, myCommentView }) {
-  const titleMsg = <span><b className={classes.counter}>{list.length}</b> 개의 댓글</span>;
+function CommentList({ classes, list, writebox, user, myCommentView, showLoadMoreBtn }) {
+  const titleMsg = <span><b className={classes.counter}>{list ? list.length : 0}</b> 개의 댓글</span>;
   const noContentMsg = <span><i className="fas fa-lg fa-comment-dots"></i> 작성된 댓글이 없습니다.</span>;
-  const items = list.map((comment, index) =>
+  const items = list ? list.map((comment, index) =>
     <React.Fragment key={index}>
       <CommentItem comment={comment} myCommentView={myCommentView} />
       <Divider />
-    </React.Fragment>
-  );
+    </React.Fragment>) : null;
 
   return (
     <FlatListTemplate
@@ -29,6 +29,7 @@ function CommentList({ classes, list, writebox, user, myCommentView }) {
       items={items}
       noContentMsg={noContentMsg}
       paperWrap
+      loadMoreBtn={showLoadMoreBtn ? <LoadMoreBtn btnStr='댓글 더 불러오기' /> : null}
     />
   );
 }

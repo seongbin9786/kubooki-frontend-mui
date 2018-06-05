@@ -19,7 +19,7 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(({ classes, title, titleType, subHeader, items, noContentMsg, paperWrap }) => {
+export default withStyles(styles)(({ classes, title, titleType, subHeader, items, noContentMsg, paperWrap, loadMoreBtn }) => {
   const content = items
     ? items
     : <Typography
@@ -38,6 +38,7 @@ export default withStyles(styles)(({ classes, title, titleType, subHeader, items
         elevation={1}
       >
         {paperWrap ? <Paper>{content}</Paper> : content}
+        {loadMoreBtn ? loadMoreBtn : null}
       </div>
     </div>
   );

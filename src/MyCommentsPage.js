@@ -1,12 +1,8 @@
 import React from 'react';
-import {
-  withStyles,
-  Typography,
-} from '@material-ui/core';
+import { withStyles, Typography } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
 import { myCommentList } from './store';
-import LoadMoreBtn from './LoadMoreBtn';
 import CommentList from './CommentList';
 
 const styles = theme => ({
@@ -31,9 +27,8 @@ const MyCommentsPage = ({ classes, history }) => {
       <CommentList
         list={myCommentList}
         myCommentView
+        showLoadMoreBtn
       />
-
-      <LoadMoreBtn btnStr='작성한 댓글 더 불러오기' />
     </div>
   );
 };

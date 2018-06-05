@@ -1,9 +1,8 @@
 import React from 'react';
 import { withStyles, Typography } from '@material-ui/core';
 
-import { boardListViewData } from './store';
-import Pagination from './Pagination';
 import BoardListTable from './BoardListTable';
+import Pagination from './Pagination';
 
 const styles = theme => ({
   root: {
@@ -19,12 +18,12 @@ const styles = theme => ({
   }
 });
 
-function BoardList({ classes }) {
-  const { title, totalItems, list } = boardListViewData;
+function BoardList({ classes, boardTitle, boardList }) {
+  const { totalItems, list } = boardList;
 
   return (
     <div className={classes.root}>
-      <Typography variant='display1'>{title}</Typography>
+      <Typography variant='display1'>{boardTitle}</Typography>
       <BoardListTable rows={list} />
       <div className={classes.pagination}>
         <Pagination total={totalItems} />

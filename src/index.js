@@ -11,13 +11,15 @@ import NewsWritePage from './NewsWritePage';
 import TermsOfService from './TermsOfService';
 import Dashboard from './Dashboard';
 import MyPage from './MyPage';
-import BoardList from './BoardList';
+import MeetingLogPage from './MeetingLogPage';
+import AnnouncementPage from './AnnouncementPage';
 
 ReactDOM.render(
   <BrowserRouter>
     <Layout>
       <Switch>
-        <Route path='/board' component={BoardList} />
+        <Route path='/announcements' component={AnnouncementPage} />
+        <Route path='/logs/meeting' component={MeetingLogPage} />
         <Route path='/account' component={MyPage} />
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/terms' component={TermsOfService} />

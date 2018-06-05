@@ -1,7 +1,8 @@
 import React from 'react';
-import { withStyles, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 
-import { article } from './store';
+import { boardDetailData } from './store';
+import BoardDetail from './BoardDetail';
 
 const styles = theme => ({
   root: {
@@ -18,32 +19,11 @@ const styles = theme => ({
 });
 
 function TermsOfService({ classes }) {
-  const {
-    title,
-    content,
-    lastUpdateDate,
-  } = article;
   return (
-    <div className={classes.root}>
-      <article>
-        <Typography
-          variant='display1'
-          className={classes.title}
-        >
-          {title}
-        </Typography>
-        <Typography
-          variant='subheading'
-          className={classes.date}
-        >
-          최초 수정 날짜: {lastUpdateDate}
-        </Typography>
-        <div
-          className={classes.content}
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
-      </article>
-    </div>
+    <BoardDetail
+      item={boardDetailData}
+      useComment
+    />
   );
 };
 

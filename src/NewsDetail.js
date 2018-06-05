@@ -159,6 +159,7 @@ const NewsDetail = ({ classes }) => (
       list={commentList}
       user={userDemo}
       writebox
+      showLoadMoreBtn
     />
 
     <Divider />
