@@ -12,13 +12,17 @@ import TermsOfService from './TermsOfService';
 import Dashboard from './Dashboard';
 import MyPage from './MyPage';
 import MeetingLogPage from './MeetingLogPage';
+import MeetingLogReadPage from './MeetingLogReadPage';
 import AnnouncementPage from './AnnouncementPage';
+import AnnouncementReadPage from './AnnouncementReadPage';
 
 ReactDOM.render(
   <BrowserRouter>
     <Layout>
       <Switch>
+        <Route path='/announcements/:id' component={AnnouncementReadPage} />
         <Route path='/announcements' component={AnnouncementPage} />
+        <Route path='/logs/meeting/:id' component={MeetingLogReadPage} />
         <Route path='/logs/meeting' component={MeetingLogPage} />
         <Route path='/account' component={MyPage} />
         <Route path='/dashboard' component={Dashboard} />

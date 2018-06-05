@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core';
 
@@ -19,7 +20,9 @@ const styles = theme => ({
   }
 });
 
-function SimpleTable({ classes, rows }) {
+function SimpleTable({ classes, rows, location: { pathname } }) {
+  console.log('[table] path: ', pathname);
+
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
@@ -37,6 +40,7 @@ function SimpleTable({ classes, rows }) {
             <BoardListTableItem
               item={row}
               key={index}
+              linkTemplate={pathname}
             />
           )}
         </TableBody>
@@ -52,4 +56,4 @@ const TableHeaderCell = withStyles(theme => ({
   },
 }))(TableCell);
 
-export default withStyles(styles)(SimpleTable);
+export default withStyles(styles)(withRouter(SimpleTable));

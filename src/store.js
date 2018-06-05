@@ -2,7 +2,58 @@ import User from './User';
 
 export const globalUser = new User('김성빈', 'MANAGER');
 
-export const boardDetailData = {
+export const meetingLogData = {
+  id: 1,
+  title: '5.28 회의록',
+  writer: '김성빈',
+  content: `
+    <h2>1. 중앙회의</h2>
+      <p>신방사 종총 김성빈 기자 뺴고 모두 참석</p>
+      <p>-통장 사본 안 들고 온 사람 모두 목요일 회의때 가지고 오기</p>
+      <p>-29일 총장님과 식사 국장, 편집 국장, 디자인 부장, 김성빈 정기자 참석</p>
+
+    <h2>2. 논의안건</h2>
+      <p>x</p>
+
+    <h2>3. 기타안건</h2>
+      <p>x</p>
+
+    <h2>4. 부서별 회의</h2>
+      <h3>1) 편집부 : 김성빈 - 사생총회 기사 작성 예정</h3>
+        <p>김성빈 정기자 - 체대 군기 사건 기사 작성 예정</p>
+        <p>김성빈 정기자 - 체대 군기 사건 기사 작성 예정</p>
+        <p>김성빈 정기자 - 몰카 기사 예정</p>
+      <h3>2) 영상기술부</h3>
+        <p>앱 업로드</p>
+      <h3>3) 디자인 부</h3>
+        <p>수습기자 교육 재개</p>
+      <h3>4) 교육부</h3>
+        <p>x</p>
+    `,
+  creationDate: '2018.05.28',
+  lastUpdateDate: '2018.05.28',
+  views: 1,
+  likes: 1,
+};
+
+export const announcementData = {
+  id: 1,
+  title: '거북이 내부 규칙 안내',
+  writer: '관리자',
+  content: `
+    <h2>거북이에 가입하신 여러분 환영합니다.</h2>
+      <p>거북이는 여러분의 기자 활동을 지원하는 데 최선을 다하겠습니다.</p>
+
+    <h2>거북이의 내부 규칙을 읽고, 되도록 인지해주세요</h2>
+      <p>귀하는 거북이 내에서 적용되는 모든 정책을 준수해야 합니다.</p>
+    `,
+  creationDate: '2012.05.31',
+  lastUpdateDate: '2012.05.31',
+  views: '2,230',
+  likes: 32,
+};
+
+export const termsOfUse = {
   id: 1,
   title: '경기대학교 웹지거북이 이용 약관',
   writer: '관리자',
@@ -44,7 +95,7 @@ export const meetingLogListViewData = {
   list: [
     {
       id: 1,
-      title: '경기대학교 웹지 거북이에 오신 것을 환영합니다.경기대학교 웹지 거북이에 오신',
+      title: '5.28 회의록',
       writer: '김성빈',
       creationDate: '31.05.2018',
       views: 3,

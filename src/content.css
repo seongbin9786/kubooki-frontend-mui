@@ -31,6 +31,13 @@
   font-family: 'Noto Sans KR Bold', sans-serif !important;
 }
 
+.article__content h3 {
+  font-size: 1.5rem;
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+  font-family: 'Noto Sans KR Bold', sans-serif !important;
+}
+
 .article__content p {
   color: #262626;
   font-size: 1.2rem;

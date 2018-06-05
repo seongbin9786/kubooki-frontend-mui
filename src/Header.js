@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import compose from 'recompose/compose';
+import { withRouter } from 'react-router-dom';
 import withWidth from '@material-ui/core/withWidth';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,13 +11,13 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Avatar } from '@material-ui/core';
 
 import NavDrawer from './NavDrawer';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
 import SettingsDialog from './SettingsDialog';
-import { Avatar } from '@material-ui/core';
-import { withRouter } from 'react-router-dom';
+import Spacing from './Spacing';
 
 import personalMenuList from './MyPageTabConfig';
 
@@ -162,7 +163,7 @@ class ButtonAppBar extends Component {
             }
           </Toolbar>
         </AppBar>
-        <div style={{ height: width === 'xs' ? 56 : 64 }} />
+        <Spacing height={width === 'xs' ? 56 : 64} />
       </React.Fragment>
     );
   }

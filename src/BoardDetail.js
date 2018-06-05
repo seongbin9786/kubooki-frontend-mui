@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles, Typography } from '@material-ui/core';
 import './content.css';
 import CommentList from './CommentList';
+import Spacing from './Spacing';
 import { commentList, userDemo } from './store';
 
 const styles = theme => ({
@@ -77,11 +78,11 @@ function BoardDetail({ classes, item, useComment, useLike }) {
 
       {useComment
         ? <CommentList
-          list={null}
+          list={commentList}
           user={userDemo}
           writebox
           showLoadMoreBtn />
-        : null
+        : <Spacing height={100} />
       }
 
     </div>

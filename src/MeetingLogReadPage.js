@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { termsOfUse } from './store';
+import { meetingLogData } from './store';
 import BoardDetail from './BoardDetail';
 
-export default function TermsOfService() {
+export default function MeetingLogReadPage() {
   return (
     <BoardDetail
-      item={termsOfUse}
+      item={meetingLogData}
       useComment
     />
   );

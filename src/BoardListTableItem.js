@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { TableCell, TableRow } from '@material-ui/core';
 
@@ -13,12 +14,16 @@ const styles = theme => ({
   },
 });
 
-function SimpleTable({ classes, item }) {
+function SimpleTable({ classes, item, linkTemplate }) {
   const { id, title, writer, creationDate, views } = item;
+  const url = `${linkTemplate}/${id}`;
+
   return (
     <TableRow key={id}>
       <TableCell>{id}</TableCell>
-      <TableCell>{title}</TableCell>
+      <TableCell>
+        <Link to={url}>{title}</Link>
+      </TableCell>
       <TableCell>{writer}</TableCell>
       <TableCell>{creationDate}</TableCell>
       <TableCell numeric>{views}</TableCell>
