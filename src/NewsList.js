@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import GridListTemplate from './GridListTemplate';
-import HeadlineNewsItem from './HeadlineNewsItem';
+import NewsHeadlineItem from './NewsHeadlineItem';
 import NewsItem from './NewsItem';
 import { TabList } from './NewsTabConfig';
 
@@ -19,7 +19,7 @@ function NewsList({ classes, location: { pathname }, index, newsList }) {
   const [currentTab] = TabList[index];
 
   const items = [
-    index === 0 ? <HeadlineNewsItem key='head' /> : null,
+    index === 0 ? <NewsHeadlineItem key='head' /> : null,
     ...(newsList.map(
       news => pathname === '/' || currentTab === news.category
         ? <NewsItem news={news} key={news.id} />

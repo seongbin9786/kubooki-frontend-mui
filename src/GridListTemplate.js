@@ -38,8 +38,7 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(withRouter(({ classes, title, titleType, subHeader, items, spacing, btnStr }) => {
-
+export default withStyles(styles)(withRouter(({ classes, title, titleType, subHeader, items, spacing, btnStr, noMoreLoadBtn }) => {
   return (
     <React.Fragment>
       <div className={classes.spacing}></div>
@@ -53,7 +52,7 @@ export default withStyles(styles)(withRouter(({ classes, title, titleType, subHe
           {items}
         </GridList >
 
-        <LoadMoreBtn btnStr={btnStr} />
+        {noMoreLoadBtn ? null : <LoadMoreBtn btnStr={btnStr} />}
       </div >
     </React.Fragment>
   );

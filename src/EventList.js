@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Typography } from '@material-ui/core';
 
 import GridListTemplate from './GridListTemplate';
 import EventItem from './EventItem';
+import EventHeadlineItem from './EventHeadlineItem';
 
 const styles = theme => ({
-  filter: {
-    display: 'inline-flex',
-    position: 'relative',
-    flexShrink: 0,
-    verticalAlign: 'middle',
-
-    color: 'rgba(0, 0, 0, .87)',
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit * 2,
+  subHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    height: 40,
+    paddingLeft: 10,
+    borderLeft: '8px solid',
+    borderColor: theme.palette.primary.main,
+  },
+  sortTitle: {
+    fontFamily: 'Noto Sans KR Bold, sans-serif',
   }
 });
 
 class EventList extends Component {
   state = {
-    participatingFilter: true,
-    progressFilter: true,
   }
 
   handleChange = name => event => {
@@ -31,48 +29,28 @@ class EventList extends Component {
 
   render() {
     const { eventList, classes } = this.props;
-    const { participatingFilter, progressFilter } = this.state;
 
     const items = eventList.map(
       (event, index) => <EventItem event={event} key={index} />
     );
 
     const subHeader = (
-      <div>
-        <span className={classes.filter}>필터 옵션: </span>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={progressFilter}
-              onChange={this.handleChange('progressFilter')}
-              color='primary'
-            />
-          }
-          label="진행 중"
-        />
-        <FormControlLabel
-          control={
-            <Switch
-              checked={participatingFilter}
-              onChange={this.handleChange('participatingFilter')}
-              color='primary'
-            />
-          }
-          label="참여 중"
-        />
+      <div className={classes.subHeader}>
+        <Typography variant='headline' className={classes.sortTitle}>진행중인 이벤트</Typography>
       </div>
     );
 
     return (
       <React.Fragment>
+        <EventHeadlineItem />
+
         <GridListTemplate
-          title='이벤트 목록'
           titleType='display1'
-          subHeader={subHeader}
           items={items}
+          subHeader={subHeader}
           spacing={16}
           titleLeftmargin={24}
-          btnStr='이벤트 더 불러오기'
+          noMoreLoadBtn
         />
       </React.Fragment>
     );
