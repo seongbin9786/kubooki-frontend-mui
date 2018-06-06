@@ -15,14 +15,14 @@ const styles = theme => ({
   },
   title: {
     marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit * -1,
+    marginBottom: theme.spacing.unit * 5,
   },
 });
 
 const MyCommentsPage = ({ classes, history }) => {
   return (
     <div className={classes.root}>
-      <Typography variant='display1'>내가 작성한 댓글</Typography>
+      <Typography variant='display1' className={classes.title}>내가 작성한 댓글</Typography>
 
       <CommentList
         list={myCommentList}

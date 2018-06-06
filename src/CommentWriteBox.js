@@ -3,7 +3,6 @@ import { Typography, Button, Paper, withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
-    width: '100%',
     minHeight: '110px',
     marginTop: '40px',
     display: 'flex',

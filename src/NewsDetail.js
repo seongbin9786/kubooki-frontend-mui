@@ -21,13 +21,14 @@ import {
 const styles = theme => ({
   article: {
     padding: '0 20px',
-    paddingTop: '100px',
+    marginTop: 80,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    alignItems: 'center',
   },
   header: {
     textAlign: 'center',
+    marginBottom: 40,
   },
   yellowHighlight: {
     display: 'inline-block',
@@ -36,7 +37,6 @@ const styles = theme => ({
     textDecoration: 'none',
   },
   title: {
-    margin: '0 auto 40px',
     marginTop: '60px',
     marginBottom: '60px',
     fontSize: '30px',
@@ -52,12 +52,8 @@ const styles = theme => ({
     textDecoration: 'none',
   },
   footer: {
-    margin: '80px 0 60px',
+    marginTop: '80px',
     textAlign: 'center',
-  },
-  footerMenus: {
-    margin: '0 auto',
-    marginBottom: 30,
   },
   correctionBtn: {
     color: 'rgba(0, 0, 0, .6)',
@@ -73,8 +69,12 @@ const styles = theme => ({
     textAlign: 'center'
   },
   listIndicator: {
-    margin: '50px 0',
+    marginBottom: '40px',
     color: theme.palette.primary.main
+  },
+  divider: {
+    width: '100%',
+    margin: '40px 0',
   },
 });
 
@@ -121,21 +121,21 @@ class NewsDetail extends Component {
 
         </footer>
 
+        <Divider className={classes.divider} />
+
         <NameCard
           writer={writerDemo}
+          size={500}
         />
 
-        <div className={classes.footerMenus}>
-
-          <FaIconBtn
-            iconLeft
-            btnStr='기사의 내용 중 일부가 잘못된 경우'
-            type='exclamation-triangle'
-            variant='outlined'
-            onClick={this.toggleCorrectionDialog}
-            className={classes.correctionBtn}
-          />
-        </div>
+        <FaIconBtn
+          iconLeft
+          btnStr='기사의 내용 중 일부가 잘못된 경우'
+          type='exclamation-triangle'
+          variant='outlined'
+          onClick={this.toggleCorrectionDialog}
+          className={classes.correctionBtn}
+        />
 
         {correctionOpen
           ? <CorrectionWriteDialog
@@ -146,7 +146,7 @@ class NewsDetail extends Component {
           : null
         }
 
-        <Divider />
+        <Divider className={classes.divider} />
 
         <CommentList
           list={commentList}
@@ -155,7 +155,7 @@ class NewsDetail extends Component {
           showLoadMoreBtn
         />
 
-        <Divider />
+        <Divider className={classes.divider} />
 
         <div className={classes.listContainer}>
           <Typography variant='headline' className={classes.listIndicator}>

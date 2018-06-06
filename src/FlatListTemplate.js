@@ -3,14 +3,11 @@ import { Paper, Typography, withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
-    width: '1100px',
-    margin: '0 auto',
-    marginTop: '40px',
+    width: '100%',
+    maxWidth: 1100,
   },
   listContainer: {
-    marginTop: 20,
-    marginBottom: 80,
-    width: '100%',
+    margin: '20px 0',
   },
   noContent: {
     textAlign: 'center',

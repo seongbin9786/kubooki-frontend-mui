@@ -11,7 +11,6 @@ const styles = theme => ({
 
     position: 'relative',
     display: 'flex',
-
     minHeight: 80,
   },
   commentRoot: {
@@ -78,7 +77,6 @@ const styles = theme => ({
     resize: 'none',
     maxHeight: '100%',
     width: '100%',
-
     fontFamily: '"Roboto", sans-serif',
     display: 'block',
     fontSize: '1rem',
@@ -131,7 +129,7 @@ class CommentItem extends Component {
               <textarea
                 className={classes.input}
                 onChange={this.handleInputChange}
-                value={console.log(editText) || editText}
+                value={editText}
               />
               : <Typography variant='subheading'>{content}</Typography>
             }

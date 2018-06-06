@@ -10,9 +10,7 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     height: '150px',
-    width: '1000px',
-    margin: '0 auto',
-    marginBottom: '120px',
+    marginBottom: '40px',
   },
   details: {
     display: 'flex',
@@ -29,10 +27,10 @@ const styles = theme => ({
   },
 });
 
-function MediaControlCard({ classes, theme, writer }) {
+function MediaControlCard({ classes, theme, writer, size }) {
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} style={size ? { width: size + 'px' } : { width: '1000px' }}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <div>

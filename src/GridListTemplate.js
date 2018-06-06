@@ -9,6 +9,7 @@ import LoadMoreBtn from './LoadMoreBtn';
 
 const styles = theme => ({
   root: {
+    width: '100%',
     maxWidth: 1280,
     marginLeft: 'auto',
     marginRight: 'auto',
