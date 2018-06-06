@@ -1,9 +1,10 @@
-import React from 'react';
-import classNames from 'classnames';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { Typography, Divider } from '@material-ui/core';
 
+import FaIconBtn from './FaIconBtn';
+import CorrectionWriteDialog from './CorrectionWriteDialog';
 import NewsList from './NewsList';
 import NameCard from './NameCard';
 import CommentList from './CommentList';
@@ -54,6 +55,14 @@ const styles = theme => ({
     margin: '80px 0 60px',
     textAlign: 'center',
   },
+  footerMenus: {
+    margin: '0 auto',
+    marginBottom: 30,
+  },
+  correctionBtn: {
+    color: 'rgba(0, 0, 0, .6)',
+    border: '1px #ECCA30 solid',
+  },
   date: {
     display: 'block',
     marginTop: '20px',
@@ -66,68 +75,102 @@ const styles = theme => ({
   listIndicator: {
     margin: '50px 0',
     color: theme.palette.primary.main
-  }
+  },
 });
 
-const NewsDetail = ({ classes }) => (
-  <article className={classes.article}>
+class NewsDetail extends Component {
+  state = {
+    correctionOpen: false,
+  };
 
-    <header className={classes.header}>
-      <Link to="/" className={classes.yellowHighlight}>{news.category}</Link>
-      <Typography
-        className={classes.title}
-        variant="display2"
-      >
-        {news.title}
-      </Typography>
-      <p>
-        <span className={classes.writtenBy}>작성자</span>
-        <Link className={classes.author} to="/">{news.writer}</Link>
-      </p>
-    </header>
+  toggleCorrectionDialog = () => this.setState(({ correctionOpen }) => ({ correctionOpen: !correctionOpen }));
 
-    <section
-      className='article__content'
-      dangerouslySetInnerHTML={{ __html: newsDetailContent }}
-    />
+  render() {
+    const { classes } = this.props;
+    const { correctionOpen } = this.state;
 
-    <footer className={classes.footer}>
+    return (
+      <article className={classes.article}>
 
-      <p className="post__author">
-        <span className={classes.writtenBy}>작성자</span>
-        <Link className={classes.yellowHighlight} to="/">{news.writer}</Link>
-      </p>
-      <time className={classes.date}>{news.lastUpdatedDate}</time>
+        <header className={classes.header}>
+          <Link to="/" className={classes.yellowHighlight}>{news.category}</Link>
+          <Typography
+            className={classes.title}
+            variant="display2"
+          >
+            {news.title}
+          </Typography>
+          <p>
+            <span className={classes.writtenBy}>작성자</span>
+            <Link className={classes.author} to="/">{news.writer}</Link>
+          </p>
+        </header>
 
-    </footer>
+        <section
+          className='article__content'
+          dangerouslySetInnerHTML={{ __html: newsDetailContent }}
+        />
 
-    <NameCard
-      writer={writerDemo}
-    />
+        <footer className={classes.footer}>
 
-    <Divider />
+          <p className="post__author">
+            <span className={classes.writtenBy}>작성자</span>
+            <Link className={classes.yellowHighlight} to="/">{news.writer}</Link>
+          </p>
+          <time className={classes.date}>{news.lastUpdatedDate}</time>
 
-    <CommentList
-      list={commentList}
-      user={userDemo}
-      writebox
-      showLoadMoreBtn
-    />
+        </footer>
 
-    <Divider />
+        <NameCard
+          writer={writerDemo}
+        />
 
-    <div className={classes.listContainer}>
-      <Typography variant='headline' className={classes.listIndicator}>
-        <i className="fas fa-md fa-code-branch"></i> 같은 분류의 다른 기사
-      </Typography>
+        <div className={classes.footerMenus}>
 
-      <NewsList
-        index={TabList.findIndex(([category]) => category === news.category)}
-        newsList={newsList}
-      />
-    </div>
+          <FaIconBtn
+            iconLeft
+            btnStr='기사의 내용 중 일부가 잘못된 경우'
+            type='exclamation-triangle'
+            variant='outlined'
+            onClick={this.toggleCorrectionDialog}
+            className={classes.correctionBtn}
+          />
+        </div>
 
-  </article>
-);
+        {correctionOpen
+          ? <CorrectionWriteDialog
+            open={correctionOpen}
+            newsId={news.id}
+            handleClose={this.toggleCorrectionDialog}
+          />
+          : null
+        }
+
+        <Divider />
+
+        <CommentList
+          list={commentList}
+          user={userDemo}
+          writebox
+          showLoadMoreBtn
+        />
+
+        <Divider />
+
+        <div className={classes.listContainer}>
+          <Typography variant='headline' className={classes.listIndicator}>
+            <i className="fas fa-md fa-code-branch"></i> 같은 분류의 다른 기사
+          </Typography>
+
+          <NewsList
+            index={TabList.findIndex(([category]) => category === news.category)}
+            newsList={newsList}
+          />
+        </div>
+
+      </article>
+    );
+  }
+}
 
 export default withStyles(styles)(NewsDetail);

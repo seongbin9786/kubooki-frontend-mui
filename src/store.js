@@ -425,6 +425,7 @@ export const writerDemo = {
 };
 
 export const newsDetail = {
+  id: 1,
   category: '경기소식',
   title: '경기대학교 신입생들을 위한 새내기팁! 첫 번째, 통학버스와 고양이버스 안내',
   writer: '김성빈',
@@ -438,7 +439,7 @@ export const newsDetailContent = `
   <img class="img__center" src="https://www.creativeboom.com/uploads/articles/10/1087391e8fa7196b091ef219c859d26a28a84b40_1100.jpg" alt="© 김성빈" />
   <p>One of the most obvious aspects of Pyongyang which immediately caught his attention was its "retro vibe and architecture". Which is why, during his second visit, he aimed to photograph its unique urban landscape. Through this series, many of the buildings he captured have a very strong Soviet modernist influence with a distinctive Korean style of their own.'</p>
   <img class="img__center" src="https://www.creativeboom.com/uploads/articles/6c/6cd1f8b0e5c7be298ab56420ae842d91e8c761cb_1100.jpg" alt="© 김성빈" />
-  <p>"As opposed to many cities, which are now starting to look all the same worldwide, Pyongyang sees very little advertising or visual pollution, offering the visitor a very raw display of its urban form," Raphael adds. "To this day, Pyongyang is still one the most memorable places I have ever visited and, regardless of anyone\'s opinion on political or economic matters, I think it\'s fair to say that everyone visiting Pyongyang is left impressed by the city\'s strong and proud character.'</p>
+  <p>"As opposed to many cities, which are now starting to look all the same worldwide, Pyongyang sees very little advertising or visual pollution, offering the visitor a very raw display of its urban form," Raphael adds. "To this day, Pyongyang is still one the most memorable places I have ever visited and, regardless of anyone's opinion on political or economic matters, I think it's fair to say that everyone visiting Pyongyang is left impressed by the city's strong and proud character.'</p>
   <img class="img__center" src="https://www.creativeboom.com/uploads/articles/bd/bdfd408afb7bc318e152cf5cb07b0b0add3cc2d7_1100.jpg" alt="© 김성빈" />
   <p>"My images are only a glimpse into a world that seems so distant yet so real, but I encourage anyone curious about the DPRK to go and visit to make an idea for themselves." Discover more at <a href="http://www.raphaelolivier.com/urban/documentary/photographer/north-korea/pyongyang/vintage/socialist/architecture/">raphaelolivier.com</a>.</p>
   <img class="img__center" src="https://www.creativeboom.com/uploads/articles/17/17cf1e9c76e1fac17547ed8ebe4aedf6053fe98f_1100.jpg" alt="© 김성빈" />

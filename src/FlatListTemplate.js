@@ -3,7 +3,7 @@ import { Paper, Typography, withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
-    maxWidth: '1100px',
+    width: '1100px',
     margin: '0 auto',
     marginTop: '40px',
   },
