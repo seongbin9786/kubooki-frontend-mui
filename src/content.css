@@ -46,3 +46,12 @@
   -webkit-font-smoothing: antialiased;
   margin-bottom: 15px;
 }
+
+.article__content img {
+  max-width: 100%;
+}
+
+.article__content .img__center {
+  display: block;
+  margin: 0 auto;
+}

@@ -2,6 +2,28 @@ import User from './User';
 
 export const globalUser = new User('김성빈', 'MANAGER');
 
+export const eventItem = {
+  id: 1,
+  title: '거북이 12기 수습기자 모집',
+  writer: '관리자',
+  content: `
+    <h2>9월 1일, 드디어 개강이 다가왔습니다!</h2>
+      <img class='img__center' src='http://www.kubooki.com/xe/files/attach/images/41253/463/202/475ac4ded41c9d0d72752fa17de793f9.jpg' />
+      <p>그와 함께 경기대학교 웹지 거북이에서는 12기 수습기자를 모집합니다. 관심있는 학우들은 언제든 편하게 신청해주세요</p>
+      <p>또한 거북이에서는 12기 수습기자 모집과 함께 SNS 인증샷 이벤트를 진행합니다. 학교 곳곳에 있는 거북이 수습기자 모집 포스터와 본인의 신체부위 아무거나 같이 찍어 SNS에 인증해주세요! 학교 근처에도 있는 공차의 기프티콘을 드립니다~~ 학우들의 많은 참여 기다립니다 !</p>
+      <img class='img__center' src='http://www.kubooki.com/xe/files/attach/images/41253/463/202/d898c686b261d3d133d014aa2bd07452.jpg' />
+
+      <p>이벤트 기간 2018.06.05 ~ 2018.06.30</p>
+      <p>상품: 문화상품권 \\100,000원권</p>
+      <p>당첨자 발표일: 2018.06.30</p>
+
+    `,
+  creationDate: '2018.05.28',
+  lastUpdateDate: '2018.05.28',
+  views: 1,
+  likes: 1,
+};
+
 export const meetingLogData = {
   id: 1,
   title: '5.28 회의록',
