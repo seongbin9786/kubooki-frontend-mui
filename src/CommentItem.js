@@ -3,7 +3,10 @@ import { Typography, withStyles, Button } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 import { withRouter } from 'react-router-dom';
 
+import FaIcon from './FaIcon';
 import FaIconBtn from './FaIconBtn';
+import AlertDialog from './AlerDialog';
+import CommentReplyItem from './CommentReplyItem';
 
 const styles = theme => ({
   root: {
@@ -46,16 +49,24 @@ const styles = theme => ({
     border: 'none',
     color: theme.palette.primary.main,
   },
-  warpMenu: {
+  rightTop: {
     position: 'absolute',
     right: theme.spacing.unit,
     top: theme.spacing.unit,
-
+  },
+  warpMenu: {
     fontSize: 12,
     // top right bottom left
     // top+bottom left+right
     padding: '0',
     minWidth: 72,
+    minHeight: 32,
+  },
+  helpMenu: {
+    color: 'gray',
+    fontSize: 12,
+    padding: '0',
+    minWidth: 45,
     minHeight: 32,
   },
   authorMenu: {
@@ -82,12 +93,17 @@ const styles = theme => ({
     fontSize: '1rem',
     boxSizing: 'border-box',
   },
+  replyBtn: {
+    marginLeft: 30,
+  }
 });
 
 //TODO: 수정, 삭제 버튼 눌렸을 때 처리
 class CommentItem extends Component {
   state = {
+    isAskingAccuse: false,
     isEditing: false,
+    isReplying: false,
     editText: this.props.comment.content,
   }
 
@@ -96,8 +112,11 @@ class CommentItem extends Component {
   handleEditCancelBtnClick = () => this.setState({ isEditing: false, editText: this.props.comment.content });
   handleSubmitBtnClick = () => this.setState({ isEditing: false });
 
+  toggleAccuse = () => this.setState(({ isAskingAccuse }) => ({ isAskingAccuse: !isAskingAccuse }));
+  toggleOpen = name => () => this.setState({ [name]: !this.state[name] });
+
   render() {
-    const { isEditing, editText } = this.state;
+    const { isAskingAccuse, isEditing, isReplying, editText } = this.state;
     const { classes, comment, myCommentView, history } = this.props;
     const { id, writer, date, likes, liked, hated, content, targetNews } = comment;
 
@@ -135,12 +154,33 @@ class CommentItem extends Component {
             }
           </div>
 
-          {myCommentView ?
-            <Button variant="outlined" className={classes.warpMenu} onClick={() => history.push(`/news/${targetNews}`)}>
-              원문보기
-            </Button>
-            : null
-          }
+          <div className={classes.rightTop}>
+            {myCommentView ?
+              <Button variant="outlined" className={classes.warpMenu} onClick={() => history.push(`/news/${targetNews}`)}>
+                원문보기
+              </Button>
+              :
+              <React.Fragment>
+                <Button className={classes.helpMenu} onClick={this.toggleOpen('isReplying')}>
+                  답글
+                </Button>
+                <Button className={classes.helpMenu} onClick={this.toggleOpen('isAskingAccuse')}>
+                  신고
+                </Button>
+              </React.Fragment>
+            }
+          </div>
+
+          <AlertDialog
+            open={isAskingAccuse}
+            title='신고하기'
+            content='"경기대학교 신입생들을 위한 새내기팁! 첫 번째, 통학버스와 고양이버스 안내" 기사 댓글에서 김성빈님을 신고하시겠습니까?'
+            okText='네'
+            notOkText='아니오'
+            handleOk={this.toggleOpen('isAskingAccuse')}
+            handleNotOk={this.toggleOpen('isAskingAccuse')}
+            onClose={this.toggleOpen('isAskingAccuse')}
+          />
 
           <div className={classes.authorMenu}>
             <FaIconBtn
@@ -159,6 +199,15 @@ class CommentItem extends Component {
             />
           </div>
         </div>
+        {isReplying ?
+          <CommentReplyItem
+            writer={writer}
+            date={date}
+            id={id}
+            handleCancel={this.toggleOpen('isReplying')}
+          />
+          : null
+        }
       </React.Fragment>
     );
   }
