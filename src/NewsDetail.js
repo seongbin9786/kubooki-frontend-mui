@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { Typography, Divider } from '@material-ui/core';
@@ -9,8 +10,7 @@ import CommentList from './CommentList';
 import { TabList } from './NewsTabConfig';
 import {
   newsDetail as news,
-  newsDetailPageParagraphs,
-  newsDetailpageImages,
+  newsDetailContent,
   writerDemo,
   commentList,
   userDemo,
@@ -21,6 +21,9 @@ const styles = theme => ({
   article: {
     padding: '0 20px',
     paddingTop: '100px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   header: {
     textAlign: 'center',
@@ -46,25 +49,6 @@ const styles = theme => ({
     borderBottom: '2px #ECCA30 solid',
     color: '#000',
     textDecoration: 'none',
-  },
-  figure: {
-    margin: '80px auto',
-    marginBottom: '60px',
-    maxWidth: '1000px !important',
-  },
-  img: {
-    maxWidth: '100%',
-  },
-  figCaption: {
-    maxWidth: '1100px',
-  },
-  body: {
-    position: 'relative',
-  },
-  paragraph: {
-    marginBottom: '28px',
-    maxWidth: '700px',
-    margin: '0 auto',
   },
   footer: {
     margin: '80px 0 60px',
@@ -102,42 +86,10 @@ const NewsDetail = ({ classes }) => (
       </p>
     </header>
 
-    <section>
-
-      <figure className={classes.figure}>
-        <img
-          className={classes.img}
-          src="https://www.creativeboom.com/uploads/articles/2b/2be47fa48493c19a47bb27edee9d03e4c0335b04_1100.jpg"
-          alt="© 김성빈"
-          width="1100"
-        />
-        <figcaption className={classes.figCaption}>
-          <p style={{ margin: 0 }}>© 김성빈</p>
-        </figcaption>
-      </figure>
-
-      <div className={classes.body}>
-        {newsDetailPageParagraphs.map((content, index) => (
-          <p className={classes.paragraph} key={index} dangerouslySetInnerHTML={{ __html: content }}></p>
-        ))}
-
-        {newsDetailpageImages.map((imgUrl, index) => (
-          <figure className={classes.figure} key={index}>
-            <img
-              className={classes.img}
-              src={imgUrl}
-              alt="© 김성빈"
-              width="1100"
-            />
-            <figcaption className={classes.figCaption}>
-              <p style={{ margin: 0 }}>© 김성빈</p>
-            </figcaption>
-          </figure>
-        ))}
-
-      </div>
-
-    </section>
+    <section
+      className='article__content'
+      dangerouslySetInnerHTML={{ __html: newsDetailContent }}
+    />
 
     <footer className={classes.footer}>
 

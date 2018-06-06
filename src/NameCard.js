@@ -10,7 +10,7 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     height: '150px',
-    maxWidth: '1000px',
+    width: '1000px',
     margin: '0 auto',
     marginBottom: '120px',
   },
