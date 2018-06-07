@@ -355,7 +355,7 @@ export const myCommentList = [
     date: '2주 전',
     likes: '5',
     targetNews: 1,
-    content: '댓글 테스트 2'
+    content: '댓글 테스트 2'.repeat(10)
   },
   {
     id: '3',

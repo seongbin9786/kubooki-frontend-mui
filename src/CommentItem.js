@@ -144,7 +144,17 @@ class CommentItem extends Component {
   toggleAccuse = () => this.setState(({ isAskingAccuse }) => ({ isAskingAccuse: !isAskingAccuse }));
   toggleOpen = name => () => this.setState({ [name]: !this.state[name] });
 
-  handleRef = ({ clientHeight }) => this.setState({ collapsable: clientHeight > 96, isCollapsed: clientHeight > 96 });
+  handleRef = ref => {
+    if (!this.props.myCommentView) {
+      this.setState({ collapsable: false });
+      return;
+    }
+    // react-router로 페이지 이동 시 null 전달됨
+    if (!ref) return;
+
+    const { clientHeight } = ref;
+    this.setState({ collapsable: clientHeight > 105, isCollapsed: clientHeight > 105 });
+  }
 
   render() {
     const { isAskingAccuse, isEditing, isReplying, collapsable, isCollapsed, editText } = this.state;
