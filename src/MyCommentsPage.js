@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import { myCommentList } from './store';
 import CommentList from './CommentList';
+import Pagination from './Pagination';
 
 const styles = theme => ({
   root: {
@@ -27,8 +28,9 @@ const MyCommentsPage = ({ classes, history }) => {
       <CommentList
         list={myCommentList}
         myCommentView
-        showLoadMoreBtn
       />
+
+      <Pagination total={2} center />
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Typography, withStyles, Button } from '@material-ui/core';
+import classNames from 'classnames';
+import { Typography, withStyles, Button, Collapse } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 import { withRouter } from 'react-router-dom';
 
-import FaIcon from './FaIcon';
 import FaIconBtn from './FaIconBtn';
 import AlertDialog from './AlerDialog';
 import CommentReplyItem from './CommentReplyItem';
@@ -15,6 +15,9 @@ const styles = theme => ({
     position: 'relative',
     display: 'flex',
     minHeight: 80,
+  },
+  collapsed: {
+    boxShadow: 'inset 0 -10px 40px -10px lightgray',
   },
   commentRoot: {
     padding: theme.spacing.unit,
@@ -95,6 +98,30 @@ const styles = theme => ({
   },
   replyBtn: {
     marginLeft: 30,
+  },
+  collapseUpBtn: {
+    fontSize: '0.8rem',
+    width: 24,
+    height: 24,
+
+    position: 'absolute',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    left: 0,
+    right: 0,
+    bottom: 4,
+  },
+  collapseDownBtn: {
+    fontSize: '1rem',
+    width: 24,
+    height: 24,
+
+    position: 'absolute',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    left: 0,
+    right: 0,
+    top: 72,
   }
 });
 
@@ -104,6 +131,8 @@ class CommentItem extends Component {
     isAskingAccuse: false,
     isEditing: false,
     isReplying: false,
+    collapsable: false,
+    isCollapsed: false,
     editText: this.props.comment.content,
   }
 
@@ -115,14 +144,26 @@ class CommentItem extends Component {
   toggleAccuse = () => this.setState(({ isAskingAccuse }) => ({ isAskingAccuse: !isAskingAccuse }));
   toggleOpen = name => () => this.setState({ [name]: !this.state[name] });
 
+  handleRef = ({ clientHeight }) => this.setState({ collapsable: clientHeight > 96, isCollapsed: clientHeight > 96 });
+
   render() {
-    const { isAskingAccuse, isEditing, isReplying, editText } = this.state;
+    const { isAskingAccuse, isEditing, isReplying, collapsable, isCollapsed, editText } = this.state;
     const { classes, comment, myCommentView, history } = this.props;
     const { id, writer, date, likes, liked, hated, content, targetNews } = comment;
 
+    const Component = myCommentView ? Collapse : React.Fragment;
+    const props = myCommentView ? {
+      in: collapsable && !isCollapsed, // open
+      collapsedHeight: '96px',
+      className: collapsable && isCollapsed ? classes.collapsed : null
+    } : null;
+
     return (
-      <React.Fragment>
-        <div className={classes.root}>
+      <Component {...props}>
+        <div
+          className={classes.root}
+          ref={this.handleRef}
+        >
 
           <div className={classes.vote}>
             <button
@@ -198,6 +239,15 @@ class CommentItem extends Component {
               onClick={isEditing ? this.handleEditCancelBtnClick : null}
             />
           </div>
+          {console.log(this.state) || collapsable
+            ? <FaIconBtn
+              type={`caret-${isCollapsed ? 'down' : 'up'}`}
+              onlyIcon
+              className={classes[`collapse${isCollapsed ? 'Down' : 'Up'}Btn`]}
+              onClick={this.toggleOpen('isCollapsed')}
+            />
+            : null
+          }
         </div>
         {isReplying ?
           <CommentReplyItem
@@ -208,7 +258,7 @@ class CommentItem extends Component {
           />
           : null
         }
-      </React.Fragment>
+      </Component>
     );
   }
 }

@@ -22,9 +22,6 @@ const styles = theme => ({
   },
   pagination: {
     marginTop: 20,
-
-    display: 'flex',
-    justifyContent: 'center'
   }
 });
 
@@ -66,7 +63,7 @@ class BoardList extends Component {
         <BoardListTable rows={list} />
 
         <div className={classes.pagination}>
-          <Pagination total={totalItems} />
+          <Pagination total={totalItems} center />
         </div>
       </div>
     );

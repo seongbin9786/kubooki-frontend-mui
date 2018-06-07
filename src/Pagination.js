@@ -64,12 +64,13 @@ export default class Pagination extends Component {
   }
 
   render() {
+    const { center } = this.props;
     const { current } = this.state;
     const { start, end } = this.calculateRange();
     const array = this.populateArray(start, end);
 
     return (
-      <div>
+      <div style={center ? centerCSS : null}>
         {this.getNavBtn(true)}
         {array.map(value =>
           <PaginationItem
@@ -84,3 +85,5 @@ export default class Pagination extends Component {
     );
   }
 }
+
+const centerCSS = { display: 'flex', justifyContent: 'center' };
