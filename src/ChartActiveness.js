@@ -42,8 +42,8 @@ const data = [
 ];
 
 const gradientOffset = () => {
-  const dataMax = Math.max(...data.map((i) => i.uv));
-  const dataMin = Math.min(...data.map((i) => i.uv));
+  const dataMax = Math.max(...data.map((i) => i.활동점수));
+  const dataMin = Math.min(...data.map((i) => i.활동점수));
 
   if (dataMax <= 0) {
     return 0;
