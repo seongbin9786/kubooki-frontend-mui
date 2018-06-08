@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 import TabList from './DashboardTabConfig';
 import { globalUser as user } from './store';
+import Spacing from './Spacing';
 
 const styles = theme => ({
   root: {
@@ -35,7 +36,6 @@ function Dashboard({ classes, history, location: { pathname } }) {
   const tabsForUser = TabList.filter(({ role }) => user.hasRole(role));
   const index = tabsForUser.findIndex(({ link }) => link === pathname);
   const { component: Component } = tabsForUser[index];
-  console.log(Component);
 
   return (
     <React.Fragment>
@@ -48,6 +48,7 @@ function Dashboard({ classes, history, location: { pathname } }) {
         history={history}
         user={user}
       />
+      <Spacing height={57} />
     </React.Fragment>
   );
 }

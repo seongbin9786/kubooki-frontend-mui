@@ -2,6 +2,61 @@ import User from './User';
 
 export const globalUser = new User('김성빈', 'MANAGER');
 
+export const recentActivities = [
+  {
+    id: 1,
+    user: {
+      id: 1,
+      profile: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
+      name: '김성빈 수습기자'
+    },
+    activity: {
+      id: 1,
+      detail: '기사 초안을 작성',
+      date: '10분 전',
+    }
+  },
+  {
+    id: 2,
+    user: {
+      id: 1,
+      profile: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
+      name: '김성빈 편집부장'
+    },
+    activity: {
+      id: 1,
+      detail: '김성빈 기자의 기사를 피드백',
+      date: '30분 전',
+    }
+  },
+  {
+    id: 3,
+    user: {
+      id: 1,
+      profile: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
+      name: '김성빈 국장'
+    },
+    activity: {
+      id: 1,
+      detail: '공지사항을 작성',
+      date: '2시간 전',
+    }
+  },
+  {
+    id: 4,
+    user: {
+      id: 1,
+      profile: 'http://img.insight.co.kr/static/2017/05/23/700/1a16372410wjk3fx8pe9.jpg',
+      name: 'system',
+    },
+    activity: {
+      id: 1,
+      detail: '이벤트가 종료되었습니다.',
+      date: '5시간 전',
+    }
+  },
+];
+
 export const eventItem = {
   id: 1,
   title: '거북이 12기 수습기자 모집',

@@ -16,7 +16,7 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(({ classes, title, titleType, subHeader, items, noContentMsg, paperWrap, loadMoreBtn }) => {
+export default withStyles(styles)(({ classes, title, titleType, subHeader, items, noContentMsg, paperWrap, loadMoreBtn, noMargin }) => {
   const content = items
     ? items
     : <Typography
@@ -28,10 +28,10 @@ export default withStyles(styles)(({ classes, title, titleType, subHeader, items
 
   return (
     <div className={classes.root}>
-      <Typography variant={titleType}>{title}</Typography>
+      {title ? <Typography variant={titleType}>{title}</Typography> : null}
       {subHeader}
       <div
-        className={classes.listContainer}
+        className={noMargin ? null : classes.listContainer}
         elevation={1}
       >
         {paperWrap ? <Paper>{content}</Paper> : content}
