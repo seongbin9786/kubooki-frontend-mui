@@ -2,6 +2,33 @@ import User from './User';
 
 export const globalUser = new User('김성빈', 'MANAGER');
 
+export const attendanceUserList = [
+  {
+    id: 1,
+    profilePic: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
+    name: '성빈',
+    role: '정기자',
+    department: '개발부',
+    attendState: '지각',
+  },
+  {
+    id: 2,
+    profilePic: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
+    name: '성빈킴',
+    role: '수습기자',
+    department: '디자인부',
+    attendState: '출석',
+  },
+  {
+    id: 3,
+    profilePic: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
+    name: '김성빈',
+    role: '부장기자',
+    department: '개발부',
+    attendState: '결석',
+  },
+];
+
 export const recentActivities = [
   {
     id: 1,

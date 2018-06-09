@@ -35,7 +35,7 @@ class SearchBar extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, noMargin } = this.props;
     const { searchTerm } = this.state;
 
     // TODO 1: 매터리얼 UI로 TextField 만들기
@@ -51,7 +51,7 @@ class SearchBar extends Component {
           id="search"
           label="검색"
           type="search"
-          margin="normal"
+          margin={noMargin ? "none" : "normal"}
           value={searchTerm}
           onChange={({ target: { value } }) => this.handleSearchTermChange(value)}
           onKeyDown={this.search}
