@@ -363,6 +363,33 @@ export const eventList = [
   },
 ];
 
+export const correctionList = [
+  {
+    id: '1',
+    status: '답변대기',
+    title: '오탈자가 있습니다.',
+    writer: '김성빈',
+    reqDate: '2018.05.12',
+    resDate: '2018.05.12',
+    targetNews: {
+      id: 1,
+      title: '영문서류 클리닉 시행 안내'
+    }
+  },
+  {
+    id: '2',
+    status: '답변완료',
+    title: '학교 소개에 오류가 있습니다.',
+    writer: '김성빈',
+    reqDate: '2018.05.12',
+    resDate: '2018.05.12',
+    targetNews: {
+      id: 1,
+      title: '18학번 신입생들을 위한 학교 소개...'
+    }
+  },
+];
+
 export const feedbackList = [
   {
     id: '1',

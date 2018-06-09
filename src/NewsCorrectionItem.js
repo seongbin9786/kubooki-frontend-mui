@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Paper, withStyles, Typography, Button } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
-
 import FaIcon from './FaIcon';
 
 const styles = theme => ({
@@ -20,24 +20,17 @@ const styles = theme => ({
   titleContainer: {
     paddingTop: theme.spacing.unit,
     paddingBottom: -4,
-    display: 'flex',
   },
-  chip: {
-    padding: '0 4px',
-    marginLeft: theme.spacing.unit,
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    verticalAlign: 'middle',
-    height: '1.5rem',
+  newsUrlAnchor: {
+    textDecoration: 'none',
   },
-  counter: {
-    color: theme.palette.primary.main,
-    fontSize: '2rem',
+  newsUrlText: {
+    transition: 'color 0.1s',
+    '&:hover': {
+      color: theme.palette.primary.main
+    }
   },
-  counterContainer: {
-    marginRight: theme.spacing.unit * 3,
-  },
-  writers: {
+  writer: {
     color: grey[500],
 
     display: 'inline-block',
@@ -83,33 +76,34 @@ const styles = theme => ({
 });
 
 /*
-  id: '3',
-  title: '2018학년도 \'봄, 소풍\' 봄 축제 3일차 거리행사',
-  short: false,
-  lastReqDate: '15.05.2018',
-  lastResDate: '-',
-  status: '피드백 요청',
+  id: '1',
+  status: '답변대기',
+  title: '영문서류 클리닉에 오탈자가 있습니다.',
+  writer: '김성빈',
+  date: '2018.05.12',
+  targetNews: 1,
 */
-function FeedbackItem({ classes, item }) {
-
-  const { id, title, writers, short, feedbackCount, lastReqDate, lastResDate, status } = item;
-  const isFeedbackDone = status === '피드백 완료됨';
+function NewsCorrectionItem({ classes, item, history }) {
+  const { id, status, title, writer, reqDate, resDate, targetNews } = item;
+  const isFeedbackDone = status === '답변완료';
+  const newsUrl = `/news/${targetNews.id}`;
 
   return (
     <Paper className={classes.root}>
       <header className={classes.header}>
         <div className={classes.titleContainer}>
           <Typography variant='title'>{title}</Typography>
-          {short ? <span className={classes.chip}>단신</span> : null}
+          <Link to={newsUrl} className={classes.newsUrlAnchor}>
+            <Typography variant='caption' className={classes.newsUrlText}>{'원문: ' + targetNews.title}</Typography>
+          </Link>
         </div>
-        <span className={classes.counterContainer}><b className={classes.counter}>{feedbackCount}</b>회</span>
       </header>
       <main className={classes.status}>
         <div>
-          <Typography variant='subheading' className={classes.writers}>{writers.toString()}</Typography>
-          <Typography variant='subheading' className={classes.date}>{lastReqDate + ' 요청'}</Typography>
+          <Typography variant='subheading' className={classes.writer}>{'요청: ' + writer}</Typography>
+          <Typography variant='subheading' className={classes.date}>{reqDate + ' 요청'}</Typography>
           <br />
-          <Typography variant='subheading' className={classes.dateNext}>{lastResDate + ' 완료'}</Typography>
+          <Typography variant='subheading' className={classes.dateNext}>{resDate + ' 완료'}</Typography>
         </div>
         <Button className={classes.btn} disabled={!isFeedbackDone}>확인</Button>
       </main>
@@ -122,4 +116,4 @@ function FeedbackItem({ classes, item }) {
   );
 };
 
-export default withStyles(styles)(FeedbackItem);
+export default withStyles(styles)(NewsCorrectionItem);

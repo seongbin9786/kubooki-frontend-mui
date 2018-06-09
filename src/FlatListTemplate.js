@@ -16,7 +16,17 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(({ classes, title, titleType, subHeader, items, noContentMsg, paperWrap, loadMoreBtn, noMargin }) => {
+function FlatListTemplate({
+  classes,
+  title,
+  titleType,
+  subHeader,
+  items,
+  noContentMsg,
+  paperWrap,
+  loadMoreBtn,
+  noMargin
+}) {
   const content = items
     ? items
     : <Typography
@@ -39,4 +49,6 @@ export default withStyles(styles)(({ classes, title, titleType, subHeader, items
       </div>
     </div>
   );
-});
+};
+
+export default withStyles(styles)(FlatListTemplate);
