@@ -21,9 +21,25 @@ const styles = theme => ({
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
   },
+  rootNoBottomMargin: {
+    width: '100%',
+    maxWidth: 1280,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 10,
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
+  },
   oneline: {
     marginLeft: 12,
-    height: '50px !important',
+    // Grid 기본 값 오버라이드
+    width: '100% !important',
+    height: 'auto !important',
+    padding: '0 !important',
+    marginLeft: '0 !important',
   },
   spacing: {
     marginTop: '40px',
@@ -39,11 +55,11 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(withRouter(({ classes, title, titleType, subHeader, items, spacing, btnStr, noMoreLoadBtn }) => {
+export default withStyles(styles)(withRouter(({ classes, title, titleType, subHeader, items, spacing, btnStr, noMoreLoadBtn, noBottomMargin }) => {
   return (
     <React.Fragment>
       <div className={classes.spacing}></div>
-      <div className={classes.root}>
+      <div className={classes[noBottomMargin ? 'rootNoBottomMargin' : 'root']}>
         <GridList
           className={classes.gridList}
           spacing={spacing ? spacing : 16}

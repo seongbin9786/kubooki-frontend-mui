@@ -20,7 +20,7 @@ const styles = theme => ({
   }
 });
 
-function EventList({ eventList, classes, history }) {
+function EventList({ eventList, classes, history, dontDisplayAsHeadline }) {
   const handleClick = eventNum => () => history.push(`/events/${eventNum}`);
 
   const items = eventList.map(
@@ -36,7 +36,7 @@ function EventList({ eventList, classes, history }) {
   return (
     <React.Fragment>
 
-      <EventHeadlineItem />
+      {dontDisplayAsHeadline ? null : <EventHeadlineItem />}
 
       <GridListTemplate
         titleType='display1'

@@ -44,11 +44,7 @@ class BoardList extends Component {
         <Typography variant='display1' className={classes.title}>{boardTitle}</Typography>
 
         <div className={addButtonRightAlign ? classes.rightAlign : null}>
-          <CreateIcon
-            variant="fab"
-            color="primary"
-            onClick={this.toggleDialog}
-          />
+          <CreateIcon onClick={this.toggleDialog} />
         </div>
 
         {writeDialogOpen

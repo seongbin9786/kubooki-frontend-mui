@@ -9,8 +9,6 @@ const styles = theme => ({
     zIndex: 1,
   },
   rootNoMargin: {
-    paddingLeft: 24,
-    paddingRight: 24,
     zIndex: 1,
   }
 });

@@ -1,7 +1,6 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import { Paper } from '@material-ui/core';
+import moment from 'moment';
+import { withStyles, TextField, Paper } from '@material-ui/core';
 import FaIconBtn from './FaIconBtn';
 
 const styles = theme => ({
@@ -21,6 +20,8 @@ const styles = theme => ({
 });
 
 function DatePickers({ classes, right }) {
+  const today = moment().format('YYYY[-]MM[-]DD');
+
   return (
     <div className={right ? classes.container : null}>
       <Paper className={classes.paper}>
@@ -28,7 +29,7 @@ function DatePickers({ classes, right }) {
           id="date"
           label="날짜"
           type="date"
-          defaultValue="2018-06-10" // today!
+          defaultValue={today}
           className={classes.textField}
           InputLabelProps={{
             shrink: true,

@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -53,10 +54,13 @@ const toolbarStyles = theme => ({
     flex: '0 0 auto',
     marginRight: 4,
   },
+  today: {
+    whiteSpace: 'nowrap',
+  }
 });
 
 const currentDepartment = '개발부';
-const today = '2018.06.10';
+const today = moment().format('YYYY[-]MM[-]DD');
 
 let EnhancedTableToolbar = props => {
   const { numSelected, classes } = props;
@@ -73,12 +77,12 @@ let EnhancedTableToolbar = props => {
             {numSelected}명 선택됨
           </Typography>
         ) : (
-          <Typography variant="title" id="tableTitle">
-            {currentDepartment + ' 출석부'}
-          </Typography>
-        )}
+            <Typography variant="title" id="tableTitle">
+              {currentDepartment + ' 출석부'}
+            </Typography>
+          )}
       </div>
-      <Typography variant='caption'>{today}</Typography>
+      <Typography variant='caption' className={classes.today}>{today}</Typography>
       <div className={classes.spacer} />
       <div className={classes.actions}>
         {numSelected > 0 ? (

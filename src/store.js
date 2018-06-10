@@ -2,6 +2,35 @@ import User from './User';
 
 export const globalUser = new User('김성빈', 'MANAGER');
 
+export const popupDetail = {
+  id: 1,
+  title: '에버랜드 썸머 스플래쉬 제휴',
+  content: '<p>Some kind of HTML here!</p>',
+  startDate: '2018-06-10',
+  endDate: '2018-07-31',
+  views: 500,
+  likes: 30,
+  noShowCount: 2000,
+  priority: 1,
+};
+
+export const popupList = [
+  {
+    id: 1,
+    title: '에버랜드 썸머 스플래쉬 제휴',
+    content: '<p>Some kind of HTML here!</p>',
+    startDate: '2018.06.10',
+    endDate: '2018.07.31',
+  },
+  {
+    id: 2,
+    title: '이젠 롯데월드~',
+    content: '<p>Some kind of HTML here!</p>',
+    startDate: '2018.06.01',
+    endDate: '2018.06.30',
+  },
+];
+
 // MAX: 14
 // 웹 출석은 50% 이상=2, 50%미만=1
 // 회의는 / 3.5 의 몫 (최대 4)

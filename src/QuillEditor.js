@@ -4,9 +4,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 import { modules, formats } from './QuillConfig';
 
-function QuillEditor({ value, onChange }) {
+function QuillEditor({ value, onChange, ...props }) {
   return (
-    <div style={{ marginTop: '16px', marginBottom: '4px' }}>
+    <div {...props} style={{ marginTop: '16px', marginBottom: '4px' }}>
       <InputLabel>내용</InputLabel>
       <ReactQuill
         id='editor'
