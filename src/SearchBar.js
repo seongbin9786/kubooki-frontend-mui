@@ -7,6 +7,11 @@ const styles = theme => ({
     paddingLeft: 24,
     paddingRight: 24,
     zIndex: 1,
+  },
+  rootNoMargin: {
+    paddingLeft: 24,
+    paddingRight: 24,
+    zIndex: 1,
   }
 });
 
@@ -35,7 +40,7 @@ class SearchBar extends Component {
   }
 
   render() {
-    const { classes, noMargin } = this.props;
+    const { classes, noMargin, label } = this.props;
     const { searchTerm } = this.state;
 
     // TODO 1: 매터리얼 UI로 TextField 만들기
@@ -44,14 +49,14 @@ class SearchBar extends Component {
     // TODO 4: 검색 아이콘 위치시키기
     return (
       <div
-        className={classes.root}
+        className={classes[noMargin ? 'rootNoMargin' : 'root']}
         onClick={e => e.stopPropagation()}
       >
         <TextField
           id="search"
-          label="검색"
+          label={label ? label : '검색'}
           type="search"
-          margin={noMargin ? "none" : "normal"}
+          margin={noMargin ? 'none' : 'normal'}
           value={searchTerm}
           onChange={({ target: { value } }) => this.handleSearchTermChange(value)}
           onKeyDown={this.search}

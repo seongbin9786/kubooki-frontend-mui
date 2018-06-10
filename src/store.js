@@ -2,6 +2,44 @@ import User from './User';
 
 export const globalUser = new User('김성빈', 'MANAGER');
 
+// MAX: 14
+// 웹 출석은 50% 이상=2, 50%미만=1
+// 회의는 / 3.5 의 몫 (최대 4)
+export const attendanceValues = [
+  { date: '2018-05-01', count: 1, meetingAttend: 0, webAttend: 5, },
+  { date: '2018-05-02', count: 1, meetingAttend: 0, webAttend: 5, },
+  { date: '2018-05-03', count: 4, meetingAttend: 14, webAttend: 5, }, // 회의일
+  { date: '2018-05-04', count: 2, meetingAttend: 0, webAttend: 8, },
+  { date: '2018-05-05', count: 1, meetingAttend: 0, webAttend: 6, },
+  { date: '2018-05-06', count: 2, meetingAttend: 0, webAttend: 8, },
+  { date: '2018-05-07', count: 3, meetingAttend: 14, webAttend: 5, }, // 회의일
+  { date: '2018-05-08', count: 2, meetingAttend: 0, webAttend: 8, },
+  { date: '2018-05-09', count: 2, meetingAttend: 0, webAttend: 8, },
+  { date: '2018-05-10', count: 4, meetingAttend: 14, webAttend: 5, }, // 회의일
+  { date: '2018-05-11', count: 1, meetingAttend: 0, webAttend: 3, },
+  { date: '2018-05-12', count: 2, meetingAttend: 0, webAttend: 8, },
+  { date: '2018-05-13', count: 1, meetingAttend: 0, webAttend: 4, },
+  { date: '2018-05-14', count: 2, meetingAttend: 8, webAttend: 5, }, // 회의일
+  { date: '2018-05-15', count: 1, meetingAttend: 0, webAttend: 4, },
+  { date: '2018-05-16', count: 2, meetingAttend: 0, webAttend: 10, },
+  { date: '2018-05-17', count: 1, meetingAttend: 0, webAttend: 5, }, // 회의일
+  { date: '2018-05-18', count: 1, meetingAttend: 0, webAttend: 4, },
+  { date: '2018-05-19', count: 2, meetingAttend: 0, webAttend: 10, },
+  { date: '2018-05-20', count: 1, meetingAttend: 0, webAttend: 4, },
+  { date: '2018-05-21', count: 1, meetingAttend: 0, webAttend: 5, }, // 회의일
+  { date: '2018-05-21', count: 1, meetingAttend: 0, webAttend: 4, },
+  { date: '2018-05-22', count: 2, meetingAttend: 0, webAttend: 10, },
+  { date: '2018-05-23', count: 1, meetingAttend: 0, webAttend: 4, },
+  { date: '2018-05-24', count: 3, meetingAttend: 10, webAttend: 5, }, // 회의일
+  { date: '2018-05-25', count: 1, meetingAttend: 0, webAttend: 4, },
+  { date: '2018-05-26', count: 2, meetingAttend: 0, webAttend: 10, },
+  { date: '2018-05-27', count: 1, meetingAttend: 0, webAttend: 4, },
+  { date: '2018-05-28', count: 3, meetingAttend: 13, webAttend: 5, }, // 회의일
+  { date: '2018-05-29', count: 1, meetingAttend: 0, webAttend: 4, },
+  { date: '2018-05-30', count: 2, meetingAttend: 0, webAttend: 10, },
+  { date: '2018-05-31', count: 4, meetingAttend: 14, webAttend: 5, }, // 회의일
+];
+
 export const attendanceUserList = [
   {
     id: 1,
@@ -9,7 +47,10 @@ export const attendanceUserList = [
     name: '성빈',
     role: '정기자',
     department: '개발부',
-    attendState: '지각',
+    attendState: {
+      webAttend: '출석',
+      meetingAttend: '출석',
+    }
   },
   {
     id: 2,
@@ -17,7 +58,10 @@ export const attendanceUserList = [
     name: '성빈킴',
     role: '수습기자',
     department: '디자인부',
-    attendState: '출석',
+    attendState: {
+      webAttend: '결석',
+      meetingAttend: '지각',
+    }
   },
   {
     id: 3,
@@ -25,8 +69,11 @@ export const attendanceUserList = [
     name: '김성빈',
     role: '부장기자',
     department: '개발부',
-    attendState: '결석',
-  },
+    attendState: {
+      webAttend: '출석',
+      meetingAttend: '결석',
+    }
+  }
 ];
 
 export const recentActivities = [

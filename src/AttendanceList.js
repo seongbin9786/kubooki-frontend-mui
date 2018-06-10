@@ -26,7 +26,8 @@ class EnhancedTableHead extends React.Component {
           <TableCell>이름</TableCell>
           <TableCell>등급</TableCell>
           <TableCell>부서</TableCell>
-          <TableCell>출석여부</TableCell>
+          <TableCell>웹 출석여부</TableCell>
+          <TableCell>회의 출석여부</TableCell>
         </TableRow>
       </TableHead>
     );
@@ -50,10 +51,12 @@ const toolbarStyles = theme => ({
   },
   title: {
     flex: '0 0 auto',
+    marginRight: 4,
   },
 });
 
 const currentDepartment = '개발부';
+const today = '2018.06.10';
 
 let EnhancedTableToolbar = props => {
   const { numSelected, classes } = props;
@@ -70,11 +73,12 @@ let EnhancedTableToolbar = props => {
             {numSelected}명 선택됨
           </Typography>
         ) : (
-            <Typography variant="title" id="tableTitle">
-              {currentDepartment + ' 출석부'}
-            </Typography>
-          )}
+          <Typography variant="title" id="tableTitle">
+            {currentDepartment + ' 출석부'}
+          </Typography>
+        )}
       </div>
+      <Typography variant='caption'>{today}</Typography>
       <div className={classes.spacer} />
       <div className={classes.actions}>
         {numSelected > 0 ? (
@@ -164,13 +168,12 @@ class EnhancedTable extends React.Component {
             rowCount={data.length}
           />
           <TableBody>
-            {data.map(({ id, profilePic, name, role, department, attendState }) => {
+            {data.map(({ id, profilePic, name, role, department, attendState: { webAttend, meetingAttend } }) => {
               const isSelected = this.isSelected(id);
               return (
                 <TableRow
                   hover
                   onClick={event => this.handleClick(event, id)}
-                  role="checkbox"
                   tabIndex={-1}
                   key={id}
                   selected={isSelected}
@@ -183,7 +186,8 @@ class EnhancedTable extends React.Component {
                   </TableCell>
                   <TableCell>{role}</TableCell>
                   <TableCell>{department}</TableCell>
-                  <TableCell>{attendState}</TableCell>
+                  <TableCell>{webAttend}</TableCell>
+                  <TableCell>{meetingAttend}</TableCell>
                 </TableRow>
               );
             })}
