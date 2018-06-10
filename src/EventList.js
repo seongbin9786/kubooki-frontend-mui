@@ -1,36 +1,20 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { withStyles, Typography } from '@material-ui/core';
 
 import GridListTemplate from './GridListTemplate';
 import EventItem from './EventItem';
 import EventHeadlineItem from './EventHeadlineItem';
+import SortBar from './SortBar';
 
-const styles = theme => ({
-  subHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    height: 40,
-    paddingLeft: 10,
-    borderLeft: '8px solid',
-    borderColor: theme.palette.primary.main,
-  },
-  sortTitle: {
-    fontFamily: 'Noto Sans KR Bold, sans-serif',
-  }
-});
-
-function EventList({ eventList, classes, history, dontDisplayAsHeadline }) {
+function EventList({ eventList, history, customHandleClick, dontDisplayAsHeadline }) {
   const handleClick = eventNum => () => history.push(`/events/${eventNum}`);
 
   const items = eventList.map(
-    (event, index) => <EventItem event={event} key={index} handleClick={handleClick} />
+    (event, index) => <EventItem event={event} key={index} handleClick={customHandleClick ? customHandleClick : handleClick} />
   );
 
   const subHeader = (
-    <div className={classes.subHeader}>
-      <Typography variant='headline' className={classes.sortTitle}>진행중인 이벤트</Typography>
-    </div>
+    <SortBar tabName='진행 중인 이벤트' backgroundColor='white' leftHighlight />
   );
 
   return (
@@ -51,4 +35,4 @@ function EventList({ eventList, classes, history, dontDisplayAsHeadline }) {
   );
 }
 
-export default withStyles(styles)(withRouter(EventList));
+export default withRouter(EventList);

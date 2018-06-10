@@ -418,6 +418,38 @@ export const userDemo = {
   profileImg: 'https://st.depositphotos.com/2218212/2938/i/950/depositphotos_29387653-stock-photo-facebook-profile.jpg',
 };
 
+export const eventDetail = {
+  id: '1',
+  title: '에버랜드 썸머 스플래쉬 제휴',
+  content: '',
+  startDate: '2018-06-05',
+  endDate: '2018-08-30',
+  prize: '학생증 제시 30% 할인',
+  resultDate: '',
+  views: 5000,
+  likes: 3000,
+  participants: [
+    {
+      id: 1,
+      name: '김성빈',
+      date: '2018-06-10',
+      answers: [
+        '<p>네 거북이 좋아합니다.</p>',
+        '<p>네 거북이 매일 들어옵니다.</p>',
+      ],
+    },
+    {
+      id: 2,
+      name: '김성빈',
+      date: '2018-06-10',
+      answers: [
+        '<p>hi</p>',
+        '<p>test dummy data</p>',
+      ],
+    },
+  ],
+};
+
 export const eventList = [
   {
     id: '1',

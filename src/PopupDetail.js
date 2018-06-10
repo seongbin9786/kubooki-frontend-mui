@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withStyles, TextField, Typography, Button } from '@material-ui/core';
 
 import QuillEditor from './QuillEditor';
-import DeleteIcon from './DeleteIcon';
+import DeleteIconBtn from './DeleteIconBtn';
 
 const styles = theme => ({
   root: {
@@ -66,7 +66,7 @@ class PopupDetail extends Component {
         <div className={classes.header}>
           <Typography variant='display1'>팝업 관리 상세</Typography>
           {editMode ?
-            <DeleteIcon className={classes.headerBtn} />
+            <DeleteIconBtn className={classes.headerBtn} />
             : null}
         </div>
 
