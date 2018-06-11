@@ -160,6 +160,75 @@ export const recentActivities = [
   },
 ];
 
+export const eventDetail = {
+  // 이벤트 표시 (공통) 데이터
+  title: '에버랜드 썸머 스플래쉬 제휴',
+  startDate: '2018-06-05',
+  endDate: '2018-08-30',
+  resultDate: '',
+  prize: '학생증 제시 30% 할인',
+  questions: [
+    '평소에 거북이를 좋아하시나요?',
+    '평소에 거북이를 얼마나 이용하시나요?'
+  ],
+};
+
+export const eventParticipateDetail = {
+  // 이벤트 참여 (현재 선택된 참여하는 사람) 데이터
+  participant: {
+    id: 1,
+    name: '김성빈',
+  },
+  answerDate: '2018-06-10',
+  answers: [
+    '네 거북이 좋아합니다.',
+    '네 거북이 매일 들어옵니다.',
+  ],
+  wonPrize: false,
+  myPrize: '',
+};
+
+export const eventManageDetail = {
+  // 이벤트 관리 (관리 페이지에서 필요한 정보) 데이터
+  // 관리자 Only
+  content: `
+    <h2>9월 1일, 드디어 개강이 다가왔습니다!</h2>
+      <img class='img__center' src='http://www.kubooki.com/xe/files/attach/images/41253/463/202/475ac4ded41c9d0d72752fa17de793f9.jpg' />
+      <p>그와 함께 경기대학교 웹지 거북이에서는 12기 수습기자를 모집합니다. 관심있는 학우들은 언제든 편하게 신청해주세요</p>
+      <p>또한 거북이에서는 12기 수습기자 모집과 함께 SNS 인증샷 이벤트를 진행합니다. 학교 곳곳에 있는 거북이 수습기자 모집 포스터와 본인의 신체부위 아무거나 같이 찍어 SNS에 인증해주세요! 학교 근처에도 있는 공차의 기프티콘을 드립니다~~ 학우들의 많은 참여 기다립니다 !</p>
+      <img class='img__center' src='http://www.kubooki.com/xe/files/attach/images/41253/463/202/d898c686b261d3d133d014aa2bd07452.jpg' />
+
+      <p>이벤트 기간 2018.06.05 ~ 2018.06.30</p>
+      <p>상품: 문화상품권 \\100,000원권</p>
+      <p>당첨자 발표일: 2018.06.30</p>
+
+    `,
+  views: 5000,
+  likes: 3000,
+  noShowCount: 0,
+  priority: 1,
+  participants: [
+    {
+      id: 1,
+      name: '김성빈',
+      answerDate: '2018-06-10',
+      answers: [
+        '네 거북이 좋아합니다.',
+        '네 거북이 매일 들어옵니다.',
+      ],
+    },
+    {
+      id: 2,
+      name: '김성빈',
+      answerDate: '2018-06-10',
+      answers: [
+        'hi',
+        'test dummy data',
+      ],
+    },
+  ],
+};
+
 export const eventItem = {
   id: 1,
   title: '거북이 12기 수습기자 모집',
@@ -416,38 +485,6 @@ export const userDemo = {
   position: '수습 기자',
   introduction: '안녕하세요. 명함 구성 요소가 뭐가 있어야 할까요?',
   profileImg: 'https://st.depositphotos.com/2218212/2938/i/950/depositphotos_29387653-stock-photo-facebook-profile.jpg',
-};
-
-export const eventDetail = {
-  id: '1',
-  title: '에버랜드 썸머 스플래쉬 제휴',
-  content: '',
-  startDate: '2018-06-05',
-  endDate: '2018-08-30',
-  prize: '학생증 제시 30% 할인',
-  resultDate: '',
-  views: 5000,
-  likes: 3000,
-  participants: [
-    {
-      id: 1,
-      name: '김성빈',
-      date: '2018-06-10',
-      answers: [
-        '<p>네 거북이 좋아합니다.</p>',
-        '<p>네 거북이 매일 들어옵니다.</p>',
-      ],
-    },
-    {
-      id: 2,
-      name: '김성빈',
-      date: '2018-06-10',
-      answers: [
-        '<p>hi</p>',
-        '<p>test dummy data</p>',
-      ],
-    },
-  ],
 };
 
 export const eventList = [

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
 import BoardDetail from './BoardDetail';
-import { eventItem } from './store';
+import { eventItem, eventDetail, eventManageDetail, eventParticipateDetail } from './store';
 import EventParticipate from './EventParticipate';
-import EventParticipateDialog from './EventParticipateDialog';
+import EventDetail from './EventDetail';
 
 export default class EventDetailPage extends Component {
   state = {
-    participateDialogOpen: false,
+    detailOpen: false,
   };
 
   toggleModal = () => this.setState(
@@ -16,7 +16,7 @@ export default class EventDetailPage extends Component {
   );
 
   render() {
-    const { participateDialogOpen } = this.state;
+    const { detailOpen } = this.state;
     const footer = <EventParticipate handleClick={this.toggleModal} />;
 
     return (
@@ -27,12 +27,16 @@ export default class EventDetailPage extends Component {
           useLike
           footer={footer}
         />
-        {participateDialogOpen ?
-          <EventParticipateDialog
-            open={participateDialogOpen}
-            handleClose={this.toggleModal}
+
+        {detailOpen ?
+          <EventDetail
+            eventDetail={eventDetail}
+            eventManageDetail={eventManageDetail}
+            eventParticipateDetail={eventParticipateDetail}
           />
-          : null}
+          : null
+        }
+
       </React.Fragment>
     );
   }

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { withStyles, TextField, Typography, Button, Grid, ListItem, List, Avatar, Divider } from '@material-ui/core';
+import { withStyles, TextField, Typography, Button, Grid, Checkbox, FormControlLabel } from '@material-ui/core';
 
 import QuillEditor from './QuillEditor';
 import DeleteIconBtn from './DeleteIconBtn';
-import AddIconBtn from './AddIconBtn';
+import EventParticipantList from './EventParticipantList';
+import EventParticipantAnswers from './EventParticipantAnswers';
 
 const styles = {
   root: {
@@ -31,9 +32,6 @@ const styles = {
   grid: {
     padding: 8,
   },
-  title: {
-    marginBottom: 4,
-  },
   listContainer: {
     border: '1px solid lightgray',
     borderRadius: 5,
@@ -43,13 +41,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
   },
-  userContainer: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  avatar: {
-    marginRight: 8,
-  },
   awardBtn: {
     margin: 8,
   },
@@ -57,59 +48,93 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
   },
-  eventAnswer: {
-    padding: 8,
-  },
-  eventParticipantAddBtn: {
-    marginBottom: 4,
-  }
 };
 
 class EventDetail extends Component {
   constructor(props) {
     super(props);
 
-    const { eventDetail } = props;
+    const { eventDetail, eventManageDetail, eventParticipateDetail } = props;
 
     this.state = {
+      // 이벤트 표시 (공통) 데이터
       title: '',
-      content: '',
       startDate: '',
       endDate: '',
-      views: 0,
-      likes: 0,
-      noShowCount: 0,
-      priority: -1,
-      currentParticipant: 1,
+      resultDate: '',
+      prize: '',
+      questions: [],
       ...eventDetail,
 
-      // 데이터가 들어오는 경우 수정모드
-      editMode: Boolean(eventDetail),
+      // 이벤트 참여 (현재 선택된 참여하는 사람) 데이터
+      participant: {},
+      answerDate: '',
+      answers: [],
+      wonPrize: false,
+      myPrize: '',
+      ...eventParticipateDetail,
+
+      // 이벤트 관리 (관리 페이지에서 필요한 정보) 데이터
+      // 관리자 Only
+      content: '',
+      views: 0,
+      likes: 0,
+      participants: [],
+      noShowCount: 0,
+      priority: -1,
+      ...eventManageDetail,
+
+      // 관리자일 때만 이벤트 관리 데이터가 들어옴
+      manageMode: Boolean(eventManageDetail),
+
     };
   }
 
   handleChange = inputName => ({ target: { value } }) =>
     this.setState({ [inputName]: value });
 
+  handleAnswerChange = index => ({ target: { value } }) => {
+
+    this.setState(
+      ({ answers }) => ({
+        answers: [
+          ...answers.slice(0, index),
+          value,
+          ...answers.slice(index + 1),
+        ]
+      })
+    );
+  }
+
   handleQuillChange = value =>
     this.setState({ content: value });
 
   render() {
     const { classes } = this.props;
-    const { editMode, title, content, startDate, endDate, resultDate, views, likes, prize, participants, currentParticipant } = this.state;
-    const { name, date, answers } = participants[currentParticipant];
+    const {
+      // 이벤트 표시 데이터
+      title, startDate, endDate, resultDate, prize, questions,
+
+      // 이벤트 참여 데이터
+      participant, answerDate, answers, wonPrize, myPrize,
+
+      // 이벤트 관리 데이터
+      content, views, likes, participants, noShowCount, priority,
+
+      // 관리자 모드 여부
+      manageMode
+    } = this.state;
+    const { name } = participant;
 
     return (
       <div className={classes.root}>
         <div className={classes.header}>
-          <Typography variant='display1'>이벤트 관리 상세</Typography>
-          {editMode ?
-            <DeleteIconBtn className={classes.headerBtn} />
-            : null}
+          <Typography variant='display1'>{manageMode ? '이벤트 관리 상세' : `나의 이벤트 참여: ${title}`}</Typography>
+          {manageMode ? <DeleteIconBtn className={classes.headerBtn} /> : null}
         </div>
 
         <form>
-          {editMode ?
+          {manageMode ?
             <React.Fragment>
               <TextField
                 label="조회수"
@@ -134,11 +159,27 @@ class EventDetail extends Component {
                 className={classes.input}
                 disabled
               />
+
+              <TextField
+                label="다시 보지 않기 수"
+                type="number"
+                value={noShowCount}
+                className={classes.input}
+                disabled
+              />
+
+              <TextField
+                label="우선순위"
+                type="number"
+                value={priority}
+                className={classes.input}
+                disabled
+              />
+
+              <br />
             </React.Fragment>
             : null
           }
-
-          <br />
 
           <TextField
             id="title"
@@ -149,6 +190,7 @@ class EventDetail extends Component {
             type="text"
             fullWidth
             className={classes.input}
+            disabled={!manageMode}
           />
 
           <TextField
@@ -161,6 +203,7 @@ class EventDetail extends Component {
             InputLabelProps={{
               shrink: true,
             }}
+            disabled={!manageMode}
           />
 
           <TextField
@@ -173,11 +216,12 @@ class EventDetail extends Component {
             InputLabelProps={{
               shrink: true,
             }}
+            disabled={!manageMode}
           />
 
           <TextField
             id="resultDate"
-            label="발표날짜"
+            label="당첨자 발표일"
             type="date"
             value={resultDate}
             onChange={this.handleChange('resultDate')}
@@ -185,6 +229,7 @@ class EventDetail extends Component {
             InputLabelProps={{
               shrink: true,
             }}
+            disabled={!manageMode}
           />
 
           <TextField
@@ -194,13 +239,59 @@ class EventDetail extends Component {
             value={prize}
             onChange={this.handleChange('prize')}
             className={classes.input}
+            disabled={!manageMode}
           />
 
-          <QuillEditor
-            value={content}
-            onChange={this.handleQuillChange}
-            className={classes.input}
-          />
+          {!manageMode ?
+            <React.Fragment>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={wonPrize}
+                    value={wonPrize}
+                    disabled
+                  />
+                }
+                label="당첨 여부"
+              />
+
+              <TextField
+                id="myPrize"
+                label="내가 받은 상품"
+                type="text"
+                value={myPrize}
+                onChange={this.handleChange('myPrize')}
+                className={classes.input}
+                disabled={!manageMode}
+              />
+
+              {!manageMode && questions.map((question, index) =>
+                <TextField
+                  key={index}
+                  type="text"
+                  id={`q${index}`}
+                  name={`q${index}`}
+                  label={question}
+                  value={answers[index]}
+                  onChange={this.handleAnswerChange(index)}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  fullWidth
+                />
+              )}
+            </React.Fragment>
+            : null
+          }
+
+          {manageMode ?
+            <QuillEditor
+              value={content}
+              onChange={this.handleQuillChange}
+              className={classes.input}
+            />
+            : null
+          }
 
           <div className={classes.btnGroup}>
             <Button color="primary" className={classes.btn}>
@@ -212,80 +303,49 @@ class EventDetail extends Component {
           </div>
         </form>
 
-        <div className={classes.participants}>
-          <Grid container>
-            <Grid item xs={12} md={6} className={classes.grid}>
-              <div className={classes.spaceBetween}>
-                <Typography variant='title' className={classes.title}>이벤트 참여자 목록</Typography>
-                <AddIconBtn sm className={classes.eventParticipantAddBtn} />
-              </div>
-              <List className={classes.listContainer}>
-                {participants.map(({ name, date }, index) =>
-                  <React.Fragment key={index}>
-                    <ListItem button className={classes.listItem}>
-                      <div className={classes.userContainer}>
-                        <Avatar className={classes.avatar}>{name.charAt(0)}</Avatar>
-                        <Typography variant='subheading'>{name}</Typography>
-                      </div>
-                      <Typography variant='caption'>{'참여: ' + date}</Typography>
-                      <DeleteIconBtn sm color='default' />
-                    </ListItem>
-                    <Divider />
-                  </React.Fragment>
-                )}
-              </List>
-            </Grid>
+        {manageMode ?
+          <div className={classes.participants}>
+            <Grid container>
 
-            <Grid item xs={12} md={6} className={classes.grid}>
-              <Typography variant='title'>이벤트 참여자 상세</Typography>
+              <Grid item xs={12} md={6} className={classes.grid}>
+                <EventParticipantList participants={participants} />
+              </Grid>
 
-              <div className={classes.spaceBetween}>
-                <div>
-                  <TextField
-                    label="이름"
-                    type="text"
-                    value={name}
-                    className={classes.input}
-                    disabled
-                  />
+              <Grid item xs={12} md={6} className={classes.grid}>
+                <Typography variant='title'>이벤트 참여자 상세</Typography>
 
-                  <TextField
-                    label="응답날짜"
-                    type="date"
-                    value={date}
-                    className={classes.input}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    disabled
-                  />
+                <div className={classes.spaceBetween}>
+                  <div>
+                    <TextField
+                      label="이름"
+                      type="text"
+                      value={name}
+                      className={classes.input}
+                      disabled
+                    />
+
+                    <TextField
+                      label="응답날짜"
+                      type="date"
+                      value={answerDate}
+                      className={classes.input}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      disabled
+                    />
+                  </div>
+
+                  <Button variant='raised' color='primary' className={classes.awardBtn}>수여</Button>
                 </div>
 
-                <Button variant='raised' color='primary' className={classes.awardBtn}>수여</Button>
-              </div>
+                <EventParticipantAnswers answers={answers} />
+              </Grid>
 
-              <div className={classes.eventAnswer}>
-                <Typography variant='body2'>이벤트 응답</Typography>
-                <List className={classes.listContainer}>
-                  {answers.map((answer, index) =>
-                    <React.Fragment key={index}>
-                      <ListItem className={classes.listItem}>
-                        <div
-                          key={index}
-                          dangerouslySetInnerHTML={{
-                            __html: answer
-                          }}
-                        />
-                      </ListItem>
-                      <Divider />
-                    </React.Fragment>
-                  )}
-                </List>
-              </div>
             </Grid>
-
-          </Grid>
-        </div >
+          </div >
+          : null
+        }
       </div >
     );
   }

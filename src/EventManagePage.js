@@ -5,11 +5,9 @@ import SearchBar from './SearchBar';
 import EventDetail from './EventDetail';
 import CreateIcon from './CreateIcon';
 import EventList from './EventList';
-import { eventDetail, eventList } from './store';
+import { eventDetail, eventParticipateDetail, eventManageDetail, eventList } from './store';
 
 const styles = theme => ({
-  root: {
-  },
   header: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -19,8 +17,6 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     marginBottom: -20,
-  },
-  listContainer: {
   },
 });
 
@@ -34,7 +30,7 @@ class EventManagePage extends Component {
 
   render() {
     const { classes } = this.props;
-    const { detailId, detailOpen } = this.state;
+    const { detailOpen } = this.state;
 
     return (
       <div className={classes.root}>
@@ -50,7 +46,13 @@ class EventManagePage extends Component {
           <EventList eventList={eventList} customHandleClick={this.handleClick} dontDisplayAsHeadline />
         </div>
 
-        {detailOpen ? <EventDetail eventDetail={eventDetail} /> : null}
+        {detailOpen ?
+          <EventDetail
+            eventDetail={eventDetail}
+            eventManageDetail={eventManageDetail}
+            eventParticipateDetail={eventParticipateDetail}
+          />
+          : null}
       </div>
     );
   }

@@ -6,7 +6,7 @@ import EventItem from './EventItem';
 import EventHeadlineItem from './EventHeadlineItem';
 import SortBar from './SortBar';
 
-function EventList({ eventList, history, customHandleClick, dontDisplayAsHeadline }) {
+function EventList({ eventList, history, noSortBar, tabName, customHandleClick, dontDisplayAsHeadline }) {
   const handleClick = eventNum => () => history.push(`/events/${eventNum}`);
 
   const items = eventList.map(
@@ -14,7 +14,7 @@ function EventList({ eventList, history, customHandleClick, dontDisplayAsHeadlin
   );
 
   const subHeader = (
-    <SortBar tabName='진행 중인 이벤트' backgroundColor='white' leftHighlight />
+    <SortBar tabName={tabName ? tabName : '진행 중인 이벤트'} backgroundColor='white' leftHighlight />
   );
 
   return (
@@ -25,7 +25,7 @@ function EventList({ eventList, history, customHandleClick, dontDisplayAsHeadlin
       <GridListTemplate
         titleType='display1'
         items={items}
-        subHeader={subHeader}
+        subHeader={noSortBar ? null : subHeader}
         spacing={16}
         titleLeftmargin={24}
         noMoreLoadBtn
