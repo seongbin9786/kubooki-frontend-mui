@@ -55,7 +55,7 @@ const styles = theme => ({
   views: 1,
   likes: 1,
 */
-function BoardDetail({ classes, item, useComment, useLike }) {
+function BoardDetail({ classes, item, useComment, useLike, footer }) {
   const { title, writer, content, creationDate, lastUpdateDate, views, likes } = item;
   const writerPic = 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg';
 
@@ -75,6 +75,8 @@ function BoardDetail({ classes, item, useComment, useLike }) {
         className='article__content'
         dangerouslySetInnerHTML={{ __html: content }}
       />
+
+      {footer ? footer : null}
 
       {useComment
         ? <CommentList
