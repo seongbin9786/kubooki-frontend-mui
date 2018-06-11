@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
 import { Typography, withStyles, Button, Collapse } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 import { withRouter } from 'react-router-dom';
@@ -47,9 +46,7 @@ const styles = theme => ({
     color: grey[300],
   },
   voteBtnActive: {
-    padding: 0,
-    background: 'none',
-    border: 'none',
+    extend: 'voteBtn',
     color: theme.palette.primary.main,
   },
   rightTop: {
@@ -99,8 +96,7 @@ const styles = theme => ({
   replyBtn: {
     marginLeft: 30,
   },
-  collapseUpBtn: {
-    fontSize: '0.8rem',
+  collapseBtn: {
     width: 24,
     height: 24,
 
@@ -109,18 +105,15 @@ const styles = theme => ({
     marginRight: 'auto',
     left: 0,
     right: 0,
+  },
+  collapseUpBtn: {
+    extend: 'collapseBtn',
+    fontSize: '0.8rem',
     bottom: 4,
   },
   collapseDownBtn: {
+    extend: 'collapseBtn',
     fontSize: '1rem',
-    width: 24,
-    height: 24,
-
-    position: 'absolute',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    left: 0,
-    right: 0,
     top: 72,
   }
 });
