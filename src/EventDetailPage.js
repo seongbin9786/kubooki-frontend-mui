@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import BoardDetail from './BoardDetail';
-import { eventItem, eventDetail, eventManageDetail, eventParticipateDetail } from './store';
+import { eventItem, eventDetail } from './store';
 import EventParticipate from './EventParticipate';
 import EventDetail from './EventDetail';
 
@@ -10,14 +10,21 @@ export default class EventDetailPage extends Component {
     detailOpen: false,
   };
 
-  toggleModal = () => this.setState(
-    ({ participateDialogOpen }) =>
-      ({ participateDialogOpen: !participateDialogOpen })
+  toggle = () => this.setState(
+    ({ detailOpen }) =>
+      ({ detailOpen: !detailOpen })
   );
 
   render() {
     const { detailOpen } = this.state;
-    const footer = <EventParticipate handleClick={this.toggleModal} />;
+    const footer =
+      <React.Fragment>
+        {detailOpen ? null : <EventParticipate handleClick={this.toggle} />}
+        <EventDetail
+          eventDetail={eventDetail}
+          open={detailOpen}
+        />
+      </React.Fragment>;
 
     return (
       <React.Fragment>
@@ -27,16 +34,6 @@ export default class EventDetailPage extends Component {
           useLike
           footer={footer}
         />
-
-        {detailOpen ?
-          <EventDetail
-            eventDetail={eventDetail}
-            eventManageDetail={eventManageDetail}
-            eventParticipateDetail={eventParticipateDetail}
-          />
-          : null
-        }
-
       </React.Fragment>
     );
   }

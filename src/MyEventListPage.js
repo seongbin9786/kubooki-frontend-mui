@@ -47,13 +47,11 @@ class MyEventListPage extends Component {
           noSortBar
         />
 
-        {detailOpen ?
-          <EventDetail
-            eventDetail={eventDetail}
-            eventParticipateDetail={eventParticipateDetail}
-          />
-          : null
-        }
+        <EventDetail
+          open={detailOpen}
+          eventDetail={eventDetail}
+          eventParticipateDetail={eventParticipateDetail}
+        />
 
       </div>
     );

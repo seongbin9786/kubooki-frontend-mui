@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withStyles, TextField, Typography, Button, Grid, Checkbox, FormControlLabel } from '@material-ui/core';
+import { withStyles, TextField, Typography, Button, Grid, Checkbox, FormControlLabel, Collapse } from '@material-ui/core';
 
 import QuillEditor from './QuillEditor';
 import DeleteIconBtn from './DeleteIconBtn';
@@ -7,9 +7,10 @@ import EventParticipantList from './EventParticipantList';
 import EventParticipantAnswers from './EventParticipantAnswers';
 
 const styles = {
-  root: {
-    // GridListTemplate 때문에
-    marginTop: -80,
+  '@global': {
+    body: {
+      'scroll-behavior': 'smooth',
+    }
   },
   header: {
     display: 'flex',
@@ -85,6 +86,7 @@ class EventDetail extends Component {
       ...eventManageDetail,
 
       // 관리자일 때만 이벤트 관리 데이터가 들어옴
+      participateMode: Boolean(!eventParticipateDetail),
       manageMode: Boolean(eventManageDetail),
 
     };
@@ -110,7 +112,7 @@ class EventDetail extends Component {
     this.setState({ content: value });
 
   render() {
-    const { classes } = this.props;
+    const { classes, open } = this.props;
     const {
       // 이벤트 표시 데이터
       title, startDate, endDate, resultDate, prize, questions,
@@ -122,14 +124,33 @@ class EventDetail extends Component {
       content, views, likes, participants, noShowCount, priority,
 
       // 관리자 모드 여부
-      manageMode
+      manageMode,
+
+      // 참여 모드 여부
+      participateMode
     } = this.state;
     const { name } = participant;
+    const pageTitle = manageMode ? '이벤트 관리 상세' : (participateMode ? '아래 양식을 기록해주세요' : `나의 이벤트 참여: ${title}`);
+    const usingCollapse = Boolean(open !== undefined);
+    const Component = usingCollapse ? Collapse : React.Fragment;
+    const collapseProps = usingCollapse ? {
+      in: open,
+      collapsedHeight: '0px'
+    } : null;
+
+    if (open) {
+      setTimeout(() => {
+        const title = document.getElementById('pageTitle');
+        const input = document.getElementById(manageMode ? 'title' : 'q0');
+        window.scrollTo(0, title.getBoundingClientRect().top);
+        input.focus();
+      }, 300);
+    }
 
     return (
-      <div className={classes.root}>
+      <Component {...collapseProps}>
         <div className={classes.header}>
-          <Typography variant='display1'>{manageMode ? '이벤트 관리 상세' : `나의 이벤트 참여: ${title}`}</Typography>
+          <Typography variant='display1' id='pageTitle'>{pageTitle}</Typography>
           {manageMode ? <DeleteIconBtn className={classes.headerBtn} /> : null}
         </div>
 
@@ -261,6 +282,9 @@ class EventDetail extends Component {
                 type="text"
                 value={myPrize}
                 onChange={this.handleChange('myPrize')}
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 className={classes.input}
                 disabled={!manageMode}
               />
@@ -277,6 +301,7 @@ class EventDetail extends Component {
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  className={classes.input}
                   fullWidth
                 />
               )}
@@ -303,50 +328,51 @@ class EventDetail extends Component {
           </div>
         </form>
 
-        {manageMode ?
-          <div className={classes.participants}>
-            <Grid container>
+        {
+          manageMode ?
+            <div className={classes.participants}>
+              <Grid container>
 
-              <Grid item xs={12} md={6} className={classes.grid}>
-                <EventParticipantList participants={participants} />
-              </Grid>
+                <Grid item xs={12} md={6} className={classes.grid}>
+                  <EventParticipantList participants={participants} />
+                </Grid>
 
-              <Grid item xs={12} md={6} className={classes.grid}>
-                <Typography variant='title'>이벤트 참여자 상세</Typography>
+                <Grid item xs={12} md={6} className={classes.grid}>
+                  <Typography variant='title'>이벤트 참여자 상세</Typography>
 
-                <div className={classes.spaceBetween}>
-                  <div>
-                    <TextField
-                      label="이름"
-                      type="text"
-                      value={name}
-                      className={classes.input}
-                      disabled
-                    />
+                  <div className={classes.spaceBetween}>
+                    <div>
+                      <TextField
+                        label="이름"
+                        type="text"
+                        value={name}
+                        className={classes.input}
+                        disabled
+                      />
 
-                    <TextField
-                      label="응답날짜"
-                      type="date"
-                      value={answerDate}
-                      className={classes.input}
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      disabled
-                    />
+                      <TextField
+                        label="응답날짜"
+                        type="date"
+                        value={answerDate}
+                        className={classes.input}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        disabled
+                      />
+                    </div>
+
+                    <Button variant='raised' color='primary' className={classes.awardBtn}>수여</Button>
                   </div>
 
-                  <Button variant='raised' color='primary' className={classes.awardBtn}>수여</Button>
-                </div>
+                  <EventParticipantAnswers answers={answers} />
+                </Grid>
 
-                <EventParticipantAnswers answers={answers} />
               </Grid>
-
-            </Grid>
-          </div >
-          : null
+            </div >
+            : null
         }
-      </div >
+      </Component>
     );
   }
 }

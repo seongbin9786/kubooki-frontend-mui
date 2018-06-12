@@ -46,13 +46,12 @@ class EventManagePage extends Component {
           <EventList eventList={eventList} customHandleClick={this.handleClick} dontDisplayAsHeadline />
         </div>
 
-        {detailOpen ?
-          <EventDetail
-            eventDetail={eventDetail}
-            eventManageDetail={eventManageDetail}
-            eventParticipateDetail={eventParticipateDetail}
-          />
-          : null}
+        <EventDetail
+          open={detailOpen}
+          eventDetail={eventDetail}
+          eventManageDetail={eventManageDetail}
+          eventParticipateDetail={eventParticipateDetail}
+        />
       </div>
     );
   }
