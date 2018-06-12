@@ -4,7 +4,7 @@ import grey from '@material-ui/core/colors/grey';
 import { withRouter } from 'react-router-dom';
 
 import FaIconBtn from './FaIconBtn';
-import AlertDialog from './AlerDialog';
+import AlertDialog from './AlertDialog';
 import CommentReplyItem from './CommentReplyItem';
 
 const styles = theme => ({

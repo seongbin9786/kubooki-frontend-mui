@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import BoardDetail from './BoardDetail';
 import { eventItem, eventDetail } from './store';
-import EventParticipate from './EventParticipate';
+import EventParticipateBtn from './EventParticipateBtn';
 import EventDetail from './EventDetail';
 
 export default class EventDetailPage extends Component {
@@ -19,7 +19,7 @@ export default class EventDetailPage extends Component {
     const { detailOpen } = this.state;
     const footer =
       <React.Fragment>
-        {detailOpen ? null : <EventParticipate handleClick={this.toggle} />}
+        {detailOpen ? null : <EventParticipateBtn handleClick={this.toggle} />}
         <EventDetail
           eventDetail={eventDetail}
           open={detailOpen}
