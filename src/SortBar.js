@@ -2,6 +2,8 @@ import React from 'react';
 import { withStyles, Button, Typography } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 
+import theme from './ThemeConfig';
+
 const styles = theme => ({
   sortBar: {
     marginTop: theme.spacing.unit,
@@ -23,7 +25,7 @@ const styles = theme => ({
 });
 
 // Material-UI에서 테마 색상 가져오는 걸로 변경해야 함
-const themeColor = '#3f51b5';
+const themeColor = theme.palette.primary.main;
 
 function SortBar({ classes, tabName, color, backgroundColor, dontLeftHighlight }) {
   return (

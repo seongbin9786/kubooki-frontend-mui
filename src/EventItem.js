@@ -1,18 +1,15 @@
 import React from 'react';
 import compose from 'recompose/compose';
-import withWidth from '@material-ui/core/withWidth';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import injectSheet from 'react-jss';
+import { withWidth, Card, CardContent, CardMedia, Typography, Grid } from '@material-ui/core';
 
 import FaIcon from './FaIcon';
 
-const styles = theme => ({
-  card: {
-    margin: theme.spacing.unit * 3,
+import theme from './ThemeConfig';
+
+const styles = {
+  card: props => ({
+    margin: theme.spacing.unit * (props.width === 'xs' ? 1 : 3),
     transition: 'transform 0.15s',
 
     '&:hover': {
@@ -22,7 +19,7 @@ const styles = theme => ({
          0px 5px 8px 0px rgba(0, 0, 0, 0.14), 
          0px 1px 14px 0px rgba(0, 0, 0, 0.12)`,
     },
-  },
+  }),
   marginPC: {
     height: 'auto !important',
     marginBottom: 80,
@@ -47,7 +44,7 @@ const styles = theme => ({
     width: 16,
     marginRight: 10,
   },
-});
+};
 
 /*
   id: '1',
@@ -92,4 +89,4 @@ function EventItem({ classes, width, event, handleClick }) {
   );
 }
 
-export default compose(withStyles(styles), withWidth())(EventItem);
+export default compose(withWidth(), injectSheet(styles))(EventItem);

@@ -26,6 +26,8 @@ const styles = {
   btnGroup: {
     display: 'flex',
     justifyContent: 'flex-end',
+
+    marginBottom: 60,
   },
   btn: {
     margin: 8,
@@ -111,6 +113,20 @@ class EventDetail extends Component {
   handleQuillChange = value =>
     this.setState({ content: value });
 
+  componentDidUpdate(prevProps, prevState) {
+    const { open: beforeOpen } = prevProps;
+    const { open: afterOpen } = this.props;
+    const { manageMode } = this.state;
+    if (!beforeOpen && afterOpen) {
+      setTimeout(() => {
+        const title = document.getElementById('pageTitle');
+        const input = document.getElementById(manageMode ? 'title' : 'q0');
+        window.scrollTo(0, title.getBoundingClientRect().top);
+        input.focus();
+      }, 300);
+    }
+  }
+
   render() {
     const { classes, open } = this.props;
     const {
@@ -137,15 +153,6 @@ class EventDetail extends Component {
       in: open,
       collapsedHeight: '0px'
     } : null;
-
-    if (open) {
-      setTimeout(() => {
-        const title = document.getElementById('pageTitle');
-        const input = document.getElementById(manageMode ? 'title' : 'q0');
-        window.scrollTo(0, title.getBoundingClientRect().top);
-        input.focus();
-      }, 300);
-    }
 
     return (
       <Component {...collapseProps}>

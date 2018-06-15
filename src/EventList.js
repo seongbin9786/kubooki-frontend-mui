@@ -6,7 +6,7 @@ import EventItem from './EventItem';
 import EventHeadlineItem from './EventHeadlineItem';
 import SortBar from './SortBar';
 
-function EventList({ eventList, history, noSortBar, tabName, customHandleClick, dontDisplayAsHeadline }) {
+function EventList({ eventList, history, noSortBar, tabName, customHandleClick, dontDisplayAsHeadline, noBottomMargin }) {
   const handleClick = eventNum => () => history.push(`/events/${eventNum}`);
 
   const items = eventList.map(
@@ -29,6 +29,7 @@ function EventList({ eventList, history, noSortBar, tabName, customHandleClick, 
         spacing={16}
         titleLeftmargin={24}
         noMoreLoadBtn
+        noBottomMargin={noBottomMargin}
       />
 
     </React.Fragment>

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
@@ -12,11 +13,11 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(({ classes, btnStr }) => (
+export default withStyles(styles)(({ classes, btnStr, className }) => (
   <Button
     variant="raised"
     color="primary"
-    className={classes.moreButton}
+    className={classNames(classes.moreButton, className)}
   >
     {btnStr ? btnStr : '더 불러오기'}
   </Button>

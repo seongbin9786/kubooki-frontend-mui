@@ -8,18 +8,18 @@ import EventList from './EventList';
 import { eventList, eventDetail, eventParticipateDetail } from './store';
 import EventDetail from './EventDetail';
 
+import { smallRoot } from './styles';
+import LoadMoreBtn from './LoadMoreBtn';
+
 const styles = theme => ({
-  root: {
-    margin: '0 auto',
-    marginTop: 20,
-    maxWidth: 900,
-    minWidth: 350,
-    padding: '20px',
-  },
+  smallRoot,
   title: {
     marginTop: theme.spacing.unit * 4,
     marginBottom: theme.spacing.unit * -1,
   },
+  loadMoreBtn: {
+    marginBottom: 60,
+  }
 });
 
 class MyEventListPage extends Component {
@@ -37,7 +37,7 @@ class MyEventListPage extends Component {
     const { detailOpen } = this.state;
 
     return (
-      <div className={classes.root}>
+      <div className={classes.smallRoot}>
         <Typography variant='display1'>내가 참여한 이벤트</Typography>
 
         <EventList
@@ -45,7 +45,10 @@ class MyEventListPage extends Component {
           dontDisplayAsHeadline
           customHandleClick={this.handleModalOpen}
           noSortBar
+          noBottomMargin
         />
+
+        <LoadMoreBtn className={classes.loadMoreBtn} />
 
         <EventDetail
           open={detailOpen}
