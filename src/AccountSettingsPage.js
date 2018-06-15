@@ -13,14 +13,10 @@ import PasswordChangeForm from './PasswordChangeForm';
 import { globalUser as user } from './store';
 
 import theme from './ThemeConfig';
+import { smallRoot } from './styles';
 
 const styles = {
-  root: {
-    margin: '0 auto',
-    marginTop: 20,
-    maxWidth: 900,
-    padding: 20,
-  },
+  smallRoot,
   imgContainer: {
     marginBottom: 20,
   },
@@ -50,7 +46,7 @@ class AccountSettingsPage extends Component {
     const personImg = 'http://sba.scfhs.org.sa/publiceservice_enu/CustomPages/Profileuploader/static/images/default.jpg';
 
     return (
-      <div className={classes.root}>
+      <div className={classes.smallRoot}>
         <Typography variant='display1'>나의 계정 설정</Typography>
 
         <Typography variant='subheading' className={classes.title}>{helloMsg}</Typography>
