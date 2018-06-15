@@ -13,7 +13,7 @@ const styles = {
     position: 'fixed',
     top: props.width === 'xs' ? 56 : 64,
     width: '100%',
-  })
+  }),
 };
 
 const CenteredTabs = ({ classes, width, history, location: { pathname } }) => {
@@ -39,6 +39,7 @@ const CenteredTabs = ({ classes, width, history, location: { pathname } }) => {
             textColor="primary"
             fullWidth
             centered={width !== 'xs'}
+            scrollable={width === 'xs'}
           >
             {tabs}
           </Tabs>
