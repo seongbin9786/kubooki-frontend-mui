@@ -52,4 +52,4 @@ function MediaControlCard({ classes, theme, writer, size }) {
   );
 }
 
-export default withStyles(styles, { withTheme: true })(MediaControlCard);
+export default withStyles(styles)(MediaControlCard);

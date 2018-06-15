@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
 import compose from 'recompose/compose';
+import injectSheet from 'react-jss';
 import { withRouter } from 'react-router-dom';
-import withWidth from '@material-ui/core/withWidth';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import { withWidth, AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem, Avatar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { Avatar } from '@material-ui/core';
 
 import NavDrawer from './NavDrawer';
 import LoginDialog from './LoginDialog';
@@ -24,8 +16,12 @@ import personalMenuList from './MyPageTabConfig';
 const styles = {
   root: {
     flexGrow: 1,
-    width: '100%'
+    width: '100%',
   },
+  toolbar: ({ width }) => ({
+    minHeight: 'auto',
+    height: width === 'xs' ? 56 : 64,
+  }),
   flex: {
     flex: 1,
   },
@@ -42,7 +38,7 @@ const styles = {
   }
 };
 
-class ButtonAppBar extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
 
@@ -90,7 +86,7 @@ class ButtonAppBar extends Component {
     return (
       <React.Fragment>
         <AppBar position="fixed" className={classes.root}>
-          <Toolbar>
+          <Toolbar className={classes.toolbar}>
             <IconButton
               className={classes.menuButton}
               color="inherit"
@@ -169,4 +165,4 @@ class ButtonAppBar extends Component {
   }
 }
 
-export default compose(withStyles(styles), withWidth())(withRouter(ButtonAppBar));
+export default compose(withWidth(), injectSheet(styles))(withRouter(Header));

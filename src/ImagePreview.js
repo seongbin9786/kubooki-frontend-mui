@@ -1,12 +1,16 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import compose from 'recompose/compose';
+import injectSheet from 'react-jss';
+import { withWidth } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 
-const styles = theme => ({
-  thumbnailContainer: {
+import theme from './ThemeConfig';
+
+const styles = {
+  thumbnailContainer: props => props.isForm ? ({
     marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit,
-  },
+  }) : null,
   UploadBtn: {
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
@@ -15,36 +19,24 @@ const styles = theme => ({
   name: {
     marginBottom: theme.spacing.unit,
   },
-  default: {
+  img: ({ isForm, isCircle, width, size }) => ({
+    borderRadius: isCircle ? '50%' : 0,
     height: 'auto',
-    width: '100%'
-  },
-});
+    width: !isForm && width !== 'xs' ? size : '100%'
+  }),
+};
 
-export default withStyles(styles)(({
-  classes,
-  value,
-  name,
-  isForm,
-  btn,
-  btnLocation,
-  isCircle,
-  size,
-}) => (
-  <div className={isForm ? classes.thumbnailContainer : null}>
-    {isForm ? <InputLabel className={classes.name}>{name}</InputLabel> : null}
-    <img
-      className={isCircle ? null : classes.default}
-      style={isCircle ?
-        {
-          height: size,
-          width: size,
-          borderRadius: '50%',
-        }
-        : null
-      }
-      alt={name}
-      src={value}
-    />
-  </div>
-));
+function ImagePreview({ classes, value, name, isForm }) {
+  return (
+    <div className={classes.thumbnailContainer}>
+      {isForm ? <InputLabel className={classes.name}>{name}</InputLabel> : null}
+      <img
+        className={classes.img}
+        alt={name}
+        src={value}
+      />
+    </div>
+  );
+};
+
+export default compose(withWidth(), injectSheet(styles))(ImagePreview);

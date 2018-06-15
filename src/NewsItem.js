@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 import { Link, withRouter } from 'react-router-dom';
@@ -6,7 +6,7 @@ import withWidth from '@material-ui/core/withWidth';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-const styles = theme => ({
+const styles = {
   img: {
     width: '100%',
     maxWidth: '100%',
@@ -52,42 +52,31 @@ const styles = theme => ({
     fontWeight: 'normal',
     marginBottom: '24px',
   },
-});
+};
 
-class NewsItem extends Component {
-  state = {
-    hover: false,
-  }
-
-  handleHover = () => this.setState(({ hover }) => ({ hover: !hover }));
-
-  render() {
-    const { news, classes, width } = this.props;
-    const { hover } = this.state;
-
-    return (
-      <Grid item xs={12} sm={6} lg={4} className={width === 'xs' ? classes.marginMobile : classes.marginPC}>
-        <div className={classes.Paper}>
-          <Link to={`/news/${news.id}`}>
-            <img src={news.img} alt="기사 이미지" className={classes.img} />
-          </Link>
-          <div className={classes.categoryContainer}>
-            <span className={classes.categoryText}>
-              {news.category}
-            </span>
-          </div>
-          <Link to={`/news/${news.id}`} className={classes.titleLink}>
-            <Typography variant="headline">
-              {news.title}
-            </Typography>
-          </Link>
-          <Typography variant="caption" className={classes.date}>
-            {news.date}
-          </Typography>
+function NewsItem({ news, classes, width }) {
+  return (
+    <Grid item xs={12} sm={6} lg={4} className={width === 'xs' ? classes.marginMobile : classes.marginPC}>
+      <div className={classes.Paper}>
+        <Link to={`/news/${news.id}`}>
+          <img src={news.img} alt="기사 이미지" className={classes.img} />
+        </Link>
+        <div className={classes.categoryContainer}>
+          <span className={classes.categoryText}>
+            {news.category}
+          </span>
         </div>
-      </Grid>
-    );
-  }
+        <Link to={`/news/${news.id}`} className={classes.titleLink}>
+          <Typography variant="headline">
+            {news.title}
+          </Typography>
+        </Link>
+        <Typography variant="caption" className={classes.date}>
+          {news.date}
+        </Typography>
+      </div>
+    </Grid>
+  );
 }
 
 export default compose(withStyles(styles), withWidth())(withRouter(NewsItem));

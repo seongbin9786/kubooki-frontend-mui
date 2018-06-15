@@ -1,40 +1,38 @@
 import React, { Component } from 'react';
+import injectSheet from 'react-jss';
 import {
-  withStyles,
   Typography,
   FormControlLabel,
   Checkbox,
   Divider,
 } from '@material-ui/core';
-
 import ImagePreview from './ImagePreview';
 import UploadBtn from './UploadBtn';
 import FaIconBtn from './FaIconBtn';
 import PasswordChangeForm from './PasswordChangeForm';
 import { globalUser as user } from './store';
 
-const styles = theme => ({
+import theme from './ThemeConfig';
+
+const styles = {
   root: {
     margin: '0 auto',
     marginTop: 20,
     maxWidth: 900,
-    minWidth: 350,
-    padding: '20px',
+    padding: 20,
   },
   imgContainer: {
     marginBottom: 20,
   },
   uploadBtn: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    margin: theme.spacing.unit,
     marginLeft: theme.spacing.unit * 1 / 2,
-    marginRight: theme.spacing.unit,
   },
   title: {
     marginTop: 20,
     marginBottom: 0,
   }
-});
+};
 
 class AccountSettingsPage extends Component {
   state = {
@@ -44,6 +42,8 @@ class AccountSettingsPage extends Component {
   handleChange = ({ target: { checked } }) => this.setState({ noTracking: checked });
 
   render() {
+    console.log(this);
+
     const { classes } = this.props;
     const { noTracking } = this.state;
     const helloMsg = `안녕하세요 ${user.getName()}님`;
@@ -91,10 +91,9 @@ class AccountSettingsPage extends Component {
         <Typography variant='headline' className={classes.title}>비밀번호 변경</Typography>
         <PasswordChangeForm />
 
-        <Divider />
       </div>
     );
   }
 }
 
-export default withStyles(styles)(AccountSettingsPage);
+export default injectSheet(styles)(AccountSettingsPage);

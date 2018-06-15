@@ -6,7 +6,9 @@ import withWidth from '@material-ui/core/withWidth';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-const styles = theme => ({
+import NewsItem from './NewsItem';
+
+const styles = {
   Paper: {
     margin: 3,
     padding: 10,
@@ -88,9 +90,9 @@ const styles = theme => ({
     color: 'black',
     backgroundColor: 'white',
   }
-});
+};
 
-class NewsItem extends Component {
+class NewsHeadlineItem extends Component {
   state = {
     hover: false,
   }
@@ -104,11 +106,15 @@ class NewsItem extends Component {
     // 예시 데이터
     const news = {
       id: '1',
+      category: '경기소식',
       img: 'https://www.creativeboom.com/uploads/articles/2b/2be47fa48493c19a47bb27edee9d03e4c0335b04_630.jpg',
       title: 'North Korea\'s secretive capital',
-      content: 'Raphael Olivier\'s photographs unveil the unique architecture of Pyongyang.',
+      content: 'Raphael Olivier\'s photographs unveil the unique architecture of Pyongyang.', // Headline의 경우 content가 필요
       date: '20.05.2018'
     };
+
+    if (width === 'xs')
+      return <NewsItem news={news} />;
 
     return (
       <Grid item xs={12} lg={7} className={width === 'xs' ? classes.marginMobile : classes.marginPC}>
@@ -141,4 +147,4 @@ class NewsItem extends Component {
   }
 }
 
-export default compose(withStyles(styles), withWidth())(withRouter(NewsItem));
+export default compose(withStyles(styles), withWidth())(withRouter(NewsHeadlineItem));

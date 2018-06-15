@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import React from 'react';
+import { withStyles } from '@material-ui/core';
 
 import FaIconBtn from './FaIconBtn';
+import PasswordInput from './PasswordInput';
 
-const styles = theme => ({
+const styles = {
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -12,60 +12,22 @@ const styles = theme => ({
   },
   submitBtn: {
     marginTop: 20,
-  }
-});
+  },
+};
 
-export default withStyles(styles)(class extends Component {
-  state = {
-    currentPassword: '',
-    newPassword: '',
-    newPasswordAgain: '',
-  };
+export default withStyles(styles)(({ classes }) => (
+  <div className={classes.root}>
 
-  handleChange = inputName => ({ target: { value } }) =>
-    this.setState({ [inputName]: value });
+    <PasswordInput id='currentPassword' label="현재 비밀번호" />
+    <PasswordInput id='newPassword' label="새로운 비밀번호" />
+    <PasswordInput id='newPasswordAgain' label="새로운 비밀번호 재입력" />
 
-  render() {
-    const { classes } = this.props;
-    const { currentPassword, newPassword, newPasswordAgain } = this.state;
-
-    return (
-      <div className={classes.root}>
-        <TextField
-          margin="dense"
-          id="currentPpassword"
-          label="현재 비밀번호"
-          value={currentPassword}
-          onChange={this.handleChange('currentPassword')}
-          type="currentPassword"
-          fullWidth
-        />
-        <TextField
-          margin="dense"
-          id="password"
-          label="새로운 비밀번호"
-          value={newPassword}
-          onChange={this.handleChange('newPassword')}
-          type="password"
-          fullWidth
-        />
-        <TextField
-          margin="dense"
-          label="새로운 비밀번호 재입력"
-          value={newPasswordAgain}
-          onChange={this.handleChange('newPasswordAgain')}
-          type="password"
-          fullWidth
-        />
-
-        <FaIconBtn
-          className={classes.submitBtn}
-          btnStr='비밀번호 변경'
-          color='primary'
-          variant='raised'
-          type='paper-plane'
-        />
-      </div>
-    );
-  }
-});
+    <FaIconBtn
+      className={classes.submitBtn}
+      btnStr='비밀번호 변경'
+      color='primary'
+      variant='raised'
+      type='paper-plane'
+    />
+  </div>
+));
