@@ -133,7 +133,17 @@ class CommentItem extends Component {
     editText: this.props.comment.content,
   }
 
-  handleInputChange = event => this.setState({ editText: event.target.value });
+  handleOnTextAreaFocus = event => {
+    // textarea의 크기를 content 크기만큼 확장
+    event.target.style.height = '1px';
+    event.target.style.height = (25 + event.target.scrollHeight) + 'px';
+  }
+
+  handleInputChange = event => {
+    this.handleOnTextAreaFocus(event);
+    this.setState({ editText: event.target.value });
+  }
+
   handleEditBtnClick = () => this.setState({ isEditing: true });
   handleEditCancelBtnClick = () => this.setState({ isEditing: false, editText: this.props.comment.content });
   handleSubmitBtnClick = () => this.setState({ isEditing: false });
@@ -196,6 +206,7 @@ class CommentItem extends Component {
               <textarea
                 className={classes.input}
                 onChange={this.handleInputChange}
+                onFocus={this.handleOnTextAreaFocus}
                 value={editText}
               />
               : <Typography variant='subheading'>{content}</Typography>
