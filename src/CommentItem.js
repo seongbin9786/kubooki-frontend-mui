@@ -7,6 +7,10 @@ import FaIconBtn from './FaIconBtn';
 import AlertDialog from './AlertDialog';
 import CommentReplyItem from './CommentReplyItem';
 
+import theme from './ThemeConfig';
+
+console.log(theme);
+
 const styles = theme => ({
   root: {
     padding: theme.spacing.unit,
@@ -16,7 +20,7 @@ const styles = theme => ({
     minHeight: 80,
   },
   collapsed: {
-    boxShadow: 'inset 0 -10px 40px -10px lightgray',
+    boxShadow: 'inset 0 -5px 10px -5px lightgray',
   },
   commentRoot: {
     padding: theme.spacing.unit,

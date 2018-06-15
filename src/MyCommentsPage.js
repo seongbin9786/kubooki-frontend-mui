@@ -18,7 +18,7 @@ const styles = theme => ({
 
 const MyCommentsPage = ({ classes, history }) => {
   return (
-    <div className={classes.samllRoot}>
+    <div className={classes.smallRoot}>
       <Typography variant='display1' className={classes.title}>내가 작성한 댓글</Typography>
 
       <CommentList
