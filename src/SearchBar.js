@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
-import { TextField, InputAdornment, withStyles } from '@material-ui/core';
+import injectSheet from 'react-jss';
+import { TextField, InputAdornment, withWidth } from '@material-ui/core';
 
 import FaIcon from './FaIcon';
 
-const styles = theme => ({
-  root: {
-    margin: '0 auto',
-    paddingLeft: 24,
-    paddingRight: 24,
-    zIndex: 1,
-  },
-  rootNoMargin: {
-    zIndex: 1,
+const styles = {
+  root: ({ noMargin, right }) => {
+    const css = {
+      zIndex: 1,
+    };
+    if (!noMargin) {
+      css.margin = '0 auto';
+      css.paddingLeft = 24;
+      css.paddingRight = 24;
+    }
+    if (right) {
+      css.display = 'flex';
+      css.justifyContent = 'flex-end';
+    }
+    return css;
   }
-});
+};
 
 class SearchBar extends Component {
   constructor(props) {
@@ -49,7 +56,7 @@ class SearchBar extends Component {
     // TODO 4: 검색 아이콘 위치시키기
     return (
       <div
-        className={classes[noMargin ? 'rootNoMargin' : 'root']}
+        className={classes.root}
         onClick={e => e.stopPropagation()}
       >
         <TextField
@@ -72,4 +79,4 @@ class SearchBar extends Component {
   }
 }
 
-export default withStyles(styles)(SearchBar);
+export default withWidth()(injectSheet(styles)(SearchBar));

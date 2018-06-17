@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import {
   Table, TableBody, TableCell, TableHead, TableRow, Toolbar,
-  Typography, Paper, Checkbox, Tooltip, Avatar,
+  Typography, Paper, Checkbox, Tooltip, Avatar, Hidden,
 } from '@material-ui/core';
 
 import FaIconBtn from './FaIconBtn';
@@ -14,23 +14,25 @@ class EnhancedTableHead extends React.Component {
     const { onSelectAllClick, numSelected, rowCount } = this.props;
 
     return (
-      <TableHead>
-        <TableRow>
-          <TableCell padding="checkbox">
-            <Checkbox
-              indeterminate={numSelected > 0 && numSelected < rowCount}
-              checked={numSelected === rowCount}
-              onChange={onSelectAllClick}
-              color='primary'
-            />
-          </TableCell>
-          <TableCell>이름</TableCell>
-          <TableCell>등급</TableCell>
-          <TableCell>부서</TableCell>
-          <TableCell>웹 출석여부</TableCell>
-          <TableCell>회의 출석여부</TableCell>
-        </TableRow>
-      </TableHead>
+      <Hidden only="xs">
+        <TableHead>
+          <TableRow>
+            <TableCell padding="checkbox">
+              <Checkbox
+                indeterminate={numSelected > 0 && numSelected < rowCount}
+                checked={numSelected === rowCount}
+                onChange={onSelectAllClick}
+                color='primary'
+              />
+            </TableCell>
+            <TableCell>이름</TableCell>
+            <TableCell>등급</TableCell>
+            <TableCell>부서</TableCell>
+            <TableCell>웹 출석여부</TableCell>
+            <TableCell>회의 출석여부</TableCell>
+          </TableRow>
+        </TableHead>
+      </Hidden>
     );
   }
 }
@@ -106,14 +108,69 @@ const styles = theme => ({
   root: {
     width: '100%',
     marginTop: theme.spacing.unit * 3,
+    maxWidth: '100%',
+  },
+  table: {
+    display: 'table',
+    width: '100%',
+    overflowX: 'auto',
   },
   nameContainer: {
-    display: 'flex',
-    alignItems: 'center'
+    textAlign: 'center',
   },
   avatar: {
-    display: 'inline-block',
+    display: 'block',
     marginRight: 6,
+
+    [theme.breakpoints.down('sm')]: {
+      display: 'inline-block',
+    },
+  },
+
+  tableBodyData: {
+    display: 'block',
+    padding: 12,
+    fontSize: 14,
+    textAlign: 'right',
+
+    tableBodyRow: {
+      //Small Screen
+      height: 'auto',
+      marginTop: 10,
+      backgroundColor: 'lightgrey',
+
+      [theme.breakpoints.up('sm')]: {
+        height: 48,
+        display: 'table-row',
+        backgroundColor: '#fff'
+      }
+    },
+
+    '&:last-child': {
+      // 24인것 오버라이딩
+      paddingRight: 12,
+    },
+
+    // Adding each data table head from here
+    '&:before': {
+      content: 'attr(datatitle)',
+      verticalAlign: '-50%',
+      float: 'left',
+      fontWeight: 600,
+      color: '#000'
+    },
+
+    [theme.breakpoints.up('sm')]: {
+      display: 'table-cell',
+      fontSize: 14,
+      textAlign: 'left',
+      borderBottom: '1px solid #ccc',
+
+      '&:before': {
+        content: '',
+        display: 'none'
+      }
+    }
   }
 });
 
@@ -161,11 +218,13 @@ class EnhancedTable extends React.Component {
   render() {
     const { classes } = this.props;
     const { data, selected } = this.state;
+    const EnhancedTableCell = props =>
+      <TableCell classes={{ root: classes.tableBodyData }} {...props}>{props.children}</TableCell>;
 
     return (
       <Paper className={classes.root}>
         <EnhancedTableToolbar numSelected={selected.length} />
-        <Table>
+        <Table classes={{ root: classes.table }}>
           <EnhancedTableHead
             numSelected={selected.length}
             onSelectAllClick={this.handleSelectAllClick}
@@ -181,17 +240,26 @@ class EnhancedTable extends React.Component {
                   tabIndex={-1}
                   key={id}
                   selected={isSelected}
+                  classes={{ root: classes.tableBodyRow }}
                 >
-                  <TableCell padding="checkbox">
+
+                  <EnhancedTableCell datatitle="번호" padding="checkbox">
                     <Checkbox checked={isSelected} color='primary' />
-                  </TableCell>
-                  <TableCell component="th" scope="row" className={classes.nameContainer}>
+                  </EnhancedTableCell>
+
+                  <EnhancedTableCell
+                    datatitle="이름"
+                    component="th"
+                    scope="row"
+                    className={classes.nameContainer}
+                  >
                     <Avatar src={profilePic} alt={name} className={classes.avatar} />{name}
-                  </TableCell>
-                  <TableCell>{role}</TableCell>
-                  <TableCell>{department}</TableCell>
-                  <TableCell>{webAttend}</TableCell>
-                  <TableCell>{meetingAttend}</TableCell>
+                  </EnhancedTableCell>
+
+                  <EnhancedTableCell datatitle="등급">{role}</EnhancedTableCell>
+                  <EnhancedTableCell datatitle="부서">{department}</EnhancedTableCell>
+                  <EnhancedTableCell datatitle="웹 출석여부">{webAttend}</EnhancedTableCell>
+                  <EnhancedTableCell datatitle="회의 출석여부">{meetingAttend}</EnhancedTableCell>
                 </TableRow>
               );
             })}

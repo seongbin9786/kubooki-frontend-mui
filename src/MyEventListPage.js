@@ -8,11 +8,11 @@ import EventList from './EventList';
 import { eventList, eventDetail, eventParticipateDetail } from './store';
 import EventDetail from './EventDetail';
 
-import { smallRoot } from './styles';
+import { smallRootWithPadding } from './styles';
 import LoadMoreBtn from './LoadMoreBtn';
 
 const styles = theme => ({
-  smallRoot,
+  smallRootWithPadding,
   title: {
     marginTop: theme.spacing.unit * 4,
     marginBottom: theme.spacing.unit * -1,
@@ -37,7 +37,7 @@ class MyEventListPage extends Component {
     const { detailOpen } = this.state;
 
     return (
-      <div className={classes.smallRoot}>
+      <div className={classes.smallRootWithPadding}>
         <Typography variant='display1'>내가 참여한 이벤트</Typography>
 
         <EventList

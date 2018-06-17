@@ -1,5 +1,7 @@
-import React from 'react';
-import { Typography, withStyles } from '@material-ui/core';
+import React, { Component } from 'react';
+import moment from 'moment';
+import injectSheet from 'react-jss';
+import { Typography } from '@material-ui/core';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import ReactTooltip from 'react-tooltip';
 
@@ -8,21 +10,17 @@ import SearchBar from './SearchBar';
 import AttendanceList from './AttendanceList';
 import { attendanceUserList, attendanceValues } from './store';
 import AttendanceDateNav from './AttendanceDateNav';
+import { header } from './stylesManagePage';
 
-const styles = theme => ({
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: 30,
-  },
+const styles = {
+  header,
   statusBoard: {
     display: 'flex',
     justifyContent: 'center',
     marginBottom: 30,
+    overflow: 'scroll',
   },
-  listContainer: {
-  },
-});
+};
 
 function githubClassForValue(value) {
   if (!value) return 'color-empty';
@@ -36,34 +34,46 @@ const customTooltipDataAttrs = value => {
   return ({ 'data-tip': `[${date}]<br>[웹] ${webAttend}명<br>[회의실] ${meetingAttend}명` });
 };
 
-function AttendanceManagePage({ classes }) {
-  return (
-    <div>
-      <div className={classes.header}>
-        <Typography variant='display1'>출석 관리 페이지</Typography>
-        <SearchBar noMargin label='기자 검색' />
-      </div>
+class AttendanceManagePage extends Component {
 
-      <div className={classes.statusBoard}>
-        <CalendarHeatmap
-          startDate={'2018-01-01'}
-          endDate={'2018-12-31'}
-          values={attendanceValues}
-          onClick={value => console.log(value)}
+  // 히트맵: 현재 월에 해당하는 위치로 스크롤
+  componentDidMount() {
+    const month = moment().month();
+    const weight = month >= 5 ? 50 : 0;
+    document.getElementById('statusBoard').scrollLeft = month * weight;
+  }
 
-          tooltipDataAttrs={customTooltipDataAttrs}
-          classForValue={githubClassForValue}
-        >
-        </CalendarHeatmap>
-        <ReactTooltip place="top" type="dark" effect="float" multiline />
-      </div>
+  render() {
+    const { classes } = this.props;
 
-      <div className={classes.listContainer}>
-        <AttendanceDateNav right />
-        <AttendanceList userList={attendanceUserList} />
-      </div>
-    </div >
-  );
+    return (
+      <div>
+        <div className={classes.header}>
+          <Typography variant='display1'>출석 관리 페이지</Typography>
+          <SearchBar noMargin label='기자 검색' />
+        </div>
+
+        <div id='statusBoard' className={classes.statusBoard}>
+          <CalendarHeatmap
+            startDate={'2018-01-01'}
+            endDate={'2018-12-31'}
+            values={attendanceValues}
+            onClick={value => console.log(value)}
+
+            tooltipDataAttrs={customTooltipDataAttrs}
+            classForValue={githubClassForValue}
+          >
+          </CalendarHeatmap>
+          <ReactTooltip place="top" type="dark" effect="float" multiline />
+        </div>
+
+        <div>
+          <AttendanceDateNav right />
+          <AttendanceList userList={attendanceUserList} />
+        </div>
+      </div >
+    );
+  }
 };
 
-export default withStyles(styles)(AttendanceManagePage);
+export default injectSheet(styles)(AttendanceManagePage);

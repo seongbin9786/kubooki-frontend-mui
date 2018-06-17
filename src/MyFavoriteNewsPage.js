@@ -8,11 +8,11 @@ import MyFavoriteNewsItemMobile from './MyFavoriteNewsItemMobile';
 import LoadMoreBtn from './LoadMoreBtn';
 import GridListTemplate from './GridListTemplate';
 
-import { smallRoot } from './styles';
+import { smallRootWithPadding } from './styles';
 import theme from './ThemeConfig';
 
 const styles = {
-  smallRoot,
+  smallRootWithPadding,
   title: {
     marginTop: theme.spacing.unit * 4,
     marginBottom: theme.spacing.unit * -1,
@@ -24,7 +24,7 @@ const MyFavoriteNewsPage = (({ classes, width }) => {
   const mobileScreen = width === 'xs' || width === 'sm';
 
   return (
-    <div className={classes.smallRoot}>
+    <div className={classes.smallRootWithPadding}>
       <Typography variant='display1'>내가 좋아한 기사</Typography>
 
       {mobileScreen ?

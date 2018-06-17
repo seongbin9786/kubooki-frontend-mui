@@ -17,9 +17,6 @@ const styles = {
   },
   smallRoot,
   fullHeight,
-  noPadding: {
-    padding: 0,
-  }
 };
 
 function EventList({ eventList, history, classes, noSortBar, tabName, customHandleClick, dontDisplayAsHeadline, noBottomMargin, noTopMargin }) {
@@ -42,7 +39,7 @@ function EventList({ eventList, history, classes, noSortBar, tabName, customHand
     <div className={classes.fullHeight}>
       {dontDisplayAsHeadline ? null : <EventHeadlineItem />}
 
-      <div className={classNames(classes.smallRoot, classes.fullHeight, classes.noPadding)}>
+      <div className={classNames(classes.smallRoot, classes.fullHeight)}>
         <GridListTemplate
           titleType='display1'
           items={items}

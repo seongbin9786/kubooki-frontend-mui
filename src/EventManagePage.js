@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
-import { withStyles, Typography } from '@material-ui/core';
+import injectSheet from 'react-jss';
+import { Typography } from '@material-ui/core';
 
 import SearchBar from './SearchBar';
 import EventDetail from './EventDetail';
 import CreateIcon from './CreateIcon';
 import EventList from './EventList';
 import { eventDetail, eventParticipateDetail, eventManageDetail, eventList } from './store';
+import { header } from './stylesManagePage';
 
-const styles = theme => ({
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: 30,
-  },
+const styles = {
+  header,
   subHeader: {
     display: 'flex',
     justifyContent: 'flex-end',
     marginBottom: -20,
   },
-});
+};
 
 class EventManagePage extends Component {
   state = {
@@ -57,4 +55,4 @@ class EventManagePage extends Component {
   }
 }
 
-export default withStyles(styles)(EventManagePage);
+export default injectSheet(styles)(EventManagePage);

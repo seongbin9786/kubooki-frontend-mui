@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { withStyles, Typography } from '@material-ui/core';
+import injectSheet from 'react-jss';
+import { withWidth, Typography } from '@material-ui/core';
 
 import SearchBar from './SearchBar';
 import SortBar from './SortBar';
@@ -10,24 +11,23 @@ import PopupManageItem from './PopupManageItem';
 import PopupDetail from './PopupDetail';
 import CreateIcon from './CreateIcon';
 
-const styles = theme => ({
-  root: {
-
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: 30,
+const styles = {
+  header: ({ width }) => {
+    const css = {
+      marginBottom: 30,
+    };
+    if (width !== 'xs') {
+      css.display = 'flex';
+      css.justifyContent = 'space-between';
+    }
+    return css;
   },
   subHeader: {
     display: 'flex',
     justifyContent: 'flex-end',
     marginBottom: -20,
   },
-  listContainer: {
-
-  },
-});
+};
 
 class PopupManagePage extends Component {
   state = {
@@ -44,7 +44,7 @@ class PopupManagePage extends Component {
     const items = popupList.map((item, index) => <PopupManageItem popup={item} key={index} handleClick={this.handleClick} />);
 
     return (
-      <div className={classes.root}>
+      <div>
         <div className={classes.header}>
           <Typography variant='display1'>팝업 관리</Typography>
           <SearchBar noMargin label='팝업 검색' />
@@ -53,14 +53,12 @@ class PopupManagePage extends Component {
           <CreateIcon />
         </div>
 
-        <div className={classes.listContainer}>
-          <GridListTemplate
-            titleType='display1'
-            items={items}
-            subHeader={subHeader}
-            noMoreLoadBtn
-          />
-        </div>
+        <GridListTemplate
+          titleType='display1'
+          items={items}
+          subHeader={subHeader}
+          noMoreLoadBtn
+        />
 
         {detailOpen ? <PopupDetail popupDetail={popupDetail} /> : null}
       </div>
@@ -68,4 +66,4 @@ class PopupManagePage extends Component {
   }
 }
 
-export default withStyles(styles)(PopupManagePage);
+export default withWidth()(injectSheet(styles)(PopupManagePage));

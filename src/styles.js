@@ -4,6 +4,12 @@ export const smallRoot = {
   margin: '0 auto',
   marginTop: 20,
   maxWidth: 900,
+};
+
+export const smallRootWithPadding = {
+  margin: '0 auto',
+  marginTop: 20,
+  maxWidth: 900,
   padding: 20,
 };
 
@@ -18,6 +24,10 @@ export const marginBottomRoot = {
   [theme.breakpoints.down('xs')]: {
     marginBottom: 50,
   },
+};
+
+export const noPadding = {
+  padding: 0,
 };
 
 export const centerChildrenInline = {
