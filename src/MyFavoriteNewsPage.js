@@ -33,8 +33,6 @@ const MyFavoriteNewsPage = (({ classes, width }) => {
             titleType='display1'
             items={list.map((item, index) => <MyFavoriteNewsItemMobile item={item} key={index} />)}
             subHeader={<Typography variant='subheading' className={classes.title}>{date}</Typography>}
-            spacing={16}
-            titleLeftmargin={24}
             noMoreLoadBtn
             noBottomMargin
           />

@@ -45,6 +45,7 @@ class MyEventListPage extends Component {
           dontDisplayAsHeadline
           customHandleClick={this.handleModalOpen}
           noSortBar
+          noTopMargin
           noBottomMargin
         />
 

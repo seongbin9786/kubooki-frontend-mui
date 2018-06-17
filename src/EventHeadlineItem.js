@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import compose from 'recompose/compose';
-import { withStyles } from '@material-ui/core/styles';
+import injectSheet from 'react-jss';
 import { Link, withRouter } from 'react-router-dom';
 import withWidth from '@material-ui/core/withWidth';
 import Grid from '@material-ui/core/Grid';
@@ -8,12 +8,12 @@ import Typography from '@material-ui/core/Typography';
 
 import { darkOverlay } from './styles';
 
-const styles = theme => ({
-  imgRoot: {
+const styles = {
+  imgRoot: ({ width }) => ({
     position: 'relative',
     width: '100%',
-    height: 400,
-  },
+    height: width === 'xs' ? '90%' : 400,
+  }),
   img: {
     width: '100%',
     height: '100%',
@@ -61,7 +61,7 @@ const styles = theme => ({
     color: 'black',
     backgroundColor: 'white',
   }
-});
+};
 
 class NewsItem extends Component {
   state = {
@@ -71,7 +71,7 @@ class NewsItem extends Component {
   handleHover = () => this.setState(({ hover }) => ({ hover: !hover }));
 
   render() {
-    const { classes } = this.props;
+    const { classes, width } = this.props;
     const { hover } = this.state;
     // 예시 데이터
     // 헤드라인에는 desc 속성도 표시함
@@ -89,40 +89,38 @@ class NewsItem extends Component {
     const url = `/events/${id}`;
 
     return (
-      <Grid item xs={12}>
-        <div className={classes.imgRoot}>
-          <Link to={url}>
-            <img className={classes.img} src={thumbnail} alt='배경이미지' />
-            <span
-              className={classes.darkOverlay}
-              onMouseOver={this.handleHover}
-              onMouseLeave={this.handleHover}>
-            </span>
-          </Link>
-          <div className={classes.contentRoot}>
-            <Typography variant="display3" className={classes.title}>
-              <Link to={url} className={classes.link}>{title}</Link>
-            </Typography>
-            <Typography variant="headline" className={classes.content}>
-              {desc}
-            </Typography>
-            <Typography variant="caption" className={classes.dateTitle}>
-              {startDate === endDate ? startDate : startDate + ' - ' + endDate}
-            </Typography>
-            {prize && prize !== '-'
-              ? <Typography variant="caption" className={classes.dateTitle}>{'보상: ' + prize}</Typography>
-              : null
-            }
-            {resultDate && resultDate !== '-'
-              ? <Typography variant="caption" className={classes.dateTitle}>{'발표일: ' + resultDate}</Typography>
-              : null
-            }
-          </div>
-          <Link className={hover ? classes.readMoreBtnHover : classes.readMoreBtn} to={url}>내용 확인하기</Link>
+      <Grid item xs={12} className={classes.imgRoot}>
+        <Link to={url}>
+          <img className={classes.img} src={thumbnail} alt='배경이미지' />
+          <span
+            className={classes.darkOverlay}
+            onMouseOver={this.handleHover}
+            onMouseLeave={this.handleHover}>
+          </span>
+        </Link>
+        <div className={classes.contentRoot}>
+          <Typography variant={width === 'xs' ? 'display2' : 'display3'} className={classes.title}>
+            <Link to={url} className={classes.link}>{title}</Link>
+          </Typography>
+          <Typography variant={width === 'xs' ? 'title' : 'headline'} className={classes.content}>
+            {desc}
+          </Typography>
+          <Typography variant="caption" className={classes.dateTitle}>
+            {startDate === endDate ? startDate : startDate + ' - ' + endDate}
+          </Typography>
+          {prize && prize !== '-'
+            ? <Typography variant="caption" className={classes.dateTitle}>{'보상: ' + prize}</Typography>
+            : null
+          }
+          {resultDate && resultDate !== '-'
+            ? <Typography variant="caption" className={classes.dateTitle}>{'발표일: ' + resultDate}</Typography>
+            : null
+          }
         </div>
+        <Link className={hover ? classes.readMoreBtnHover : classes.readMoreBtn} to={url}>내용 확인하기</Link>
       </Grid>
     );
   }
 }
 
-export default compose(withStyles(styles), withWidth())(withRouter(NewsItem));
+export default compose(withWidth(), injectSheet(styles))(withRouter(NewsItem));

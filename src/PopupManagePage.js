@@ -58,8 +58,6 @@ class PopupManagePage extends Component {
             titleType='display1'
             items={items}
             subHeader={subHeader}
-            spacing={16}
-            titleLeftmargin={24}
             noMoreLoadBtn
           />
         </div>

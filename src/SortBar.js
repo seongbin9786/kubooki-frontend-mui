@@ -1,18 +1,30 @@
 import React from 'react';
-import { withStyles, Button, Typography } from '@material-ui/core';
+import injectSheet from 'react-jss';
+import { Button, Typography } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 
 import theme from './ThemeConfig';
 import FaIcon from './FaIcon';
 
-const styles = theme => ({
-  sortBar: {
+const styles = {
+  sortBar: ({
+    dontLeftHighlight,
+    backgroundColor,
+    color,
+    bottomMargin
+  }) => ({
     marginTop: theme.spacing.unit,
+    marginBottom: bottomMargin || null,
     padding: theme.spacing.unit,
     paddingLeft: theme.spacing.unit * 3,
     display: 'flex',
     justifyContent: 'space-between',
-  },
+
+    backgroundColor: backgroundColor || grey[100],
+    color: color || 'white',
+    borderLeft: !dontLeftHighlight ? '8px solid' : null,
+    borderColor: !dontLeftHighlight ? theme.palette.primary.main : null
+  }),
   sortTitle: {
     lineHeight: '2rem',
     fontFamily: 'Noto Sans KR, sans-serif',
@@ -23,30 +35,22 @@ const styles = theme => ({
     minHeight: 13,
     minWidth: 13,
   },
-});
+};
 
-// Material-UI에서 테마 색상 가져오는 걸로 변경해야 함
-const themeColor = theme.palette.primary.main;
-
-function SortBar({ classes, tabName, color, backgroundColor, dontLeftHighlight }) {
+function SortBar({ classes, tabName }) {
   return (
-    <div className={classes.sortBar}
-      style={{
-        backgroundColor: backgroundColor ? backgroundColor : grey[100],
-        color: color ? (color === 'primary' ? themeColor : color) : 'white',
-        borderLeft: !dontLeftHighlight ? '8px solid' : null,
-        borderColor: !dontLeftHighlight ? themeColor : null
-      }}
-    >
+    <div className={classes.sortBar}>
       <Typography
         variant='subheading'
         className={classes.sortTitle}
       >
         {tabName}
       </Typography>
-      <Button className={classes.sortBtn}><FaIcon icon='lg-caret-down' /></Button>
+      <Button className={classes.sortBtn}>
+        <FaIcon icon='lg-caret-down' />
+      </Button>
     </div>
   );
 };
 
-export default withStyles(styles)(SortBar);
+export default injectSheet(styles)(SortBar);

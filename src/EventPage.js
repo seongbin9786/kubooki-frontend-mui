@@ -5,5 +5,9 @@ import EventList from './EventList';
 import { eventList } from './store';
 
 export default () => (
-  <EventList eventList={eventList} />
+  <EventList
+    eventList={eventList}
+    noTopMargin
+    noBottomMargin
+  />
 );

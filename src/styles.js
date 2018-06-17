@@ -9,7 +9,7 @@ export const smallRoot = {
 
 export const mediumRoot = {
   ...smallRoot,
-  maxWidth: 1200,
+  maxWidth: 1280,
 };
 
 export const marginBottomRoot = {
@@ -22,6 +22,10 @@ export const marginBottomRoot = {
 
 export const centerChildrenInline = {
   textAlign: 'center',
+};
+
+export const fullHeight = {
+  height: '100%',
 };
 
 export const displayBlock = {

@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 import { withWidth, Card, CardContent, CardMedia, Typography, Grid } from '@material-ui/core';
 
 import FaIcon from './FaIcon';
-
+import { marginBottomRoot } from './styles';
 import theme from './ThemeConfig';
 
 const styles = {
@@ -20,14 +20,7 @@ const styles = {
          0px 1px 14px 0px rgba(0, 0, 0, 0.12)`,
     },
   }),
-  marginPC: {
-    height: 'auto !important',
-    marginBottom: 80,
-  },
-  marginMobile: {
-    height: 'auto !important',
-    marginBottom: 50,
-  },
+  marginBottomRoot,
   image: {
     height: '100%',
     // paddingTop: '56.25%', // 16:9,,, 이미지 사이즈임
@@ -55,11 +48,11 @@ const styles = {
   prize: '학생증 제시 30% 할인',
   resultDate: '-',
 */
-function EventItem({ classes, width, event, handleClick }) {
+function EventItem({ classes, event, handleClick }) {
   const { id, title, thumbnail, startDate, endDate, prize, resultDate } = event;
 
   return (
-    <Grid item xs={12} sm={6} lg={4} className={width === 'xs' ? classes.marginMobile : classes.marginPC}>
+    <Grid item xs={12} sm={6} lg={4} className={classes.marginBottomRoot}>
       <Card className={classes.card} onClick={handleClick(id)}>
         <CardMedia
           className={classes.image}
