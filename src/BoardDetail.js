@@ -7,11 +7,11 @@ import Spacing from './Spacing';
 import { commentList, userDemo } from './store';
 
 import './content.css';
-import { smallRoot } from './styles';
+import { smallRootWithPadding } from './styles';
 import theme from './ThemeConfig';
 
 const styles = {
-  smallRoot,
+  smallRootWithPadding,
   title: ({ width }) => ({
     marginTop: width === 'xs' ? 20 : 60,
     letterSpacing: -1.5,
@@ -62,7 +62,7 @@ function BoardDetail({ classes, item, useComment, useLike, footer, width }) {
   const writerPic = 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg';
 
   return (
-    <div className={classes.smallRoot}>
+    <div className={classes.smallRootWithPadding}>
       <Typography variant={width === 'xs' ? 'display1' : 'display3'} className={classes.title}>{title}</Typography>
       <div className={classes.writerBox}>
         <img className={classes.writerPic} alt={writer} src={writerPic} />

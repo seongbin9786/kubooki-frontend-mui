@@ -3,12 +3,7 @@ import React, { Component } from 'react';
 import { faqList } from './store';
 import FAQItem from './FAQItem';
 import { Typography } from '@material-ui/core';
-
-const containerStyle = {
-  margin: '0 auto',
-  marginTop: 20,
-  maxWidth: '1280px',
-};
+import { smallRootWithPadding } from './styles';
 
 const titleStyle = {
   margin: '10px'
@@ -31,7 +26,7 @@ class ControlledExpansionPanels extends Component {
     const { expanded } = this.state;
 
     return (
-      <div style={containerStyle}>
+      <div style={smallRootWithPadding}>
         <Typography variant='display1' style={titleStyle}>FAQ 목록</Typography>
         {faqList.map(
           (faq, index) =>

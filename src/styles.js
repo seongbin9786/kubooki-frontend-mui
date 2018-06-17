@@ -18,6 +18,11 @@ export const mediumRoot = {
   maxWidth: 1280,
 };
 
+export const mediumRootWithPadding = {
+  ...mediumRoot,
+  padding: 20,
+};
+
 export const marginBottomRoot = {
   height: 'auto !important',
   marginBottom: 80,

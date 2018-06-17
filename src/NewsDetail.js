@@ -20,11 +20,11 @@ import {
 
 import './content.css';
 import theme from './ThemeConfig';
-import { mediumRoot, marginVertical, centerChildrenInline } from './styles';
+import { mediumRootWithPadding, marginVertical, centerChildrenInline } from './styles';
 import FaIcon from './FaIcon';
 
 const styles = {
-  mediumRoot,
+  mediumRootWithPadding,
   centerChildrenInline,
   header: {
     textAlign: 'center',
@@ -88,7 +88,7 @@ class NewsDetail extends Component {
     const { correctionOpen } = this.state;
 
     return (
-      <article className={classes.mediumRoot}>
+      <article className={classes.mediumRootWithPadding}>
 
         <header className={classes.header}>
           <Link to="/" className={classes.yellowHighlight}>{news.category}</Link>
