@@ -27,7 +27,7 @@ export default withStyles(styles)(({ classes }) => (
       btnStr='비밀번호 변경'
       color='primary'
       variant='raised'
-      type='paper-plane'
+      icon='paper-plane'
     />
   </div>
 ));

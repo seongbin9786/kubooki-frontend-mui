@@ -55,7 +55,7 @@ export default class Pagination extends Component {
   getNavBtn(left) {
     return (
       <FaIconBtn
-        type={left ? 'chevron-left' : 'chevron-right'}
+        icon={left ? 'chevron-left' : 'chevron-right'}
         onlyIcon
         color='primary'
         onClick={this.handleNavBtnClick(left)}

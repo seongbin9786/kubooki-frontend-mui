@@ -29,7 +29,7 @@ const styles = theme => ({
   },
   category: {
     fontSize: 16,
-    color: '#b2b2b2',
+    color: theme.palette.third.main,
     borderBottomColor: '#ECCA30',
     borderBottom: '2px solid black',
   },

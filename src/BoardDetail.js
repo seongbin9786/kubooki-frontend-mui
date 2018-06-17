@@ -1,20 +1,22 @@
 import React from 'react';
-import { withStyles, Typography } from '@material-ui/core';
-import './content.css';
+import compose from 'recompose/compose';
+import injectSheet from 'react-jss';
+import { withWidth, Typography } from '@material-ui/core';
 import CommentList from './CommentList';
 import Spacing from './Spacing';
 import { commentList, userDemo } from './store';
 
-const styles = theme => ({
-  root: {
-    margin: '0 auto',
-    maxWidth: '1100px',
-  },
-  title: {
-    marginTop: 60,
-    letterSspacing: -1.5,
+import './content.css';
+import { smallRoot } from './styles';
+import theme from './ThemeConfig';
+
+const styles = {
+  smallRoot,
+  title: ({ width }) => ({
+    marginTop: width === 'xs' ? 20 : 60,
+    letterSpacing: -1.5,
     color: '#535353',
-  },
+  }),
   date: {
     color: '#535353',
     fontWeight: 300,
@@ -44,7 +46,7 @@ const styles = theme => ({
     color: '#535353',
     fontWeight: 300,
   },
-});
+};
 
 /*
   id: 1,
@@ -55,13 +57,13 @@ const styles = theme => ({
   views: 1,
   likes: 1,
 */
-function BoardDetail({ classes, item, useComment, useLike, footer }) {
+function BoardDetail({ classes, item, useComment, useLike, footer, width }) {
   const { title, writer, content, creationDate, lastUpdateDate, views, likes } = item;
   const writerPic = 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg';
 
   return (
-    <div className={classes.root}>
-      <Typography variant='display3' className={classes.title}>{title}</Typography>
+    <div className={classes.smallRoot}>
+      <Typography variant={width === 'xs' ? 'display1' : 'display3'} className={classes.title}>{title}</Typography>
       <div className={classes.writerBox}>
         <img className={classes.writerPic} alt={writer} src={writerPic} />
         <span className={classes.writerBy}> by </span>
@@ -91,4 +93,4 @@ function BoardDetail({ classes, item, useComment, useLike, footer }) {
   );
 }
 
-export default withStyles(styles)(BoardDetail);
+export default compose(withWidth(), injectSheet(styles))(BoardDetail);

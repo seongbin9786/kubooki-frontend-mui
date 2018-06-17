@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import injectSheet from 'react-jss';
+import { Typography, Divider, withWidth } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { Typography, Divider } from '@material-ui/core';
 
 import FaIconBtn from './FaIconBtn';
 import CorrectionWriteDialog from './CorrectionWriteDialog';
@@ -18,6 +18,7 @@ import {
   newsList
 } from './store';
 
+import './content.css';
 import theme from './ThemeConfig';
 import { mediumRoot, marginVertical, centerChildrenInline } from './styles';
 import FaIcon from './FaIcon';
@@ -30,8 +31,8 @@ const styles = {
     marginBottom: 40,
   },
   yellowHighlight: {
+    color: theme.palette.primary.main,
     borderBottom: '2px #ECCA30 solid',
-    color: '#000',
     textDecoration: 'none',
   },
   title: {
@@ -39,11 +40,12 @@ const styles = {
     fontSize: '30px',
     lineHeight: '38px',
   },
+  authorIncidator: {
+    color: theme.palette.third.main,
+  },
   author: {
+    composes: '$yellowHighlight',
     display: 'inline-block',
-    borderBottom: '2px #ECCA30 solid',
-    color: '#000',
-    textDecoration: 'none',
   },
   footer: {
     marginTop: '80px',
@@ -58,7 +60,7 @@ const styles = {
   date: {
     display: 'block',
     marginTop: 20,
-    color: '#b2b2b2',
+    color: theme.palette.third.main,
   },
   listContainer: {
     width: '100%',
@@ -82,7 +84,7 @@ class NewsDetail extends Component {
   toggleCorrectionDialog = () => this.setState(({ correctionOpen }) => ({ correctionOpen: !correctionOpen }));
 
   render() {
-    const { classes } = this.props;
+    const { classes, width } = this.props;
     const { correctionOpen } = this.state;
 
     return (
@@ -92,12 +94,12 @@ class NewsDetail extends Component {
           <Link to="/" className={classes.yellowHighlight}>{news.category}</Link>
           <Typography
             className={classes.title}
-            variant="display2"
+            variant={width === 'xs' ? 'display1' : 'display3'}
           >
             {news.title}
           </Typography>
           <div>
-            <div>작성자</div>
+            <div className={classes.authorIncidator}>작성자</div>
             <Link className={classes.author} to="/">{news.writer}</Link>
           </div>
         </header>
@@ -108,7 +110,7 @@ class NewsDetail extends Component {
         />
 
         <footer className={classes.footer}>
-          <div>작성자</div>
+          <div className={classes.authorIncidator}>작성자</div>
           <Link className={classes.yellowHighlight} to="/">{news.writer}</Link>
           <time className={classes.date}>{news.lastUpdatedDate}</time>
         </footer>
@@ -168,4 +170,4 @@ class NewsDetail extends Component {
   }
 }
 
-export default withStyles(styles)(NewsDetail);
+export default injectSheet(styles)(withWidth()(NewsDetail));
