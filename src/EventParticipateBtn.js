@@ -41,7 +41,7 @@ const EventParticipate = ({ classes, handleClick }) => (
         btnStr={'참여하기 (' + participantsNum + '명 참여중)'}
         color='primary'
         variant='raised'
-        type='hand-point-right'
+        icon='hand-point-right'
         iconLeft
         className={classes.btn}
         disabled={!canJoin}

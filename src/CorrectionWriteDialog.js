@@ -4,6 +4,7 @@ import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } 
 
 import QuillEditor from './QuillEditor';
 import 'react-quill/dist/quill.snow.css'; // ES6
+import FaIcon from './FaIcon';
 
 const styles = theme => ({
   root: {
@@ -70,7 +71,7 @@ export default withStyles(styles)(class extends Component {
         </DialogContent>
         <DialogActions className={classes.actions}>
           <Button onClick={handleClose} color="primary">
-            <i className="fas fa-md fa-save"></i>&nbsp;&nbsp;임시저장
+            <FaIcon icon='md-save' />&nbsp;&nbsp;임시저장
           </Button>
           <div>
             <Button onClick={handleClose} color="primary">

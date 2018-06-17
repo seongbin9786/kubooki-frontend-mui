@@ -64,7 +64,7 @@ class AccountSettingsPage extends Component {
             size={400}
           />
           <UploadBtn btnStr='사진 업로드' color='primary' className={classes.uploadBtn} />
-          <FaIconBtn variant='raised' color='secondary' btnStr='삭제' type='trash' />
+          <FaIconBtn variant='raised' color='secondary' btnStr='삭제' icon='trash' />
         </div>
 
         <Divider />

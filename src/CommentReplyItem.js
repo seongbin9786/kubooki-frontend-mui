@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Typography, withStyles, Button, Divider } from '@material-ui/core';
-import grey from '@material-ui/core/colors/grey';
 import { withRouter } from 'react-router-dom';
 
 import FaIcon from './FaIcon';
-import FaIconBtn from './FaIconBtn';
+
+import { input } from './stylesComment';
 
 const styles = theme => ({
   root: {
@@ -28,17 +28,7 @@ const styles = theme => ({
     marginTop: -4,
     marginRight: 4,
   },
-  input: {
-    color: '#555',
-    border: 'none',
-    resize: 'none',
-    maxHeight: '100%',
-    width: '100%',
-    fontFamily: '"Roboto", sans-serif',
-    display: 'block',
-    fontSize: '1rem',
-    boxSizing: 'border-box',
-  },
+  input,
   replyBtn: {
     marginRight: 4,
     color: theme.palette.primary.main,
@@ -77,7 +67,7 @@ class CommentItem extends Component {
         <div>
           <div className={classes.commentRoot}>
             <header className={classes.row}>
-              <FaIcon type='reply' className={classes.replyBtn} />
+              <FaIcon icon='reply' className={classes.replyBtn} />
               <Typography variant='subheading' className={classes.name}>{writer}</Typography>
             </header>
             <div className={classes.row}>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 
+import FaIcon from './FaIcon';
 import QuillEditor from './QuillEditor';
 import 'react-quill/dist/quill.snow.css'; // ES6
 
@@ -69,7 +70,7 @@ export default withStyles(styles)(class extends Component {
         </DialogContent>
         <DialogActions className={classes.actions}>
           <Button onClick={handleClose} color="primary">
-            <i className="fas fa-md fa-save"></i>&nbsp;&nbsp;임시저장
+            <FaIcon icon='save' />&nbsp;&nbsp;임시저장
           </Button>
           <div>
             <Button onClick={handleClose} color="primary">

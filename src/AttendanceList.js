@@ -88,10 +88,10 @@ let EnhancedTableToolbar = props => {
         {numSelected > 0 ? (
           <React.Fragment>
             <Tooltip title="출석">
-              <FaIconBtn onlyIcon type='briefcase' />
+              <FaIconBtn onlyIcon icon='briefcase' />
             </Tooltip>
             <Tooltip title="지각">
-              <FaIconBtn onlyIcon type='clock' />
+              <FaIconBtn onlyIcon icon='clock' />
             </Tooltip>
           </React.Fragment>
         ) : null}

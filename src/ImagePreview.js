@@ -21,7 +21,6 @@ const styles = {
   },
   img: ({ isForm, isCircle, width, size }) => ({
     borderRadius: isCircle ? '50%' : 0,
-    height: 'auto',
     width: !isForm && width !== 'xs' ? size : '100%'
   }),
 };

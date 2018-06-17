@@ -24,12 +24,6 @@ const styles = theme => ({
     color: grey[500],
     marginBottom: 8,
   },
-  category: {
-    fontSize: 16,
-    color: '#b2b2b2',
-    borderBottomColor: '#ECCA30',
-    borderBottom: '2px solid black',
-  },
   date: {
     display: 'inline-block',
     color: grey[600],

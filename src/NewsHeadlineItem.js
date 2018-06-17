@@ -7,39 +7,20 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import NewsItem from './NewsItem';
+import { fullImage, darkOverlay, marginBottomRoot } from './styles';
 
 const styles = {
   Paper: {
     margin: 3,
     padding: 10,
   },
-  marginPC: {
-    height: 'auto !important',
-    marginBottom: 80,
-  },
-  marginMobile: {
-    height: 'auto !important',
-    marginBottom: 50,
-  },
+  marginBottomRoot,
   imgContainer: {
     position: 'relative',
     width: '100%',
   },
-  img: {
-    display: 'block',
-    width: '100%',
-    maxWidth: '100%',
-    height: 'auto'
-  },
-  darkOverlay: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    bottom: 0,
-    right: 0,
-    background: 'black',
-    opacity: '.3',
-  },
+  fullImage,
+  darkOverlay,
   info: {
     position: 'absolute',
     left: '50px',
@@ -54,7 +35,6 @@ const styles = {
     color: 'white'
   },
   dateTitle: {
-    ...this.date,
     marginTop: 11,
     fontSize: '1rem',
     color: 'white'
@@ -77,16 +57,7 @@ const styles = {
     transition: 'background .2s ease-out',
   },
   readMoreBtnHover: {
-    position: 'absolute',
-    bottom: '50px',
-    left: '50px',
-
-    display: 'block',
-    border: '1px white solid',
-    padding: '8px 30px',
-
-    textDecoration: 'none',
-    transition: 'background .2s ease-out',
+    composes: '$readMoreBtn',
     color: 'black',
     backgroundColor: 'white',
   }
@@ -97,6 +68,7 @@ class NewsHeadlineItem extends Component {
     hover: false,
   }
 
+  // 제목에 hover 시에도 버튼이 활성화되어야 함
   handleHover = () => this.setState(({ hover }) => ({ hover: !hover }));
 
   render() {
@@ -117,11 +89,11 @@ class NewsHeadlineItem extends Component {
       return <NewsItem news={news} />;
 
     return (
-      <Grid item xs={12} lg={7} className={width === 'xs' ? classes.marginMobile : classes.marginPC}>
+      <Grid item xs={12} lg={7} className={classes.marginBottomRoot}>
         <div className={classes.Paper}>
           <div className={classes.imgContainer}>
             <Link to={`/news/${news.id}`}>
-              <img className={classes.img} src={news.img} alt='배경이미지' />
+              <img className={classes.fullImage} src={news.img} alt='배경이미지' />
               <span
                 className={classes.darkOverlay}
                 onMouseOver={this.handleHover}

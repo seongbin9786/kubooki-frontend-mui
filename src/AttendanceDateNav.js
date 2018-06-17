@@ -35,7 +35,7 @@ function DatePickers({ classes, right }) {
             shrink: true,
           }}
         />
-        <FaIconBtn variant='raised' btnStr='이동' type='paper-plane' color='primary' />
+        <FaIconBtn variant='raised' btnStr='이동' icon='paper-plane' color='primary' />
       </Paper>
     </div>
   );

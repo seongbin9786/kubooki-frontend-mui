@@ -109,7 +109,7 @@ function NewsCorrectionItem({ classes, item, history }) {
       </main>
       <footer>
         <Typography variant='caption' className={isFeedbackDone ? classes.statusBar : classes.statusBarNotDone}>
-          &nbsp;<FaIcon type={isFeedbackDone ? 'check' : 'envelope'} />&nbsp;&nbsp;{status}
+          &nbsp;<FaIcon icon={isFeedbackDone ? 'check' : 'envelope'} />&nbsp;&nbsp;{status}
         </Typography>
       </footer>
     </Paper>

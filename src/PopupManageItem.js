@@ -58,10 +58,10 @@ function PopupManageItem({ classes, width, popup, handleClick }) {
         <CardContent>
           <Typography variant="headline" className={classes.title}>{title}</Typography>
           <div className={classes.details}>
-            <FaIcon sm type='calendar-alt' className={classes.icon} /><span>{startDate + ' - ' + endDate}</span>
+            <FaIcon icon='sm-calendar-alt' className={classes.icon} /><span>{startDate + ' - ' + endDate}</span>
           </div>
           <div className={classes.details}>
-            <FaIcon sm type={isShowing ? 'eye' : 'eye-slash'} className={classes.icon} /><span>{isShowing ? '표시중' : '내려짐'}</span>
+            <FaIcon icon={isShowing ? 'sm-eye' : 'sm-eye-slash'} className={classes.icon} /><span>{isShowing ? '표시중' : '내려짐'}</span>
           </div>
         </CardContent>
       </Card>

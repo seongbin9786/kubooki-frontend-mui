@@ -5,10 +5,11 @@ import NewsCorrectionItem from './NewsCorrectionItem';
 import { correctionList } from './store';
 import SortBar from './SortBar';
 import LoadMoreBtn from './LoadMoreBtn';
+import FaIcon from './FaIcon';
 
 export default () => {
   const titleMsg = '들어온 정정 요청';
-  const noContentMsg = <span><i className="fas fa-lg fa-smile"></i> 정정 요청된 기사가 없습니다.</span>;
+  const noContentMsg = <span><FaIcon icon='lg-smile' /> 정정 요청된 기사가 없습니다.</span>;
   const items = correctionList.map((item, index) => <NewsCorrectionItem item={item} key={index} />);
 
   return (

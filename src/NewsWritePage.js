@@ -8,6 +8,8 @@ import NewsWriteDialog from './NewsWriteDialog';
 import { writerDemo } from './store';
 import { Typography, Button } from '@material-ui/core';
 
+import FaIcon from './FaIcon';
+
 const styles = theme => ({
   root: {
     margin: '0 auto',
@@ -57,7 +59,7 @@ class NewsWritePage extends Component {
               className={classes.writeBtn}
               onClick={this.toggleDialog}
             >
-              기사 작성&nbsp;&nbsp;<i className="fas fa-md fa-pencil-alt"></i>
+              기사 작성&nbsp;&nbsp;<FaIcon icon='pencil-alt' />
             </Button>
           </header>
 

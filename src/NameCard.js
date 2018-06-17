@@ -1,17 +1,16 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+import injectSheet from 'react-jss';
+import { withWidth, Card, CardContent, CardMedia, Typography } from '@material-ui/core';
 
-const styles = theme => ({
-  card: {
+const styles = {
+  card: ({ size, center, width }) => console.log(width) || ({
     display: 'flex',
     justifyContent: 'space-between',
     height: '150px',
     marginBottom: '40px',
-  },
+    width: width === 'xs' ? '100%' : (size ? size + 'px' : '1000px'),
+    margin: center ? '0 auto' : null,
+  }),
   details: {
     display: 'flex',
     flexDirection: 'row',
@@ -21,16 +20,15 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between'
   },
-  cover: {
+  cover: ({ width }) => ({
     width: '150px',
     height: '150px',
-  },
-});
+  }),
+};
 
-function MediaControlCard({ classes, theme, writer, size }) {
-
+function NameCard({ classes, writer }) {
   return (
-    <Card className={classes.card} style={size ? { width: size + 'px' } : { width: '1000px' }}>
+    <Card className={classes.card}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <div>
@@ -52,4 +50,4 @@ function MediaControlCard({ classes, theme, writer, size }) {
   );
 }
 
-export default withStyles(styles)(MediaControlCard);
+export default withWidth()(injectSheet(styles)(NameCard));

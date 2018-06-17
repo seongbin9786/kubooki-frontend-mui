@@ -6,6 +6,8 @@ import withWidth from '@material-ui/core/withWidth';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
+import { darkOverlay } from './styles';
+
 const styles = theme => ({
   imgRoot: {
     position: 'relative',
@@ -17,15 +19,7 @@ const styles = theme => ({
     height: '100%',
     objectFit: 'cover',
   },
-  darkOverlay: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    bottom: 0,
-    right: 0,
-    background: 'black',
-    opacity: '.3',
-  },
+  darkOverlay,
   contentRoot: {
     position: 'absolute',
     left: '50px',
@@ -63,16 +57,7 @@ const styles = theme => ({
     transition: 'background .2s ease-out',
   },
   readMoreBtnHover: {
-    position: 'absolute',
-    bottom: '50px',
-    left: '50px',
-
-    display: 'block',
-    border: '1px white solid',
-    padding: '8px 30px',
-
-    textDecoration: 'none',
-    transition: 'background .2s ease-out',
+    composes: '$readMoreBtn',
     color: 'black',
     backgroundColor: 'white',
   }

@@ -4,7 +4,7 @@ import { Button, TextField, Select, Dialog, DialogActions, DialogContent, Dialog
 
 import QuillEditor from './QuillEditor';
 import 'react-quill/dist/quill.snow.css'; // ES6
-
+import FaIcon from './FaIcon';
 import ImagePreview from './ImagePreview';
 import UploadBtn from './UploadBtn';
 
@@ -92,7 +92,7 @@ export default withStyles(styles)(class extends Component {
         </DialogContent>
         <DialogActions className={classes.actions}>
           <Button onClick={handleClose} color="primary">
-            <i className="fas fa-md fa-save"></i>&nbsp;&nbsp;임시저장
+            <FaIcon icon='md-save' />&nbsp;&nbsp;임시저장
           </Button>
           <div>
             <Button onClick={handleClose} color="primary">

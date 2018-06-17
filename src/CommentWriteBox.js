@@ -1,50 +1,58 @@
 import React from 'react';
-import { Typography, Button, Paper, withStyles } from '@material-ui/core';
+import compose from 'recompose/compose';
+import injectSheet from 'react-jss';
+import { withWidth, Typography, Button, Paper } from '@material-ui/core';
 
-const styles = theme => ({
-  root: {
+import { input } from './stylesComment';
+import FaIcon from './FaIcon';
+import theme from './ThemeConfig';
+
+const styles = {
+  root: ({ width }) => ({
     minHeight: '110px',
     marginTop: '40px',
-    display: 'flex',
-  },
-  input: {
-    color: '#555',
-    border: 'none',
-    resize: 'none',
+    display: width === 'xs' ? null : 'flex',
     width: '100%',
-    maxHeight: '100%',
-
-    fontFamily: '"Roboto", sans-serif',
-    display: 'block',
-    fontSize: '1rem',
-    boxSizing: 'border-box',
+  }),
+  input: {
+    ...input,
     marginTop: theme.spacing.unit,
     padding: theme.spacing.unit * 2,
   },
-  submitBtn: {
-    fontSize: '1rem',
-    margin: theme.spacing.unit,
-    padding: theme.spacing.unit * 2,
+  submitBtn: ({ width }) => {
+    const mobile = width === 'xs';
+    const css = {
+      fontSize: '1rem',
+      padding: theme.spacing.unit * 2,
+      margin: mobile ? 0 : theme.spacing.unit,
+    };
+    if (mobile) {
+      css.borderTopLeftRadius = '0';
+      css.borderTopRightRadius = '0';
+      css.width = '100%';
+    }
+    return css;
   },
-  flex: {
+  container: ({ width }) => ({
     width: '100%',
     boxSizing: 'border-box',
     padding: theme.spacing.unit * 2,
-  }
-});
+    paddingBottom: theme.spacing.unit * (width === 'xs' ? -1 : 0),
+    marginBottom: width === 'xs' ? theme.spacing.unit : 0,
+  }),
+};
 
 /*
   TODO 1: submitBtn의 onClick 구현하기
   TODO 2: 비 로그인 시 
 */
-function CommentList({ classes, user }) {
-
+function CommentList({ classes, user, width }) {
   return (
     <Paper
       elevation={1}
       className={classes.root}
     >
-      <div className={classes.flex}>
+      <div className={classes.container}>
         <Typography
           variant='title'
         >
@@ -61,10 +69,10 @@ function CommentList({ classes, user }) {
         variant="raised"
         className={classes.submitBtn}
       >
-        <i className="fas fa-lg fa-comments"></i>
+        <FaIcon icon='lg-comments' />
       </Button>
     </Paper>
   );
 }
 
-export default withStyles(styles)(CommentList);
+export default compose(withWidth(), injectSheet(styles))(CommentList);

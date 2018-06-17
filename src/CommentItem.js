@@ -7,9 +7,8 @@ import FaIconBtn from './FaIconBtn';
 import AlertDialog from './AlertDialog';
 import CommentReplyItem from './CommentReplyItem';
 
-import theme from './ThemeConfig';
-
-console.log(theme);
+import FaIcon from './FaIcon';
+import { input } from './stylesComment';
 
 const styles = theme => ({
   root: {
@@ -86,17 +85,7 @@ const styles = theme => ({
     height: 'auto',
     padding: 10,
   },
-  input: {
-    color: '#555',
-    border: 'none',
-    resize: 'none',
-    maxHeight: '100%',
-    width: '100%',
-    fontFamily: '"Roboto", sans-serif',
-    display: 'block',
-    fontSize: '1rem',
-    boxSizing: 'border-box',
-  },
+  input,
   replyBtn: {
     marginLeft: 30,
   },
@@ -187,13 +176,13 @@ class CommentItem extends Component {
               disabled={myCommentView}
               className={liked ? classes.voteBtnActive : classes.voteBtn}
             >
-              <i className="fas fa-lg fa-caret-up"></i>
+              <FaIcon icon='lg-caret-up' />
             </button>
             <div>{likes}</div>
             <button
               disabled={myCommentView}
               className={hated ? classes.voteBtnActive : classes.voteBtn}>
-              <i className="fas fa-lg fa-caret-down"></i>
+              <FaIcon icon='lg-caret-down' />
             </button>
           </div>
 
@@ -243,23 +232,24 @@ class CommentItem extends Component {
 
           <div className={classes.authorMenu}>
             <FaIconBtn
-              type={isEditing ? 'check' : 'edit'}
+              icon={isEditing ? 'check' : 'edit'}
               onlyIcon
-              sm
+              size='sm'
               className={classes.btn}
               onClick={isEditing ? this.handleSubmitBtnClick : this.handleEditBtnClick}
             />
             <FaIconBtn
-              type={isEditing ? 'times-circle' : 'trash'}
+              icon={isEditing ? 'times-circle' : 'trash'}
               onlyIcon
-              sm
+              size='sm'
               className={classes.btn}
               onClick={isEditing ? this.handleEditCancelBtnClick : null}
             />
           </div>
+
           {console.log(this.state) || collapsable
             ? <FaIconBtn
-              type={`caret-${isCollapsed ? 'down' : 'up'}`}
+              icon={`caret-${isCollapsed ? 'down' : 'up'}`}
               onlyIcon
               className={classes[`collapse${isCollapsed ? 'Down' : 'Up'}Btn`]}
               onClick={this.toggleOpen('isCollapsed')}
@@ -267,6 +257,7 @@ class CommentItem extends Component {
             : null
           }
         </div>
+
         {isReplying ?
           <CommentReplyItem
             writer={writer}

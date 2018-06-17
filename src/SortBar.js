@@ -3,6 +3,7 @@ import { withStyles, Button, Typography } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 
 import theme from './ThemeConfig';
+import FaIcon from './FaIcon';
 
 const styles = theme => ({
   sortBar: {
@@ -43,7 +44,7 @@ function SortBar({ classes, tabName, color, backgroundColor, dontLeftHighlight }
       >
         {tabName}
       </Typography>
-      <Button className={classes.sortBtn}><i className="fas fa-lg fa-caret-down"></i></Button>
+      <Button className={classes.sortBtn}><FaIcon icon='lg-caret-down' /></Button>
     </div>
   );
 };

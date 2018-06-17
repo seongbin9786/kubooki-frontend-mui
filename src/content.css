@@ -1,43 +1,19 @@
-@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
-@font-face {
-  font-family: 'Noto Sans KR Thin';
-  font-style: normal;
-  font-weight: 100;
-  src: url(https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'), url(https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'), url(https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');
-}
-
-@font-face {
-  font-family: 'Noto Sans KR Light';
-  font-style: normal;
-  font-weight: 300;
-  src: url(https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2) format('woff2'), url(https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff) format('woff'), url(https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.otf) format('opentype');
-}
-
-@font-face {
-  font-family: 'Noto Sans KR Bold';
-  font-style: normal;
-  font-weight: 700;
-  src: url(https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2) format('woff2'), url(https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff) format('woff'), url(https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.otf) format('opentype');
-}
-
 .article__content {
   margin: 0 auto;
   max-width: 1100px;
-  font-family: 'Noto Sans KR', sans-serif !important;
+  font-family: 'Nanum Square', 'Malgun Gothic', sans-serif;
 }
 
 .article__content h2 {
   font-size: 2rem;
   margin-top: 2.1em;
   margin-bottom: 1.3em;
-  font-family: 'Noto Sans KR Bold', sans-serif !important;
 }
 
 .article__content h3 {
   font-size: 1.5rem;
   margin-top: 1.5em;
   margin-bottom: 0.8em;
-  font-family: 'Noto Sans KR Bold', sans-serif !important;
 }
 
 .article__content p {
@@ -56,4 +32,8 @@
 .article__content .img__center {
   display: block;
   margin: 0 auto;
+}
+
+.post__author {
+  text-align: center;
 }

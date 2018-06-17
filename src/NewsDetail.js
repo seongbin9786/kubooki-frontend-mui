@@ -18,32 +18,26 @@ import {
   newsList
 } from './store';
 
-const styles = theme => ({
-  article: {
-    padding: '0 20px',
-    marginTop: 80,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
+import theme from './ThemeConfig';
+import { mediumRoot, marginVertical, centerChildrenInline } from './styles';
+import FaIcon from './FaIcon';
+
+const styles = {
+  mediumRoot,
+  centerChildrenInline,
   header: {
     textAlign: 'center',
     marginBottom: 40,
   },
   yellowHighlight: {
-    display: 'inline-block',
     borderBottom: '2px #ECCA30 solid',
     color: '#000',
     textDecoration: 'none',
   },
   title: {
-    marginTop: '60px',
-    marginBottom: '60px',
+    ...marginVertical(60),
     fontSize: '30px',
     lineHeight: '38px',
-  },
-  writtenBy: {
-    display: 'block',
   },
   author: {
     display: 'inline-block',
@@ -56,12 +50,14 @@ const styles = theme => ({
     textAlign: 'center',
   },
   correctionBtn: {
+    textAlign: 'center',
     color: 'rgba(0, 0, 0, .6)',
     border: '1px #ECCA30 solid',
+    marginTop: 20,
   },
   date: {
     display: 'block',
-    marginTop: '20px',
+    marginTop: 20,
     color: '#b2b2b2',
   },
   listContainer: {
@@ -76,7 +72,7 @@ const styles = theme => ({
     width: '100%',
     margin: '40px 0',
   },
-});
+};
 
 class NewsDetail extends Component {
   state = {
@@ -90,7 +86,7 @@ class NewsDetail extends Component {
     const { correctionOpen } = this.state;
 
     return (
-      <article className={classes.article}>
+      <article className={classes.mediumRoot}>
 
         <header className={classes.header}>
           <Link to="/" className={classes.yellowHighlight}>{news.category}</Link>
@@ -100,10 +96,10 @@ class NewsDetail extends Component {
           >
             {news.title}
           </Typography>
-          <p>
-            <span className={classes.writtenBy}>작성자</span>
+          <div>
+            <div>작성자</div>
             <Link className={classes.author} to="/">{news.writer}</Link>
-          </p>
+          </div>
         </header>
 
         <section
@@ -112,13 +108,9 @@ class NewsDetail extends Component {
         />
 
         <footer className={classes.footer}>
-
-          <p className="post__author">
-            <span className={classes.writtenBy}>작성자</span>
-            <Link className={classes.yellowHighlight} to="/">{news.writer}</Link>
-          </p>
+          <div>작성자</div>
+          <Link className={classes.yellowHighlight} to="/">{news.writer}</Link>
           <time className={classes.date}>{news.lastUpdatedDate}</time>
-
         </footer>
 
         <Divider className={classes.divider} />
@@ -126,16 +118,19 @@ class NewsDetail extends Component {
         <NameCard
           writer={writerDemo}
           size={500}
+          center
         />
 
-        <FaIconBtn
-          iconLeft
-          btnStr='기사의 내용 중 일부가 잘못된 경우'
-          type='exclamation-triangle'
-          variant='outlined'
-          onClick={this.toggleCorrectionDialog}
-          className={classes.correctionBtn}
-        />
+        <div className={classes.centerChildrenInline}>
+          <FaIconBtn
+            iconLeft
+            btnStr='기사의 내용 중 일부가 잘못된 경우'
+            icon='exclamation-triangle'
+            variant='outlined'
+            onClick={this.toggleCorrectionDialog}
+            className={classes.correctionBtn}
+          />
+        </div>
 
         {correctionOpen
           ? <CorrectionWriteDialog
@@ -159,7 +154,7 @@ class NewsDetail extends Component {
 
         <div className={classes.listContainer}>
           <Typography variant='headline' className={classes.listIndicator}>
-            <i className="fas fa-md fa-code-branch"></i> 같은 분류의 다른 기사
+            <FaIcon icon='code-branch' /> 같은 분류의 다른 기사
           </Typography>
 
           <NewsList

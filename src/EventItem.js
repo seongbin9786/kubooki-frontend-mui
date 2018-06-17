@@ -70,16 +70,16 @@ function EventItem({ classes, width, event, handleClick }) {
           <Typography variant="headline" className={classes.title}>{title}</Typography>
 
           <div className={classes.details}>
-            <FaIcon sm type='calendar-alt' className={classes.icon} /><span>{startDate + ' - ' + endDate}</span>
+            <FaIcon icon='sm-calendar-alt' className={classes.icon} /><span>{startDate + ' - ' + endDate}</span>
           </div>
 
           <div className={classes.details}>
-            <FaIcon sm type='gift' className={classes.icon} /><span>{prize}</span>
+            <FaIcon icon='sm-gift' className={classes.icon} /><span>{prize}</span>
           </div>
 
           {resultDate && resultDate !== '-'
             ? <div className={classes.details}>
-              <FaIcon sm type='bullhorn' className={classes.icon} /><span>{resultDate + ' 발표'}</span>
+              <FaIcon icon='sm-bullhorn' className={classes.icon} /><span>{resultDate + ' 발표'}</span>
             </div>
             : null
           }

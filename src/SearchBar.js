@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { TextField, InputAdornment, withStyles } from '@material-ui/core';
 
+import FaIcon from './FaIcon';
+
 const styles = theme => ({
   root: {
     margin: '0 auto',
@@ -61,7 +63,7 @@ class SearchBar extends Component {
           InputProps={{
             endAdornment:
               <InputAdornment position="end">
-                <i className="fas fa-search"></i>
+                <FaIcon icon='search' />
               </InputAdornment>
           }}
         />

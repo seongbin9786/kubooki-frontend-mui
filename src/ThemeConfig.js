@@ -5,6 +5,12 @@ export default createMuiTheme({
     primary: {
       main: '#5b80b2'
     },
+    indicator: {
+      main: '#ECCA30',
+    },
+    third: {
+      main: '#b2b2b2',
+    }
   },
   typography: {
     fontFamily: '\'Nanum Square\', \'Malgun Gothic\', sans-serif',
