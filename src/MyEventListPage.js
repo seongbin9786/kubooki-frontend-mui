@@ -55,6 +55,7 @@ class MyEventListPage extends Component {
           open={detailOpen}
           eventDetail={eventDetail}
           eventParticipateDetail={eventParticipateDetail}
+          editMode
         />
 
       </div>

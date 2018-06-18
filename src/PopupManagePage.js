@@ -53,7 +53,10 @@ class PopupManagePage extends Component {
           noMoreLoadBtn
         />
 
-        {detailOpen ? <PopupDetail popupDetail={popupDetail} /> : null}
+        <PopupDetail
+          open={detailOpen}
+          popupDetail={popupDetail}
+        />
       </div>
     );
   }

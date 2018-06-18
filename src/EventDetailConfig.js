@@ -39,32 +39,33 @@ export default [
   {
     label: '제목',
     name: 'title',
-    disabled: state => !state.manageMode,
+    disabled: state => !(state.manageMode || state.createMode),
   },
   {
     label: '시작날짜',
     name: 'startDate',
     type: 'date',
-    disabled: state => !state.manageMode,
+    shrink: true,
+    disabled: state => !(state.manageMode || state.createMode),
   },
   {
     label: '종료날짜',
     name: 'endDate',
     type: 'date',
     shrink: true,
-    disabled: state => !state.manageMode,
+    disabled: state => !(state.manageMode || state.createMode),
   },
   {
     label: '당첨자 발표일',
     name: 'resultDate',
     type: 'date',
     shrink: true,
-    disabled: state => !state.manageMode,
+    disabled: state => !(state.manageMode || state.createMode),
   },
   {
     label: '상품',
     name: 'prize',
-    disabled: state => !state.manageMode,
+    disabled: state => !(state.manageMode || state.createMode),
   },
   {
     label: '당첨 여부',

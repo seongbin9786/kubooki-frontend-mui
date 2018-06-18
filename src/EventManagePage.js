@@ -22,13 +22,34 @@ class EventManagePage extends Component {
   state = {
     detailOpen: false,
     detailId: -1,
+    create: false,
   };
 
-  handleClick = id => () => this.setState({ detailOpen: true, detailId: id });
+  handleClick = id => () => {
+    this.setState({ detailOpen: true, detailId: id });
+    this.receiveFromServer(id);
+  }
+
+  handleCreateIconClick = () => {
+    this.setState({ create: true, detailOpen: true, detailId: -1 });
+    this.clear();
+  }
+
+  clear = () => this.setState({ eventDetail: null, eventManageDetail: null, eventParticipateDetail: null });
+
+  receiveFromServer(id) {
+    console.log('receive!');
+    this.setState({
+      eventDetail,
+      eventManageDetail,
+      eventParticipateDetail,
+    });
+  }
 
   render() {
     const { classes } = this.props;
-    const { detailOpen } = this.state;
+    const { detailOpen, create } = this.state;
+    console.log(create && '@@@ If this appears, there\'ll be no EventDetail @@@');
 
     return (
       <div>
@@ -37,7 +58,7 @@ class EventManagePage extends Component {
           <SearchBar noMargin label='이벤트 검색' />
         </div>
 
-        <div className={classes.subHeader}>
+        <div className={classes.subHeader} onClick={this.handleCreateIconClick}>
           <CreateIcon />
         </div>
 
@@ -49,10 +70,11 @@ class EventManagePage extends Component {
 
         <EventDetail
           open={detailOpen}
-          eventDetail={eventDetail}
-          eventManageDetail={eventManageDetail}
-          eventParticipateDetail={eventParticipateDetail}
+          eventDetail={!create && eventDetail}
+          eventManageDetail={!create && eventManageDetail}
+          eventParticipateDetail={!create && eventParticipateDetail}
         />
+
       </div>
     );
   }

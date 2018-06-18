@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { withStyles, TextField, Typography, Button, Grid, Checkbox, FormControlLabel, Collapse } from '@material-ui/core';
+import React from 'react';
+import { withStyles, Typography, Button, Grid, Collapse } from '@material-ui/core';
 
 import DeleteIconBtn from './DeleteIconBtn';
 import EventParticipantList from './EventParticipantList';
 import EventParticipantAnswers from './EventParticipantAnswers';
 import { paddingOneUnit, marginOneUnit, spaceBetween, alignChildrenRight } from './styles';
 import inputList, { detailList } from './EventDetailConfig';
-import QuillEditor from './QuillEditor';
+import AbstractDetail from './AbstractDetail';
 
 const styles = {
   '@global': {
@@ -34,13 +34,34 @@ const styles = {
   marginOneUnit,
 };
 
-class EventDetail extends Component {
+class EventDetail extends AbstractDetail {
   constructor(props) {
     super(props);
+    this.state = {};
+  }
 
-    const { eventDetail, eventManageDetail, eventParticipateDetail } = props;
+  focusOnOpen(prevProps) {
+    const { open: beforeOpen, createMode: beforeCreate } = prevProps;
+    const { open: afterOpen } = this.props;
+    const { createMode, manageMode } = this.state;
 
-    this.state = {
+    if ((!beforeOpen && afterOpen) || (!beforeCreate && createMode)) {
+      setTimeout(() => {
+        const pageTitle = document.getElementById('pageTitle');
+        window.scrollTo(0, pageTitle.getBoundingClientRect().top);
+
+        const input = document.getElementsByName(manageMode || createMode ? 'title' : 'q0')[0];
+        input.focus();
+      }, 300);
+    }
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { editMode, eventDetail, eventManageDetail, eventParticipateDetail } = nextProps;
+
+    return {
+      ...prevState,
+
       // 이벤트 표시 (공통) 데이터
       title: '',
       startDate: '',
@@ -68,16 +89,17 @@ class EventDetail extends Component {
       priority: -1,
       ...eventManageDetail,
 
-      // 관리자일 때만 이벤트 관리 데이터가 들어옴
-      participateMode: Boolean(!eventParticipateDetail),
-      manageMode: Boolean(eventManageDetail),
-
+      // 모드 설정
+      participateMode: !eventParticipateDetail,
+      participateEditMode: eventParticipateDetail && editMode,
+      manageMode: eventManageDetail,
+      createMode: !eventDetail,
     };
   }
 
-  handleChange = inputName => ({ target: { value } }) => this.setState({ [inputName]: value });
-
-  handleQuillChange = value => this.setState({ content: value });
+  componentDidUpdate(prevProps) {
+    this.focusOnOpen(prevProps);
+  }
 
   handleAnswerChange = index => ({ target: { value } }) => {
     this.setState(
@@ -91,86 +113,6 @@ class EventDetail extends Component {
     );
   }
 
-  componentDidUpdate(prevProps) {
-    const { open: beforeOpen } = prevProps;
-    const { open: afterOpen } = this.props;
-    const { manageMode } = this.state;
-
-    if (!beforeOpen && afterOpen) {
-      setTimeout(() => {
-        const title = document.getElementById('pageTitle');
-        const input = document.getElementsByName(manageMode ? 'title' : 'q0')[0];
-        window.scrollTo(0, title.getBoundingClientRect().top);
-        input.focus();
-      }, 300);
-    }
-  }
-
-  renderField(field) {
-    const { state } = this;
-    const { classes } = this.props;
-    const {
-      label, name, value, onChange,
-      show = true,
-      disabled = false,
-      shrink = false,
-      Component = TextField,
-      type = 'text',
-      className = 'marginOneUnit',
-    } = field;
-
-    if (typeof show === 'function' && !show(state)) return;
-
-    if (type === 'checkbox') {
-      return (
-        <FormControlLabel
-          label={label}
-          name={name}
-          key={name}
-          control={
-            <Checkbox
-              checked={value ? value(state) : this.state[name]}
-              value={value ? value(state) : this.state[name]}
-              disabled={typeof disabled === 'function' ? disabled(state) : disabled}
-            />
-          }
-        />
-      );
-    }
-
-    if (Component === QuillEditor) {
-      return (
-        <Component
-          type={type}
-          label={label}
-          name={name}
-          key={name}
-          value={value ? value(state) : this.state[name]}
-          onChange={typeof onChange === 'function' ? onChange(this) : this.handleChange(name)}
-          className={classes[className]}
-          disabled={typeof disabled === 'function' ? disabled(state) : disabled}
-        />
-      );
-    }
-
-    return (
-      <Component
-        type={type}
-        label={label}
-        name={name}
-        key={name}
-        value={value ? value(state) : this.state[name]}
-        onChange={typeof onChange === 'function' ? onChange(this) : this.handleChange(name)}
-        className={classes[className]}
-        disabled={typeof disabled === 'function' ? disabled(state) : disabled}
-
-        // QuilEditor에서는 받아들이지 못함
-        InputLabelProps={shrink ? { shrink: true } : null}
-        fullWidth
-      />
-    );
-  }
-
   renderQAField(question, index) {
     return this.renderField({
       label: question,
@@ -178,23 +120,33 @@ class EventDetail extends Component {
       shrink: true,
       value: state => state.answers[index],
       onChange: thisVar => thisVar.handleAnswerChange(index),
-      show: state => state.participateMode,
+      show: state => state.participateMode || state.participateEditMode
     });
+  }
+
+  getButtonTitle() {
+    const { manageMode, createMode, participateMode, participateEditMode } = this.state;
+    if (participateEditMode || manageMode) return '수정';
+    if (participateMode) return '참여';
+    if (createMode) return '생성';
+  }
+
+  getPageTitle() {
+    const { manageMode, createMode, participateMode, participateEditMode } = this.state;
+    if (participateEditMode) return '이벤트 참여 정보 수정하기';
+    if (participateMode) return '아래 양식을 기록해주세요';
+    if (createMode) return '이벤트 생성하기';
+    if (manageMode) return '이벤트 관리 상세';
   }
 
   render() {
     const { classes, open } = this.props;
-    const { title, questions, answers, participants, manageMode, participateMode } = this.state;
-    const pageTitle = manageMode ? '이벤트 관리 상세' : (participateMode ? '아래 양식을 기록해주세요' : `나의 이벤트 참여: ${title}`);
-    const usingCollapse = Boolean(open !== undefined);
-    const Component = usingCollapse ? Collapse : React.Fragment;
-    const collapseProps = usingCollapse ? {
-      in: open,
-      collapsedHeight: '0px'
-    } : null;
+    const { questions, answers, participants, manageMode } = this.state;
+    const pageTitle = this.getPageTitle();
+    const buttonTitle = this.getButtonTitle();
 
     return (
-      <Component {...collapseProps}>
+      <Collapse in={open} collapsedHeight='0px'>
         <div className={classes.header}>
           <Typography variant='display1' id='pageTitle'>{pageTitle}</Typography>
           {manageMode ? <DeleteIconBtn className={classes.headerBtn} /> : null}
@@ -202,13 +154,13 @@ class EventDetail extends Component {
 
         <form>
           {inputList.map(input => this.renderField(input))}
-          {questions.map((question, index) => this.renderQAField(question, index))}
+          {questions && questions.map((question, index) => this.renderQAField(question, index))}
           <div className={classes.btnGroup}>
             <Button color="primary" className={classes.marginOneUnit}>
               취소
             </Button>
             <Button color="primary" variant='raised' className={classes.marginOneUnit}>
-              수정
+              {buttonTitle}
             </Button>
           </div>
         </form>
@@ -223,7 +175,7 @@ class EventDetail extends Component {
                 <Typography variant='title'>이벤트 참여자 상세</Typography>
                 {detailList.map(input => this.renderField(input))}
                 <Button variant='raised' color='primary' className={classes.marginOneUnit}>
-                  수여
+                  보상 지급하기
                 </Button>
                 <EventParticipantAnswers answers={answers} />
               </Grid>
@@ -231,7 +183,7 @@ class EventDetail extends Component {
           </div >
           : null
         }
-      </Component>
+      </Collapse>
     );
   }
 }

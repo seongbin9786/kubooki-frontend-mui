@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { withStyles, TextField, Typography, Button } from '@material-ui/core';
+import React from 'react';
+import { withStyles, Typography, Button, Collapse } from '@material-ui/core';
 
-import QuillEditor from './QuillEditor';
 import DeleteIconBtn from './DeleteIconBtn';
-import { spaceBetween, alignChildrenRight } from './styles';
+import { spaceBetween, alignChildrenRight, marginOneUnit } from './styles';
+import AbstractDetail from './AbstractDetail';
+import popupList from './PopupDetailConfig';
 
 const styles = theme => ({
   root: {
-    // GridListTemplate 때문에
-    marginTop: -80,
+    marginTop: -80, // GridListTemplate 때문에
   },
   header: {
     ...spaceBetween,
@@ -17,16 +17,11 @@ const styles = theme => ({
   headerBtn: {
     marginLeft: theme.spacing.unit,
   },
-  input: {
-    margin: theme.spacing.unit,
-  },
   alignChildrenRight,
-  btn: {
-    margin: theme.spacing.unit,
-  }
+  marginOneUnit,
 });
 
-class PopupDetail extends Component {
+class PopupDetail extends AbstractDetail {
   constructor(props) {
     super(props);
 
@@ -48,119 +43,44 @@ class PopupDetail extends Component {
     };
   }
 
-  handleChange = inputName => ({ target: { value } }) =>
-    this.setState({ [inputName]: value });
+  componentDidUpdate(prevProps) {
+    console.log('do something!');
 
-  handleQuillChange = value =>
-    this.setState({ content: value });
+    const { open: beforeOpen } = prevProps;
+    const { open: afterOpen } = this.props;
+
+    if (!beforeOpen && afterOpen) {
+      setTimeout(() => {
+        const input = document.getElementsByName('title')[0];
+        window.scrollTo(0, input.getBoundingClientRect().top);
+        input.focus();
+      }, 300);
+    }
+  }
 
   render() {
-    const { classes } = this.props;
-    const { editMode, title, content, startDate, endDate, views, likes, noShowCount, priority } = this.state;
+    const { classes, open } = this.props;
+    const { editMode } = this.state;
+    const title = editMode ? '팝업 관리 상세' : '팝업 생성';
 
     return (
-      <div className={classes.root}>
+      <Collapse in={open} collapsedHeight='0px' >
         <div className={classes.header}>
-          <Typography variant='display1'>팝업 관리 상세</Typography>
-          {editMode
-            ? <DeleteIconBtn className={classes.headerBtn} />
-            : null
-          }
+          <Typography variant='display1'>{title}</Typography>
+          {editMode && <DeleteIconBtn className={classes.headerBtn} />}
         </div>
 
-        {editMode ?
-          <React.Fragment>
-            <TextField
-              label="조회수"
-              type="number"
-              value={views}
-              onChange={this.handleChange('views')}
-              className={classes.input}
-              disabled
-            />
-
-            <TextField
-              label="다시보지 않기 선택 수"
-              type="number"
-              value={noShowCount}
-              onChange={this.handleChange('noShowCount')}
-              className={classes.input}
-              disabled
-            />
-
-            <TextField
-              label="좋아요"
-              type="number"
-              value={likes}
-              onChange={this.handleChange('likes')}
-              className={classes.input}
-              disabled
-            />
-          </React.Fragment>
-          : null
-        }
-
-        <br />
-
-        <TextField
-          id='priortiy'
-          label="우선순위"
-          type="number"
-          value={priority}
-          onChange={this.handleChange('priority')}
-          className={classes.input}
-        />
-
-        <TextField
-          id="title"
-          name="title"
-          label="제목"
-          value={title}
-          onChange={this.handleChange('title')}
-          type="text"
-          fullWidth
-          className={classes.input}
-        />
-
-        <TextField
-          id="startDate"
-          label="시작날짜"
-          type="date"
-          value={startDate}
-          onChange={this.handleChange('startDate')}
-          className={classes.input}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-
-        <TextField
-          id="endDate"
-          label="종료날짜"
-          type="date"
-          value={endDate}
-          onChange={this.handleChange('endDate')}
-          className={classes.input}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-
-        <QuillEditor
-          value={content}
-          onChange={this.handleQuillChange}
-          className={classes.input}
-        />
+        {popupList.map(input => this.renderField(input))}
 
         <div className={classes.alignChildrenRight}>
-          <Button color="primary" className={classes.btn}>
+          <Button color="primary" className={classes.marginOneUnit}>
             취소
           </Button>
-          <Button color="primary" variant='raised' className={classes.btn}>
+          <Button color="primary" variant='raised' className={classes.marginOneUnit}>
             수정
           </Button>
         </div>
-      </div>
+      </Collapse>
     );
   }
 }
