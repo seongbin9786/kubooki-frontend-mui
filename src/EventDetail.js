@@ -59,7 +59,7 @@ class EventDetail extends AbstractDetail {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { editMode, eventDetail, eventManageDetail, eventParticipateDetail } = nextProps;
 
-    return {
+    const nextState = {
       ...prevState,
 
       // 이벤트 표시 (공통) 데이터
@@ -90,11 +90,16 @@ class EventDetail extends AbstractDetail {
       ...eventManageDetail,
 
       // 모드 설정
-      participateMode: !eventParticipateDetail,
+      participateMode: !eventParticipateDetail && eventDetail,
       participateEditMode: eventParticipateDetail && editMode,
       manageMode: eventManageDetail,
       createMode: !eventDetail,
     };
+
+    const { participateMode, participateEditMode, manageMode, createMode } = nextState;
+    console.log(participateMode, participateEditMode, manageMode, createMode);
+
+    return nextState;
   }
 
   componentDidUpdate(prevProps) {

@@ -31,12 +31,6 @@ export default [
     show: state => state.manageMode,
   },
   {
-    label: '우선순위',
-    name: 'priority',
-    type: 'number',
-    show: state => state.manageMode,
-  },
-  {
     label: '제목',
     name: 'title',
     disabled: state => !(state.manageMode || state.createMode),
@@ -86,7 +80,7 @@ export default [
     label: '본문',
     name: 'content',
     onChange: thisVar => thisVar.handleQuillChange,
-    show: state => state.manageMode,
+    show: state => state.manageMode || state.createMode,
   }
 ];
 
