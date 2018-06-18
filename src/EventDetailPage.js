@@ -10,16 +10,13 @@ export default class EventDetailPage extends Component {
     detailOpen: false,
   };
 
-  toggle = () => this.setState(
-    ({ detailOpen }) =>
-      ({ detailOpen: !detailOpen })
-  );
+  toggle = () => this.setState(({ detailOpen }) => ({ detailOpen: !detailOpen }));
 
   render() {
     const { detailOpen } = this.state;
     const footer =
       <React.Fragment>
-        {detailOpen ? null : <EventParticipateBtn handleClick={this.toggle} />}
+        {!detailOpen && <EventParticipateBtn handleClick={this.toggle} />}
         <EventDetail
           eventDetail={eventDetail}
           open={detailOpen}

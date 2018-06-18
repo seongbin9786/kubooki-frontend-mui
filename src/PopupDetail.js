@@ -3,6 +3,7 @@ import { withStyles, TextField, Typography, Button } from '@material-ui/core';
 
 import QuillEditor from './QuillEditor';
 import DeleteIconBtn from './DeleteIconBtn';
+import { spaceBetween, alignChildrenRight } from './styles';
 
 const styles = theme => ({
   root: {
@@ -10,22 +11,18 @@ const styles = theme => ({
     marginTop: -80,
   },
   header: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    ...spaceBetween,
     marginBottom: 30,
   },
   headerBtn: {
-    marginLeft: 8,
+    marginLeft: theme.spacing.unit,
   },
   input: {
-    margin: 8,
+    margin: theme.spacing.unit,
   },
-  btnGroup: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
+  alignChildrenRight,
   btn: {
-    margin: 8,
+    margin: theme.spacing.unit,
   }
 });
 
@@ -65,9 +62,10 @@ class PopupDetail extends Component {
       <div className={classes.root}>
         <div className={classes.header}>
           <Typography variant='display1'>팝업 관리 상세</Typography>
-          {editMode ?
-            <DeleteIconBtn className={classes.headerBtn} />
-            : null}
+          {editMode
+            ? <DeleteIconBtn className={classes.headerBtn} />
+            : null
+          }
         </div>
 
         {editMode ?
@@ -154,7 +152,7 @@ class PopupDetail extends Component {
           className={classes.input}
         />
 
-        <div className={classes.btnGroup}>
+        <div className={classes.alignChildrenRight}>
           <Button color="primary" className={classes.btn}>
             취소
           </Button>

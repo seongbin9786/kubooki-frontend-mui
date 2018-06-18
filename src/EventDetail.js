@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { withStyles, TextField, Typography, Button, Grid, Checkbox, FormControlLabel, Collapse } from '@material-ui/core';
 
-import QuillEditor from './QuillEditor';
 import DeleteIconBtn from './DeleteIconBtn';
 import EventParticipantList from './EventParticipantList';
 import EventParticipantAnswers from './EventParticipantAnswers';
+import { paddingOneUnit, marginOneUnit, spaceBetween, alignChildrenRight } from './styles';
+import inputList, { detailList } from './EventDetailConfig';
+import QuillEditor from './QuillEditor';
 
 const styles = {
   '@global': {
@@ -13,44 +15,23 @@ const styles = {
     }
   },
   header: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    ...spaceBetween,
     marginBottom: 30,
   },
   headerBtn: {
     marginLeft: 8,
   },
-  input: {
-    margin: 8,
-  },
   btnGroup: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-
+    ...alignChildrenRight,
     marginBottom: 60,
-  },
-  btn: {
-    margin: 8,
-  },
-  grid: {
-    padding: 8,
   },
   listContainer: {
     border: '1px solid lightgray',
     borderRadius: 5,
     padding: 0,
   },
-  listItem: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  awardBtn: {
-    margin: 8,
-  },
-  spaceBetween: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
+  paddingOneUnit,
+  marginOneUnit,
 };
 
 class EventDetail extends Component {
@@ -94,11 +75,11 @@ class EventDetail extends Component {
     };
   }
 
-  handleChange = inputName => ({ target: { value } }) =>
-    this.setState({ [inputName]: value });
+  handleChange = inputName => ({ target: { value } }) => this.setState({ [inputName]: value });
+
+  handleQuillChange = value => this.setState({ content: value });
 
   handleAnswerChange = index => ({ target: { value } }) => {
-
     this.setState(
       ({ answers }) => ({
         answers: [
@@ -110,42 +91,100 @@ class EventDetail extends Component {
     );
   }
 
-  handleQuillChange = value =>
-    this.setState({ content: value });
-
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     const { open: beforeOpen } = prevProps;
     const { open: afterOpen } = this.props;
     const { manageMode } = this.state;
+
     if (!beforeOpen && afterOpen) {
       setTimeout(() => {
         const title = document.getElementById('pageTitle');
-        const input = document.getElementById(manageMode ? 'title' : 'q0');
+        const input = document.getElementsByName(manageMode ? 'title' : 'q0')[0];
         window.scrollTo(0, title.getBoundingClientRect().top);
         input.focus();
       }, 300);
     }
   }
 
+  renderField(field) {
+    const { state } = this;
+    const { classes } = this.props;
+    const {
+      label, name, value, onChange,
+      show = true,
+      disabled = false,
+      shrink = false,
+      Component = TextField,
+      type = 'text',
+      className = 'marginOneUnit',
+    } = field;
+
+    if (typeof show === 'function' && !show(state)) return;
+
+    if (type === 'checkbox') {
+      return (
+        <FormControlLabel
+          label={label}
+          name={name}
+          key={name}
+          control={
+            <Checkbox
+              checked={value ? value(state) : this.state[name]}
+              value={value ? value(state) : this.state[name]}
+              disabled={typeof disabled === 'function' ? disabled(state) : disabled}
+            />
+          }
+        />
+      );
+    }
+
+    if (Component === QuillEditor) {
+      return (
+        <Component
+          type={type}
+          label={label}
+          name={name}
+          key={name}
+          value={value ? value(state) : this.state[name]}
+          onChange={typeof onChange === 'function' ? onChange(this) : this.handleChange(name)}
+          className={classes[className]}
+          disabled={typeof disabled === 'function' ? disabled(state) : disabled}
+        />
+      );
+    }
+
+    return (
+      <Component
+        type={type}
+        label={label}
+        name={name}
+        key={name}
+        value={value ? value(state) : this.state[name]}
+        onChange={typeof onChange === 'function' ? onChange(this) : this.handleChange(name)}
+        className={classes[className]}
+        disabled={typeof disabled === 'function' ? disabled(state) : disabled}
+
+        // QuilEditor에서는 받아들이지 못함
+        InputLabelProps={shrink ? { shrink: true } : null}
+        fullWidth
+      />
+    );
+  }
+
+  renderQAField(question, index) {
+    return this.renderField({
+      label: question,
+      name: `q${index}`,
+      shrink: true,
+      value: state => state.answers[index],
+      onChange: thisVar => thisVar.handleAnswerChange(index),
+      show: state => state.participateMode,
+    });
+  }
+
   render() {
     const { classes, open } = this.props;
-    const {
-      // 이벤트 표시 데이터
-      title, startDate, endDate, resultDate, prize, questions,
-
-      // 이벤트 참여 데이터
-      participant, answerDate, answers, wonPrize, myPrize,
-
-      // 이벤트 관리 데이터
-      content, views, likes, participants, noShowCount, priority,
-
-      // 관리자 모드 여부
-      manageMode,
-
-      // 참여 모드 여부
-      participateMode
-    } = this.state;
-    const { name } = participant;
+    const { title, questions, answers, participants, manageMode, participateMode } = this.state;
     const pageTitle = manageMode ? '이벤트 관리 상세' : (participateMode ? '아래 양식을 기록해주세요' : `나의 이벤트 참여: ${title}`);
     const usingCollapse = Boolean(open !== undefined);
     const Component = usingCollapse ? Collapse : React.Fragment;
@@ -162,222 +201,35 @@ class EventDetail extends Component {
         </div>
 
         <form>
-          {manageMode ?
-            <React.Fragment>
-              <TextField
-                label="조회수"
-                type="number"
-                value={views}
-                className={classes.input}
-                disabled
-              />
-
-              <TextField
-                label="좋아요"
-                type="number"
-                value={likes}
-                className={classes.input}
-                disabled
-              />
-
-              <TextField
-                label="참여인원"
-                type="number"
-                value={participants.length}
-                className={classes.input}
-                disabled
-              />
-
-              <TextField
-                label="다시 보지 않기 수"
-                type="number"
-                value={noShowCount}
-                className={classes.input}
-                disabled
-              />
-
-              <TextField
-                label="우선순위"
-                type="number"
-                value={priority}
-                className={classes.input}
-                disabled
-              />
-
-              <br />
-            </React.Fragment>
-            : null
-          }
-
-          <TextField
-            id="title"
-            name="title"
-            label="제목"
-            value={title}
-            onChange={this.handleChange('title')}
-            type="text"
-            fullWidth
-            className={classes.input}
-            disabled={!manageMode}
-          />
-
-          <TextField
-            id="startDate"
-            label="시작날짜"
-            type="date"
-            value={startDate}
-            onChange={this.handleChange('startDate')}
-            className={classes.input}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            disabled={!manageMode}
-          />
-
-          <TextField
-            id="endDate"
-            label="종료날짜"
-            type="date"
-            value={endDate}
-            onChange={this.handleChange('endDate')}
-            className={classes.input}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            disabled={!manageMode}
-          />
-
-          <TextField
-            id="resultDate"
-            label="당첨자 발표일"
-            type="date"
-            value={resultDate}
-            onChange={this.handleChange('resultDate')}
-            className={classes.input}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            disabled={!manageMode}
-          />
-
-          <TextField
-            id="prize"
-            label="상품"
-            type="text"
-            value={prize}
-            onChange={this.handleChange('prize')}
-            className={classes.input}
-            disabled={!manageMode}
-          />
-
-          {!manageMode ?
-            <React.Fragment>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={wonPrize}
-                    value={wonPrize}
-                    disabled
-                  />
-                }
-                label="당첨 여부"
-              />
-
-              <TextField
-                id="myPrize"
-                label="내가 받은 상품"
-                type="text"
-                value={myPrize}
-                onChange={this.handleChange('myPrize')}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                className={classes.input}
-                disabled={!manageMode}
-              />
-
-              {!manageMode && questions.map((question, index) =>
-                <TextField
-                  key={index}
-                  type="text"
-                  id={`q${index}`}
-                  name={`q${index}`}
-                  label={question}
-                  value={answers[index]}
-                  onChange={this.handleAnswerChange(index)}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  className={classes.input}
-                  fullWidth
-                />
-              )}
-            </React.Fragment>
-            : null
-          }
-
-          {manageMode ?
-            <QuillEditor
-              value={content}
-              onChange={this.handleQuillChange}
-              className={classes.input}
-            />
-            : null
-          }
-
+          {inputList.map(input => this.renderField(input))}
+          {questions.map((question, index) => this.renderQAField(question, index))}
           <div className={classes.btnGroup}>
-            <Button color="primary" className={classes.btn}>
+            <Button color="primary" className={classes.marginOneUnit}>
               취소
             </Button>
-            <Button color="primary" variant='raised' className={classes.btn}>
+            <Button color="primary" variant='raised' className={classes.marginOneUnit}>
               수정
             </Button>
           </div>
         </form>
 
-        {
-          manageMode ?
-            <div className={classes.participants}>
-              <Grid container>
-
-                <Grid item xs={12} md={6} className={classes.grid}>
-                  <EventParticipantList participants={participants} />
-                </Grid>
-
-                <Grid item xs={12} md={6} className={classes.grid}>
-                  <Typography variant='title'>이벤트 참여자 상세</Typography>
-
-                  <div className={classes.spaceBetween}>
-                    <div>
-                      <TextField
-                        label="이름"
-                        type="text"
-                        value={name}
-                        className={classes.input}
-                        disabled
-                      />
-
-                      <TextField
-                        label="응답날짜"
-                        type="date"
-                        value={answerDate}
-                        className={classes.input}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        disabled
-                      />
-                    </div>
-
-                    <Button variant='raised' color='primary' className={classes.awardBtn}>수여</Button>
-                  </div>
-
-                  <EventParticipantAnswers answers={answers} />
-                </Grid>
-
+        {manageMode ?
+          <div className={classes.participants}>
+            <Grid container>
+              <Grid item xs={12} md={6} className={classes.paddingOneUnit}>
+                <EventParticipantList participants={participants} />
               </Grid>
-            </div >
-            : null
+              <Grid item xs={12} md={6} className={classes.paddingOneUnit}>
+                <Typography variant='title'>이벤트 참여자 상세</Typography>
+                {detailList.map(input => this.renderField(input))}
+                <Button variant='raised' color='primary' className={classes.marginOneUnit}>
+                  수여
+                </Button>
+                <EventParticipantAnswers answers={answers} />
+              </Grid>
+            </Grid>
+          </div >
+          : null
         }
       </Component>
     );

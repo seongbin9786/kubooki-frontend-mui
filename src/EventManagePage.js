@@ -31,18 +31,21 @@ class EventManagePage extends Component {
     const { detailOpen } = this.state;
 
     return (
-      <div className={classes.root}>
+      <div>
         <div className={classes.header}>
           <Typography variant='display1'>이벤트 관리</Typography>
           <SearchBar noMargin label='이벤트 검색' />
         </div>
+
         <div className={classes.subHeader}>
           <CreateIcon />
         </div>
 
-        <div className={classes.listContainer}>
-          <EventList eventList={eventList} customHandleClick={this.handleClick} dontDisplayAsHeadline />
-        </div>
+        <EventList
+          eventList={eventList}
+          customHandleClick={this.handleClick}
+          dontDisplayAsHeadline
+        />
 
         <EventDetail
           open={detailOpen}

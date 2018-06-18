@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
-import { withWidth, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 import SearchBar from './SearchBar';
 import SortBar from './SortBar';
@@ -10,18 +10,10 @@ import { popupList, popupDetail } from './store';
 import PopupManageItem from './PopupManageItem';
 import PopupDetail from './PopupDetail';
 import CreateIcon from './CreateIcon';
+import { header } from './stylesManagePage';
 
 const styles = {
-  header: ({ width }) => {
-    const css = {
-      marginBottom: 30,
-    };
-    if (width !== 'xs') {
-      css.display = 'flex';
-      css.justifyContent = 'space-between';
-    }
-    return css;
-  },
+  header,
   subHeader: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -39,7 +31,7 @@ class PopupManagePage extends Component {
 
   render() {
     const { classes } = this.props;
-    const { detailId, detailOpen } = this.state;
+    const { detailOpen } = this.state;
     const subHeader = <SortBar tabName='진행 중' />;
     const items = popupList.map((item, index) => <PopupManageItem popup={item} key={index} handleClick={this.handleClick} />);
 
@@ -49,6 +41,7 @@ class PopupManagePage extends Component {
           <Typography variant='display1'>팝업 관리</Typography>
           <SearchBar noMargin label='팝업 검색' />
         </div>
+
         <div className={classes.subHeader}>
           <CreateIcon />
         </div>
@@ -66,4 +59,4 @@ class PopupManagePage extends Component {
   }
 }
 
-export default withWidth()(injectSheet(styles)(PopupManagePage));
+export default injectSheet(styles)(PopupManagePage);

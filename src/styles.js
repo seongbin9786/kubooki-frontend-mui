@@ -31,6 +31,16 @@ export const marginBottomRoot = {
   },
 };
 
+export const spaceBetween = {
+  display: 'flex',
+  justifyContent: 'space-between',
+};
+
+export const alignChildrenRight = {
+  display: 'flex',
+  justifyContent: 'flex-end',
+};
+
 export const noPadding = {
   padding: 0,
 };
@@ -79,4 +89,12 @@ export const darkOverlay = {
   right: 0,
   background: 'black',
   opacity: '.3',
+};
+
+export const marginOneUnit = {
+  margin: theme.spacing.unit,
+};
+
+export const paddingOneUnit = {
+  padding: theme.spacing.unit,
 };
