@@ -3,7 +3,6 @@ import NewsCorrectionPage from './NewsCorrectionPage';
 import EventManagePage from './EventManagePage';
 import PopupManagePage from './PopupManagePage';
 import AttendanceManagePage from './AttendanceManagePage';
-import JournalistManagePage from './JournalistManagePage';
 
 export default [
   {
@@ -41,11 +40,4 @@ export default [
     component: AttendanceManagePage,
     role: 'MANAGER'
   },
-  {
-    icon: 'people',
-    title: '기자 관리',
-    link: '/dashboard/journalists',
-    component: JournalistManagePage,
-    role: 'DIRECTOR'
-  }
 ];

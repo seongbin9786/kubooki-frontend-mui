@@ -43,6 +43,11 @@ class AttendanceManagePage extends Component {
     document.getElementById('statusBoard').scrollLeft = month * weight;
   }
 
+  // 무한정 Update되는 버그가 있었음.
+  shouldComponentUpdate() {
+    return false;
+  }
+
   render() {
     const { classes } = this.props;
 

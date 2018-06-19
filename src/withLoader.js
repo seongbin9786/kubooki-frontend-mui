@@ -15,10 +15,9 @@ function withLoader(WrappedComponent) {
       return (
         <React.Fragment>
           <LoadingAnimation show={!loaded} />
-          <WrappedComponent
-            handleOnLoad={this.handleOnLoad}
-            {...this.props}
-          />
+          <div onLoad={this.handleOnLoad} style={{ width: '100%', height: '100%' }}>
+            <WrappedComponent {...this.props} />
+          </div>
         </React.Fragment>
       );
     }
