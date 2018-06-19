@@ -1,6 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import { withWidth, Typography, Grid, Card, CardContent, CardMedia, Paper } from '@material-ui/core';
+import { withWidth, Typography, Grid, Card, CardContent, CardMedia } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
 
 const styles = theme => ({

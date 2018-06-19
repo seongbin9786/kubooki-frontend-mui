@@ -6,7 +6,6 @@ import withWidth from '@material-ui/core/withWidth';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import NewsItem from './NewsItem';
 import { fullImage, darkOverlay, marginBottomRoot } from './styles';
 import NewsHeadlineItemMobile from './NewsHeadlineItemMobile';
 

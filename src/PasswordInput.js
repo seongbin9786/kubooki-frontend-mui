@@ -28,7 +28,6 @@ const styles = theme => ({
 
 class InputAdornments extends React.Component {
   state = {
-    password: '',
     showPassword: false,
   };
 
@@ -45,18 +44,23 @@ class InputAdornments extends React.Component {
   };
 
   render() {
-    const { classes, id, label } = this.props;
-    const { password, showPassword } = this.state;
+    const { classes, name, label, value, onChange, disabled, fullWidth } = this.props;
+    const { showPassword } = this.state;
 
     return (
       <div className={classes.root}>
-        <FormControl className={classes.textField}>
+        <FormControl
+          disabled={disabled}
+          className={classes.textField}
+          fullWidth={fullWidth}
+        >
           <InputLabel>{label}</InputLabel>
           <Input
-            id={id}
+
+            name={name}
             type={showPassword ? 'text' : 'password'}
-            value={password}
-            onChange={this.handleChange('password')}
+            value={value}
+            onChange={onChange}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton

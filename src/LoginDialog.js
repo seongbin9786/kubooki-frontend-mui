@@ -1,10 +1,9 @@
 import React from 'react';
-import injectSheet from 'react-jss';
 import { Button, DialogActions, DialogContent } from '@material-ui/core';
 
 import ResponsiveDialog from './ResponsiveDialog';
 import FormComponent from './FormComponent';
-import { marginOneUnit } from './styles';
+import PasswordInput from './PasswordInput';
 
 const fields = [
   {
@@ -12,17 +11,13 @@ const fields = [
     name: 'loginId'
   },
   {
+    Component: PasswordInput,
     label: '비밀번호',
-    type: 'password',
     name: 'password'
   }
 ];
 
-const styles = {
-  marginOneUnit,
-};
-
-export default injectSheet(styles)(class extends FormComponent {
+export default class extends FormComponent {
   state = {
     id: '',
     password: '',
@@ -62,4 +57,4 @@ export default injectSheet(styles)(class extends FormComponent {
       </div>
     );
   }
-});
+};

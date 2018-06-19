@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { TextField, Checkbox, FormControlLabel } from '@material-ui/core';
-
+import { TextField, Checkbox, FormControlLabel, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import QuillEditor from './QuillEditor';
+import ImagePreview from './ImagePreview';
 
 class FormComponent extends Component {
-
   handleChange = inputName => ({ target: { value } }) => this.setState({ [inputName]: value });
 
   handleQuillChange = value => this.setState({ content: value });
@@ -13,30 +12,69 @@ class FormComponent extends Component {
     const { state } = this;
     const { classes } = this.props;
     const {
-      label, name, value, onChange,
+      label, name, value, onChange, className, menuList,
       show = true,
       disabled = false,
       shrink = false,
       Component = TextField,
       type = 'text',
-      className = 'marginOneUnit',
+      ...props,
     } = field;
 
     if (typeof show === 'function' && !show(state)) return;
 
+    const onChangeFunc = typeof onChange === 'function' ? onChange(this) : this.handleChange(name);
+    const disabledFunc = typeof disabled === 'function' ? disabled(state) : disabled;
+    const valueFunc = value ? value(state) : this.state[name];
+    const classNameFunc = className ? classes[className] : null;
+
     if (type === 'checkbox') {
       return (
         <FormControlLabel
+          className={classNameFunc}
           label={label}
           name={name}
           key={name}
           control={
             <Checkbox
-              checked={value ? value(state) : this.state[name]}
-              value={value ? value(state) : this.state[name]}
-              disabled={typeof disabled === 'function' ? disabled(state) : disabled}
+              checked={valueFunc}
+              value={valueFunc}
+              disabled={disabledFunc}
+              onChange={onChangeFunc}
             />
           }
+        />
+      );
+    }
+
+    if (type === 'select') {
+      return (
+        <FormControl
+          fullWidth
+          className={classNameFunc}
+          margin='dense'
+        >
+          <InputLabel>{label}</InputLabel>
+          <Select
+            name={name}
+            value={valueFunc}
+            onChange={onChangeFunc}
+          >
+            <MenuItem value=""><em>선택해주세요...</em></MenuItem>
+            {menuList.map(([value, name]) => <MenuItem value={value} key={value}>{name}</MenuItem>)}
+          </Select>
+        </FormControl>
+      );
+    }
+
+    if (Component === ImagePreview) {
+      return (
+        <Component
+          label={label}
+          name={name}
+          key={name}
+          value={valueFunc}
+          {...props}
         />
       );
     }
@@ -48,10 +86,10 @@ class FormComponent extends Component {
           label={label}
           name={name}
           key={name}
-          value={value ? value(state) : this.state[name]}
-          onChange={typeof onChange === 'function' ? onChange(this) : this.handleChange(name)}
-          className={classes[className]}
-          disabled={typeof disabled === 'function' ? disabled(state) : disabled}
+          value={valueFunc}
+          onChange={onChangeFunc}
+          className={classNameFunc}
+          disabled={disabledFunc}
         />
       );
     }
@@ -62,10 +100,10 @@ class FormComponent extends Component {
         label={label}
         name={name}
         key={name}
-        value={value ? value(state) : this.state[name]}
-        onChange={typeof onChange === 'function' ? onChange(this) : this.handleChange(name)}
-        className={classes[className]}
-        disabled={typeof disabled === 'function' ? disabled(state) : disabled}
+        value={valueFunc}
+        onChange={onChangeFunc}
+        className={classNameFunc}
+        disabled={disabledFunc}
 
         // QuilEditor에서는 받아들이지 못함
         InputLabelProps={shrink ? { shrink: true } : null}

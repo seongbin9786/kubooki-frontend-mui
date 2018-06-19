@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import injectSheet from 'react-jss';
 import { Paper, Typography, Button } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';

@@ -7,7 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import theme from './ThemeConfig';
 
 const styles = {
-  thumbnailContainer: props => props.isForm ? ({
+  thumbnailContainer: ({ isForm }) => isForm ? ({
     marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit,
   }) : null,
@@ -25,10 +25,10 @@ const styles = {
   }),
 };
 
-function ImagePreview({ classes, value, name, isForm }) {
+function ImagePreview({ classes, label, value, name, isForm }) {
   return (
     <div className={classes.thumbnailContainer}>
-      {isForm ? <InputLabel className={classes.name}>{name}</InputLabel> : null}
+      {isForm ? <InputLabel className={classes.name}>{label}</InputLabel> : null}
       <img
         className={classes.img}
         alt={name}

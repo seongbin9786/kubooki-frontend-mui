@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';

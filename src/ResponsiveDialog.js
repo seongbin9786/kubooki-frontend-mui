@@ -13,6 +13,10 @@ const styles = {
   },
 };
 
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
+
 function ResponsiveDialog({ classes, width, title, handleClose, children, ...props }) {
   const isMobile = width === 'xs';
 
@@ -21,6 +25,7 @@ function ResponsiveDialog({ classes, width, title, handleClose, children, ...pro
       <Dialog
         fullScreen
         onClose={handleClose}
+        TransitionComponent={Transition}
         {...props}
       >
         <AppBar className={classes.appBar}>
@@ -50,7 +55,7 @@ function ResponsiveDialog({ classes, width, title, handleClose, children, ...pro
         <DialogTitle>{title}</DialogTitle>
         {children}
       </Dialog >
-    )
+    );
 }
 
 export default injectSheet(styles)(withWidth()(ResponsiveDialog));
