@@ -1,6 +1,6 @@
 import User from './User';
 
-export const globalUser = new User('김성빈', 'MANAGER');
+export const globalUser = new User('김성빈', 'USER');
 
 export const popupDetail = {
   id: 1,

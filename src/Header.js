@@ -25,6 +25,10 @@ const styles = {
   flex: {
     flex: 1,
   },
+  title: ({ width }) => ({
+    flex: 1,
+    fontSize: width === 'xs' ? '1.25rem' : '1.3125rem',
+  }),
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
@@ -37,6 +41,8 @@ const styles = {
     marginTop: 35,
   }
 };
+
+const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
 class Header extends Component {
   constructor(props) {
@@ -98,12 +104,13 @@ class Header extends Component {
             <NavDrawer
               user={user}
               open={drawer}
-              toggleDrawer={this.handleOpen('drawer')}
-              toggleLogin={this.handleOpen('login')}
-              toggleRegister={this.handleOpen('register')}
-              toggleSettings={this.handleOpen('settings')}
+              handleOpen={this.handleOpen}
             />
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <Typography
+              color="inherit"
+              className={classes.title}
+              onClick={scrollToTop}
+            >
               경기대학교 웹지거북이
             </Typography>
             {login ?

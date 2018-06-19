@@ -80,7 +80,7 @@ class FullScreenDialog extends Component {
           const { level, subHeader, options } = config;
           //TODO: level 체크
           return (
-            <List subheader={<ListSubheader>{subHeader}</ListSubheader>} key={idx}>
+            <List subheader={<ListSubheader disableSticky>{subHeader}</ListSubheader>} key={idx}>
               {options.map(([name, state]) => (
                 <React.Fragment key={name}>
                   <ListItem button>

@@ -35,6 +35,11 @@ function EventList({ eventList, history, classes, noSortBar, tabName, customHand
     />
   );
 
+  window.addEventListener('DOMContentLoaded', () => alert('DOMContentLoaded without imgs'));
+  window.onload = function () {
+    alert('loaded!');
+  }
+
   return (
     <div className={classes.fullHeight}>
       {dontDisplayAsHeadline ? null : <EventHeadlineItem />}

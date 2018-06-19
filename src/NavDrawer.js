@@ -10,197 +10,64 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { FamilyLinks } from './FamilyLinkConfig';
+import { logo, settings, accountList, guestList, userList, journalistGroupList } from './NavDrawerConfig';
 import SearchBar from './SearchBar';
+import FaIcon from './FaIcon';
 
 const styles = {
   list: {
     width: 250,
   },
 };
-
 function NavDrawer({
   classes,
   history,
   open,
   user,
-  toggleDrawer,
-  toggleLogin,
-  toggleRegister,
-  toggleSettings
+  handleOpen,
 }) {
-  const kubooki = (
-    <ListItem button onClick={() => history.push('/')}>
-      <ListItemIcon aria-label="Menu">
-        <i className="fas fa-lg fa-bars"></i>
-      </ListItemIcon>
-      <ListItemText primary="거북이" />
-    </ListItem>
-  );
-
-  const apply = (
-    <ListItem button onClick={() => history.push('/apply/form')}>
-      <ListItemIcon>
-        <i className="fas fa-lg fa-pencil-alt"></i>
-      </ListItemIcon>
-      <ListItemText primary="수습기자 지원" />
-    </ListItem>
-  );
-
-  const settings = (
-    <ListItem
-      button
-      onClick={toggleSettings}
-    >
-      <ListItemIcon>
-        <i className="fas fa-lg fa-cogs"></i>
-      </ListItemIcon>
-      <ListItemText primary="설정" />
-    </ListItem>
-  );
-
-  const families = (
-    <List subheader={<ListSubheader>패밀리 사이트</ListSubheader>}>
-      {FamilyLinks.map(([name, link], index) =>
-        <ListItem button key={index} onClick={() => window.location = link}>
+  const renderMenus = (menus, title) => (
+    <List subheader={<ListSubheader disableSticky>{title}</ListSubheader>}>
+      {menus.map(({ link, icon, name, toggle }) => (
+        <ListItem button onClick={toggle ? (typeof toggle === 'function' ? toggle : handleOpen(toggle)) : () => history.push(link)}>
           <ListItemIcon>
-            <i className="fas fa-lg fa-graduation-cap"></i>
+            <FaIcon icon={icon} />
           </ListItemIcon>
           <ListItemText primary={name} />
         </ListItem>
-      )}
+      ))}
       <Divider />
     </List>
   );
 
-  const accountList = (
-    <List>
-      <ListItem
-        button
-        onClick={toggleLogin}
-      >
-        <ListItemIcon>
-          <i className="fas fa-lg fa-user-plus"></i>
-        </ListItemIcon>
-        <ListItemText primary="로그인" />
-      </ListItem>
-
-      <ListItem
-        button
-        onClick={toggleRegister}
-      >
-        <ListItemIcon>
-          <i className="fas fa-lg fa-sign-in-alt"></i>
-        </ListItemIcon>
-        <ListItemText primary="회원가입" />
-      </ListItem>
-      <Divider />
-    </List>
-  );
-
-  const guestList = (
-    <List>
-      <ListItem button onClick={() => history.push('/events')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-calendar-alt"></i>
-        </ListItemIcon>
-        <ListItemText primary="이벤트" />
-      </ListItem>
-
-      <ListItem button onClick={() => history.push('/faq')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-question-circle"></i>
-        </ListItemIcon>
-        <ListItemText primary="FAQ" />
-      </ListItem>
-
-      <ListItem button onClick={() => history.push('/terms')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-handshake"></i>
-        </ListItemIcon>
-        <ListItemText primary="이용 약관" />
-      </ListItem>
-      <Divider />
-    </List>
-  );
-
-  const userList = (
-    <List subheader={<ListSubheader>사용자 메뉴</ListSubheader>}>
-      <ListItem button onClick={() => history.push('/news/report')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-plus"></i>
-        </ListItemIcon>
-        <ListItemText primary="기사 제보" />
-      </ListItem>
-
-      <ListItem button onClick={() => history.push('/inconveniences/report')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-exclamation-triangle"></i>
-        </ListItemIcon>
-        <ListItemText primary="불편 신고" />
-      </ListItem>
-
-      <ListItem button onClick={() => history.push('/news/corretions/create')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-check"></i>
-        </ListItemIcon>
-        <ListItemText primary="정정 요청" />
-      </ListItem>
-
-      <Divider />
-    </List>
-  );
-
-  const journalistGroupList = (
-    <List subheader={<ListSubheader>기자 메뉴</ListSubheader>}>
-      <ListItem button onClick={() => history.push('/announcements')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-bullhorn"></i>
-        </ListItemIcon>
-        <ListItemText primary="공지 사항" />
-      </ListItem>
-
-      <ListItem button onClick={() => history.push('/news/write')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-pencil-alt"></i>
-        </ListItemIcon>
-        <ListItemText primary="기사 작성" />
-      </ListItem>
-
-      <ListItem button onClick={() => history.push('/dashboard')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-chart-bar"></i>
-        </ListItemIcon>
-        <ListItemText primary="대시 보드" />
-      </ListItem>
-
-      <ListItem button onClick={() => history.push('/logs/meeting')}>
-        <ListItemIcon>
-          <i className="fas fa-lg fa-comment-alt"></i>
-        </ListItemIcon>
-        <ListItemText primary="회의록" />
-      </ListItem>
-
-      <Divider />
-    </List>
+  const families = renderMenus(
+    FamilyLinks.map(([name, link]) => {
+      return {
+        toggle: () => window.location = link,
+        icon: 'lg-graduation-cap',
+        name,
+      };
+    }),
+    '패밀리 사이트'
   );
 
   return (
     <div>
-      <Drawer open={open} onClose={toggleDrawer}>
+      <Drawer open={open} onClose={handleOpen('drawer')}>
         <div
           tabIndex={0}
           role="button"
-          onClick={toggleDrawer}
+          onClick={handleOpen('drawer')}
         >
           <div className={classes.list}>
             <SearchBar />
-            {kubooki}
-            {user.is('GUEST') ? accountList : null}
-            {guestList}
-            {user.is('USER') ? userList : null}
-            {user.isJournalistGroup() ? journalistGroupList : apply}
+            {renderMenus(logo, '메인')}
+            {user.is('GUEST') && renderMenus(accountList, '인증')}
+            {renderMenus(guestList, '거북이')}
+            {user.is('USER') && renderMenus(userList, '개인화')}
+            {user.isJournalistGroup() && renderMenus(journalistGroupList, '기자')}
             {families}
-            {settings}
+            {renderMenus(settings, '설정')}
           </div>
         </div>
       </Drawer>
