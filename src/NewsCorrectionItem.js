@@ -90,6 +90,7 @@ function NewsCorrectionItem({ classes, item, history }) {
 
   return (
     <Paper className={classes.root}>
+
       <header className={classes.header}>
         <div className={classes.titleContainer}>
           <Typography variant='title'>{title}</Typography>
@@ -98,6 +99,7 @@ function NewsCorrectionItem({ classes, item, history }) {
           </Link>
         </div>
       </header>
+
       <main className={classes.status}>
         <div>
           <Typography variant='subheading' className={classes.writer}>{'요청: ' + writer}</Typography>
@@ -107,11 +109,13 @@ function NewsCorrectionItem({ classes, item, history }) {
         </div>
         <Button className={classes.btn} disabled={!isFeedbackDone}>확인</Button>
       </main>
+
       <footer>
         <Typography variant='caption' className={isFeedbackDone ? classes.statusBar : classes.statusBarNotDone}>
           &nbsp;<FaIcon icon={isFeedbackDone ? 'check' : 'envelope'} />&nbsp;&nbsp;{status}
         </Typography>
       </footer>
+
     </Paper>
   );
 };

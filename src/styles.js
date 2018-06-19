@@ -49,6 +49,11 @@ export const centerChildrenInline = {
   textAlign: 'center',
 };
 
+export const centerFlex = {
+  display: 'flex',
+  justifyContent: 'center',
+};
+
 export const fullHeight = {
   height: '100%',
 };

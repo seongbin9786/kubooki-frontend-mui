@@ -8,7 +8,8 @@ const styles = {
     justifyContent: 'space-between',
     height: '150px',
     marginBottom: '40px',
-    width: width === 'xs' ? '100%' : (size ? size + 'px' : '1000px'),
+    width: '100%',
+    maxWidth: 1000,
     margin: center ? '0 auto' : null,
   }),
   details: {
@@ -26,7 +27,7 @@ const styles = {
   }),
 };
 
-function NameCard({ classes, writer }) {
+function NameCard({ classes, writer, myPage }) {
   return (
     <Card className={classes.card}>
       <div className={classes.details}>
@@ -36,9 +37,11 @@ function NameCard({ classes, writer }) {
             <Typography variant="subheading" color="textSecondary">{writer.position}</Typography>
           </div>
           <div>
-            <Typography variant="subheading" color="textSecondary">
-              기자가 작성한 기사 더 보기
-            </Typography>
+            {!myPage &&
+              <Typography variant="subheading" color="textSecondary">
+                기자가 작성한 기사 더 보기
+              </Typography>
+            }
           </div>
         </CardContent>
       </div>

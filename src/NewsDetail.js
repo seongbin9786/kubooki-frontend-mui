@@ -20,12 +20,13 @@ import {
 
 import './content.css';
 import theme from './ThemeConfig';
-import { mediumRootWithPadding, marginVertical, centerChildrenInline } from './styles';
+import { mediumRootWithPadding, marginVertical, centerChildrenInline, centerFlex } from './styles';
 import FaIcon from './FaIcon';
 
 const styles = {
   mediumRootWithPadding,
   centerChildrenInline,
+  centerFlex,
   header: {
     textAlign: 'center',
     marginBottom: 40,
@@ -145,12 +146,14 @@ class NewsDetail extends Component {
 
         <Divider className={classes.divider} />
 
-        <CommentList
-          list={commentList}
-          user={userDemo}
-          writebox
-          showLoadMoreBtn
-        />
+        <div className={classes.centerFlex}>
+          <CommentList
+            list={commentList}
+            user={userDemo}
+            writebox
+            showLoadMoreBtn
+          />
+        </div>
 
         <Divider className={classes.divider} />
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { withWidth } from '@material-ui/core';
 
 import FlatListTemplate from './FlatListTemplate';
 import NewsCorrectionItem from './NewsCorrectionItem';
@@ -6,11 +7,13 @@ import { correctionList } from './store';
 import SortBar from './SortBar';
 import LoadMoreBtn from './LoadMoreBtn';
 import FaIcon from './FaIcon';
+import NewsCorrectionItemMobile from './NewsCorrectionItemMobile';
 
-export default () => {
+export default withWidth()(({ width }) => {
   const titleMsg = '들어온 정정 요청';
   const noContentMsg = <span><FaIcon icon='lg-smile' /> 정정 요청된 기사가 없습니다.</span>;
-  const items = correctionList.map((item, index) => <NewsCorrectionItem item={item} key={index} />);
+  const Component = width === 'xs' ? NewsCorrectionItemMobile : NewsCorrectionItem;
+  const items = correctionList.map((item, index) => <Component item={item} key={index} />);
 
   return (
     <FlatListTemplate
@@ -22,4 +25,4 @@ export default () => {
       loadMoreBtn={<LoadMoreBtn />}
     />
   );
-};
+});

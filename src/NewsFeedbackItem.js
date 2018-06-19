@@ -97,6 +97,7 @@ function FeedbackItem({ classes, item }) {
 
   return (
     <Paper className={classes.root}>
+
       <header className={classes.header}>
         <div className={classes.titleContainer}>
           <Typography variant='title'>{title}</Typography>
@@ -104,6 +105,7 @@ function FeedbackItem({ classes, item }) {
         </div>
         <span className={classes.counterContainer}><b className={classes.counter}>{feedbackCount}</b>회</span>
       </header>
+
       <main className={classes.status}>
         <div>
           <Typography variant='subheading' className={classes.writers}>{writers.toString()}</Typography>
@@ -113,11 +115,13 @@ function FeedbackItem({ classes, item }) {
         </div>
         <Button className={classes.btn} disabled={!isFeedbackDone}>확인</Button>
       </main>
+
       <footer>
         <Typography variant='caption' className={isFeedbackDone ? classes.statusBar : classes.statusBarNotDone}>
           &nbsp;<FaIcon icon={isFeedbackDone ? 'check' : 'envelope'} />&nbsp;&nbsp;{status}
         </Typography>
       </footer>
+
     </Paper>
   );
 };
