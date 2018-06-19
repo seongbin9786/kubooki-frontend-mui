@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
-import { TextField, InputAdornment, withWidth } from '@material-ui/core';
+import { TextField, InputAdornment } from '@material-ui/core';
 
 import FaIcon from './FaIcon';
 
@@ -19,7 +19,7 @@ const styles = {
       css.justifyContent = 'flex-end';
     }
     return css;
-  }
+  },
 };
 
 class SearchBar extends Component {
@@ -47,7 +47,7 @@ class SearchBar extends Component {
   }
 
   render() {
-    const { classes, noMargin, label } = this.props;
+    const { classes, noMargin, label, fullWidth } = this.props;
     const { searchTerm } = this.state;
 
     // TODO 1: 매터리얼 UI로 TextField 만들기
@@ -60,6 +60,7 @@ class SearchBar extends Component {
         onClick={e => e.stopPropagation()}
       >
         <TextField
+          fullWidth={fullWidth}
           id="search"
           label={label ? label : '검색'}
           type="search"
@@ -79,4 +80,4 @@ class SearchBar extends Component {
   }
 }
 
-export default withWidth()(injectSheet(styles)(SearchBar));
+export default injectSheet(styles)(SearchBar);

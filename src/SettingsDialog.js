@@ -11,6 +11,10 @@ import SETTINGS_CONFIG from './SettingsConfig';
 import ResponsiveDialog from './ResponsiveDialog';
 
 class FullScreenDialog extends Component {
+  state = {
+    checked: [],
+  };
+
   handleToggle = value => () => {
     const { checked } = this.state;
     const currentIndex = checked.indexOf(value);

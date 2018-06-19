@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import injectSheet from 'react-jss';
 import {
   Typography,
@@ -11,7 +11,7 @@ import UploadBtn from './UploadBtn';
 import FaIconBtn from './FaIconBtn';
 import PasswordChangeForm from './PasswordChangeForm';
 import { globalUser as user } from './store';
-
+import FormComponent from './FormComponent';
 import theme from './ThemeConfig';
 import { smallRootWithPadding } from './styles';
 
@@ -30,20 +30,15 @@ const styles = {
   }
 };
 
-class AccountSettingsPage extends Component {
+class AccountSettingsPage extends FormComponent {
   state = {
     noTracking: false,
+    profile: 'http://sba.scfhs.org.sa/publiceservice_enu/CustomPages/Profileuploader/static/images/default.jpg',
   };
 
-  handleChange = ({ target: { checked } }) => this.setState({ noTracking: checked });
-
   render() {
-    console.log(this);
-
     const { classes } = this.props;
-    const { noTracking } = this.state;
     const helloMsg = `안녕하세요 ${user.getName()}님`;
-    const personImg = 'http://sba.scfhs.org.sa/publiceservice_enu/CustomPages/Profileuploader/static/images/default.jpg';
 
     return (
       <div className={classes.smallRootWithPadding}>
@@ -56,13 +51,14 @@ class AccountSettingsPage extends Component {
 
         <Typography variant='headline' className={classes.title}>프로필사진</Typography>
         <div className={classes.imgContainer}>
-          <ImagePreview
-            name='프로필 사진'
-            value={personImg}
-            isCircle
-            person
-            size={400}
-          />
+          {this.renderField({
+            Component: ImagePreview,
+            label: '프로필 사진',
+            name: 'profile',
+            isCircle: true,
+            person: true,
+            size: 400,
+          })}
           <UploadBtn btnStr='사진 업로드' color='primary' className={classes.uploadBtn} />
           <FaIconBtn variant='raised' color='secondary' btnStr='삭제' icon='trash' />
         </div>
@@ -70,17 +66,11 @@ class AccountSettingsPage extends Component {
         <Divider />
 
         <Typography variant='headline' className={classes.title}>개인정보수집</Typography>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={noTracking}
-              onChange={this.handleChange}
-              value="no-tracking"
-              color="primary"
-            />
-          }
-          label="좋아한 기사, 내가 쓴 댓글 목록 수집하지 않기"
-        />
+        {this.renderField({
+          label: '좋아한 기사, 내가 쓴 댓글 목록 수집하지 않기',
+          type: 'checkbox',
+          name: 'noTracking',
+        })}
 
         <Divider />
 

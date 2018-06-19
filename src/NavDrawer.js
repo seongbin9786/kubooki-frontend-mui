@@ -1,6 +1,7 @@
 import React from 'react';
+import compose from 'recompose/compose';
+import injectSheet from 'react-jss';
 import { withRouter } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -13,23 +14,26 @@ import { FamilyLinks } from './FamilyLinkConfig';
 import { logo, settings, accountList, guestList, userList, journalistGroupList } from './NavDrawerConfig';
 import SearchBar from './SearchBar';
 import FaIcon from './FaIcon';
+import { withWidth } from '@material-ui/core';
 
 const styles = {
-  list: {
-    width: 250,
-  },
+  list: ({ width }) => ({
+    width: width === 'xs' ? 190 : 250,
+  }),
 };
+
 function NavDrawer({
   classes,
   history,
+  width,
   open,
   user,
   handleOpen,
 }) {
   const renderMenus = (menus, title) => (
-    <List subheader={<ListSubheader disableSticky>{title}</ListSubheader>}>
+    <List key={title} subheader={<ListSubheader disableSticky>{title}</ListSubheader>}>
       {menus.map(({ link, icon, name, toggle }) => (
-        <ListItem button onClick={toggle ? (typeof toggle === 'function' ? toggle : handleOpen(toggle)) : () => history.push(link)}>
+        <ListItem key={name} button onClick={toggle ? (typeof toggle === 'function' ? toggle : handleOpen(toggle)) : () => history.push(link)}>
           <ListItemIcon>
             <FaIcon icon={icon} />
           </ListItemIcon>
@@ -60,7 +64,7 @@ function NavDrawer({
           onClick={handleOpen('drawer')}
         >
           <div className={classes.list}>
-            <SearchBar />
+            <SearchBar fullWidth />
             {renderMenus(logo, '메인')}
             {user.is('GUEST') && renderMenus(accountList, '인증')}
             {renderMenus(guestList, '거북이')}
@@ -75,4 +79,4 @@ function NavDrawer({
   );
 }
 
-export default withStyles(styles)(withRouter(NavDrawer));
+export default compose(withWidth(), injectSheet(styles))(withRouter(NavDrawer));

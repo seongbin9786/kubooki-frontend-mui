@@ -6,7 +6,9 @@ import ImagePreview from './ImagePreview';
 class FormComponent extends Component {
   handleChange = inputName => ({ target: { value } }) => this.setState({ [inputName]: value });
 
-  handleQuillChange = value => this.setState({ content: value });
+  handleQuillChange = name => value => this.setState({ [name]: value });
+
+  handleCheckboxChange = name => event => this.setState({ [name]: event.target.checked });
 
   renderField(field) {
     const { state } = this;
@@ -38,9 +40,9 @@ class FormComponent extends Component {
           control={
             <Checkbox
               checked={valueFunc}
-              value={valueFunc}
+              value={name}
               disabled={disabledFunc}
-              onChange={onChangeFunc}
+              onChange={this.handleCheckboxChange(name)}
             />
           }
         />
@@ -53,6 +55,7 @@ class FormComponent extends Component {
           fullWidth
           className={classNameFunc}
           margin='dense'
+          key={name}
         >
           <InputLabel>{label}</InputLabel>
           <Select
@@ -87,7 +90,7 @@ class FormComponent extends Component {
           name={name}
           key={name}
           value={valueFunc}
-          onChange={onChangeFunc}
+          onChange={this.handleQuillChange(name)}
           className={classNameFunc}
           disabled={disabledFunc}
         />
