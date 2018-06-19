@@ -27,7 +27,7 @@ const styles = {
 };
 
 const timeout = {
-  enter: theme.transitions.duration.standard,
+  enter: theme.transitions.duration.shortest,
   exit: theme.transitions.duration.standard,
 };
 
