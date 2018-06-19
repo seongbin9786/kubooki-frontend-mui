@@ -9,13 +9,13 @@ import GridListTemplate from './GridListTemplate';
 import EventItem from './EventItem';
 import EventHeadlineItem from './EventHeadlineItem';
 import SortBar from './SortBar';
-import { smallRoot, fullHeight } from './styles';
+import { smallRootWithPadding, fullHeight } from './styles';
 
 const styles = {
   '@global': {
     'html, body, #root': fullHeight
   },
-  smallRoot,
+  smallRootWithPadding,
   fullHeight,
 };
 
@@ -35,16 +35,11 @@ function EventList({ eventList, history, classes, noSortBar, tabName, customHand
     />
   );
 
-  window.addEventListener('DOMContentLoaded', () => alert('DOMContentLoaded without imgs'));
-  window.onload = function () {
-    alert('loaded!');
-  }
-
   return (
     <div className={classes.fullHeight}>
       {dontDisplayAsHeadline ? null : <EventHeadlineItem />}
 
-      <div className={classNames(classes.smallRoot, classes.fullHeight)}>
+      <div className={classNames(classes.smallRootWithPadding, classes.fullHeight)}>
         <GridListTemplate
           titleType='display1'
           items={items}

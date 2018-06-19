@@ -25,10 +25,6 @@ const styles = {
   flex: {
     flex: 1,
   },
-  title: ({ width }) => ({
-    flex: 1,
-    fontSize: width === 'xs' ? '1.25rem' : '1.3125rem',
-  }),
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
@@ -108,33 +104,32 @@ class Header extends Component {
             />
             <Typography
               color="inherit"
-              className={classes.title}
+              className={classes.flex}
               onClick={scrollToTop}
+              variant={loggedIn ? 'title' : 'subheading'}
             >
               경기대학교 웹지거북이
             </Typography>
-            {login ?
+            {login &&
               <LoginDialog
                 open={login}
                 handleClose={this.handleOpen('login')}
                 onRegisterClick={this.handleOpen('register')}
                 onSubmit={this.handleLoginSubmit}
-              /> : null
+              />
             }
-            {register ?
+            {register &&
               <RegisterDialog
                 open={register}
                 handleClose={this.handleOpen('register')}
                 onSubmit={this.handleRegisterSubmit}
               />
-              : null
             }
-            {settings ?
+            {settings &&
               <SettingsDialog
                 open={settings}
                 handleClose={this.handleOpen('settings')}
               />
-              : null
             }
             {loggedIn ?
               <div
@@ -150,7 +145,7 @@ class Header extends Component {
                 로그인
               </Button>
             }
-            {menus ?
+            {menus &&
               <Menu
                 className={classes.menus}
                 anchorEl={menusParentEl}
@@ -162,7 +157,6 @@ class Header extends Component {
                 )}
                 <MenuItem onClick={this.handleLogout}>로그아웃</MenuItem>
               </Menu>
-              : null
             }
           </Toolbar>
         </AppBar>

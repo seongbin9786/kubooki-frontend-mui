@@ -1,54 +1,49 @@
-import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import React from 'react';
+import injectSheet from 'react-jss';
+import { Button, DialogActions, DialogContent } from '@material-ui/core';
 
-export default class extends Component {
+import ResponsiveDialog from './ResponsiveDialog';
+import FormComponent from './FormComponent';
+import { marginOneUnit } from './styles';
+
+const fields = [
+  {
+    label: '아이디',
+    name: 'loginId'
+  },
+  {
+    label: '비밀번호',
+    type: 'password',
+    name: 'password'
+  }
+];
+
+const styles = {
+  marginOneUnit,
+};
+
+export default injectSheet(styles)(class extends FormComponent {
   state = {
     id: '',
     password: '',
   };
 
   componentDidMount() {
-    setTimeout(() => document.getElementById('login_id').focus(), 300);
+    setTimeout(() => document.getElementsByName('loginId')[0].focus(), 300);
   }
-
-  handleChange = inputName => ({ target: { value } }) =>
-    this.setState({ [inputName]: value });
 
   render() {
     const { open, handleClose, onSubmit, onRegisterClick } = this.props;
-    const { id, password } = this.state;
 
     return (
       <div>
-        <Dialog
+        <ResponsiveDialog
           open={open}
-          onClose={handleClose}
+          handleClose={handleClose}
+          title='로그인'
         >
-          <DialogTitle>로그인</DialogTitle>
           <DialogContent>
-            <TextField
-              margin="dense"
-              id="login_id"
-              label="아이디"
-              value={id}
-              onChange={this.handleChange('id')}
-              type="text"
-              fullWidth
-            />
-            <TextField
-              margin="dense"
-              id="password"
-              label="비밀번호"
-              value={password}
-              onChange={this.handleChange('password')}
-              type="password"
-              fullWidth
-            />
+            {fields.map(input => this.renderField(input))}
           </DialogContent>
           <DialogActions style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Button onClick={onRegisterClick} color="primary">
@@ -63,8 +58,8 @@ export default class extends Component {
               </Button>
             </div>
           </DialogActions>
-        </Dialog>
+        </ResponsiveDialog>
       </div>
     );
   }
-}
+});

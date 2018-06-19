@@ -3,7 +3,7 @@ import { TextField, Checkbox, FormControlLabel } from '@material-ui/core';
 
 import QuillEditor from './QuillEditor';
 
-class AbstractDetail extends Component {
+class FormComponent extends Component {
 
   handleChange = inputName => ({ target: { value } }) => this.setState({ [inputName]: value });
 
@@ -75,4 +75,4 @@ class AbstractDetail extends Component {
   }
 }
 
-export default AbstractDetail;
+export default FormComponent;

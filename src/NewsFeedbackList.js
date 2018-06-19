@@ -16,7 +16,7 @@ export default withWidth()(({ width }) => {
 
   return (
     <FlatListTemplate
-      titleType='display1'
+      titleType={width === 'xs' ? 'headline' : 'display1'}
       title={titleMsg}
       subHeader={<SortBar tabName='오래된 요청 순' />}
       items={items}

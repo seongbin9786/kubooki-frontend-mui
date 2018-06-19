@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { Button, DialogActions, DialogContent } from '@material-ui/core';
 
 import FaIcon from './FaIcon';
 import QuillEditor from './QuillEditor';
 import 'react-quill/dist/quill.snow.css'; // ES6
+import ResponsiveDialog from './ResponsiveDialog';
+import FormComponent from './FormComponent';
 
 const styles = theme => ({
   root: {
@@ -22,51 +24,39 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(class extends Component {
+const fields = [
+  {
+    label: '제목',
+    name: 'title',
+  },
+  {
+    Component: QuillEditor,
+    label: '본문',
+    name: 'content',
+  },
+];
+
+export default withStyles(styles)(class extends FormComponent {
   state = {
     title: '',
     content: '',
   };
 
   componentDidMount() {
-    setTimeout(() => document.getElementById('title').focus(), 300);
+    setTimeout(() => document.getElementsByName('title')[0].focus(), 300);
   }
-
-  handleChange = inputName => ({ target: { value } }) =>
-    this.setState({ [inputName]: value });
-
-  handleQuillChange = value =>
-    this.setState({ content: value });
 
   render() {
     const { category, open, handleClose, onSubmit, classes } = this.props;
-    const { title, content } = this.state;
 
     return (
-      <Dialog
+      <ResponsiveDialog
         open={open}
-        onClose={handleClose}
-        fullWidth
-        maxWidth='sm'
+        handleClose={handleClose}
+        title={category + ' 작성'}
       >
-        <DialogTitle>{category + ' 작성'}</DialogTitle>
         <DialogContent>
-          <TextField
-            margin="dense"
-            id="title"
-            name="title"
-            label="제목"
-            value={title}
-            onChange={this.handleChange('title')}
-            type="text"
-            fullWidth
-          />
-
-          <QuillEditor
-            value={content}
-            onChange={this.handleQuillChange}
-          />
-
+          {fields.map(input => this.renderField(input))}
         </DialogContent>
         <DialogActions className={classes.actions}>
           <Button onClick={handleClose} color="primary">
@@ -81,7 +71,7 @@ export default withStyles(styles)(class extends Component {
             </Button>
           </div>
         </DialogActions>
-      </Dialog>
+      </ResponsiveDialog>
     );
   }
 });

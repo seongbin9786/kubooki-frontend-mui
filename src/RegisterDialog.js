@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import ResponsiveDialog from './ResponsiveDialog';
+import FormComponent from './FormComponent';
 
 const styles = theme => ({
   root: {
@@ -24,7 +25,28 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(class extends Component {
+const textInputFields = [
+  {
+    label: '아이디',
+    name: 'registerId',
+  },
+  {
+    label: '비밀번호',
+    type: 'password',
+    name: 'password'
+  },
+  {
+    label: '비밀번호 확인',
+    type: 'passowrd',
+    name: 'passwordAgain',
+  },
+  {
+    label: '이름',
+    name: 'name',
+  }
+];
+
+export default withStyles(styles)(class extends FormComponent {
   state = {
     id: '',
     password: '',
@@ -35,59 +57,22 @@ export default withStyles(styles)(class extends Component {
   };
 
   componentDidMount() {
-    setTimeout(() => document.getElementById('register_id').focus(), 300);
+    setTimeout(() => document.getElementsByName('registerId')[0].focus(), 300);
   }
-
-  handleChange = inputName => ({ target: { value } }) =>
-    this.setState({ [inputName]: value });
 
   render() {
     const { open, handleClose, onSubmit, classes } = this.props;
-    const { id, password, passwordAgain, name, college, identity } = this.state;
+    const { college, identity } = this.state;
 
     return (
       <div>
-        <Dialog
+        <ResponsiveDialog
           open={open}
-          onClose={handleClose}
+          handleClose={handleClose}
+          title='회원가입'
         >
-          <DialogTitle>회원가입</DialogTitle>
           <DialogContent>
-            <TextField
-              margin="dense"
-              id="register_id"
-              label="아이디"
-              value={id}
-              onChange={this.handleChange('id')}
-              type="text"
-              fullWidth
-            />
-            <TextField
-              margin="dense"
-              id="password"
-              label="비밀번호"
-              value={password}
-              onChange={this.handleChange('password')}
-              type="password"
-              fullWidth
-            />
-            <TextField
-              margin="dense"
-              label="비밀번호 확인"
-              value={passwordAgain}
-              onChange={this.handleChange('passwordAgain')}
-              type="password"
-              fullWidth
-            />
-            <TextField
-              margin="dense"
-              id="name"
-              label="이름"
-              value={name}
-              onChange={this.handleChange('name')}
-              type="text"
-              fullWidth
-            />
+            {textInputFields.map(input => this.renderField(input))}
             <FormControl className={classes.formControl}>
               <InputLabel>소속대학(소속교직)</InputLabel>
               <Select
@@ -127,7 +112,7 @@ export default withStyles(styles)(class extends Component {
               회원가입
             </Button>
           </DialogActions>
-        </Dialog>
+        </ResponsiveDialog>
       </div>
     );
   }

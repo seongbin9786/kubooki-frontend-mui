@@ -17,6 +17,7 @@ import Switch from '@material-ui/core/Switch';
 import ListSubheader from '@material-ui/core/ListSubheader';
 
 import SETTINGS_CONFIG from './SettingsConfig';
+import ResponsiveDialog from './ResponsiveDialog';
 
 const styles = {
   appBar: {
@@ -57,25 +58,11 @@ class FullScreenDialog extends Component {
     const { checked } = this.state;
 
     return (
-      <Dialog
-        fullScreen
+      <ResponsiveDialog
+        title='설정'
         open={open}
-        onClose={handleClose}
-        TransitionComponent={Transition}
+        handleClose={handleClose}
       >
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton color="inherit" onClick={handleClose} aria-label="Close">
-              <CloseIcon />
-            </IconButton>
-            <Typography variant="title" color="inherit" className={classes.flex}>
-              설정
-            </Typography>
-            <Button color="inherit" onClick={handleClose}>
-              닫기
-            </Button>
-          </Toolbar>
-        </AppBar>
         {SETTINGS_CONFIG.map((config, idx) => {
           const { level, subHeader, options } = config;
           //TODO: level 체크
@@ -99,7 +86,7 @@ class FullScreenDialog extends Component {
             </List>
           );
         })}
-      </Dialog >
+      </ResponsiveDialog>
     );
   }
 }

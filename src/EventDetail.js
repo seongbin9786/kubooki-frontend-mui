@@ -6,7 +6,7 @@ import EventParticipantList from './EventParticipantList';
 import EventParticipantAnswers from './EventParticipantAnswers';
 import { paddingOneUnit, marginOneUnit, spaceBetween, alignChildrenRight } from './styles';
 import inputList, { detailList } from './EventDetailConfig';
-import AbstractDetail from './AbstractDetail';
+import FormComponent from './FormComponent';
 
 const styles = {
   '@global': {
@@ -34,7 +34,7 @@ const styles = {
   marginOneUnit,
 };
 
-class EventDetail extends AbstractDetail {
+class EventDetail extends FormComponent {
   constructor(props) {
     super(props);
     this.state = {};

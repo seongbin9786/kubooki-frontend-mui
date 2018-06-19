@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Button, TextField, Select, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem } from '@material-ui/core';
+import { Button, Select, DialogActions, DialogContent, FormControl, InputLabel, MenuItem } from '@material-ui/core';
 
 import QuillEditor from './QuillEditor';
 import 'react-quill/dist/quill.snow.css'; // ES6
 import FaIcon from './FaIcon';
 import ImagePreview from './ImagePreview';
 import UploadBtn from './UploadBtn';
+import ResponsiveDialog from './ResponsiveDialog';
+import FormComponent from './FormComponent';
 
 const styles = theme => ({
   root: {
@@ -24,7 +26,7 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(class extends Component {
+export default withStyles(styles)(class extends FormComponent {
   state = {
     title: '',
     content: '',
@@ -34,38 +36,24 @@ export default withStyles(styles)(class extends Component {
   };
 
   componentDidMount() {
-    setTimeout(() => document.getElementById('title').focus(), 300);
+    setTimeout(() => document.getElementsByName('title')[0].focus(), 300);
   }
-
-  handleChange = inputName => ({ target: { value } }) =>
-    this.setState({ [inputName]: value });
-
-  handleQuillChange = value =>
-    this.setState({ content: value });
 
   render() {
     const { open, handleClose, onSubmit, classes } = this.props;
-    const { title, content, imgUrl, category } = this.state;
+    const { imgUrl, category } = this.state;
 
     return (
-      <Dialog
+      <ResponsiveDialog
         open={open}
-        onClose={handleClose}
-        fullWidth
-        maxWidth='sm'
+        handleClose={handleClose}
+        title='기사 작성'
       >
-        <DialogTitle>기사 작성</DialogTitle>
         <DialogContent>
-          <TextField
-            margin="dense"
-            id="title"
-            name="title"
-            label="제목"
-            value={title}
-            onChange={this.handleChange('title')}
-            type="text"
-            fullWidth
-          />
+          {this.renderField({
+            label: '제목',
+            name: 'title'
+          })}
 
           <FormControl className={classes.formControl}>
             <InputLabel>분류</InputLabel>
@@ -81,10 +69,11 @@ export default withStyles(styles)(class extends Component {
             </Select>
           </FormControl>
 
-          <QuillEditor
-            value={content}
-            onChange={this.handleQuillChange}
-          />
+          {this.renderField({
+            Component: QuillEditor,
+            label: '본문',
+            name: 'content'
+          })}
 
           <ImagePreview name='섬네일' value={imgUrl} isForm />
           <UploadBtn btnStr='업로드' />
@@ -103,7 +92,7 @@ export default withStyles(styles)(class extends Component {
             </Button>
           </div>
         </DialogActions>
-      </Dialog>
+      </ResponsiveDialog>
     );
   }
 });

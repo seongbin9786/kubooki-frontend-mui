@@ -81,7 +81,7 @@ export const journalistGroupList = [
   },
   {
     link: '/dashboard',
-    icon: 'lg-char-bar',
+    icon: 'lg-chart-bar',
     name: '대시 보드'
   },
   {

@@ -3,8 +3,8 @@ import { withStyles, Typography, Button, Collapse } from '@material-ui/core';
 
 import DeleteIconBtn from './DeleteIconBtn';
 import { spaceBetween, alignChildrenRight, marginOneUnit } from './styles';
-import AbstractDetail from './AbstractDetail';
 import popupList from './PopupDetailConfig';
+import FormComponent from './FormComponent';
 
 const styles = theme => ({
   root: {
@@ -21,7 +21,7 @@ const styles = theme => ({
   marginOneUnit,
 });
 
-class PopupDetail extends AbstractDetail {
+class PopupDetail extends FormComponent {
   constructor(props) {
     super(props);
 

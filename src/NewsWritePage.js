@@ -45,7 +45,7 @@ class NewsWritePage extends Component {
       <React.Fragment>
         <div className={classes.smallRootWithPadding}>
           <header className={width !== 'xs' ? classes.header : null}>
-            <Typography variant='display2'>
+            <Typography variant={width === 'xs' ? 'display1' : 'display2'}>
               기사 작성 페이지
             </Typography>
             <Button
@@ -69,13 +69,12 @@ class NewsWritePage extends Component {
 
           <MyNewsList />
         </div>
-        {
-          writeDialogOpen ?
-            <NewsWriteDialog
-              open={writeDialogOpen}
-              handleClose={this.toggleDialog}
-            />
-            : null
+
+        {writeDialogOpen &&
+          <NewsWriteDialog
+            open={writeDialogOpen}
+            handleClose={this.toggleDialog}
+          />
         }
       </React.Fragment >
     );

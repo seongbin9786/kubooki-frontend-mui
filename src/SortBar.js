@@ -1,6 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography, withWidth } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 
 import theme from './ThemeConfig';
@@ -27,9 +27,6 @@ const styles = {
   }),
   sortTitle: {
     lineHeight: '2rem',
-    fontFamily: 'Noto Sans KR, sans-serif',
-    fontWeight: 500,
-    fontSize: '1.4rem',
   },
   sortBtn: {
     minHeight: 13,
@@ -37,11 +34,11 @@ const styles = {
   },
 };
 
-function SortBar({ classes, tabName }) {
+function SortBar({ classes, tabName, width }) {
   return (
     <div className={classes.sortBar}>
       <Typography
-        variant='subheading'
+        variant={width === 'xs' ? 'subheading' : 'title'}
         className={classes.sortTitle}
       >
         {tabName}
@@ -53,4 +50,4 @@ function SortBar({ classes, tabName }) {
   );
 };
 
-export default injectSheet(styles)(SortBar);
+export default injectSheet(styles)(withWidth()(SortBar));
