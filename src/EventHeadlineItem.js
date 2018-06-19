@@ -34,7 +34,6 @@ const styles = {
     color: 'white'
   },
   dateTitle: {
-    ...this.date,
     marginTop: 11,
     fontSize: '1rem',
     color: 'white'

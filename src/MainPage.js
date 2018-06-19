@@ -4,10 +4,11 @@ import NewsNavTab from './NewsNavTab';
 import NewsList from './NewsList';
 
 import { newsList } from './store';
+import { withWidth } from '@material-ui/core';
 
-export default () => (
+export default withWidth()(({ width }) => (
   <React.Fragment>
     <NewsNavTab />
-    <NewsList newsList={newsList} />
+    <NewsList newsList={newsList} noTopMargin={width === 'xs'} />
   </React.Fragment>
-);
+));

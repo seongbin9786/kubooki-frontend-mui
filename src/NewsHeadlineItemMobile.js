@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
 import compose from 'recompose/compose';
-import { withStyles } from '@material-ui/core/styles';
+import injectSheet from 'react-jss';
 import { Link, withRouter } from 'react-router-dom';
 import withWidth from '@material-ui/core/withWidth';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import NewsItem from './NewsItem';
-import { fullImage, darkOverlay, marginBottomRoot } from './styles';
-import NewsHeadlineItemMobile from './NewsHeadlineItemMobile';
+import { darkOverlay, fullHeight } from './styles';
 
 const styles = {
-  Paper: {
-    margin: 3,
-    padding: 10,
+  '@global': {
+    'html, body, #root': fullHeight
   },
-  marginBottomRoot,
-  imgContainer: {
+  imgRoot: {
     position: 'relative',
     width: '100%',
+    height: '15%',
+    marginBottom: 50,
   },
-  fullImage,
+  img: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+  },
   darkOverlay,
-  info: {
+  contentRoot: {
     position: 'absolute',
     left: '50px',
     top: '50px',
@@ -86,38 +88,31 @@ class NewsHeadlineItem extends Component {
       date: '20.05.2018'
     };
 
-    if (width === 'xs')
-      return <NewsHeadlineItemMobile news={news} />;
-
     return (
-      <Grid item xs={12} lg={7} className={classes.marginBottomRoot}>
-        <div className={classes.Paper}>
-          <div className={classes.imgContainer}>
-            <Link to={`/news/${news.id}`}>
-              <img className={classes.fullImage} src={news.img} alt='배경이미지' />
-              <span
-                className={classes.darkOverlay}
-                onMouseOver={this.handleHover}
-                onMouseLeave={this.handleHover}>
-              </span>
-            </Link>
-            <div className={classes.info}>
-              <Typography variant="display3" className={classes.title}>
-                <Link to={`/news/${news.id}`} className={classes.link}>{news.title}</Link>
-              </Typography>
-              <Typography variant="headline" className={classes.content}>
-                {news.content}
-              </Typography>
-              <Typography variant="caption" className={classes.dateTitle}>
-                {news.date}
-              </Typography>
-            </div>
-            <Link className={hover ? classes.readMoreBtnHover : classes.readMoreBtn} to={`/news/${news.id}`}>Read More</Link>
-          </div>
+      <Grid item xs={12} lg={7} className={classes.imgRoot}>
+        <Link to={`/news/${news.id}`}>
+          <img className={classes.img} src={news.img} alt='배경이미지' />
+          <span
+            className={classes.darkOverlay}
+            onMouseOver={this.handleHover}
+            onMouseLeave={this.handleHover}>
+          </span>
+        </Link>
+        <div className={classes.contentRoot}>
+          <Typography variant={width === 'xs' ? 'display2' : 'display3'} className={classes.title}>
+            <Link to={`/news/${news.id}`} className={classes.link}>{news.title}</Link>
+          </Typography>
+          <Typography variant={width === 'xs' ? 'title' : 'headline'} className={classes.content}>
+            {news.content}
+          </Typography>
+          <Typography variant="caption" className={classes.dateTitle}>
+            {news.date}
+          </Typography>
         </div>
+        <Link className={hover ? classes.readMoreBtnHover : classes.readMoreBtn} to={`/news/${news.id}`}>Read More</Link>
       </Grid>
     );
   }
 }
 
-export default compose(withStyles(styles), withWidth())(withRouter(NewsHeadlineItem));
+export default compose(withWidth(), injectSheet(styles))(withRouter(NewsHeadlineItem));
