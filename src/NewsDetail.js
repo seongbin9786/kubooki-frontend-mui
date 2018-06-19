@@ -22,6 +22,7 @@ import './content.css';
 import theme from './ThemeConfig';
 import { mediumRootWithPadding, marginVertical, centerChildrenInline, centerFlex } from './styles';
 import FaIcon from './FaIcon';
+import withLoader from './withLoader';
 
 const styles = {
   mediumRootWithPadding,
@@ -85,11 +86,11 @@ class NewsDetail extends Component {
   toggleCorrectionDialog = () => this.setState(({ correctionOpen }) => ({ correctionOpen: !correctionOpen }));
 
   render() {
-    const { classes, width } = this.props;
+    const { classes, width, handleOnLoad } = this.props;
     const { correctionOpen } = this.state;
 
     return (
-      <article className={classes.mediumRootWithPadding}>
+      <article className={classes.mediumRootWithPadding} onLoad={handleOnLoad}>
 
         <header className={classes.header}>
           <Link to="/" className={classes.yellowHighlight}>{news.category}</Link>
@@ -173,4 +174,4 @@ class NewsDetail extends Component {
   }
 }
 
-export default injectSheet(styles)(withWidth()(NewsDetail));
+export default withLoader(injectSheet(styles)(withWidth()(NewsDetail)));
