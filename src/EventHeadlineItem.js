@@ -12,7 +12,8 @@ const styles = {
   imgRoot: ({ width }) => ({
     position: 'relative',
     width: '100%',
-    height: width === 'xs' ? '90%' : 400,
+    // px값은 EventHeadline에 들어가는 Text에 따라 달라져야 한다.
+    height: width === 'xs' ? '90%' : 500,
   }),
   img: {
     width: '100%',
@@ -86,6 +87,7 @@ class NewsItem extends Component {
     };
     const { id, title, desc, thumbnail, startDate, endDate, prize, resultDate } = event;
     const url = `/events/${id}`;
+    const isMobile = width === 'xs';
 
     return (
       <Grid item xs={12} className={classes.imgRoot}>
@@ -94,14 +96,15 @@ class NewsItem extends Component {
           <span
             className={classes.darkOverlay}
             onMouseOver={this.handleHover}
-            onMouseLeave={this.handleHover}>
+            onMouseLeave={this.handleHover}
+          >
           </span>
         </Link>
         <div className={classes.contentRoot}>
-          <Typography variant={width === 'xs' ? 'display2' : 'display3'} className={classes.title}>
+          <Typography variant={isMobile ? 'display2' : 'display3'} className={classes.title}>
             <Link to={url} className={classes.link}>{title}</Link>
           </Typography>
-          <Typography variant={width === 'xs' ? 'title' : 'headline'} className={classes.content}>
+          <Typography variant={isMobile ? 'title' : 'headline'} className={classes.content}>
             {desc}
           </Typography>
           <Typography variant="caption" className={classes.dateTitle}>

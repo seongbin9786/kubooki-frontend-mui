@@ -3,17 +3,10 @@ import injectSheet from 'react-jss';
 import { withWidth, Fade } from '@material-ui/core';
 
 import theme from './ThemeConfig';
-import { fullHeight } from './styles';
 import loaderImgMobile from './loaderMobile.svg';
 import loaderImg from './loader.svg';
 
 const styles = {
-  '@global': ({ show }) => ({
-    'html, body, #root': fullHeight,
-    '#root': {
-      overflowY: show ? 'hidden' : 'visible'
-    }
-  }),
   background: ({ show }) => ({
     width: show ? '100%' : 0,
     height: show ? '100%' : 0,
