@@ -3,11 +3,36 @@ import LoadingAnimation from './LoadingAnimation';
 
 function withLoader(WrappedComponent) {
   return class extends Component {
-    state = {
-      loaded: false,
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        loaded: false,
+        attached: true,
+        currentUrl: this.getBrowserUrl(),
+      };
+
+      window.addEventListener('load', () => {
+        this.setState({ loaded: true });
+      });
     }
 
-    handleOnLoad = () => this.setState({ loaded: true });
+    attachOnload() {
+      if (this.state.attached) return;
+
+      window.addEventListener('load', () => {
+        this.setState({ loaded: true });
+      });
+      this.setState({ attached: true });
+      console.log('Successfully attached onLoad');
+    }
+
+    getBrowserUrl = () => window.location.href;
+
+    componentDidUpdate(prevProps) {
+      if (this.state.currentUrl !== this.getBrowserUrl())
+        this.attachOnload();
+    }
 
     render() {
       const { loaded } = this.state;
@@ -15,9 +40,7 @@ function withLoader(WrappedComponent) {
       return (
         <React.Fragment>
           <LoadingAnimation show={!loaded} />
-          <div onLoad={this.handleOnLoad} style={{ width: '100%', height: '100%' }}>
-            <WrappedComponent {...this.props} />
-          </div>
+          <WrappedComponent {...this.props} />
         </React.Fragment>
       );
     }

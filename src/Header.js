@@ -106,7 +106,8 @@ class Header extends DialogOwnerComponent {
             <NavDrawer
               user={user}
               open={drawer}
-              handleOpen={this.handleOpen}
+              handleOpen={this.toggleDialog}
+              handleDrawer={this.handleOpen('drawer')}
             />
             <Typography
               color="inherit"

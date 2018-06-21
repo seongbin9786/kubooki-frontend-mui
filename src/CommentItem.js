@@ -250,7 +250,7 @@ class CommentItem extends DialogOwnerComponent {
             />
           </div>
 
-          {console.log(this.state) || collapsable
+          {collapsable
             ? <FaIconBtn
               icon={`caret-${isCollapsed ? 'down' : 'up'}`}
               onlyIcon

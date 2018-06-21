@@ -8,9 +8,12 @@ import loaderImgMobile from './loaderMobile.svg';
 import loaderImg from './loader.svg';
 
 const styles = {
-  '@global': {
-    'html, body, #root': fullHeight
-  },
+  '@global': ({ show }) => ({
+    'html, body, #root': fullHeight,
+    '#root': {
+      overflowY: show ? 'hidden' : 'visible'
+    }
+  }),
   background: ({ show }) => ({
     width: show ? '100%' : 0,
     height: show ? '100%' : 0,

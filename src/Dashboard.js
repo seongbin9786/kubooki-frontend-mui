@@ -13,6 +13,10 @@ const styles = {
 
 function Dashboard({ classes, history, location: { pathname } }) {
   const tabsForUser = TabList.filter(({ role }) => user.hasRole(role));
+
+  if (tabsForUser.length === 0)
+    return <div>권한이 없습니다.</div>;
+
   const index = tabsForUser.findIndex(({ link }) => link === pathname);
   const { component: Component } = tabsForUser[index];
 

@@ -10,11 +10,11 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import { withWidth } from '@material-ui/core';
 import { FamilyLinks } from './FamilyLinkConfig';
 import { logo, settings, accountList, guestList, userList, journalistGroupList } from './NavDrawerConfig';
 import SearchBar from './SearchBar';
 import FaIcon from './FaIcon';
-import { withWidth } from '@material-ui/core';
 
 const styles = {
   list: ({ width }) => ({
@@ -25,10 +25,10 @@ const styles = {
 function NavDrawer({
   classes,
   history,
-  width,
   open,
   user,
   handleOpen,
+  handleDrawer
 }) {
   const renderMenus = (menus, title) => (
     <List key={title} subheader={<ListSubheader disableSticky>{title}</ListSubheader>}>
@@ -57,11 +57,11 @@ function NavDrawer({
 
   return (
     <div>
-      <Drawer open={open} onClose={handleOpen('drawer')}>
+      <Drawer open={open} onClose={handleDrawer}>
         <div
           tabIndex={0}
           role="button"
-          onClick={handleOpen('drawer')}
+          onClick={handleDrawer}
         >
           <div className={classes.list}>
             <SearchBar fullWidth />
