@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Typography, withStyles, Button, Collapse } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 import { withRouter } from 'react-router-dom';
 
+import DialogOwnerComponent from './DialogOwnerComponent';
 import FaIconBtn from './FaIconBtn';
 import AlertDialog from './AlertDialog';
 import CommentReplyItem from './CommentReplyItem';
@@ -112,14 +113,16 @@ const styles = theme => ({
 });
 
 //TODO: 수정, 삭제 버튼 눌렸을 때 처리
-class CommentItem extends Component {
+class CommentItem extends DialogOwnerComponent {
   state = {
-    isAskingAccuse: false,
     isEditing: false,
     isReplying: false,
     collapsable: false,
     isCollapsed: false,
     editText: this.props.comment.content,
+    dialogOpen: {
+      accuse: false,
+    }
   }
 
   handleOnTextAreaFocus = event => {
@@ -153,7 +156,7 @@ class CommentItem extends Component {
   }
 
   render() {
-    const { isAskingAccuse, isEditing, isReplying, collapsable, isCollapsed, editText } = this.state;
+    const { dialogOpen: { accuse }, isEditing, isReplying, collapsable, isCollapsed, editText } = this.state;
     const { classes, comment, myCommentView, history } = this.props;
     const { id, writer, date, likes, liked, hated, content, targetNews } = comment;
 
@@ -212,7 +215,7 @@ class CommentItem extends Component {
                 <Button className={classes.helpMenu} onClick={this.toggleOpen('isReplying')}>
                   답글
                 </Button>
-                <Button className={classes.helpMenu} onClick={this.toggleOpen('isAskingAccuse')}>
+                <Button className={classes.helpMenu} onClick={this.toggleDialog('accuse')}>
                   신고
                 </Button>
               </React.Fragment>
@@ -220,14 +223,14 @@ class CommentItem extends Component {
           </div>
 
           <AlertDialog
-            open={isAskingAccuse}
+            open={accuse}
             title='신고하기'
             content='"경기대학교 신입생들을 위한 새내기팁! 첫 번째, 통학버스와 고양이버스 안내" 기사 댓글에서 김성빈님을 신고하시겠습니까?'
             okText='네'
             notOkText='아니오'
-            handleOk={this.toggleOpen('isAskingAccuse')}
-            handleNotOk={this.toggleOpen('isAskingAccuse')}
-            onClose={this.toggleOpen('isAskingAccuse')}
+            handleOk={this.toggleDialog('accuse')}
+            handleNotOk={this.toggleDialog('accuse')}
+            onClose={this.toggleDialog('accuse')}
           />
 
           <div className={classes.authorMenu}>

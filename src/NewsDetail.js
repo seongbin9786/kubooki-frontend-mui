@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import injectSheet from 'react-jss';
 import { Typography, Divider, withWidth } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
+import DialogOwnerComponent from './DialogOwnerComponent';
 import FaIconBtn from './FaIconBtn';
 import CorrectionWriteDialog from './CorrectionWriteDialog';
 import NewsList from './NewsList';
@@ -77,16 +78,16 @@ const styles = {
   },
 };
 
-class NewsDetail extends Component {
+class NewsDetail extends DialogOwnerComponent {
   state = {
-    correctionOpen: false,
+    dialogOpen: {
+      correction: false,
+    }
   };
-
-  toggleCorrectionDialog = () => this.setState(({ correctionOpen }) => ({ correctionOpen: !correctionOpen }));
 
   render() {
     const { classes, width } = this.props;
-    const { correctionOpen } = this.state;
+    const { dialogOpen: { correction } } = this.state;
 
     return (
       <article className={classes.mediumRootWithPadding}>
@@ -130,19 +131,16 @@ class NewsDetail extends Component {
             btnStr='기사의 내용 중 일부가 잘못된 경우'
             icon='exclamation-triangle'
             variant='outlined'
-            onClick={this.toggleCorrectionDialog}
+            onClick={this.toggleDialog('correction')}
             className={classes.correctionBtn}
           />
         </div>
 
-        {correctionOpen
-          ? <CorrectionWriteDialog
-            open={correctionOpen}
-            newsId={news.id}
-            handleClose={this.toggleCorrectionDialog}
-          />
-          : null
-        }
+        <CorrectionWriteDialog
+          open={correction}
+          newsId={news.id}
+          handleClose={this.toggleDialog('correction')}
+        />
 
         <Divider className={classes.divider} />
 

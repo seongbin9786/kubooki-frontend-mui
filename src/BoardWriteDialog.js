@@ -42,16 +42,13 @@ export default withStyles(styles)(class extends FormComponent {
     content: '',
   };
 
-  componentDidMount() {
-    setTimeout(() => document.getElementsByName('title')[0].focus(), 300);
-  }
-
   render() {
     const { category, open, handleClose, onSubmit, classes } = this.props;
 
     return (
       <ResponsiveDialog
         open={open}
+        autoFocus='title'
         handleClose={handleClose}
         title={category + ' 작성'}
       >

@@ -7,7 +7,7 @@ function withLoader(WrappedComponent) {
       loaded: false,
     }
 
-    handleOnLoad = () => console.log('loaded!') || this.setState({ loaded: true });
+    handleOnLoad = () => this.setState({ loaded: true });
 
     render() {
       const { loaded } = this.state;

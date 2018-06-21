@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withStyles, Typography, Button, withWidth } from '@material-ui/core';
 
 import NewsFeedbackList from './NewsFeedbackList';
@@ -9,6 +9,7 @@ import { writerDemo } from './store';
 import Spacing from './Spacing';
 import FaIcon from './FaIcon';
 import { smallRootWithPadding, marginVertical } from './styles';
+import DialogOwnerComponent from './DialogOwnerComponent';
 
 const styles = {
   smallRootWithPadding,
@@ -23,37 +24,37 @@ const styles = {
   },
 };
 
-/*
-  TODO 1. 자신의 명함 (게시글 형태 그대로)
-  TODO 2. 기사 쓰기 버튼
-  TODO 3. 피드백 현황 (댓글 목록 처럼)
-*/
-class NewsWritePage extends Component {
-  state = {
-    writeDialogOpen: false,
-  }
+class NewsWritePage extends DialogOwnerComponent {
+  constructor(props) {
+    super(props);
 
-  toggleDialog = () => this.setState(({ writeDialogOpen }) => ({
-    writeDialogOpen: !writeDialogOpen
-  }))
+    this.state = {
+      dialogOpen: {
+        newsWrite: false,
+      },
+    };
+  }
 
   render() {
     const { classes, width } = this.props;
-    const { writeDialogOpen } = this.state;
+    const { dialogOpen: { newsWrite } } = this.state;
+    const isMobile = width === 'xs';
 
     return (
       <React.Fragment>
+        {this.renderNavBlocker()}
+
         <div className={classes.smallRootWithPadding}>
-          <header className={width !== 'xs' ? classes.header : null}>
-            <Typography variant={width === 'xs' ? 'display1' : 'display2'}>
+          <header className={!isMobile ? classes.header : null}>
+            <Typography variant={isMobile ? 'display1' : 'display2'}>
               기사 작성 페이지
             </Typography>
             <Button
               variant="raised"
               color="primary"
-              onClick={this.toggleDialog}
-              fullWidth={width === 'xs'}
-              className={width === 'xs' ? classes.btn : null}
+              onClick={this.toggleDialog('newsWrite')}
+              fullWidth={isMobile}
+              className={isMobile ? classes.btn : null}
             >
               기사 작성&nbsp;&nbsp;<FaIcon icon='pencil-alt' />
             </Button>
@@ -70,12 +71,12 @@ class NewsWritePage extends Component {
           <MyNewsList />
         </div>
 
-        {writeDialogOpen &&
-          <NewsWriteDialog
-            open={writeDialogOpen}
-            handleClose={this.toggleDialog}
-          />
-        }
+        <NewsWriteDialog
+          open={newsWrite}
+          handleClose={this.toggleDialog('newsWrite')}
+          disableBackdropClick
+          disableEscapeKeyDown
+        />
       </React.Fragment >
     );
   }

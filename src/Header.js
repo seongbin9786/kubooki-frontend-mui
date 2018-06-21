@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import compose from 'recompose/compose';
 import injectSheet from 'react-jss';
 import { withRouter } from 'react-router-dom';
@@ -12,6 +12,7 @@ import SettingsDialog from './SettingsDialog';
 import Spacing from './Spacing';
 
 import personalMenuList from './MyPageTabConfig';
+import DialogOwnerComponent from './DialogOwnerComponent';
 
 const styles = {
   root: {
@@ -40,15 +41,19 @@ const styles = {
 
 const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-class Header extends Component {
+class Header extends DialogOwnerComponent {
   constructor(props) {
     super(props);
 
     this.state = {
+      dialogOpen: {
+        login: false,
+        register: false,
+        settings: false,
+      },
+
       drawer: false,
-      login: false,
-      register: false,
-      settings: false,
+
       menusParentEl: null,
 
       loggedIn: props.user.isLoggedIn(),
@@ -81,7 +86,8 @@ class Header extends Component {
 
   render() {
     const { classes, width, user } = this.props;
-    const { drawer, login, register, settings, menusParentEl, loggedIn } = this.state;
+    const { dialogOpen: { login, register, settings }, drawer, menusParentEl, loggedIn } = this.state;
+    const isMobile = width === 'xs';
     const menus = Boolean(menusParentEl);
     console.log(menusParentEl, menus);
 
@@ -106,31 +112,25 @@ class Header extends Component {
               color="inherit"
               className={classes.flex}
               onClick={scrollToTop}
-              variant={loggedIn ? 'title' : 'subheading'}
+              variant={isMobile && !loggedIn ? 'subheading' : 'title'}
             >
               경기대학교 웹지거북이
             </Typography>
-            {login &&
-              <LoginDialog
-                open={login}
-                handleClose={this.handleOpen('login')}
-                onRegisterClick={this.handleOpen('register')}
-                onSubmit={this.handleLoginSubmit}
-              />
-            }
-            {register &&
-              <RegisterDialog
-                open={register}
-                handleClose={this.handleOpen('register')}
-                onSubmit={this.handleRegisterSubmit}
-              />
-            }
-            {settings &&
-              <SettingsDialog
-                open={settings}
-                handleClose={this.handleOpen('settings')}
-              />
-            }
+            <LoginDialog
+              open={login}
+              handleClose={this.toggleDialog('login')}
+              onRegisterClick={this.toggleDialog('register')}
+              onSubmit={this.handleLoginSubmit}
+            />
+            <RegisterDialog
+              open={register}
+              handleClose={this.toggleDialog('register')}
+              onSubmit={this.handleRegisterSubmit}
+            />
+            <SettingsDialog
+              open={settings}
+              handleClose={this.toggleDialog('settings')}
+            />
             {loggedIn ?
               <div
                 className={classes.avatar}
@@ -140,7 +140,7 @@ class Header extends Component {
               </div>
               : <Button
                 color="inherit"
-                onClick={this.handleOpen('login')}
+                onClick={this.toggleDialog('login')}
               >
                 로그인
               </Button>
@@ -160,7 +160,7 @@ class Header extends Component {
             }
           </Toolbar>
         </AppBar>
-        <Spacing height={width === 'xs' ? 56 : 64} />
+        <Spacing height={isMobile ? 56 : 64} />
       </React.Fragment>
     );
   }

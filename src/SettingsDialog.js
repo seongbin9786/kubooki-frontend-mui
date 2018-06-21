@@ -40,6 +40,7 @@ class FullScreenDialog extends Component {
         title='설정'
         open={open}
         handleClose={handleClose}
+        showAppbar
       >
         {SETTINGS_CONFIG.map((config, idx) => {
           const { level, subHeader, options } = config;

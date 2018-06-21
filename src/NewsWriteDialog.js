@@ -54,15 +54,11 @@ const fields = [
 export default withStyles(styles)(class extends FormComponent {
   state = {
     title: '',
-    content: '',
     category: '',
+    content: '',
     // default image
     imgUrl: 'https://mikesmasterclasses.com/wp-content/uploads/2017/07/no-thumbnail.png',
   };
-
-  componentDidMount() {
-    setTimeout(() => document.getElementsByName('title')[0].focus(), 300);
-  }
 
   render() {
     const { open, handleClose, onSubmit, classes } = this.props;
@@ -72,6 +68,8 @@ export default withStyles(styles)(class extends FormComponent {
         open={open}
         handleClose={handleClose}
         title='기사 작성'
+        autoFocus='title'
+        confirmation
       >
         <DialogContent>
           {fields.map(input => this.renderField(input))}

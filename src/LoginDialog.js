@@ -19,13 +19,9 @@ const fields = [
 
 export default class extends FormComponent {
   state = {
-    id: '',
+    loginId: '',
     password: '',
   };
-
-  componentDidMount() {
-    setTimeout(() => document.getElementsByName('loginId')[0].focus(), 300);
-  }
 
   render() {
     const { open, handleClose, onSubmit, onRegisterClick } = this.props;
@@ -35,6 +31,7 @@ export default class extends FormComponent {
         <ResponsiveDialog
           open={open}
           handleClose={handleClose}
+          autoFocus='loginId'
           title='로그인'
         >
           <DialogContent>

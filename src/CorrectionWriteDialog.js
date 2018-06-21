@@ -43,10 +43,6 @@ export default withStyles(styles)(class extends FormComponent {
     newsId: this.props.newsId,
   };
 
-  componentDidMount() {
-    setTimeout(() => document.getElementsByName('title')[0].focus(), 300);
-  }
-
   render() {
     const { open, handleClose, onSubmit, classes } = this.props;
 
@@ -55,6 +51,7 @@ export default withStyles(styles)(class extends FormComponent {
         open={open}
         handleClose={handleClose}
         title='정정 요청'
+        autoFocus='title'
       >
         <DialogContent>
           {fields.map(input => this.renderField(input))}

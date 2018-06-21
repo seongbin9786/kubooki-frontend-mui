@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withStyles, Typography } from '@material-ui/core';
 
+import DialogOwnerComponent from './DialogOwnerComponent';
 import BoardListTable from './BoardListTable';
 import Pagination from './Pagination';
 import BoardWriteDialog from './BoardWriteDialog';
@@ -25,36 +26,30 @@ const styles = theme => ({
   }
 });
 
-class BoardList extends Component {
+class BoardList extends DialogOwnerComponent {
   state = {
-    writeDialogOpen: false,
+    dialogOpen: {
+      write: true,
+    }
   };
 
-  toggleDialog = () => this.setState(({ writeDialogOpen }) => ({
-    writeDialogOpen: !writeDialogOpen
-  }))
-
   render() {
-    const { classes, addButtonRightAlign, boardTitle, boardList } = this.props;
-    const { writeDialogOpen } = this.state;
-    const { totalItems, list } = boardList;
+    const { write } = this.state.dialogOpen;
+    const { classes, addButtonRightAlign, boardTitle, boardList: { totalItems, list } } = this.props;
 
     return (
       <div className={classes.root}>
         <Typography variant='display1' className={classes.title}>{boardTitle}</Typography>
 
         <div className={addButtonRightAlign ? classes.rightAlign : null}>
-          <CreateIcon onClick={this.toggleDialog} />
+          <CreateIcon onClick={this.toggleDialog('write')} />
         </div>
 
-        {writeDialogOpen
-          ? <BoardWriteDialog
-            category={boardTitle}
-            open={writeDialogOpen}
-            handleClose={this.toggleDialog}
-          />
-          : null
-        }
+        <BoardWriteDialog
+          category={boardTitle}
+          open={write}
+          handleClose={this.toggleDialog('write')}
+        />
 
         <BoardListTable rows={list} />
 

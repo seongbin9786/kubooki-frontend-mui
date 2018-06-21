@@ -40,7 +40,7 @@ ReactDOM.render(
             <Route path='/faq' component={FAQPage} />
             <Route path='/events/:id' component={EventDetailPage} />
             <Route path='/events' component={EventPage} />
-            <Route path='/news/write' component={NewsWritePage} />
+            <Route path='/news/write' component={NewsWritePage} onChange={e => console.log(e)} />
             <Route path='/news' component={NewsDetail} />
             <Route path='/' component={MainPage} />
           </Switch>

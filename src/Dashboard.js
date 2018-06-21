@@ -1,7 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 import DashboardNav from './DashboardNav';
-import { withRouter } from 'react-router-dom';
 
 import TabList from './DashboardTabConfig';
 import { globalUser as user } from './store';
@@ -33,4 +32,4 @@ function Dashboard({ classes, history, location: { pathname } }) {
   );
 }
 
-export default withStyles(styles)(withRouter(Dashboard));
+export default withStyles(styles)(Dashboard);
