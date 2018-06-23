@@ -6,39 +6,18 @@ function withLoader(WrappedComponent) {
     constructor(props) {
       super(props);
 
-      this.state = {
-        loaded: false,
-        attached: true,
-        currentUrl: this.getBrowserUrl(),
-      };
-      this.setUpLoader();
-    }
+      this.state = { loaded: false };
 
-    setUpLoader() {
-      window.addEventListener('load', () => {
+      window.onload = () => {
         this.setState({ loaded: true });
         this.setLoaderCss(true);
-      });
-      this.setLoaderCss(false);
-    }
-
-    attachOnload() {
-      if (this.state.attached) return;
-      this.setUpLoader();
-      this.setState({ attached: true });
-      console.log('Successfully attached onLoad');
+        console.log('@@@ Working @@@');
+      };
     }
 
     // react-jss의 Dynamic Value와 jss-global이 호환되지 않아서 굳이 이렇게 해야함
     setLoaderCss(loaded) {
       document.getElementById('root').style = `overflow: ${loaded ? 'visible' : 'hidden'}`;
-    }
-
-    getBrowserUrl = () => window.location.href;
-
-    componentDidUpdate(prevProps) {
-      if (this.state.currentUrl !== this.getBrowserUrl())
-        this.attachOnload();
     }
 
     render() {

@@ -29,7 +29,7 @@ const styles = theme => ({
 class BoardList extends DialogOwnerComponent {
   state = {
     dialogOpen: {
-      write: true,
+      write: false,
     }
   };
 
