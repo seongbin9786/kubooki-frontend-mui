@@ -7,6 +7,7 @@ function withLoader(WrappedComponent) {
       super(props);
 
       this.state = { loaded: false };
+      this.setLoaderCss(false);
 
       window.onload = () => {
         this.setState({ loaded: true });

@@ -8,8 +8,8 @@ import { marginBottomRoot } from './styles';
 import theme from './ThemeConfig';
 
 const styles = {
-  card: props => ({
-    margin: theme.spacing.unit * (props.width === 'xs' ? 1 : 3),
+  root: {
+    margin: theme.spacing.unit * 1,
     transition: 'transform 0.15s',
 
     '&:hover': {
@@ -19,7 +19,7 @@ const styles = {
          0px 5px 8px 0px rgba(0, 0, 0, 0.14), 
          0px 1px 14px 0px rgba(0, 0, 0, 0.12)`,
     },
-  }),
+  },
   marginBottomRoot,
   image: {
     height: '100%',
@@ -48,12 +48,12 @@ const styles = {
   prize: '학생증 제시 30% 할인',
   resultDate: '-',
 */
-function EventItem({ classes, event, handleClick }) {
+function EventItem({ classes, event, handleClick, width }) {
   const { id, title, thumbnail, startDate, endDate, prize, resultDate } = event;
 
   return (
     <Grid item xs={12} sm={6} lg={4} className={classes.marginBottomRoot}>
-      <Card className={classes.card} onClick={handleClick(id)}>
+      <Card className={classes.root} style={width !== 'xs' ? { margin: theme.spacing.unit * 3 } : null} onClick={handleClick(id)}>
         <CardMedia
           className={classes.image}
           image={thumbnail}
