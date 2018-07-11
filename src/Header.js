@@ -89,7 +89,6 @@ class Header extends DialogOwnerComponent {
     const { dialogOpen: { login, register, settings }, drawer, menusParentEl, loggedIn } = this.state;
     const isMobile = width === 'xs';
     const menus = Boolean(menusParentEl);
-    console.log(menusParentEl, menus);
 
     return (
       <React.Fragment>

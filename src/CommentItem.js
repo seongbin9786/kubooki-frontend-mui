@@ -1,5 +1,6 @@
 import React from 'react';
-import { Typography, withStyles, Button, Collapse } from '@material-ui/core';
+import styled from 'styled-components';
+import { Typography, Button, Collapse } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 import { withRouter } from 'react-router-dom';
 
@@ -8,109 +9,122 @@ import FaIconBtn from './FaIconBtn';
 import AlertDialog from './AlertDialog';
 import CommentReplyItem from './CommentReplyItem';
 
+import { InputTextArea } from './CommonStyledComponent';
+import theme from './ThemeConfig';
 import FaIcon from './FaIcon';
-import { input } from './stylesComment';
 
-const styles = theme => ({
-  root: {
-    padding: theme.spacing.unit,
+const StyledCollapse = styled(Collapse)`
+  ${({ collapsable, isCollapsed }) => collapsable && isCollapsed &&
+    'box-shadow: inset 0 -5px 10px -5px lightgray'}
+`;
 
-    position: 'relative',
-    display: 'flex',
-    minHeight: 80,
-  },
-  collapsed: {
-    boxShadow: 'inset 0 -5px 10px -5px lightgray',
-  },
-  commentRoot: {
-    padding: theme.spacing.unit,
-    marginRight: 72,
+const Root = styled.div`
+  padding: ${theme.spacing.unit + 'px'};
+  position: relative;
+  display: flex;
+  min-height: 80px;
+`;
 
-    width: '90%',
-  },
-  header: {
-    display: 'flex',
-    marginBottom: theme.spacing.unit,
-  },
-  name: {
-    marginTop: -3,
-    marginRight: 5,
-  },
-  vote: {
-    width: 16,
-    marginLeft: 8,
-    marginRight: 4,
-    textAlign: 'center',
-    color: 'rgba(0, 0, 0, 0.54)',
-  },
-  voteBtn: {
-    padding: 0,
-    background: 'none',
-    border: 'none',
-    color: grey[300],
-  },
-  voteBtnActive: {
-    extend: 'voteBtn',
-    color: theme.palette.primary.main,
-  },
-  rightTop: {
-    position: 'absolute',
-    right: theme.spacing.unit,
-    top: theme.spacing.unit,
-  },
-  warpMenu: {
-    fontSize: 12,
-    // top right bottom left
-    // top+bottom left+right
-    padding: '0',
-    minWidth: 72,
-    minHeight: 32,
-  },
-  helpMenu: {
-    color: 'gray',
-    fontSize: 12,
-    padding: '0',
-    minWidth: 45,
-    minHeight: 32,
-  },
-  authorMenu: {
-    position: 'absolute',
-    right: theme.spacing.unit,
-    bottom: theme.spacing.unit,
-  },
-  btn: {
-    margin: 0,
-    color: grey[500],
-    fontSize: 16,
-    width: 'auto',
-    height: 'auto',
-    padding: 10,
-  },
-  input,
-  replyBtn: {
-    marginLeft: 30,
-  },
-  collapseBtn: {
-    width: 24,
-    height: 24,
+const VoteContainer = styled.div`
+  width: 16px;
+  margin-left: 8px;
+  margin-right: 4px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.54);
+`;
 
-    position: 'absolute',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    left: 0,
-    right: 0,
-  },
-  collapseUpBtn: {
-    extend: 'collapseBtn',
-    fontSize: '0.8rem',
-    bottom: 4,
-  },
-  collapseDownBtn: {
-    extend: 'collapseBtn',
-    fontSize: '1rem',
-    top: 72,
+const VoteBtn = styled.button`
+  padding: 0px;
+  background: none;
+  border: none;
+  color: ${grey[300]};
+
+  ${({ active }) => active && `
+    color: ${theme.palette.primary.main};
+  `}
+`;
+
+const CommentContainer = styled.div`
+  padding: ${theme.spacing.unit + 'px'};
+  margin-right: 72px;
+  width: 90%;
+`;
+
+const CommentHeader = styled.header`
+  display: flex;
+  margin-bottom: ${theme.spacing.unit + 'px'};
+`;
+
+const NameTypo = styled(Typography)`
+  && {
+    margin-top: -3px;
+    margin-right: 5px;
   }
-});
+`;
+
+const RightTop = styled.div`
+  position: absolute;
+  right: ${theme.spacing.unit + 'px'};
+  top: ${theme.spacing.unit + 'px'};
+`;
+
+const WrapMenuBtn = styled(Button)`
+  && {
+    font-size: 12px;
+    padding: 0px;
+    min-width: 72px;
+    min-height: 32px;
+  }
+`;
+
+const HelpMenuBtn = styled(Button)`
+  && {
+    color: gray;
+    font-size: 12px;
+    padding: 0px;
+    min-width: 45px;
+    min-height: 32px;
+  }
+`;
+
+const AuthorMenu = styled.div`
+  position: absolute;
+  right: ${theme.spacing.unit + 'px'};
+  bottom: ${theme.spacing.unit + 'px'};
+`;
+
+const EditBtn = styled(FaIconBtn)`
+  && {
+    margin: 0px;
+    color: ${grey[500]};
+    font-size: 16px;
+    width: auto;
+    height: auto;
+    padding: 10px;
+  }
+`;
+
+const CollapseBtn = styled(FaIconBtn)`
+  && {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0px;
+    right: 0px;
+
+    ${({ isCollapsed }) => isCollapsed ?
+    `
+      font-size: 1rem;
+      top: 72px;
+    ` :
+    `
+      font-size: 0.8rem;
+      bottom: 4px;
+    `}
+  }
+`;
 
 //TODO: 수정, 삭제 버튼 눌렸을 때 처리
 class CommentItem extends DialogOwnerComponent {
@@ -143,84 +157,75 @@ class CommentItem extends DialogOwnerComponent {
   toggleAccuse = () => this.setState(({ isAskingAccuse }) => ({ isAskingAccuse: !isAskingAccuse }));
   toggleOpen = name => () => this.setState({ [name]: !this.state[name] });
 
-  handleRef = ref => {
+  componentDidMount() {
     if (!this.props.myCommentView) {
       this.setState({ collapsable: false });
       return;
     }
     // react-router로 페이지 이동 시 null 전달됨
-    if (!ref) return;
+    if (!this.ref) return;
 
-    const { clientHeight } = ref;
+    const { clientHeight } = this.ref;
     this.setState({ collapsable: clientHeight > 105, isCollapsed: clientHeight > 105 });
   }
 
   render() {
     const { dialogOpen: { accuse }, isEditing, isReplying, collapsable, isCollapsed, editText } = this.state;
-    const { classes, comment, myCommentView, history } = this.props;
+    const { comment, myCommentView, history } = this.props;
     const { id, writer, date, likes, liked, hated, content, targetNews } = comment;
 
-    const Component = myCommentView ? Collapse : React.Fragment;
+    const Component = myCommentView ? StyledCollapse : React.Fragment;
     const props = myCommentView ? {
+      collapsable,
+      isCollapsed,
       in: collapsable && !isCollapsed, // open
       collapsedHeight: '96px',
-      className: collapsable && isCollapsed ? classes.collapsed : null
     } : null;
 
     return (
       <Component {...props}>
-        <div
-          className={classes.root}
-          ref={this.handleRef}
-        >
+        <Root innerRef={ref => this.ref = ref}>
 
-          <div className={classes.vote}>
-            <button
-              disabled={myCommentView}
-              className={liked ? classes.voteBtnActive : classes.voteBtn}
-            >
+          <VoteContainer>
+            <VoteBtn disabled={myCommentView} active={liked}>
               <FaIcon icon='lg-caret-up' />
-            </button>
+            </VoteBtn>
             <div>{likes}</div>
-            <button
-              disabled={myCommentView}
-              className={hated ? classes.voteBtnActive : classes.voteBtn}>
+            <VoteBtn disabled={myCommentView} active={hated}>
               <FaIcon icon='lg-caret-down' />
-            </button>
-          </div>
+            </VoteBtn>
+          </VoteContainer>
 
-          <div className={classes.commentRoot}>
-            <header className={classes.header}>
-              <Typography variant='subheading' className={classes.name}>{writer}</Typography>
+          <CommentContainer>
+            <CommentHeader>
+              <NameTypo variant='subheading'>{writer}</NameTypo>
               <Typography variant='caption'>{date}</Typography>
-            </header>
+            </CommentHeader>
             {isEditing ?
-              <textarea
-                className={classes.input}
+              <InputTextArea
                 onChange={this.handleInputChange}
                 onFocus={this.handleOnTextAreaFocus}
                 value={editText}
               />
               : <Typography variant='subheading'>{content}</Typography>
             }
-          </div>
+          </CommentContainer>
 
-          <div className={classes.rightTop}>
+          <RightTop>
             {myCommentView ?
-              <Button variant="outlined" className={classes.warpMenu} onClick={() => history.push(`/news/${targetNews}`)}>
+              <WrapMenuBtn
+                variant="outlined"
+                onClick={() => history.push(`/news/${targetNews}`)}
+              >
                 원문보기
-              </Button>
+              </WrapMenuBtn>
               :
               <React.Fragment>
-                <Button className={classes.helpMenu} onClick={this.toggleOpen('isReplying')}>
-                  답글
-                </Button>
-                <Button className={classes.helpMenu} onClick={this.toggleDialog('accuse')}>
-                  신고
-                </Button>
+                <HelpMenuBtn onClick={this.toggleOpen('isReplying')}>답글</HelpMenuBtn>
+                <HelpMenuBtn onClick={this.toggleDialog('accuse')}>신고</HelpMenuBtn>
               </React.Fragment>
             }
-          </div>
+          </RightTop>
 
           <AlertDialog
             open={accuse}
@@ -233,46 +238,42 @@ class CommentItem extends DialogOwnerComponent {
             onClose={this.toggleDialog('accuse')}
           />
 
-          <div className={classes.authorMenu}>
-            <FaIconBtn
+          <AuthorMenu>
+            <EditBtn
               icon={isEditing ? 'check' : 'edit'}
               onlyIcon
               size='sm'
-              className={classes.btn}
               onClick={isEditing ? this.handleSubmitBtnClick : this.handleEditBtnClick}
             />
-            <FaIconBtn
+            <EditBtn
               icon={isEditing ? 'times-circle' : 'trash'}
               onlyIcon
               size='sm'
-              className={classes.btn}
               onClick={isEditing ? this.handleEditCancelBtnClick : null}
             />
-          </div>
+          </AuthorMenu>
 
-          {collapsable
-            ? <FaIconBtn
+          {collapsable &&
+            <CollapseBtn
               icon={`caret-${isCollapsed ? 'down' : 'up'}`}
               onlyIcon
-              className={classes[`collapse${isCollapsed ? 'Down' : 'Up'}Btn`]}
               onClick={this.toggleOpen('isCollapsed')}
+              isCollapsed={isCollapsed}
             />
-            : null
           }
-        </div>
+        </Root>
 
-        {isReplying ?
+        {isReplying &&
           <CommentReplyItem
             writer={writer}
             date={date}
             id={id}
             handleCancel={this.toggleOpen('isReplying')}
           />
-          : null
         }
       </Component>
     );
   }
 }
 
-export default withStyles(styles)(withRouter(CommentItem));
+export default withRouter(CommentItem);

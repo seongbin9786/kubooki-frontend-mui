@@ -1,67 +1,80 @@
 import React, { Component } from 'react';
-import compose from 'recompose/compose';
-import { withStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import withWidth from '@material-ui/core/withWidth';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { Paper, Typography } from '@material-ui/core';
 
-import { fullImage, darkOverlay, marginBottomRoot } from './styles';
+import { GridRootWithMarginBottom, FullImage, DarkOverlay } from './CommonStyledComponent';
 import NewsHeadlineItemMobile from './NewsHeadlineItemMobile';
 
-const styles = {
-  Paper: {
-    margin: 3,
-    padding: 10,
-  },
-  marginBottomRoot,
-  imgContainer: {
-    position: 'relative',
-    width: '100%',
-  },
-  fullImage,
-  darkOverlay,
-  info: {
-    position: 'absolute',
-    left: '50px',
-    top: '50px',
-    right: '50px',
-  },
-  title: {
-    fontWeight: 'normal',
-    marginBottom: '24px',
-  },
-  content: {
-    color: 'white'
-  },
-  dateTitle: {
-    marginTop: 11,
-    fontSize: '1rem',
-    color: 'white'
-  },
-  link: {
-    textDecoration: 'none',
-    color: 'white'
-  },
-  readMoreBtn: {
-    position: 'absolute',
-    bottom: '50px',
-    left: '50px',
-
-    display: 'block',
-    border: '1px white solid',
-    padding: '8px 30px',
-
-    color: 'white',
-    textDecoration: 'none',
-    transition: 'background .2s ease-out',
-  },
-  readMoreBtnHover: {
-    composes: '$readMoreBtn',
-    color: 'black',
-    backgroundColor: 'white',
+const RootPaper = styled(Paper)`
+  && {
+    margin: 3px;
+    padding: 10px;
+    box-shadow: none;
   }
-};
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+const ReadMoreBtn = styled(Link)`
+  && {
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+
+    display: block;
+    border: 1px white solid;
+    padding: 8px 30px;
+
+    color: white;
+    text-decoration: none;
+    transition: background .2s ease-out;
+
+    ${({ hover }) => hover && `
+      color: black;
+      background-color: white;
+    `}
+  }
+`;
+
+const ContentContainer = styled.div`
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  right: 50px;
+`;
+
+const Title = styled(Typography)`
+  && {
+    font-weight: normal;
+    margin-bottom: 24px;
+  }
+`;
+
+const TitleLink = styled(Link)`
+  && {
+    text-decoration: none;
+    color: white;
+  }
+`;
+
+const Content = styled(Typography)`
+  && {
+    color: white;
+  }
+`;
+
+const DateTitle = styled(Typography)`
+  && {
+    margin-top: 11px;
+    font-size: 1rem;
+    color: white;
+  }
+`;
 
 class NewsHeadlineItem extends Component {
   state = {
@@ -72,7 +85,7 @@ class NewsHeadlineItem extends Component {
   handleHover = () => this.setState(({ hover }) => ({ hover: !hover }));
 
   render() {
-    const { classes, width } = this.props;
+    const { width } = this.props;
     const { hover } = this.state;
 
     // 예시 데이터
@@ -89,34 +102,29 @@ class NewsHeadlineItem extends Component {
       return <NewsHeadlineItemMobile news={news} />;
 
     return (
-      <Grid item xs={12} lg={7} className={classes.marginBottomRoot}>
-        <div className={classes.Paper}>
-          <div className={classes.imgContainer}>
+      <GridRootWithMarginBottom item xs={12} lg={7}>
+        <RootPaper>
+          <ImageContainer>
             <Link to={`/news/${news.id}`}>
-              <img className={classes.fullImage} src={news.img} alt='배경이미지' />
-              <span
-                className={classes.darkOverlay}
+              <FullImage src={news.img} alt='배경이미지' />
+              <DarkOverlay
                 onMouseOver={this.handleHover}
                 onMouseLeave={this.handleHover}>
-              </span>
+              </DarkOverlay>
             </Link>
-            <div className={classes.info}>
-              <Typography variant="display3" className={classes.title}>
-                <Link to={`/news/${news.id}`} className={classes.link}>{news.title}</Link>
-              </Typography>
-              <Typography variant="headline" className={classes.content}>
-                {news.content}
-              </Typography>
-              <Typography variant="caption" className={classes.dateTitle}>
-                {news.date}
-              </Typography>
-            </div>
-            <Link className={hover ? classes.readMoreBtnHover : classes.readMoreBtn} to={`/news/${news.id}`}>Read More</Link>
-          </div>
-        </div>
-      </Grid>
+            <ContentContainer>
+              <Title variant="display3">
+                <TitleLink to={`/news/${news.id}`}>{news.title}</TitleLink>
+              </Title>
+              <Content variant="headline">{news.content}</Content>
+              <DateTitle variant="caption">{news.date}</DateTitle>
+            </ContentContainer>
+            <ReadMoreBtn hover={hover} to={`/news/${news.id}`}>Read More</ReadMoreBtn>
+          </ImageContainer>
+        </RootPaper>
+      </GridRootWithMarginBottom>
     );
   }
 }
 
-export default compose(withStyles(styles), withWidth())(withRouter(NewsHeadlineItem));
+export default withWidth()(withRouter(NewsHeadlineItem));

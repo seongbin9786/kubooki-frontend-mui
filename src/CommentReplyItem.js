@@ -3,8 +3,7 @@ import { Typography, withStyles, Button, Divider } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
 import FaIcon from './FaIcon';
-
-import { input } from './stylesComment';
+import { InputTextArea } from './CommonStyledComponent';
 
 const styles = theme => ({
   root: {
@@ -28,7 +27,6 @@ const styles = theme => ({
     marginTop: -4,
     marginRight: 4,
   },
-  input,
   replyBtn: {
     marginRight: 4,
     color: theme.palette.primary.main,
@@ -71,10 +69,9 @@ class CommentItem extends Component {
               <Typography variant='subheading' className={classes.name}>{writer}</Typography>
             </header>
             <div className={classes.row}>
-              <textarea
+              <InputTextArea
                 id={'reply-to-' + id}
                 placeholder='주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 제재를 받을 수 있습니다'
-                className={classes.input}
                 onChange={this.handleInputChange}
                 value={editText}
               />
