@@ -14,6 +14,7 @@ import Spacing from './Spacing';
 
 import personalMenuList from './MyPageTabConfig';
 import DialogOwnerComponent from './DialogOwnerComponent';
+import InconvenienceReportDialog from './InconvenienceReportDialog';
 
 const styles = {
   root: {
@@ -52,6 +53,7 @@ class Header extends DialogOwnerComponent {
         register: false,
         settings: false,
         reportNews: false,
+        reportInconveniences: false,
       },
 
       drawer: false,
@@ -81,10 +83,11 @@ class Header extends DialogOwnerComponent {
   handleLoginSubmit = data => { }
   handleRegisterSubmit = data => { }
   handleNewsReportSubmit = data => { }
+  handleInconvenienceReportSubmit = data => { }
 
   render() {
     const { classes, width, user } = this.props;
-    const { dialogOpen: { login, register, settings, reportNews }, drawer, menusParentEl, loggedIn } = this.state;
+    const { dialogOpen: { login, register, settings, reportNews, reportInconveniences }, drawer, menusParentEl, loggedIn } = this.state;
     const isMobile = width === 'xs';
     const menus = Boolean(menusParentEl);
 
@@ -129,6 +132,11 @@ class Header extends DialogOwnerComponent {
               open={reportNews}
               handleClose={this.toggleDialog('reportNews')}
               onSubmit={this.handleNewsReportSubmit}
+            />
+            <InconvenienceReportDialog
+              open={reportInconveniences}
+              handleClose={this.toggleDialog('reportInconveniences')}
+              onSubmit={this.handleInconvenienceReportSubmit}
             />
             <SettingsDialog
               open={settings}
