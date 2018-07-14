@@ -14,7 +14,7 @@ const styles = theme => ({
   },
 });
 
-function SimpleTable({ classes, item, linkTemplate }) {
+function SimpleTable({ item, linkTemplate }) {
   const { id, title, writer, creationDate, views } = item;
   const url = `${linkTemplate}/${id}`;
 
@@ -24,7 +24,7 @@ function SimpleTable({ classes, item, linkTemplate }) {
       <TableCell>
         <Link to={url}>{title}</Link>
       </TableCell>
-      <TableCell>{writer}</TableCell>
+      <TableCell>{writer.name}</TableCell>
       <TableCell>{creationDate}</TableCell>
       <TableCell numeric>{views}</TableCell>
     </TableRow>

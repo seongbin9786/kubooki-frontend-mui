@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core';
 import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core';
 
 import BoardListTableItem from './BoardListTableItem';
@@ -12,7 +12,7 @@ const styles = theme => ({
     overflowX: 'auto',
   },
   table: {
-    minWidth: 1000,
+    minWidth: 700,
   },
   head: {
     backgroundColor: theme.palette.primary.main,

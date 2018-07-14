@@ -1,6 +1,7 @@
 import React from 'react';
-import { withStyles, Typography } from '@material-ui/core';
+import { withStyles, Typography, withWidth } from '@material-ui/core';
 
+import BoardListMobile from './BoardListMobile';
 import DialogOwnerComponent from './DialogOwnerComponent';
 import BoardListTable from './BoardListTable';
 import Pagination from './Pagination';
@@ -35,7 +36,8 @@ class BoardList extends DialogOwnerComponent {
 
   render() {
     const { write } = this.state.dialogOpen;
-    const { classes, addButtonRightAlign, boardTitle, boardList: { totalItems, list } } = this.props;
+    const { classes, width, addButtonRightAlign, boardTitle, boardList: { totalItems, list } } = this.props;
+    const BoardListComponent = width === 'xs' ? BoardListMobile : BoardListTable;
 
     return (
       <div className={classes.root}>
@@ -51,7 +53,7 @@ class BoardList extends DialogOwnerComponent {
           handleClose={this.toggleDialog('write')}
         />
 
-        <BoardListTable rows={list} />
+        <BoardListComponent rows={list} />
 
         <div className={classes.pagination}>
           <Pagination total={totalItems} center />
@@ -61,4 +63,4 @@ class BoardList extends DialogOwnerComponent {
   }
 }
 
-export default withStyles(styles)(BoardList);
+export default withWidth()(withStyles(styles)(BoardList));

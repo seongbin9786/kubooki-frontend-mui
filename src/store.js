@@ -332,11 +332,15 @@ export const announcementListViewData = {
     {
       id: 1,
       title: '거북이 내부 규칙 사항 안내',
-      writer: '김성빈',
-      creationDate: '31.05.2012',
+      writer: {
+        id: 1,
+        name: '관리자',
+        avatar: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
+      },
+      creationDate: '5일 전',
       views: 813,
     }
-  ]
+  ],
 };
 
 export const meetingLogListViewData = {
