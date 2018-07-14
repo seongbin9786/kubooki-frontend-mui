@@ -9,6 +9,7 @@ import NavDrawer from './NavDrawer';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
 import SettingsDialog from './SettingsDialog';
+import NewsReportDialog from './NewsReportDialog';
 import Spacing from './Spacing';
 
 import personalMenuList from './MyPageTabConfig';
@@ -50,6 +51,7 @@ class Header extends DialogOwnerComponent {
         login: false,
         register: false,
         settings: false,
+        reportNews: false,
       },
 
       drawer: false,
@@ -76,17 +78,13 @@ class Header extends DialogOwnerComponent {
 
   handleOpen = open => () => this.setState({ [open]: !this.state[open] });
 
-  handleLoginSubmit = data => {
-    //TODO: 로그인 버튼을 누를 때
-  }
-
-  handleRegisterSubmit = data => {
-    //TODO: 회원가입 버튼을 누를 때
-  }
+  handleLoginSubmit = data => { }
+  handleRegisterSubmit = data => { }
+  handleNewsReportSubmit = data => { }
 
   render() {
     const { classes, width, user } = this.props;
-    const { dialogOpen: { login, register, settings }, drawer, menusParentEl, loggedIn } = this.state;
+    const { dialogOpen: { login, register, settings, reportNews }, drawer, menusParentEl, loggedIn } = this.state;
     const isMobile = width === 'xs';
     const menus = Boolean(menusParentEl);
 
@@ -126,6 +124,11 @@ class Header extends DialogOwnerComponent {
               open={register}
               handleClose={this.toggleDialog('register')}
               onSubmit={this.handleRegisterSubmit}
+            />
+            <NewsReportDialog
+              open={reportNews}
+              handleClose={this.toggleDialog('reportNews')}
+              onSubmit={this.handleNewsReportSubmit}
             />
             <SettingsDialog
               open={settings}

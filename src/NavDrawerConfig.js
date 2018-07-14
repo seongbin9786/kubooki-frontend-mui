@@ -47,22 +47,22 @@ export const guestList = [
 
 export const userList = [
   {
-    link: '/news/report',
+    toggle: 'reportNews',
     icon: 'lg-plus',
     name: '기사 제보'
   },
   {
-    link: '/inconveniences/report',
+    toggle: 'reportInconveniences',
     icon: 'lg-exclamation-triangle',
     name: '불편 신고'
   },
   {
-    link: '/news/corretions/create',
+    toggle: 'reportNewsCorretions',
     icon: 'lg-check',
     name: '정정 요청'
   },
   {
-    link: '/apply/form',
+    toggle: 'apply',
     icon: 'lg-pencil-alt',
     name: '수습기자 지원'
   }
