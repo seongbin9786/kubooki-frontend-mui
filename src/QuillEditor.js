@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import { modules, formats } from './QuillConfig';
+import './content.css';
 
 function QuillEditor({ value, onChange, ...props }) {
   return (
@@ -11,6 +12,7 @@ function QuillEditor({ value, onChange, ...props }) {
       <ReactQuill
         id='editor'
         theme="snow" // theme={null} to use minimal core theme
+        className='article__content'
         value={value}
         onChange={onChange}
         modules={modules}

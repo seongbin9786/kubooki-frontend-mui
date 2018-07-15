@@ -34,6 +34,7 @@ export const modules = {
       [
         { align: ['', 'right', 'center', 'justify'] },
         'bold',
+        'underline',
         'italic',
         'link',
         'image',
