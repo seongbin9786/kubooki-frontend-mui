@@ -3,23 +3,23 @@ import ReactDOM from 'react-dom';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
-import theme from './ThemeConfig';
+import theme from './configs/ThemeConfig';
 
 import Layout from './Layout';
-import MainPage from './MainPage';
-import EventPage from './EventPage';
-import EventDetailPage from './EventDetailPage';
-import FAQPage from './FAQPage';
-import NewsDetail from './NewsDetail';
-import NewsWritePage from './NewsWritePage';
-import TermsOfService from './TermsOfService';
-import Dashboard from './Dashboard';
-import MyPage from './MyPage';
-import MeetingLogPage from './MeetingLogPage';
-import MeetingLogReadPage from './MeetingLogReadPage';
-import AnnouncementPage from './AnnouncementPage';
-import AnnouncementReadPage from './AnnouncementReadPage';
-import ApplyPage from './ApplyPage';
+import MainPage from './pages/MainPage';
+import EventPage from './pages/EventPage';
+import EventDetailPage from './pages/EventDetailPage';
+import FAQPage from './pages/FAQPage';
+import NewsDetailPage from './pages/NewsDetailPage';
+import NewsWritePage from './pages/NewsWritePage';
+import TermsOfServicePage from './pages/TermsOfServicePage';
+import DashboardPage from './pages/DashboardPage';
+import MyPage from './pages/MyPage';
+import MeetingLogPage from './pages/MeetingLogPage';
+import MeetingLogReadPage from './pages/MeetingLogReadPage';
+import AnnouncementPage from './pages/AnnouncementPage';
+import AnnouncementReadPage from './pages/AnnouncementReadPage';
+import ApplyPage from './pages/ApplyPage';
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
@@ -31,14 +31,14 @@ ReactDOM.render(
           <Route path='/logs/meeting/:id' component={MeetingLogReadPage} />
           <Route path='/logs/meeting' component={MeetingLogPage} />
           <Route path='/account' component={MyPage} />
-          <Route path='/dashboard' component={Dashboard} />
-          <Route path='/terms' component={TermsOfService} />
+          <Route path='/dashboard' component={DashboardPage} />
+          <Route path='/terms' component={TermsOfServicePage} />
           <Route path="/apply" component={ApplyPage} />
           <Route path='/faq' component={FAQPage} />
           <Route path='/events/:id' component={EventDetailPage} />
           <Route path='/events' component={EventPage} />
           <Route path='/news/write' component={NewsWritePage} />
-          <Route path='/news' component={NewsDetail} />
+          <Route path='/news' component={NewsDetailPage} />
           <Route path='/' component={MainPage} />
         </Switch>
       </Layout>
