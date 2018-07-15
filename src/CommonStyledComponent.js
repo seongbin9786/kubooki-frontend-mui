@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 import { Grid } from '@material-ui/core';
 
+export const SmallRootWithPadding = styled.div`
+  margin: 0 auto;
+  margin-top: 20px;
+  max-width: 900px;
+  padding: 20px;
+`;
+
 export const InputTextArea = styled.textarea`
   color: #555;
   border: none;

@@ -19,6 +19,7 @@ import MeetingLogPage from './MeetingLogPage';
 import MeetingLogReadPage from './MeetingLogReadPage';
 import AnnouncementPage from './AnnouncementPage';
 import AnnouncementReadPage from './AnnouncementReadPage';
+import ApplyPage from './ApplyPage';
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
@@ -32,6 +33,7 @@ ReactDOM.render(
           <Route path='/account' component={MyPage} />
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/terms' component={TermsOfService} />
+          <Route path="/apply" component={ApplyPage} />
           <Route path='/faq' component={FAQPage} />
           <Route path='/events/:id' component={EventDetailPage} />
           <Route path='/events' component={EventPage} />

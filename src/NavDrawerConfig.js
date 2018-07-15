@@ -12,7 +12,7 @@ export const settings = [
     icon: 'lg-cogs',
     name: '설정'
   }
-]
+];
 
 export const accountList = [
   {
@@ -57,12 +57,7 @@ export const userList = [
     name: '불편 신고'
   },
   {
-    toggle: 'reportNewsCorretions',
-    icon: 'lg-check',
-    name: '정정 요청'
-  },
-  {
-    toggle: 'apply',
+    link: 'apply',
     icon: 'lg-pencil-alt',
     name: '수습기자 지원'
   }
