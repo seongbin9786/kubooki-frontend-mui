@@ -1,8 +1,8 @@
 // TabName, TabURL
 import AccountSettingsPage from '../pages/AccountSettingsPage';
-import MyFavoriteNewsPage from './pages/MyFavoriteNewsPage';
-import MyCommentPage from './pages/MyCommentsPage';
-import MyEventListPage from './pages/MyEventListPage';
+import MyFavoriteNewsPage from '../pages/MyFavoriteNewsPage';
+import MyCommentPage from '../pages/MyCommentsPage';
+import MyEventListPage from '../pages/MyEventListPage';
 
 export default [
   ['나의 계정 설정', '/account/settings', AccountSettingsPage],

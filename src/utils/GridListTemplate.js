@@ -5,8 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import { Typography } from '@material-ui/core';
 
-import LoadMoreBtn from './LoadMoreBtn';
-import { mediumRoot } from './styles';
+import LoadMoreBtn from '../components/buttons/LoadMoreBtn';
+import { mediumRoot } from '../styles/styles';
 
 const styles = {
   root: ({ noBottomMargin, noTopMargin }) => ({

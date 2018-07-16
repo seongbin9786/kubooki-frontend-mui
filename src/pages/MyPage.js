@@ -1,7 +1,7 @@
 import React from 'react';
 
-import MyPageNav from './MyPageNav';
-import TabList from './MyPageTabConfig';
+import MyPageNav from '../components/navs/MyPageNav';
+import TabList from '../configs/MyPageTabConfig';
 
 // TODO: 각 탭 별 컨텐츠 만들기
 export default ({ location: { pathname } }) => {

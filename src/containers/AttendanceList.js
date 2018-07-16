@@ -7,7 +7,7 @@ import {
   Typography, Paper, Checkbox, Tooltip, Avatar, Hidden,
 } from '@material-ui/core';
 
-import FaIconBtn from './FaIconBtn';
+import FaIconBtn from '../components/buttons/FaIconBtn';
 
 class EnhancedTableHead extends React.Component {
   render() {

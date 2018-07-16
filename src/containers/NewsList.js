@@ -1,10 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import GridListTemplate from './GridListTemplate';
-import NewsHeadlineItem from './NewsHeadlineItem';
-import NewsItem from './NewsItem';
-import { TabList } from './configs/NewsTabConfig';
+import GridListTemplate from '../utils/GridListTemplate';
+import NewsHeadlineItem from '../components/NewsHeadlineItem';
+import NewsItem from '../components/NewsItem';
+import { TabList } from '../configs/NewsTabConfig';
 
 function NewsList({ classes, location: { pathname }, index, newsList, noTopMargin }) {
   // 1. index를 pathname의 값으로 결정한다. 

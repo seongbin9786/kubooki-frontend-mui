@@ -3,13 +3,13 @@ import injectSheet from 'react-jss';
 import { Typography, Divider, withWidth } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
-import DialogOwnerComponent from './DialogOwnerComponent';
-import FaIconBtn from './FaIconBtn';
-import CorrectionWriteDialog from './CorrectionWriteDialog';
-import NewsList from './NewsList';
-import NameCard from './NameCard';
-import CommentList from './CommentList';
-import { TabList } from './configs/NewsTabConfig';
+import DialogOwnerComponent from '../utils/DialogOwnerComponent';
+import FaIconBtn from '../components/buttons/FaIconBtn';
+import CorrectionWriteDialog from '../components/dialogs/CorrectionWriteDialog';
+import NewsList from '../containers/NewsList';
+import NameCard from '../components/NameCard';
+import CommentList from '../containers/CommentList';
+import { TabList } from '../configs/NewsTabConfig';
 import {
   newsDetail as news,
   newsDetailContent,
@@ -17,12 +17,12 @@ import {
   commentList,
   userDemo,
   newsList
-} from './store';
+} from '../modules/store';
 
-import './content.css';
+import '../styles/content.css';
 import theme from '../configs/ThemeConfig';
-import { mediumRootWithPadding, marginVertical, centerChildrenInline, centerFlex } from './styles';
-import FaIcon from './FaIcon';
+import { mediumRootWithPadding, marginVertical, centerChildrenInline, centerFlex } from '../styles/styles';
+import FaIcon from '../components/FaIcon';
 
 const styles = {
   mediumRootWithPadding,

@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { withStyles, TextField, Paper } from '@material-ui/core';
-import FaIconBtn from './FaIconBtn';
+import FaIconBtn from '../buttons/FaIconBtn';
 
 const styles = theme => ({
   container: {

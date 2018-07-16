@@ -3,9 +3,9 @@ import injectSheet from 'react-jss';
 import { Link } from 'react-router-dom';
 import { Paper, Typography, Button } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
-import FaIcon from './components/FaIcon';
+import FaIcon from './FaIcon';
 import theme from '../configs/ThemeConfig';
-import { spaceBetween } from './styles';
+import { spaceBetween } from '../styles/styles';
 
 const styles = {
   root: {

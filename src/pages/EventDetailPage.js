@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import BoardDetail from './BoardDetail';
-import { eventItem, eventDetail } from './store';
-import EventParticipateBtn from './EventParticipateBtn';
-import EventDetail from './EventDetail';
+import BoardDetailPage from './BoardDetailPage';
+import { eventItem, eventDetail } from '../modules/store';
+import EventParticipateBtn from '../components/buttons/EventParticipateBtn';
+import EventDetail from '../containers/EventDetail';
 
 export default class EventDetailPage extends Component {
   state = {
@@ -25,7 +25,7 @@ export default class EventDetailPage extends Component {
 
     return (
       <React.Fragment>
-        <BoardDetail
+        <BoardDetailPage
           item={eventItem}
           useComment
           useLike

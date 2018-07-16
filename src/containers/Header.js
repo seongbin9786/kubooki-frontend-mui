@@ -6,15 +6,14 @@ import { withWidth, AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuI
 import MenuIcon from '@material-ui/icons/Menu';
 
 import NavDrawer from './NavDrawer';
-import LoginDialog from './LoginDialog';
-import RegisterDialog from './RegisterDialog';
-import SettingsDialog from './SettingsDialog';
-import NewsReportDialog from './NewsReportDialog';
-import Spacing from './Spacing';
-
-import personalMenuList from './MyPageTabConfig';
-import DialogOwnerComponent from './DialogOwnerComponent';
-import InconvenienceReportDialog from './InconvenienceReportDialog';
+import LoginDialog from '../components/dialogs/LoginDialog';
+import RegisterDialog from '../components/dialogs/RegisterDialog';
+import SettingsDialog from '../components/dialogs/SettingsDialog';
+import NewsReportDialog from '../components/dialogs/NewsReportDialog';
+import Spacing from '../styles/Spacing';
+import personalMenuList from '../configs/MyPageTabConfig';
+import DialogOwnerComponent from '../utils/DialogOwnerComponent';
+import InconvenienceReportDialog from '../components/dialogs/InconvenienceReportDialog';
 
 const styles = {
   root: {

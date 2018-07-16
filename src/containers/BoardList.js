@@ -1,12 +1,12 @@
 import React from 'react';
 import { withStyles, Typography, withWidth } from '@material-ui/core';
 
-import BoardListMobile from './BoardListMobile';
-import DialogOwnerComponent from './DialogOwnerComponent';
-import BoardListTable from './BoardListTable';
-import Pagination from './Pagination';
-import BoardWriteDialog from './BoardWriteDialog';
-import CreateIconBtn from './CreateIconBtn';
+import BoardListMobile from '../components/BoardListMobile';
+import DialogOwnerComponent from '../utils/DialogOwnerComponent';
+import BoardListTable from '../components/BoardListTable';
+import Pagination from '../components/navs/Pagination';
+import BoardWriteDialog from '../components/dialogs/BoardWriteDialog';
+import CreateIconBtn from '../components/buttons/CreateIconBtn';
 
 const styles = theme => ({
   root: {

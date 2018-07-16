@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { termsOfUse } from './store';
-import BoardDetail from './BoardDetail';
+import { termsOfUse } from '../modules/store';
+import BoardDetailPage from './BoardDetailPage';
 
-export default function TermsOfService() {
+export default function TermsOfServicePage() {
   return (
-    <BoardDetail
+    <BoardDetailPage
       item={termsOfUse}
       useComment
     />

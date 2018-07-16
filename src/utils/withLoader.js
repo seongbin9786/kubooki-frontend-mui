@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LoadingAnimation from './LoadingAnimation';
+import LoadingAnimation from '../components/loading/LoadingAnimation';
 
 function withLoader(WrappedComponent) {
   return class extends Component {

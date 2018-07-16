@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { apply } from './store';
-import BoardDetail from './BoardDetail';
+import { apply } from '../modules/store';
+import BoardDetailPage from './BoardDetailPage';
 
 function ApplyPage({ }) {
   return (
-    <BoardDetail
+    <BoardDetailPage
       item={apply}
       useComment
     />

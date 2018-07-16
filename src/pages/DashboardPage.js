@@ -1,11 +1,11 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
-import DashboardNav from './DashboardNav';
+import DashboardNav from '../components/navs/DashboardNav';
 
-import TabList from './DashboardTabConfig';
-import { globalUser as user } from './store';
-import Spacing from './Spacing';
-import { smallRootWithPadding } from './styles';
+import TabList from '../configs/DashboardTabConfig';
+import { globalUser as user } from '../modules/store';
+import Spacing from '../styles/Spacing';
+import { smallRootWithPadding } from '../styles/styles';
 
 const styles = {
   smallRootWithPadding,

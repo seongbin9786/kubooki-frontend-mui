@@ -1,7 +1,7 @@
 import React from 'react';
 
-import BoardList from './BoardList';
-import { announcementListViewData } from './store';
+import BoardList from '../containers/BoardList';
+import { announcementListViewData } from '../modules/store';
 
 export default function AnnouncementPage({ classes }) {
   return (

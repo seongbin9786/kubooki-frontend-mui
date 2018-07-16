@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { TextField, Checkbox, FormControlLabel, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
-import QuillEditor from './QuillEditor';
-import ImagePreview from './ImagePreview';
+
+import QuillEditor from '../components/inputs/QuillEditor';
+import ImagePreview from '../components/inputs/ImagePreview';
 
 class FormComponent extends Component {
   handleChange = inputName => ({ target: { value } }) => this.setState({ [inputName]: value });

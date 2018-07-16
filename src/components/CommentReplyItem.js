@@ -3,7 +3,7 @@ import { Typography, withStyles, Button, Divider } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
 import FaIcon from './FaIcon';
-import { InputTextArea } from './CommonStyledComponent';
+import { InputTextArea } from '../styles/CommonStyledComponent';
 
 const styles = theme => ({
   root: {

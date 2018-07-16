@@ -5,7 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import withWidth from '@material-ui/core/withWidth';
 
-import { TabList } from './NewsTabConfig';
+import { TabList } from '../../configs/NewsTabConfig';
 
 const CenteredTabs = ({ width, history, location: { pathname } }) => {
   console.log(width);

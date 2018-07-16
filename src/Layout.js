@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Header from './Header';
-import FabNav from './FabNav';
-import { globalUser } from './store';
-import withLoader from './withLoader';
+import Header from './containers/Header';
+import FabNav from './components/navs/FabNav';
+import { globalUser } from './modules/store';
+import withLoader from './utils/withLoader';
 
 const Layout = ({ children }) => (
   <React.Fragment>

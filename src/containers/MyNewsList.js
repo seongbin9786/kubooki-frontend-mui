@@ -1,9 +1,9 @@
 import React from 'react';
 import { Typography, withWidth } from '@material-ui/core';
 
-import SortBar from './SortBar';
+import SortBar from '../components/inputs/SortBar';
 import NewsList from './NewsList';
-import { newsList } from './store';
+import { newsList } from '../modules/store';
 
 function MyNewsList({ width }) {
   return (

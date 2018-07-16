@@ -7,8 +7,8 @@ import Divider from '@material-ui/core/Divider';
 import Switch from '@material-ui/core/Switch';
 import ListSubheader from '@material-ui/core/ListSubheader';
 
-import SETTINGS_CONFIG from './SettingsConfig';
-import ResponsiveDialog from './ResponsiveDialog';
+import SETTINGS_CONFIG from '../../configs/SettingsConfig';
+import ResponsiveDialog from '../../utils/ResponsiveDialog';
 
 class FullScreenDialog extends Component {
   state = {

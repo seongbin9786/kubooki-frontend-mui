@@ -1,11 +1,11 @@
 import React from 'react';
 import { Divider, withStyles } from '@material-ui/core';
 
-import FlatListTemplate from './FlatListTemplate';
-import CommentItem from './CommentItem';
-import CommentWriteBox from './CommentWriteBox';
-import LoadMoreBtn from './LoadMoreBtn';
-import FaIcon from './FaIcon';
+import FlatListTemplate from '../utils/FlatListTemplate';
+import CommentItem from '../components/CommentItem';
+import CommentWriteBox from '../components/CommentWriteBox';
+import LoadMoreBtn from '../components/buttons/LoadMoreBtn';
+import FaIcon from '../components/FaIcon';
 
 const styles = theme => ({
   counter: {

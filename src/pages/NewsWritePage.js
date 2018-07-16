@@ -1,15 +1,15 @@
 import React from 'react';
 import { withStyles, Typography, Button, withWidth } from '@material-ui/core';
 
-import NewsFeedbackList from './NewsFeedbackList';
-import NameCard from './NameCard';
-import MyNewsList from './MyNewsList';
-import NewsWriteDialog from './NewsWriteDialog';
-import { writerDemo } from './store';
-import Spacing from './Spacing';
-import FaIcon from './FaIcon';
-import { smallRootWithPadding, marginVertical } from './styles';
-import DialogOwnerComponent from './DialogOwnerComponent';
+import NewsFeedbackList from '../containers/NewsFeedbackList';
+import NameCard from '../components/NameCard';
+import MyNewsList from '../containers/MyNewsList';
+import NewsWriteDialog from '../components/dialogs/NewsWriteDialog';
+import { writerDemo } from '../modules/store';
+import Spacing from '../styles/Spacing';
+import FaIcon from '../components/FaIcon';
+import { smallRootWithPadding, marginVertical } from '../styles/styles';
+import DialogOwnerComponent from '../utils/DialogOwnerComponent';
 
 const styles = {
   smallRootWithPadding,

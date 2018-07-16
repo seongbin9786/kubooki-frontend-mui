@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 
-import FaIconBtn from './FaIconBtn';
+import FaIconBtn from '../buttons/FaIconBtn';
 import PasswordInput from './PasswordInput';
 
 const styles = {

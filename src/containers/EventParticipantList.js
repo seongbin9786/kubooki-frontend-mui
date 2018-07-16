@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles, Typography, ListItem, List, Avatar, Divider } from '@material-ui/core';
-import AddIconBtn from './AddIconBtn';
-import DeleteIconBtn from './DeleteIconBtn';
+import AddIconBtn from '../components/buttons/AddIconBtn';
+import DeleteIconBtn from '../components/buttons/DeleteIconBtn';
 
 const styles = {
   title: {

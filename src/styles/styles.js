@@ -1,4 +1,4 @@
-import theme from './configs/ThemeConfig';
+import theme from '../configs/ThemeConfig';
 
 export const smallRoot = {
   margin: '0 auto',

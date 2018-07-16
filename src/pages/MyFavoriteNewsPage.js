@@ -2,14 +2,13 @@ import React from 'react';
 import injectSheet from 'react-jss';
 import { withWidth, Typography } from '@material-ui/core';
 
-import { myFavoriteNewsList } from './store';
-import MyFavoriteNewsItem from './MyFavoriteNewsItem';
-import MyFavoriteNewsItemMobile from './MyFavoriteNewsItemMobile';
-import LoadMoreBtn from './LoadMoreBtn';
-import GridListTemplate from './GridListTemplate';
-
-import { smallRootWithPadding } from './styles';
-import theme from './configs/ThemeConfig';
+import { myFavoriteNewsList } from '../modules/store';
+import MyFavoriteNewsItem from '../components/MyFavoriteNewsItem';
+import MyFavoriteNewsItemMobile from '../components/MyFavoriteNewsItemMobile';
+import LoadMoreBtn from '../components/buttons/LoadMoreBtn';
+import GridListTemplate from '../utils/GridListTemplate';
+import { smallRootWithPadding } from '../styles/styles';
+import theme from '../configs/ThemeConfig';
 
 const styles = {
   smallRootWithPadding,

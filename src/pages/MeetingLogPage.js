@@ -1,8 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 
-import BoardList from './BoardList';
-import { meetingLogListViewData } from './store';
+import BoardList from '../containers/BoardList';
+import { meetingLogListViewData } from '../modules/store';
 
 const styles = theme => ({
 

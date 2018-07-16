@@ -1,12 +1,12 @@
 import React from 'react';
 import { withStyles, Typography, Button, Grid, Collapse } from '@material-ui/core';
 
-import DeleteIconBtn from './DeleteIconBtn';
+import DeleteIconBtn from '../components/buttons/DeleteIconBtn';
 import EventParticipantList from './EventParticipantList';
-import EventParticipantAnswers from './EventParticipantAnswers';
-import { paddingOneUnit, marginOneUnit, spaceBetween, alignChildrenRight } from './styles';
-import inputList, { detailList } from './EventDetailConfig';
-import FormComponent from './FormComponent';
+import EventParticipantAnswers from '../components/EventParticipantAnswers';
+import { paddingOneUnit, marginOneUnit, spaceBetween, alignChildrenRight } from '../styles/styles';
+import inputList, { detailList } from '../configs/EventDetailConfig';
+import FormComponent from '../utils/FormComponent';
 
 const styles = {
   '@global': {

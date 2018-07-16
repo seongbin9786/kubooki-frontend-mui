@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { meetingLogData } from './store';
-import BoardDetail from './BoardDetail';
+import { meetingLogData } from '../modules/store';
+import BoardDetailPage from './BoardDetailPage';
 
 export default function MeetingLogReadPage() {
   return (
-    <BoardDetail
+    <BoardDetailPage
       item={meetingLogData}
       useComment
     />

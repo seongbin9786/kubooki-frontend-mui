@@ -4,8 +4,8 @@ import injectSheet from 'react-jss';
 import { withWidth, Card, CardContent, CardMedia, Typography, Grid } from '@material-ui/core';
 
 import FaIcon from './FaIcon';
-import { marginBottomRoot } from './styles';
-import theme from './configs/ThemeConfig';
+import { marginBottomRoot } from '../styles/styles';
+import theme from '../configs/ThemeConfig';
 
 const styles = {
   root: {

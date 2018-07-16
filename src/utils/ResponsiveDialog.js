@@ -3,7 +3,7 @@ import injectSheet from 'react-jss';
 import { withWidth, Dialog, AppBar, Toolbar, IconButton, Typography, Button, DialogTitle, Slide } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-import AutoFocusDialog from './dialogs/AutoFocusDialog';
+import AutoFocusDialog from './AutoFocusDialog';
 
 const styles = {
   appBar: {

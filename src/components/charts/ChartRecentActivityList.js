@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, withStyles, Grid, Paper } from '@material-ui/core';
 
-import FlatListTemplate from './FlatListTemplate';
+import FlatListTemplate from '../../utils/FlatListTemplate';
 import ChartRecentActivityItem from './ChartRecentActivityItem';
 
 const styles = theme => ({

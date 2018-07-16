@@ -3,8 +3,8 @@ import injectSheet from 'react-jss';
 import { Button, Typography, withWidth } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 
-import theme from './configs/ThemeConfig';
-import FaIcon from './FaIcon';
+import theme from '../../configs/ThemeConfig';
+import FaIcon from '../FaIcon';
 
 const styles = {
   sortBar: ({

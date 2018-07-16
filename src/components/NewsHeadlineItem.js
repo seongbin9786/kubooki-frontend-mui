@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import withWidth from '@material-ui/core/withWidth';
 import { Paper, Typography } from '@material-ui/core';
 
-import { GridRootWithMarginBottom, FullImage, DarkOverlay } from './CommonStyledComponent';
+import { GridRootWithMarginBottom, FullImage, DarkOverlay } from '../styles/CommonStyledComponent';
 import NewsHeadlineItemMobile from './NewsHeadlineItemMobile';
 
 const RootPaper = styled(Paper)`

@@ -1,13 +1,13 @@
 import React from 'react';
 import { withWidth } from '@material-ui/core';
 
-import FlatListTemplate from './FlatListTemplate';
-import NewsCorrectionItem from './NewsCorrectionItem';
-import { correctionList } from './store';
-import SortBar from './SortBar';
-import LoadMoreBtn from './LoadMoreBtn';
-import FaIcon from './FaIcon';
-import NewsCorrectionItemMobile from './NewsCorrectionItemMobile';
+import FlatListTemplate from '../utils/FlatListTemplate';
+import NewsCorrectionItem from '../components/NewsCorrectionItem';
+import { correctionList } from '../modules/store';
+import SortBar from '../components/inputs/SortBar';
+import LoadMoreBtn from '../components/buttons/LoadMoreBtn';
+import FaIcon from '../components/FaIcon';
+import NewsCorrectionItemMobile from '../components/NewsCorrectionItemMobile';
 
 export default withWidth()(({ width }) => {
   const titleMsg = '들어온 정정 요청';

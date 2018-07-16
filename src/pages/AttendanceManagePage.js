@@ -5,12 +5,12 @@ import { Typography } from '@material-ui/core';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import ReactTooltip from 'react-tooltip';
 
-import './attendanceHeatmap.css';
-import SearchBar from './SearchBar';
-import AttendanceList from './AttendanceList';
-import { attendanceUserList, attendanceValues } from './store';
-import AttendanceDateNav from '../components/AttendanceDateNav';
-import { header } from './stylesManagePage';
+import '../styles/attendanceHeatmap.css';
+import SearchBar from '../components/inputs/SearchBar';
+import AttendanceList from '../containers/AttendanceList';
+import { attendanceUserList, attendanceValues } from '../modules/store';
+import AttendanceDateNav from '../components/navs/AttendanceDateNav';
+import { header } from '../styles/stylesManagePage';
 
 const styles = {
   header,

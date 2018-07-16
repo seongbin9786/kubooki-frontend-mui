@@ -2,7 +2,7 @@ import React from 'react';
 import injectSheet from 'react-jss';
 import { withWidth, Fade } from '@material-ui/core';
 
-import theme from '../configs/ThemeConfig';
+import theme from '../../configs/ThemeConfig';
 import loaderImgMobile from './loaderMobile.svg';
 import loaderImg from './loader.svg';
 

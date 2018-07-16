@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { TextField, InputAdornment } from '@material-ui/core';
 
-import FaIcon from './FaIcon';
+import FaIcon from '../FaIcon';
 
 const styles = {
   root: ({ noMargin, right }) => {

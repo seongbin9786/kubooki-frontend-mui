@@ -1,4 +1,4 @@
-import QuillEditor from './QuillEditor';
+import QuillEditor from '../components/inputs/QuillEditor';
 
 export default [
   {

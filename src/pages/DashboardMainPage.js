@@ -1,13 +1,12 @@
 import React from 'react';
 import { withStyles, Grid, Paper } from '@material-ui/core';
-import ChartKubookiUsageRate from './ChartKubookiUsageRate';
-import ChartViewCountByCategory from './ChartViewCountByCategory';
-import ChartServerResourceUsage from './ChartServerResourceUsage';
-import ChartRecentActivityList from './ChartRecentActivityList';
-
-import { recentActivities } from './store';
-import ChartActiveness from './ChartActiveness';
-import ChartNewsUploadRate from './ChartNewsUploadRate';
+import ChartKubookiUsageRate from '../components/charts/ChartKubookiUsageRate';
+import ChartViewCountByCategory from '../components/charts/ChartViewCountByCategory';
+import ChartServerResourceUsage from '../components/charts/ChartServerResourceUsage';
+import ChartRecentActivityList from '../components/charts/ChartRecentActivityList';
+import ChartActiveness from '../components/charts/ChartActiveness';
+import ChartNewsUploadRate from '../components/charts/ChartNewsUploadRate';
+import { recentActivities } from '../modules/store';
 
 const styles = theme => ({
   root: {

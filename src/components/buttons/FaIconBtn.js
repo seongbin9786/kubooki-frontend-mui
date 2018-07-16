@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles, Button, IconButton } from '@material-ui/core';
 
-import FaIcon from './FaIcon';
+import FaIcon from '../FaIcon';
 
 export default withStyles()(({ btnStr, icon, onlyIcon, iconLeft, ...props }) => {
   // IconButton에서 variant가 fab이면 background-color가 적용되지 않음

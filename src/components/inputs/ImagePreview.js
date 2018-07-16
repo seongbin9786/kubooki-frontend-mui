@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 import { withWidth } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 
-import theme from './configs/ThemeConfig';
+import theme from '../../configs/ThemeConfig';
 
 const styles = {
   thumbnailContainer: ({ isForm }) => isForm ? ({

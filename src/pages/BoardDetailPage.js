@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { withWidth, Typography } from '@material-ui/core';
 
-import CommentList from './CommentList';
-import Spacing from './Spacing';
-import { commentList, userDemo } from './store';
-import './content.css';
-import { smallRootWithPadding } from './styles';
+import '../styles/content.css';
+import CommentList from '../containers/CommentList';
+import Spacing from '../styles/Spacing';
+import { commentList, userDemo } from '../modules/store';
+import { smallRootWithPadding } from '../styles/styles';
 import theme from '../configs/ThemeConfig';
 
 const TitleTypo = styled(Typography)`

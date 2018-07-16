@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { withWidth, Typography, Button, Paper } from '@material-ui/core';
 
-import { InputTextArea } from './CommonStyledComponent';
+import { InputTextArea } from '../styles/CommonStyledComponent';
 import FaIcon from './FaIcon';
-import theme from './configs/ThemeConfig';
+import theme from '../configs/ThemeConfig';
 
 const RootPaper = styled(Paper)`
   min-height: 110px;
@@ -46,7 +46,7 @@ const SubmitBtn = styled(Button)`
 const loggedInStr = '주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 제재를 받을 수 있습니다';
 const nonUserStr = '로그인하고 댓글을 입력해보세요';
 
-function CommentList({ user, width }) {
+function CommentWriteBox({ user, width }) {
   return (
     <RootPaper elevation={1}>
       <Container>

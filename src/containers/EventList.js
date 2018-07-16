@@ -5,11 +5,11 @@ import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
 import { withWidth } from '@material-ui/core';
 
-import GridListTemplate from './GridListTemplate';
-import EventItem from './EventItem';
-import EventHeadlineItem from './EventHeadlineItem';
-import SortBar from './SortBar';
-import { smallRootWithPadding, fullHeight } from './styles';
+import GridListTemplate from '../utils/GridListTemplate';
+import EventItem from '../components/EventItem';
+import EventHeadlineItem from '../components/EventHeadlineItem';
+import SortBar from '../components/inputs/SortBar';
+import { smallRootWithPadding, fullHeight } from '../styles/styles';
 
 const styles = {
   '@global': {

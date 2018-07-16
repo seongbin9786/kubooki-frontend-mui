@@ -4,8 +4,8 @@ import compose from 'recompose/compose';
 import { withRouter } from 'react-router-dom';
 import { withWidth, Paper, Tabs, Tab } from '@material-ui/core';
 
-import TabList from './MyPageTabConfig';
-import Spacing from './Spacing';
+import TabList from '../../configs/MyPageTabConfig';
+import Spacing from '../../styles/Spacing';
 
 const styles = {
   tabsContainer: props => ({

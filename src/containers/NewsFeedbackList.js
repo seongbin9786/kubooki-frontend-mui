@@ -1,12 +1,12 @@
 import React from 'react';
-
-import FlatListTemplate from './FlatListTemplate';
-import NewsFeedbackItem from './NewsFeedbackItem';
-import { feedbackList } from './store';
-import SortBar from './SortBar';
-import FaIcon from './FaIcon';
 import { withWidth } from '@material-ui/core';
-import NewsFeedbackItemMobile from './NewsFeedbackItemMobile';
+
+import FlatListTemplate from '../utils/FlatListTemplate';
+import NewsFeedbackItem from '../components/NewsFeedbackItem';
+import { feedbackList } from '../modules/store';
+import SortBar from '../components/inputs/SortBar';
+import FaIcon from '../components/FaIcon';
+import NewsFeedbackItemMobile from '../components/NewsFeedbackItemMobile';
 
 export default withWidth()(({ width }) => {
   const titleMsg = '피드백 중인 기사';

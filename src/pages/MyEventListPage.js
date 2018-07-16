@@ -4,12 +4,12 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import EventList from './EventList';
-import { eventList, eventDetail, eventParticipateDetail } from './store';
-import EventDetail from './EventDetail';
+import EventList from '../containers/EventList';
+import { eventList, eventDetail, eventParticipateDetail } from '../modules/store';
+import EventDetail from '../containers/EventDetail';
 
-import { smallRootWithPadding } from './styles';
-import LoadMoreBtn from './LoadMoreBtn';
+import { smallRootWithPadding } from '../styles/styles';
+import LoadMoreBtn from '../components/buttons/LoadMoreBtn';
 
 const styles = theme => ({
   smallRootWithPadding,

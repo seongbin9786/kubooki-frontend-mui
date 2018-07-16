@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, DialogActions, DialogContent } from '@material-ui/core';
 
-import ResponsiveDialog from './ResponsiveDialog';
-import FormComponent from './FormComponent';
-import PasswordInput from './PasswordInput';
+import ResponsiveDialog from '../../utils/ResponsiveDialog';
+import FormComponent from '../../utils/FormComponent';
+import PasswordInput from '../inputs//PasswordInput';
 
 const fields = [
   {

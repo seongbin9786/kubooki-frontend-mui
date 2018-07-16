@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-
-import { faqList } from './store';
-import FAQItem from './FAQItem';
 import { Typography } from '@material-ui/core';
-import { smallRootWithPadding } from './styles';
+
+import { faqList } from '../modules/store';
+import FAQItem from '../components/FAQItem';
+import { smallRootWithPadding } from '../styles/styles';
 
 const titleStyle = {
   margin: '10px'

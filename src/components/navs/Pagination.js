@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import FaIconBtn from './FaIconBtn';
-import PaginationItem from './components/PaginationItem';
+import FaIconBtn from '../buttons/FaIconBtn';
+import PaginationItem from './PaginationItem';
 
 export default class Pagination extends Component {
   state = {

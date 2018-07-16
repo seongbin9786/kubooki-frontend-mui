@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { Typography } from '@material-ui/core';
 
-import SearchBar from './SearchBar';
-import SortBar from './SortBar';
-import GridListTemplate from './GridListTemplate';
+import SearchBar from '../components/inputs/SearchBar';
+import SortBar from '../components/inputs/SortBar';
+import GridListTemplate from '../utils/GridListTemplate';
 
-import { popupList, popupDetail } from './store';
-import PopupManageItem from './PopupManageItem';
-import PopupDetail from './PopupDetail';
-import CreateIconBtn from './CreateIconBtn';
-import { header } from './stylesManagePage';
+import { popupList, popupDetail } from '../modules/store';
+import PopupManageItem from '../components/PopupManageItem';
+import PopupDetail from '../containers/PopupDetail';
+import CreateIconBtn from '../components/buttons/CreateIconBtn';
+import { header } from '../styles/stylesManagePage';
 
 const styles = {
   header,

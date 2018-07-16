@@ -9,12 +9,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
 import { withWidth } from '@material-ui/core';
-import { FamilyLinks } from './FamilyLinkConfig';
-import { logo, settings, accountList, guestList, userList, journalistGroupList } from './NavDrawerConfig';
-import SearchBar from './SearchBar';
-import FaIcon from './FaIcon';
+
+import { FamilyLinks } from '../configs/FamilyLinkConfig';
+import { logo, settings, accountList, guestList, userList, journalistGroupList } from '../configs/NavDrawerConfig';
+import SearchBar from '../components/inputs/SearchBar';
+import FaIcon from '../components/FaIcon';
 
 const styles = {
   list: ({ width }) => ({

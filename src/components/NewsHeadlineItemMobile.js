@@ -6,7 +6,7 @@ import withWidth from '@material-ui/core/withWidth';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import { darkOverlay, fullHeight } from './styles';
+import { darkOverlay, fullHeight } from '../styles/styles';
 
 const styles = {
   '@global': {

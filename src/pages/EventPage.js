@@ -1,7 +1,7 @@
 import React from 'react';
 
-import EventList from './EventList';
-import { eventList } from './store';
+import EventList from '../containers/EventList';
+import { eventList } from '../modules/store';
 
 export default () => (
   <EventList

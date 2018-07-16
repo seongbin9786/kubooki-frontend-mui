@@ -4,13 +4,12 @@ import { Typography, Button, Collapse } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 import { withRouter } from 'react-router-dom';
 
-import DialogOwnerComponent from './DialogOwnerComponent';
-import FaIconBtn from './FaIconBtn';
+import DialogOwnerComponent from '../utils/DialogOwnerComponent';
+import FaIconBtn from './buttons/FaIconBtn';
 import AlertDialog from './dialogs/AlertDialog';
 import CommentReplyItem from './CommentReplyItem';
-
-import { InputTextArea } from './CommonStyledComponent';
-import theme from './configs/ThemeConfig';
+import { InputTextArea } from '../styles/CommonStyledComponent';
+import theme from '../configs/ThemeConfig';
 import FaIcon from './FaIcon';
 
 const StyledCollapse = styled(Collapse)`

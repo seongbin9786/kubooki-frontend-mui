@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import theme from '../configs/ThemeConfig';
-import { borderBottomHighlight, marginVertical, marginBottomRoot } from './styles';
+import { borderBottomHighlight, marginVertical, marginBottomRoot } from '../styles/styles';
 
 const styles = {
   Paper: {

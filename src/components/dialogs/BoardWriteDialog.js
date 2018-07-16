@@ -2,11 +2,13 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, DialogActions, DialogContent } from '@material-ui/core';
 
-import FaIcon from './FaIcon';
-import QuillEditor from './QuillEditor';
+import FaIcon from '../FaIcon';
+
+import QuillEditor from '../inputs/QuillEditor';
 import 'react-quill/dist/quill.snow.css'; // ES6
-import ResponsiveDialog from './ResponsiveDialog';
-import FormComponent from './FormComponent';
+
+import ResponsiveDialog from '../../utils/ResponsiveDialog';
+import FormComponent from '../../utils/FormComponent';
 
 const styles = theme => ({
   root: {

@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { Typography } from '@material-ui/core';
 
-import SearchBar from './SearchBar';
-import EventDetail from './EventDetail';
-import CreateIconBtn from './CreateIconBtn';
-import EventList from './EventList';
-import { eventDetail, eventParticipateDetail, eventManageDetail, eventList } from './store';
-import { header } from './stylesManagePage';
+import SearchBar from '../components/inputs/SearchBar';
+import EventDetail from '../containers/EventDetail';
+import CreateIconBtn from '../components/buttons/CreateIconBtn';
+import EventList from '../containers/EventList';
+import { eventDetail, eventParticipateDetail, eventManageDetail, eventList } from '../modules/store';
+import { header } from '../styles/stylesManagePage';
 
 const styles = {
   header,

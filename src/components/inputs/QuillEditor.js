@@ -2,8 +2,8 @@ import React from 'react';
 import ReactQuill from 'react-quill';
 import InputLabel from '@material-ui/core/InputLabel';
 
-import { modules, formats } from './configs/QuillConfig';
-import './content.css';
+import { modules, formats } from '../../configs/QuillConfig';
+import '../../styles/content.css';
 
 function QuillEditor({ value, onChange, ...props }) {
   return (

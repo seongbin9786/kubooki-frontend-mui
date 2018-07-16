@@ -2,18 +2,16 @@ import React from 'react';
 import injectSheet from 'react-jss';
 import {
   Typography,
-  FormControlLabel,
-  Checkbox,
   Divider,
 } from '@material-ui/core';
-import ImagePreview from './ImagePreview';
-import UploadBtn from './UploadBtn';
-import FaIconBtn from './FaIconBtn';
-import PasswordChangeForm from './PasswordChangeForm';
-import { globalUser as user } from './store';
-import FormComponent from './FormComponent';
+import ImagePreview from '../components/inputs/ImagePreview';
+import UploadBtn from '../components/buttons/UploadBtn';
+import FaIconBtn from '../components/buttons/FaIconBtn';
+import PasswordChangeForm from '../components/inputs/PasswordChangeForm';
+import { globalUser as user } from '../modules/store';
+import FormComponent from '../utils/FormComponent';
 import theme from '../configs/ThemeConfig';
-import { smallRootWithPadding } from './styles';
+import { smallRootWithPadding } from '../styles/styles';
 
 const styles = {
   smallRootWithPadding,

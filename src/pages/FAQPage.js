@@ -1,8 +1,8 @@
 import React from 'react';
 
-import FQAList from './FAQList';
+import FQAList from '../containers/FAQList';
 
-import { faqList } from './store';
+import { faqList } from '../modules/store';
 
 export default () => (
   <FQAList eventList={faqList} />

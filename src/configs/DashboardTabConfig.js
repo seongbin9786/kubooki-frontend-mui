@@ -1,8 +1,8 @@
-import DashboardMainPage from './DashboardMainPage';
-import NewsCorrectionPage from './NewsCorrectionPage';
-import EventManagePage from './pages/EventManagePage';
-import PopupManagePage from './pages/PopupManagePage';
-import AttendanceManagePage from './pages/AttendanceManagePage';
+import DashboardMainPage from '../pages/DashboardMainPage';
+import NewsCorrectionPage from '../pages/NewsCorrectionPage';
+import EventManagePage from '../pages/EventManagePage';
+import PopupManagePage from '../pages/PopupManagePage';
+import AttendanceManagePage from '../pages/AttendanceManagePage';
 
 export default [
   {

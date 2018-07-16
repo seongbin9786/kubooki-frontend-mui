@@ -1,10 +1,10 @@
 import React from 'react';
 import { withStyles, Typography, Button, Collapse } from '@material-ui/core';
 
-import DeleteIconBtn from './DeleteIconBtn';
-import { spaceBetween, alignChildrenRight, marginOneUnit } from './styles';
-import popupList from './PopupDetailConfig';
-import FormComponent from './FormComponent';
+import DeleteIconBtn from '../components/buttons/DeleteIconBtn';
+import { spaceBetween, alignChildrenRight, marginOneUnit } from '../styles/styles';
+import popupList from '../configs/PopupDetailConfig';
+import FormComponent from '../utils/FormComponent';
 
 const styles = theme => ({
   root: {
