@@ -1,53 +1,59 @@
 import React from 'react';
-import injectSheet from 'react-jss';
+import styled from 'styled-components';
 import { Button, Typography, withWidth } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 
 import theme from '../../configs/ThemeConfig';
 import FaIcon from '../FaIcon';
 
-const styles = {
-  sortBar: ({
-    dontLeftHighlight,
-    backgroundColor,
-    color,
-    bottomMargin
-  }) => ({
-    marginTop: theme.spacing.unit,
-    marginBottom: bottomMargin || null,
-    padding: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 3,
-    display: 'flex',
-    justifyContent: 'space-between',
+const Root = styled.div`
+  margin-top: ${theme.spacing.unit + 'px'};
+  padding: ${theme.spacing.unit + 'px'};
+  padding-left: ${theme.spacing.unit * 3 + 'px'};
+  display: flex;
+  justify-content: space-between;
 
-    backgroundColor: backgroundColor || grey[100],
-    color: color || 'white',
-    borderLeft: !dontLeftHighlight ? '8px solid' : null,
-    borderColor: !dontLeftHighlight ? theme.palette.primary.main : null
-  }),
-  sortTitle: {
-    lineHeight: '2rem',
-  },
-  sortBtn: {
-    minHeight: 13,
-    minWidth: 13,
-  },
-};
+   ${({ bottomMargin }) => bottomMargin && `margin-bottom: ${bottomMargin};`};
 
-function SortBar({ classes, tabName, width }) {
+   ${({ color }) => color && `color: ${color};`};
+
+   ${({ backgroundColor }) => `background-color: ${backgroundColor || grey[100]};`};
+
+   ${({ dontLeftHighlight }) => dontLeftHighlight && `
+      border-left: 8px solid;
+      border-color: ${theme.palette.primary.main};
+   `};
+`;
+
+const SortTitle = styled(Typography)`
+  && {
+    line-height: 2rem;
+  }
+`;
+
+const SortBtn = styled(Button)`
+  && {
+    min-height: 13px;
+    min-widht: 13px;
+  }
+`;
+
+function SortBar({ dontLeftHighlight, backgroundColor, color, bottomMargin, tabName, width }) {
   return (
-    <div className={classes.sortBar}>
-      <Typography
-        variant={width === 'xs' ? 'subheading' : 'title'}
-        className={classes.sortTitle}
-      >
+    <Root
+      dontLeftHighlight={dontLeftHighlight}
+      backgroundColor={backgroundColor}
+      color={color}
+      bottomMargin={bottomMargin}
+    >
+      <SortTitle variant={width === 'xs' ? 'subheading' : 'title'}>
         {tabName}
-      </Typography>
-      <Button className={classes.sortBtn}>
+      </SortTitle>
+      <SortBtn>
         <FaIcon icon='lg-caret-down' />
-      </Button>
-    </div>
+      </SortBtn>
+    </Root>
   );
 };
 
-export default injectSheet(styles)(withWidth()(SortBar));
+export default withWidth()(SortBar);

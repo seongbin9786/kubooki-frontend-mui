@@ -1,26 +1,22 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+import styled from 'styled-components';
 import { TextField, InputAdornment } from '@material-ui/core';
 
 import FaIcon from '../FaIcon';
 
-const styles = {
-  root: ({ noMargin, right }) => {
-    const css = {
-      zIndex: 1,
-    };
-    if (!noMargin) {
-      css.margin = '0 auto';
-      css.paddingLeft = 24;
-      css.paddingRight = 24;
-    }
-    if (right) {
-      css.display = 'flex';
-      css.justifyContent = 'flex-end';
-    }
-    return css;
-  },
-};
+const Root = styled.div`
+  z-index: 1;
+  ${({ noMargin }) => noMargin && `
+    margin: 0 auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  `};
+
+  ${({ right }) => right && `
+    display: fle;x
+    justify-content: flex-end;
+  `};
+`;
 
 class SearchBar extends Component {
   constructor(props) {
@@ -47,7 +43,7 @@ class SearchBar extends Component {
   }
 
   render() {
-    const { classes, noMargin, label, fullWidth } = this.props;
+    const { noMargin, right, label, fullWidth } = this.props;
     const { searchTerm } = this.state;
 
     // TODO 1: 매터리얼 UI로 TextField 만들기
@@ -55,8 +51,9 @@ class SearchBar extends Component {
     // TODO 3: onKeyDown 이벤트에 search 메소드 등록하기
     // TODO 4: 검색 아이콘 위치시키기
     return (
-      <div
-        className={classes.root}
+      <Root
+        noMargin={noMargin}
+        right={right}
         onClick={e => e.stopPropagation()}
       >
         <TextField
@@ -75,9 +72,9 @@ class SearchBar extends Component {
               </InputAdornment>
           }}
         />
-      </div>
+      </Root>
     );
   }
 }
 
-export default injectSheet(styles)(SearchBar);
+export default SearchBar;

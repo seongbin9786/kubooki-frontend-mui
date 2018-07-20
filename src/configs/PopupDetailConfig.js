@@ -1,4 +1,3 @@
-import QuillEditor from '../components/inputs/QuillEditor';
 
 export default [
   {
@@ -44,7 +43,7 @@ export default [
     shrink: true,
   },
   {
-    Component: QuillEditor,
+    Component: 'quill',
     label: '본문',
     name: 'content',
     onChange: thisVar => thisVar.handleQuillChange,

@@ -1,6 +1,6 @@
 import User from './User';
 
-export const globalUser = new User('김성빈', 'MANAGER_EDIT_DEPART');
+export const globalUser = new User('김성빈', 'ADMIN');
 
 export const popupDetail = {
   id: 1,
@@ -207,27 +207,28 @@ export const eventManageDetail = {
   likes: 3000,
   noShowCount: 0,
   priority: 1,
-  participants: [
-    {
-      id: 1,
-      name: '김성빈',
-      answerDate: '2018-06-10',
-      answers: [
-        '네 거북이 좋아합니다.',
-        '네 거북이 매일 들어옵니다.',
-      ],
-    },
-    {
-      id: 2,
-      name: '김성빈',
-      answerDate: '2018-06-10',
-      answers: [
-        'hi',
-        'test dummy data',
-      ],
-    },
-  ],
 };
+
+export const eventManageParticipant = [
+  {
+    id: 1,
+    name: '김성빈',
+    answerDate: '2018-06-10',
+    answers: [
+      '네 거북이 좋아합니다.',
+      '네 거북이 매일 들어옵니다.',
+    ],
+  },
+  {
+    id: 2,
+    name: '김성빈',
+    answerDate: '2018-06-10',
+    answers: [
+      'hi',
+      'test dummy data',
+    ],
+  },
+];
 
 export const eventItem = {
   id: 1,

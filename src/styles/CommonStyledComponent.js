@@ -8,6 +8,18 @@ export const SmallRootWithPadding = styled.div`
   padding: 20px;
 `;
 
+export const FullHeight = styled.div`
+  height: 100%;
+`;
+
+export const SmallRootWithPaddingWithFullHeight = styled.div`
+  margin: 0 auto;
+  margin-top: 20px;
+  max-width: 900px;
+  padding: 20px;
+  height: 100%;
+`;
+
 export const InputTextArea = styled.textarea`
   color: #555;
   border: none;

@@ -1,16 +1,11 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core';
 
-import BoardList from '../containers/BoardList';
+import BoardListPage from './BoardListPage';
 import { meetingLogListViewData } from '../modules/store';
 
-const styles = theme => ({
-
-});
-
-function MeetingLogPage({ classes }) {
+function MeetingLogPage() {
   return (
-    <BoardList
+    <BoardListPage
       boardTitle='회의록'
       addButtonRightAlign
       boardList={meetingLogListViewData}
@@ -18,4 +13,4 @@ function MeetingLogPage({ classes }) {
   );
 }
 
-export default withStyles(styles)(MeetingLogPage);
+export default MeetingLogPage;

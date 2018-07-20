@@ -1,25 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
 import { TableCell, TableRow } from '@material-ui/core';
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 700,
-  },
-});
-
-function SimpleTable({ item, linkTemplate }) {
+function BoardListLargeItem({ item, pathname }) {
   const { id, title, writer, creationDate, views } = item;
-  const url = `${linkTemplate}/${id}`;
+  const url = `${pathname}/${id}`;
 
   return (
-    <TableRow key={id}>
+    <TableRow>
       <TableCell>{id}</TableCell>
       <TableCell>
         <Link to={url}>{title}</Link>
@@ -31,4 +19,4 @@ function SimpleTable({ item, linkTemplate }) {
   );
 }
 
-export default withStyles(styles)(SimpleTable);
+export default BoardListLargeItem;

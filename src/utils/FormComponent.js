@@ -24,11 +24,11 @@ class FormComponent extends Component {
       ...props,
     } = field;
 
-    if (typeof show === 'function' && !show(state)) return;
+    if (typeof show === 'function' && !show(state, props)) return;
 
     const onChangeFunc = typeof onChange === 'function' ? onChange(this) : this.handleChange(name);
-    const disabledFunc = typeof disabled === 'function' ? disabled(state) : disabled;
-    const valueFunc = value ? value(state) : this.state[name];
+    const disabledFunc = typeof disabled === 'function' ? disabled(state, props) : disabled;
+    const valueFunc = value ? (typeof value !== 'function' ? value : value(state, props)) : this.state[name];
     const classNameFunc = className ? classes[className] : null;
 
     if (type === 'checkbox') {
@@ -83,9 +83,9 @@ class FormComponent extends Component {
       );
     }
 
-    if (Component === QuillEditor) {
+    if (Component === 'quill') {
       return (
-        <Component
+        <QuillEditor
           type={type}
           label={label}
           name={name}

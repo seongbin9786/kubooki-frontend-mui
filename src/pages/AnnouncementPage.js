@@ -1,14 +1,14 @@
 import React from 'react';
 
-import BoardList from '../containers/BoardList';
+import BoardListPage from './BoardListPage';
 import { announcementListViewData } from '../modules/store';
 
-export default function AnnouncementPage({ classes }) {
+export default () => {
   return (
-    <BoardList
+    <BoardListPage
       boardTitle='공지사항'
       addButtonRightAlign
       boardList={announcementListViewData}
     />
   );
-}
+};

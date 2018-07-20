@@ -9,6 +9,11 @@ import {
 
 import FaIconBtn from '../components/buttons/FaIconBtn';
 
+// 자주 사용할 수 있는 부분은 재사용
+// 테이블의 추가적인 기능(Toolbar, Hidden 등)을 사용하기 때문에 복잡함
+// TableTemplate를 사용할 수 있으면 하고, 확장해야 하면 확장까지 하도록
+// 스타일링 코드가 굉장히 김
+// TableCell도 data만 넘길 수 있는 형태라면 좋을탠데
 class EnhancedTableHead extends React.Component {
   render() {
     const { onSelectAllClick, numSelected, rowCount } = this.props;
@@ -79,10 +84,10 @@ let EnhancedTableToolbar = props => {
             {numSelected}명 선택됨
           </Typography>
         ) : (
-          <Typography variant="title" id="tableTitle">
-            {currentDepartment + ' 출석부'}
-          </Typography>
-        )}
+            <Typography variant="title" id="tableTitle">
+              {currentDepartment + ' 출석부'}
+            </Typography>
+          )}
       </div>
       <Typography variant='caption' className={classes.today}>{today}</Typography>
       <div className={classes.spacer} />

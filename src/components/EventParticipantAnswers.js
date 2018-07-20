@@ -1,42 +1,47 @@
 import React from 'react';
-import { withStyles, Typography, ListItem, List, Divider } from '@material-ui/core';
+import styled from 'styled-components';
+import { Typography, ListItem, List, Divider } from '@material-ui/core';
 
-const styles = {
-  eventAnswer: {
-    padding: 8,
-  },
-  listContainer: {
-    border: '1px solid lightgray',
-    borderRadius: 5,
-    padding: 0,
-  },
-  listItem: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-};
+const EventAnswer = styled.div`
+  padding: 8px;
+`;
+
+const ListContainer = styled(List)`
+  && {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 0px;
+  }
+`;
+
+const StyledListItem = styled(ListItem)`
+  && {
+    display: flex;
+    justify-content: space-between;
+  }
+`;
 
 function EventParticipantList({ classes, answers }) {
   return (
-    <div className={classes.eventAnswer}>
+    <EventAnswer>
       <Typography variant='body2'>이벤트 응답</Typography>
-      <List className={classes.listContainer}>
+      <ListContainer>
         {answers.map((answer, index) =>
           <React.Fragment key={index}>
-            <ListItem className={classes.listItem}>
+            <StyledListItem>
               <div
                 key={index}
                 dangerouslySetInnerHTML={{
                   __html: answer
                 }}
               />
-            </ListItem>
+            </StyledListItem>
             <Divider />
           </React.Fragment>
         )}
-      </List>
-    </div>
+      </ListContainer>
+    </EventAnswer>
   );
 };
 
-export default withStyles(styles)(EventParticipantList);
+export default EventParticipantList;

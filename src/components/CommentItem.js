@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Typography, Button, Collapse } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 import { withRouter } from 'react-router-dom';
 
@@ -11,11 +11,6 @@ import CommentReplyItem from './CommentReplyItem';
 import { InputTextArea } from '../styles/CommonStyledComponent';
 import theme from '../configs/ThemeConfig';
 import FaIcon from './FaIcon';
-
-const StyledCollapse = styled(Collapse)`
-  ${({ collapsable, isCollapsed }) => collapsable && isCollapsed &&
-    'box-shadow: inset 0 -5px 10px -5px lightgray'}
-`;
 
 const Root = styled.div`
   padding: ${theme.spacing.unit + 'px'};
@@ -103,28 +98,6 @@ const EditBtn = styled(FaIconBtn)`
   }
 `;
 
-const CollapseBtn = styled(FaIconBtn)`
-  && {
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0px;
-    right: 0px;
-
-    ${({ isCollapsed }) => isCollapsed ?
-    `
-      font-size: 1rem;
-      top: 72px;
-    ` :
-    `
-      font-size: 0.8rem;
-      bottom: 4px;
-    `}
-  }
-`;
-
 //TODO: 수정, 삭제 버튼 눌렸을 때 처리
 class CommentItem extends DialogOwnerComponent {
   state = {
@@ -136,7 +109,7 @@ class CommentItem extends DialogOwnerComponent {
     dialogOpen: {
       accuse: false,
     }
-  }
+  };
 
   handleOnTextAreaFocus = event => {
     // textarea의 크기를 content 크기만큼 확장
@@ -149,42 +122,19 @@ class CommentItem extends DialogOwnerComponent {
     this.setState({ editText: event.target.value });
   }
 
-  handleEditBtnClick = () => this.setState({ isEditing: true });
-  handleEditCancelBtnClick = () => this.setState({ isEditing: false, editText: this.props.comment.content });
-  handleSubmitBtnClick = () => this.setState({ isEditing: false });
+  handleEditSubmit = f => f;
 
-  toggleAccuse = () => this.setState(({ isAskingAccuse }) => ({ isAskingAccuse: !isAskingAccuse }));
   toggleOpen = name => () => this.setState({ [name]: !this.state[name] });
 
-  componentDidMount() {
-    if (!this.props.myCommentView) {
-      this.setState({ collapsable: false });
-      return;
-    }
-    // react-router로 페이지 이동 시 null 전달됨
-    if (!this.ref) return;
-
-    const { clientHeight } = this.ref;
-    this.setState({ collapsable: clientHeight > 105, isCollapsed: clientHeight > 105 });
-  }
-
   render() {
-    const { dialogOpen: { accuse }, isEditing, isReplying, collapsable, isCollapsed, editText } = this.state;
+    const { dialogOpen: { accuse }, isEditing, isReplying, editText } = this.state;
     const { comment, myCommentView, history } = this.props;
+
     const { id, writer, date, likes, liked, hated, content, targetNews } = comment;
 
-    const Component = myCommentView ? StyledCollapse : React.Fragment;
-    const props = myCommentView ? {
-      collapsable,
-      isCollapsed,
-      in: collapsable && !isCollapsed, // open
-      collapsedHeight: '96px',
-    } : null;
-
     return (
-      <Component {...props}>
-        <Root innerRef={ref => this.ref = ref}>
-
+      <div>
+        <Root>
           <VoteContainer>
             <VoteBtn disabled={myCommentView} active={liked}>
               <FaIcon icon='lg-caret-up' />
@@ -242,24 +192,15 @@ class CommentItem extends DialogOwnerComponent {
               icon={isEditing ? 'check' : 'edit'}
               onlyIcon
               size='sm'
-              onClick={isEditing ? this.handleSubmitBtnClick : this.handleEditBtnClick}
+              onClick={isEditing ? this.handleEditSubmit : this.toggleOpen('isEditing')}
             />
             <EditBtn
               icon={isEditing ? 'times-circle' : 'trash'}
               onlyIcon
               size='sm'
-              onClick={isEditing ? this.handleEditCancelBtnClick : null}
+              onClick={isEditing ? this.toggleOpen('isEditing') : null}
             />
           </AuthorMenu>
-
-          {collapsable &&
-            <CollapseBtn
-              icon={`caret-${isCollapsed ? 'down' : 'up'}`}
-              onlyIcon
-              onClick={this.toggleOpen('isCollapsed')}
-              isCollapsed={isCollapsed}
-            />
-          }
         </Root>
 
         {isReplying &&
@@ -270,7 +211,7 @@ class CommentItem extends DialogOwnerComponent {
             handleCancel={this.toggleOpen('isReplying')}
           />
         }
-      </Component>
+      </div>
     );
   }
 }

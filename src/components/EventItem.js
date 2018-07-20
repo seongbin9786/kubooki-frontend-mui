@@ -1,43 +1,59 @@
 import React from 'react';
-import compose from 'recompose/compose';
-import injectSheet from 'react-jss';
+import styled from 'styled-components';
 import { withWidth, Card, CardContent, CardMedia, Typography, Grid } from '@material-ui/core';
 
 import FaIcon from './FaIcon';
-import { marginBottomRoot } from '../styles/styles';
 import theme from '../configs/ThemeConfig';
 
-const styles = {
-  root: {
-    margin: theme.spacing.unit * 1,
-    transition: 'transform 0.15s',
+const Root = styled(Card)`
+  && {
+    margin: ${theme.spacing.unit + 'px'};
+    transition: transform 0.15s;
 
-    '&:hover': {
-      transform: 'translateY(-15px)',
-      boxShadow:
-        `0px 3px 5px -1px rgba(0, 0, 0, 0.2), 
+    &:hover {
+      transform: translateY(-15px);
+      box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 
          0px 5px 8px 0px rgba(0, 0, 0, 0.14), 
-         0px 1px 14px 0px rgba(0, 0, 0, 0.12)`,
-    },
-  },
-  marginBottomRoot,
-  image: {
-    height: '100%',
-    // paddingTop: '56.25%', // 16:9,,, 이미지 사이즈임
-    paddingTop: '70%',
-  },
-  title: {
-    marginBottom: 10,
-  },
-  details: {
-    color: '#777777',
-    marginBottom: 5,
-  },
-  icon: {
-    width: 16,
-    marginRight: 10,
-  },
-};
+         0px 1px 14px 0px rgba(0, 0, 0, 0.12)
+    }
+
+    ${({ width }) => width !== 'xs' && `margin: ${theme.spacing.unit * 3 + 'px'};`};
+  }
+`;
+
+const MarginBottomRoot = styled(Grid)`
+  && {
+    height: auto !important;
+    margin-bottom: 80px;
+    
+    @media (max-width: 600px) {
+      margin-bottom: 50px;
+    }
+  }
+`;
+
+const Image = styled(CardMedia)`
+  && {
+    height: 100%;
+    padding-top: 70%;
+  }
+`;
+
+const Title = styled(Typography)`
+  && {
+    margin-bottom: 10px;
+  }
+`;
+
+const Details = styled.div`
+  color: #777777;
+  margin-bottom: 5px;
+`;
+
+const StyledIcon = styled(FaIcon)`
+  width: 16px;
+  margin-right: 10px;
+`;
 
 /*
   id: '1',
@@ -48,38 +64,33 @@ const styles = {
   prize: '학생증 제시 30% 할인',
   resultDate: '-',
 */
-function EventItem({ classes, event, handleClick, width }) {
+function EventItem({ event, handleClick, width }) {
   const { id, title, thumbnail, startDate, endDate, prize, resultDate } = event;
 
   return (
-    <Grid item xs={12} sm={6} lg={4} className={classes.marginBottomRoot}>
-      <Card className={classes.root} style={width !== 'xs' ? { margin: theme.spacing.unit * 3 } : null} onClick={handleClick(id)}>
-        <CardMedia
-          className={classes.image}
-          image={thumbnail}
-          title={title}
-        />
+    <MarginBottomRoot item xs={12} sm={6} lg={4}>
+      <Root onClick={handleClick(id)} width={width}>
+        <Image image={thumbnail} title={title} />
         <CardContent>
-          <Typography variant="headline" className={classes.title}>{title}</Typography>
+          <Title variant="headline">{title}</Title>
 
-          <div className={classes.details}>
-            <FaIcon icon='sm-calendar-alt' className={classes.icon} /><span>{startDate + ' - ' + endDate}</span>
-          </div>
+          <Details>
+            <StyledIcon icon='sm-calendar-alt' /><span>{startDate + ' - ' + endDate}</span>
+          </Details>
 
-          <div className={classes.details}>
-            <FaIcon icon='sm-gift' className={classes.icon} /><span>{prize}</span>
-          </div>
+          <Details>
+            <StyledIcon icon='sm-gift' /><span>{prize}</span>
+          </Details>
 
-          {resultDate && resultDate !== '-'
-            ? <div className={classes.details}>
-              <FaIcon icon='sm-bullhorn' className={classes.icon} /><span>{resultDate + ' 발표'}</span>
-            </div>
-            : null
+          {resultDate && resultDate !== '-' &&
+            <Details>
+              <StyledIcon icon='sm-bullhorn' /><span>{resultDate + ' 발표'}</span>
+            </Details>
           }
         </CardContent>
-      </Card>
-    </Grid >
+      </Root>
+    </MarginBottomRoot>
   );
 }
 
-export default compose(withWidth(), injectSheet(styles))(EventItem);
+export default withWidth()(EventItem);

@@ -2,7 +2,6 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, DialogActions, DialogContent } from '@material-ui/core';
 
-import QuillEditor from '../inputs/QuillEditor';
 import 'react-quill/dist/quill.snow.css'; // ES6
 
 import FaIcon from '../FaIcon';
@@ -28,7 +27,7 @@ const fields = [
     name: 'title'
   },
   {
-    Component: QuillEditor,
+    Component: 'quill',
     label: '본문',
     name: 'content'
   },

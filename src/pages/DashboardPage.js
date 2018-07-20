@@ -1,17 +1,12 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core';
 import DashboardNav from '../components/navs/DashboardNav';
 
 import TabList from '../configs/DashboardTabConfig';
 import { globalUser as user } from '../modules/store';
 import Spacing from '../styles/Spacing';
-import { smallRootWithPadding } from '../styles/styles';
+import { SmallRootWithPadding } from '../styles/CommonStyledComponent';
 
-const styles = {
-  smallRootWithPadding,
-};
-
-function DashboardPage({ classes, history, location: { pathname } }) {
+function DashboardPage({ history, location: { pathname } }) {
   const tabsForUser = TabList.filter(({ role }) => user.hasRole(role));
 
   if (tabsForUser.length === 0)
@@ -20,11 +15,14 @@ function DashboardPage({ classes, history, location: { pathname } }) {
   const index = tabsForUser.findIndex(({ link }) => link === pathname);
   const { component: Component } = tabsForUser[index];
 
+  console.log('[Dashboard] TabList:', TabList);
+  console.log('[Component] component:', Component);
+
   return (
     <React.Fragment>
-      <div className={classes.smallRootWithPadding}>
+      <SmallRootWithPadding>
         <Component />
-      </div>
+      </SmallRootWithPadding>
       <DashboardNav
         tabList={tabsForUser}
         index={index}
@@ -36,4 +34,4 @@ function DashboardPage({ classes, history, location: { pathname } }) {
   );
 }
 
-export default withStyles(styles)(DashboardPage);
+export default DashboardPage;

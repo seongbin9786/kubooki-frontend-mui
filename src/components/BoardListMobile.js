@@ -1,33 +1,33 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { withStyles, Divider } from '@material-ui/core';
-import { Paper } from '@material-ui/core';
+import styled from 'styled-components';
+import { Divider, Paper } from '@material-ui/core';
 
+import theme from '../configs/ThemeConfig';
 import BoardListMobileItem from './BoardListMobileItem';
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-  },
-});
+const RootPaper = styled(Paper)`
+  && {
+    width: 100%;
+    margin-top: ${theme.spacing.unit * 3 + 'px'};
+    overflow-x: auto;
+  }
+`;
 
-function BoardListMobile({ classes, rows, location: { pathname } }) {
+function BoardListMobile({ rows, pathname }) {
   return (
-    <Paper className={classes.root}>
+    <RootPaper>
       {rows.map((row, index) =>
         <React.Fragment>
           <BoardListMobileItem
             item={row}
             key={index}
-            linkTemplate={pathname}
+            pathname={pathname}
           />
           {rows.length - 1 !== index ? <Divider /> : null}
         </React.Fragment>
       )}
-    </Paper>
+    </RootPaper>
   );
 }
 
-export default withStyles(styles)(withRouter(BoardListMobile));
+export default BoardListMobile;

@@ -1,26 +1,16 @@
 import React, { Component } from 'react';
-import {
-  withStyles,
-  Typography,
-} from '@material-ui/core';
+import styled from 'styled-components';
+import { Typography } from '@material-ui/core';
 
 import EventList from '../containers/EventList';
 import { eventList, eventDetail, eventParticipateDetail } from '../modules/store';
-import EventDetail from '../containers/EventDetail';
-
-import { smallRootWithPadding } from '../styles/styles';
+import EventDetailParticipate from '../containers/EventDetailParticipate';
+import { SmallRootWithPadding } from '../styles/CommonStyledComponent';
 import LoadMoreBtn from '../components/buttons/LoadMoreBtn';
 
-const styles = theme => ({
-  smallRootWithPadding,
-  title: {
-    marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit * -1,
-  },
-  loadMoreBtn: {
-    marginBottom: 60,
-  }
-});
+const StyledLoadMoreBtn = styled(LoadMoreBtn)`
+  margin-bottom: 60px;
+`;
 
 class MyEventListPage extends Component {
   state = {
@@ -33,14 +23,15 @@ class MyEventListPage extends Component {
     }));
 
   render() {
-    const { classes } = this.props;
     const { detailOpen } = this.state;
+    const { history } = this.props;
 
     return (
-      <div className={classes.smallRootWithPadding}>
+      <SmallRootWithPadding>
         <Typography variant='display1'>내가 참여한 이벤트</Typography>
 
         <EventList
+          history={history}
           eventList={eventList}
           dontDisplayAsHeadline
           customHandleClick={this.handleModalOpen}
@@ -49,17 +40,17 @@ class MyEventListPage extends Component {
           noBottomMargin
         />
 
-        <LoadMoreBtn className={classes.loadMoreBtn} />
+        <StyledLoadMoreBtn />
 
-        <EventDetail
+        <EventDetailParticipate
           open={detailOpen}
           eventDetail={eventDetail}
           eventParticipateDetail={eventParticipateDetail}
-          editMode
         />
 
-      </div>
+      </SmallRootWithPadding>
     );
   }
 }
-export default withStyles(styles)(MyEventListPage);
+
+export default MyEventListPage;

@@ -34,28 +34,27 @@ const styles = {
   marginOneUnit,
 };
 
+/*
+  상속으로 문제를 해결해야 할 듯
+  템플릿 메서드 패턴 사용
+*/
 class EventDetail extends FormComponent {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  state = {};
 
-  focusOnOpen(prevProps) {
-    const { open: beforeOpen, createMode: beforeCreate } = prevProps;
-    const { open: afterOpen } = this.props;
+  // 재사용
+  focusOnOpen() {
     const { createMode, manageMode } = this.state;
 
-    if ((!beforeOpen && afterOpen) || (!beforeCreate && createMode)) {
-      setTimeout(() => {
-        const pageTitle = document.getElementById('pageTitle');
-        window.scrollTo(0, pageTitle.getBoundingClientRect().top);
+    setTimeout(() => {
+      const pageTitle = document.getElementById('pageTitle');
+      window.scrollTo(0, pageTitle.getBoundingClientRect().top);
 
-        const input = document.getElementsByName(manageMode || createMode ? 'title' : 'q0')[0];
-        input.focus();
-      }, 300);
-    }
+      const input = document.getElementsByName(manageMode || createMode ? 'title' : 'q0')[0];
+      input.focus();
+    }, 300);
   }
 
+  // 필요한 정보만 사용하도록
   static getDerivedStateFromProps(nextProps, prevState) {
     const { editMode, eventDetail, eventManageDetail, eventParticipateDetail } = nextProps;
 
@@ -102,10 +101,18 @@ class EventDetail extends FormComponent {
     return nextState;
   }
 
+  // 재사용
   componentDidUpdate(prevProps) {
-    this.focusOnOpen(prevProps);
+    const { open: beforeOpen, createMode: beforeCreate } = prevProps;
+    const { open: afterOpen } = this.props;
+    const { createMode } = this.state;
+
+    if ((!beforeOpen && afterOpen) || (!beforeCreate && createMode)) {
+      this.focusOnOpen();
+    }
   }
 
+  // 재사용
   handleAnswerChange = index => ({ target: { value } }) => {
     this.setState(
       ({ answers }) => ({
@@ -118,17 +125,19 @@ class EventDetail extends FormComponent {
     );
   }
 
+  // 재사용
   renderQAField(question, index) {
     return this.renderField({
       label: question,
       name: `q${index}`,
       shrink: true,
       value: state => state.answers[index],
-      onChange: thisVar => thisVar.handleAnswerChange(index),
+      onChange: () => this.handleAnswerChange(index),
       show: state => state.participateMode || state.participateEditMode
     });
   }
 
+  // 템플릿 메소드
   getButtonTitle() {
     const { manageMode, createMode, participateMode, participateEditMode } = this.state;
     if (participateEditMode || manageMode) return '수정';
@@ -136,6 +145,7 @@ class EventDetail extends FormComponent {
     if (createMode) return '생성';
   }
 
+  // 템플릿 메소드
   getPageTitle() {
     const { manageMode, createMode, participateMode, participateEditMode } = this.state;
     if (participateEditMode) return '이벤트 참여 정보 수정하기';
@@ -144,12 +154,17 @@ class EventDetail extends FormComponent {
     if (manageMode) return '이벤트 관리 상세';
   }
 
+  // 재사용 - 템플릿 메소드를 활용
   render() {
     const { classes, open } = this.props;
     const { questions, answers, participants, manageMode } = this.state;
     const pageTitle = this.getPageTitle();
     const buttonTitle = this.getButtonTitle();
 
+    // _render() 호출해야 할 듯
+    // 1. Collapse/pageTitle/buttonTitle 등 항상 나오는 부분은 render()에 포함
+    // 2. renderHeader 템플릿 메소드로 Typo 말고 추가 엘리먼트도 렌더링
+    // 3. 나머지 부분은 _render()에서 알아서   
     return (
       <Collapse in={open} collapsedHeight='0px'>
         <div className={classes.header}>

@@ -4,7 +4,6 @@ import { Button, DialogActions, DialogContent } from '@material-ui/core';
 
 import FaIcon from '../FaIcon';
 
-import QuillEditor from '../inputs/QuillEditor';
 import 'react-quill/dist/quill.snow.css'; // ES6
 
 import ResponsiveDialog from '../../utils/ResponsiveDialog';
@@ -32,7 +31,7 @@ const fields = [
     name: 'title',
   },
   {
-    Component: QuillEditor,
+    Component: 'quill',
     label: '본문',
     name: 'content',
   },

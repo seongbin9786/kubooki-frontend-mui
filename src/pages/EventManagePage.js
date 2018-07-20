@@ -1,83 +1,71 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
 
 import SearchBar from '../components/inputs/SearchBar';
-import EventDetail from '../containers/EventDetail';
+import EventDetailManage from '../containers/EventDetailManage';
 import CreateIconBtn from '../components/buttons/CreateIconBtn';
 import EventList from '../containers/EventList';
-import { eventDetail, eventParticipateDetail, eventManageDetail, eventList } from '../modules/store';
-import { header } from '../styles/stylesManagePage';
+import { eventDetail, eventManageParticipant, eventManageDetail, eventList } from '../modules/store';
 
-const styles = {
-  header,
-  subHeader: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginBottom: -20,
-  },
-};
+const Header = styled.div`
+  margin-bottom: 30px;
+
+  @media(min-width: 600px) {
+    display: flex;
+    justify-content: space-between;
+  }
+`;
+
+const SubHeader = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: -20px;
+`;
 
 class EventManagePage extends Component {
   state = {
     detailOpen: false,
-    detailId: -1,
-    create: false,
+    isEditing: true,
   };
 
-  handleClick = id => () => {
-    this.setState({ detailOpen: true, detailId: id });
-    this.receiveFromServer(id);
-  }
+  handleClick = id => () => this.setState({ detailOpen: true });
 
-  handleCreateIconClick = () => {
-    this.setState({ create: true, detailOpen: true, detailId: -1 });
-    this.clear();
-  }
-
-  clear = () => this.setState({ eventDetail: null, eventManageDetail: null, eventParticipateDetail: null });
-
-  receiveFromServer(id) {
-    console.log('receive!');
-    this.setState({
-      eventDetail,
-      eventManageDetail,
-      eventParticipateDetail,
-    });
-  }
+  handleCreateClick = () => this.setState({ detailOpen: true, isEditing: false });
 
   render() {
-    const { classes } = this.props;
-    const { detailOpen, create } = this.state;
-    console.log(create && '@@@ If this appears, there\'ll be no EventDetail @@@');
+    const { detailOpen, isEditing } = this.state;
+    const { history } = this.props;
 
     return (
-      <div>
-        <div className={classes.header}>
+      <React.Fragment>
+
+        <Header>
           <Typography variant='display1'>이벤트 관리</Typography>
           <SearchBar noMargin label='이벤트 검색' />
-        </div>
+        </Header>
 
-        <div className={classes.subHeader}>
-          <CreateIconBtn onClick={this.handleCreateIconClick} />
-        </div>
+        <SubHeader>
+          <CreateIconBtn onClick={this.handleCreateClick} />
+        </SubHeader>
 
         <EventList
           eventList={eventList}
+          history={history}
           customHandleClick={this.handleClick}
           dontDisplayAsHeadline
         />
 
-        <EventDetail
+        <EventDetailManage
           open={detailOpen}
-          eventDetail={!create && eventDetail}
-          eventManageDetail={!create && eventManageDetail}
-          eventParticipateDetail={!create && eventParticipateDetail}
+          eventDetail={eventDetail}
+          eventManageDetail={eventManageDetail}
+          eventManageParticipant={eventManageParticipant}
         />
 
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-export default injectSheet(styles)(EventManagePage);
+export default EventManagePage;
