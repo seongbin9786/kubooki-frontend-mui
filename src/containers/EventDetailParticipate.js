@@ -1,3 +1,4 @@
+import React from 'react';
 import EventDetailCommon from './EventDetailCommon';
 
 class EventDetailParticipate extends EventDetailCommon {
@@ -13,7 +14,7 @@ class EventDetailParticipate extends EventDetailCommon {
 
       // handleAnswerChange에서 답안을 변경할 수 있기 때문
       // 수정 화면일때만 필요
-      answers: isEditing ? answers : [],
+      answers,
     };
   }
 
@@ -45,7 +46,13 @@ class EventDetailParticipate extends EventDetailCommon {
 
   // 템플릿 메소드
   renderAdditionalContent() {
-    return this.renderQAField();
+    return (
+      <React.Fragment>
+        <br />
+        <br />
+        {this.renderQAField()}
+      </React.Fragment>
+    );
   }
 
   // 템플릿 메소드
@@ -62,6 +69,7 @@ class EventDetailParticipate extends EventDetailCommon {
   getInputList() {
     const { eventDetail: { title, startDate, endDate, resultDate, prize } } = this.props;
     const { eventParticipateDetail: { wonPrize, myPrize } } = this.props;
+    const { isEditing } = this.state;
 
     return [
       {
@@ -99,6 +107,7 @@ class EventDetailParticipate extends EventDetailCommon {
         name: 'prize',
         value: prize,
         disabled: true,
+        show: isEditing,
       },
       // 여기부턴 eventParticipateDetail이 제공해야 함
       {
@@ -107,6 +116,7 @@ class EventDetailParticipate extends EventDetailCommon {
         type: 'checkbox',
         value: wonPrize,
         disabled: true,
+        show: isEditing,
       },
       {
         label: '내가 받은 상품',
@@ -114,14 +124,11 @@ class EventDetailParticipate extends EventDetailCommon {
         value: myPrize,
         shrink: true,
         disabled: true,
+        show: isEditing,
       },
       // questions, answers로 그려야 하는데
       // renderQAField()가 함
     ];
-  }
-
-  componentDidUpdate() {
-    console.log('participate --- updated!');
   }
 }
 

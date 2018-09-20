@@ -30,8 +30,8 @@ class EventDetailManage extends EventDetailCommon {
 
     console.log('CONSTRUCTOR --- EventDetailManage');
 
-    const { eventDetail, eventManageDetail } = this.props;
-    const isEditing = true; // 생성/수정 화면 구분
+    const { eventDetail, eventManageDetail, eventManageParticipant } = this.props;
+    const isEditing = eventManageParticipant.length !== 0; // 생성/수정 화면 구분
 
     this.state = {
       // Form으로 수정되는 값들
@@ -51,11 +51,6 @@ class EventDetailManage extends EventDetailCommon {
     };
   }
 
-  componentDidCatch(error, info) {
-    console.log('[EventDetailManage] error:', error);
-    console.log('[EventDetailManage] info:', info);
-  }
-
   // 템플릿 메소드
   getButtonTitle() {
     return this.state.isEditing ? '수정' : '생성';
@@ -73,6 +68,7 @@ class EventDetailManage extends EventDetailCommon {
 
   // 템플릿 메소드
   getInputList() {
+    const { isEditing } = this.state;
     const { eventManageDetail, eventManageParticipant } = this.props;
     const { views, likes, noShowCount } = eventManageDetail;
 
@@ -83,6 +79,7 @@ class EventDetailManage extends EventDetailCommon {
         type: 'number',
         disabled: true,
         value: views,
+        show: isEditing,
       },
       {
         label: '좋아요',
@@ -90,6 +87,7 @@ class EventDetailManage extends EventDetailCommon {
         type: 'number',
         disabled: true,
         value: likes,
+        show: isEditing,
       },
       {
         label: '참여인원',
@@ -97,7 +95,7 @@ class EventDetailManage extends EventDetailCommon {
         type: 'number',
         disabled: true,
         value: eventManageParticipant.length,
-        show: eventManageParticipant !== undefined,
+        show: isEditing,
       },
       {
         label: '다시 보지 않기 수',
@@ -105,6 +103,7 @@ class EventDetailManage extends EventDetailCommon {
         type: 'number',
         disabled: true,
         value: noShowCount,
+        show: isEditing,
       },
       {
         label: '제목',
@@ -146,9 +145,12 @@ class EventDetailManage extends EventDetailCommon {
   // eventManageParticipant <- 와 같이 하면 될 듯
   // 얘는 props로 충분함
   renderParticipantDetail() {
-    const { selected } = this.state;
+    const { selected, isEditing } = this.state;
+
+    if (!isEditing) return;
+
     const { eventManageParticipant } = this.props;
-    const { name, answerDate, wonPrize, myPrize } = eventManageParticipant[selected];
+    const { name, answerDate, wonPrize, myPrize } = eventManageParticipant[selected] || {};
 
     return [
       {
@@ -183,9 +185,12 @@ class EventDetailManage extends EventDetailCommon {
   }
 
   renderAdditionalFooter() {
-    const { selected } = this.state;
+    const { selected, isEditing } = this.state;
+
+    if (!isEditing) return null;
+
     const { eventManageParticipant } = this.props;
-    const { answers } = eventManageParticipant[selected];
+    const { answers } = eventManageParticipant[selected] || {};
 
     //생성하기 화면에서는 Question을 추가하는 페이지가 필요함 (현재 구현 X)
     // isEditing에서만 적용

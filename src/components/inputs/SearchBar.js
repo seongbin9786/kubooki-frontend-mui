@@ -6,7 +6,7 @@ import FaIcon from '../FaIcon';
 
 const Root = styled.div`
   z-index: 1;
-  ${({ noMargin }) => noMargin && `
+  ${({ noMargin }) => !noMargin && `
     margin: 0 auto;
     padding-left: 24px;
     padding-right: 24px;

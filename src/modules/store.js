@@ -173,6 +173,16 @@ export const eventDetail = {
   ],
 };
 
+export const eventDetailEmpty = {
+  // 이벤트 표시 (공통) 데이터
+  title: '',
+  startDate: '',
+  endDate: '',
+  resultDate: '',
+  prize: '',
+  questions: [],
+};
+
 export const eventParticipateDetail = {
   // 이벤트 참여 (현재 선택된 참여하는 사람) 데이터
   participant: {
@@ -186,6 +196,27 @@ export const eventParticipateDetail = {
   ],
   wonPrize: false,
   myPrize: '',
+};
+
+export const eventParticipateFirstTime = {
+  participant: {
+    id: 1,
+    name: '김성빈',
+  },
+  answerDate: null,
+  answers: [],
+  wonPrize: false,
+  myPrize: '',
+}
+
+export const eventManageDetailFirstTime = {
+  // 이벤트 관리 (관리 페이지에서 필요한 정보) 데이터
+  // 관리자 Only
+  content: '',
+  views: 0,
+  likes: 0,
+  noShowCount: 0,
+  priority: -1,
 };
 
 export const eventManageDetail = {
@@ -208,6 +239,8 @@ export const eventManageDetail = {
   noShowCount: 0,
   priority: 1,
 };
+
+export const eventEmptyParticipant = [];
 
 export const eventManageParticipant = [
   {

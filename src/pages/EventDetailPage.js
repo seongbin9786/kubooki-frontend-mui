@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import BoardDetailPage from './BoardDetailPage';
-import { eventItem, eventDetail, eventParticipateDetail } from '../modules/store';
+import { eventItem, eventDetail, eventParticipateFirstTime } from '../modules/store';
 import EventParticipateBtn from '../components/buttons/EventParticipateBtn';
 import EventDetailParticipate from '../containers/EventDetailParticipate';
 
@@ -20,7 +20,7 @@ export default class EventDetailPage extends Component {
         <EventDetailParticipate
           open={detailOpen}
           eventDetail={eventDetail}
-          eventParticipateDetail={eventParticipateDetail}
+          eventParticipateDetail={eventParticipateFirstTime}
         />
       </React.Fragment>;
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import { withWidth } from '@material-ui/core';
 
 import NewsNavTab from '../components/navs/NewsNavTab';
 import NewsList from '../containers/NewsList';
 import { newsList } from '../modules/store';
+import { withWidth } from '@material-ui/core';
 
 export default withWidth()(({ width }) => (
   <React.Fragment>

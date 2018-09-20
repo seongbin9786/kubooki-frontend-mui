@@ -36,8 +36,8 @@ const StyledGridList = styled(GridList)`
   }
 `;
 
-const GridListTemplate = ({ title, titleType, subHeader, items, spacing, btnStr, noMoreLoadBtn }) => (
-  <Root>
+const GridListTemplate = ({ title, titleType, subHeader, items, spacing, btnStr, noMoreLoadBtn, noTopMargin }) => (
+  <Root noTopMargin={noTopMargin}>
     <StyledGridList spacing={spacing || 16}>
       {title
         ? (

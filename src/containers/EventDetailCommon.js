@@ -34,6 +34,29 @@ class EventDetailCommon extends FormComponent {
     console.log('CONSTRUCTOR --- EventDetailCommon');
   }
 
+  // 재사용
+  componentDidUpdate(prevProps) {
+    const { open: beforeOpen } = prevProps;
+    const { open: afterOpen } = this.props;
+
+    if (!beforeOpen && afterOpen) {
+      this.focusOnOpen();
+    }
+  }
+
+  // 재사용
+  focusOnOpen() {
+    const manageMode = this.props.eventManageParticipant !== undefined;
+
+    setTimeout(() => {
+      const pageTitle = document.getElementById('pageTitle');
+      window.scrollTo(0, pageTitle.getBoundingClientRect().top);
+
+      const input = document.getElementsByName(manageMode ? 'title' : 'q0')[0];
+      input.focus();
+    }, 300);
+  }
+
   // 템플릿 메소드
   getButtonTitle() { throw 'override'; }
 
@@ -49,12 +72,7 @@ class EventDetailCommon extends FormComponent {
   renderAdditionalFooter() { }
 
   renderCommonFields() {
-    this.getInputList().map(input => this.renderField(input));
-  }
-
-  componentDidCatch(error, info) {
-    console.log('[EventDetailCommon] error:', error);
-    console.log('[EventDetailCommon] info:', info);
+    return this.getInputList().map(input => this.renderField(input));
   }
 
   // 재사용 - 템플릿 메소드를 활용

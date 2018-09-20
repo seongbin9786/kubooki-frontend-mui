@@ -6,7 +6,11 @@ import SearchBar from '../components/inputs/SearchBar';
 import EventDetailManage from '../containers/EventDetailManage';
 import CreateIconBtn from '../components/buttons/CreateIconBtn';
 import EventList from '../containers/EventList';
-import { eventDetail, eventManageParticipant, eventManageDetail, eventList } from '../modules/store';
+import {
+  eventDetail, eventManageParticipant, eventManageDetail,
+  eventEmptyParticipant, eventDetailEmpty, eventManageDetailFirstTime,
+  eventList
+} from '../modules/store';
 
 const Header = styled.div`
   margin-bottom: 30px;
@@ -56,12 +60,14 @@ class EventManagePage extends Component {
           dontDisplayAsHeadline
         />
 
-        <EventDetailManage
-          open={detailOpen}
-          eventDetail={eventDetail}
-          eventManageDetail={eventManageDetail}
-          eventManageParticipant={eventManageParticipant}
-        />
+        {detailOpen &&
+          <EventDetailManage
+            open={detailOpen}
+            eventDetail={isEditing ? eventDetail : eventDetailEmpty}
+            eventManageDetail={isEditing ? eventManageDetail : eventManageDetailFirstTime}
+            eventManageParticipant={isEditing ? eventManageParticipant : eventEmptyParticipant}
+          />
+        }
 
       </React.Fragment>
     );

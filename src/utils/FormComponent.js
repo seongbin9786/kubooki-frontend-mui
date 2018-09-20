@@ -12,7 +12,7 @@ class FormComponent extends Component {
   handleCheckboxChange = name => event => this.setState({ [name]: event.target.checked });
 
   renderField(field) {
-    const { state } = this;
+    const { state, props } = this;
     const { classes } = this.props;
     const {
       label, name, value, onChange, className, menuList,
@@ -21,10 +21,11 @@ class FormComponent extends Component {
       shrink = false,
       Component = TextField,
       type = 'text',
-      ...props,
+      ..._props,
     } = field;
 
     if (typeof show === 'function' && !show(state, props)) return;
+    if (!show) return;
 
     const onChangeFunc = typeof onChange === 'function' ? onChange(this) : this.handleChange(name);
     const disabledFunc = typeof disabled === 'function' ? disabled(state, props) : disabled;
@@ -78,7 +79,7 @@ class FormComponent extends Component {
           name={name}
           key={name}
           value={valueFunc}
-          {...props}
+          {..._props}
         />
       );
     }

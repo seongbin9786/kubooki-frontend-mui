@@ -15,7 +15,7 @@ const styles = {
   imgRoot: {
     position: 'relative',
     width: '100%',
-    height: '15%',
+    minHeight: 500,
     marginBottom: 50,
   },
   img: {

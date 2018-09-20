@@ -19,6 +19,7 @@ const styles = {
   root: {
     flexGrow: 1,
     width: '100%',
+    color: 'white',
   },
   toolbar: ({ width }) => ({
     minHeight: 'auto',
