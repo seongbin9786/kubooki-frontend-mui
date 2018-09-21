@@ -35,7 +35,7 @@ export default class extends FormComponent {
           title='로그인'
         >
           <DialogContent>
-            {fields.map(input => this.renderField(input))}
+            {fields.map(field => this.renderField(field))}
           </DialogContent>
           <DialogActions style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Button onClick={onRegisterClick} color="primary">

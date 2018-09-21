@@ -17,11 +17,11 @@ export default class EventDetailPage extends Component {
     const footer =
       <React.Fragment>
         {!detailOpen && <EventParticipateBtn handleClick={this.toggle} />}
-        <EventDetailParticipate
+        {detailOpen && <EventDetailParticipate
           open={detailOpen}
           eventDetail={eventDetail}
           eventParticipateDetail={eventParticipateFirstTime}
-        />
+        />}
       </React.Fragment>;
 
     return (

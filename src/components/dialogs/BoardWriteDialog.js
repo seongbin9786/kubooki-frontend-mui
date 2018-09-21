@@ -54,7 +54,7 @@ export default withStyles(styles)(class extends FormComponent {
         title={category + ' 작성'}
       >
         <DialogContent>
-          {fields.map(input => this.renderField(input))}
+          {fields.map(field => this.renderField(field))}
         </DialogContent>
         <DialogActions className={classes.actions}>
           <Button onClick={handleClose} color="primary">

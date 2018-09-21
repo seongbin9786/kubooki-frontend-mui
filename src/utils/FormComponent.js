@@ -24,6 +24,8 @@ class FormComponent extends Component {
       ..._props,
     } = field;
 
+    console.log('renderField - ', name, label);
+
     if (typeof show === 'function' && !show(state, props)) return;
     if (!show) return;
 

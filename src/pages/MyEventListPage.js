@@ -42,6 +42,7 @@ class MyEventListPage extends Component {
 
         <StyledLoadMoreBtn />
 
+        {/* TODO: Dialog로 변경 */}
         <EventDetailParticipate
           open={detailOpen}
           eventDetail={eventDetail}

@@ -72,7 +72,7 @@ export default withStyles(styles)(class extends FormComponent {
         confirmation
       >
         <DialogContent>
-          {fields.map(input => this.renderField(input))}
+          {fields.map(field => this.renderField(field))}
           <UploadBtn btnStr='업로드' />
         </DialogContent>
         <DialogActions className={classes.actions}>

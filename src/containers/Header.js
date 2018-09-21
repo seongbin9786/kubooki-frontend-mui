@@ -117,31 +117,31 @@ class Header extends DialogOwnerComponent {
             >
               경기대학교 웹지거북이
             </Typography>
-            <LoginDialog
+            {login && <LoginDialog
               open={login}
               handleClose={this.toggleDialog('login')}
               onRegisterClick={this.toggleDialog('register')}
               onSubmit={this.handleLoginSubmit}
-            />
-            <RegisterDialog
+            />}
+            {register && <RegisterDialog
               open={register}
               handleClose={this.toggleDialog('register')}
               onSubmit={this.handleRegisterSubmit}
-            />
-            <NewsReportDialog
+            />}
+            {reportNews && <NewsReportDialog
               open={reportNews}
               handleClose={this.toggleDialog('reportNews')}
               onSubmit={this.handleNewsReportSubmit}
-            />
-            <InconvenienceReportDialog
+            />}
+            {reportInconveniences && <InconvenienceReportDialog
               open={reportInconveniences}
               handleClose={this.toggleDialog('reportInconveniences')}
               onSubmit={this.handleInconvenienceReportSubmit}
-            />
-            <SettingsDialog
+            />}
+            {settings && <SettingsDialog
               open={settings}
               handleClose={this.toggleDialog('settings')}
-            />
+            />}
             {loggedIn ?
               <div
                 className={classes.avatar}

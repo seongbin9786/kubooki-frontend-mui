@@ -74,7 +74,7 @@ export default class extends FormComponent {
           title='회원가입'
         >
           <DialogContent>
-            {fields.map(input => this.renderField(input))}
+            {fields.map(field => this.renderField(field))}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">

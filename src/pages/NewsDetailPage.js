@@ -136,11 +136,11 @@ class NewsDetail extends DialogOwnerComponent {
           />
         </div>
 
-        <CorrectionWriteDialog
+        {correction && <CorrectionWriteDialog
           open={correction}
           newsId={news.id}
           handleClose={this.toggleDialog('correction')}
-        />
+        />}
 
         <Divider className={classes.divider} />
 
