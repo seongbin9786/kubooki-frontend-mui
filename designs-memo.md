@@ -33,7 +33,7 @@
 - 단 대시보드 페이지에 들어가는 경우 FAB이 Bottom Navigation을 가리는 문제가 생긴다.
 - 이걸 해결하기 위해 LOW와 HIGH 모드를 추가하고 싶다.
 
-##### 2안
+##### 2안 (이 방법으로 하려고 마음이 거의 정해짐)
 
 - 또 다른 해결 방안은 애초에 Bottom Navigation을 사용하는 것이다.
 - 현재 카카오톡, 유튜브 등이 Bottom Navigation을 적용하고 있는데, 덕분에 적응하는 데 필요한 불편함은 감소될 것 같다.
@@ -62,12 +62,27 @@
 
 ##### 자동 로그인 문제
 
-- 자동 로그인은 어떻게 사용할 것인가? 
+- refresh token의 문제인 것 같다.
+- refresh token이 이후 접속 시에 사용 불가능해야 한다.
+- 아래의 방법은 refresh token을 서버에서 강제로 revoke하지 않아도 되는 방법이다.
+
+###### 자동 로그인인 경우 
+
+- 자동 로그인일 경우에만 long-term으로 refresh token을 발급한다. (6개월 정도)
+- refresh token은 재사용될 때 마다 다시 갱신된다. (기간은 동일하게)
+
+###### 자동 로그인이 아닌 경우 
+
+- 자동 로그인을 사용하지 않는 경우 access token의 시간을 10분으로 한정하고, refresh token의 시간을 20분으로 한정한다.
+- refresh token이 20분 내에 사용되지 않는 경우 만료되며 이후 다시 로그인 해야 한다.
 
 ##### 다운로드한 컨텐츠 유지 문제
 
 - localStorage를 직접 사용할 지 redux-persist를 사용할 지 아직은 모르겠다. 
 - 다만 redux-persist는 Redux Store를 아예 저장하는 방식이라 부하가 심할 것 같다.
+- localStorage를 직접 사용해야 할 것 같다.
+- 다만 localStorage를 사용하는 것도 side effect라서 Thunk Creator로 처리해야 할탠데, 기존에 api access 하는 것에 너무 추가되면 복잡해질 것이 우려된다.
+- **따라서 일단 api call만 하는 cycle로 구현을 완료한 이후 생각하려고 한다.**
 
 #### 권한에 대하여
 
@@ -99,3 +114,8 @@
 - Pointcut: 시점 [ before/after/around/throw ] (+) 대상이되는 클래스, 메소드의 이름을 정규표현식으로 지정한다.
 - Aspect가 적용되어야 할 클래스/메소드에 `@Wove`라는 어노테이션을 붙인다.
 - `@Wove({ bar: 40 })`와 같이 매개변수를 넘길 수도 있다. 해당 매개변수는 Advice에서 Metadata라는 객체로 첫 번째 매개변수로 전달받을 수 있다.
+
+#### 권한의 구현 방법에 대하여 (2안)
+
+- HasPermission 컴포넌트가 필요하다.
+- 
