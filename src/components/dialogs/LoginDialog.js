@@ -26,6 +26,10 @@ export default class extends FormComponent {
   render() {
     const { open, handleClose, onSubmit, onRegisterClick } = this.props;
 
+    const fieldsInfo = this.renderFields(fields);
+    const hasErrors = fieldsInfo.some(field => field.error === true);
+    const fieldsRendered = fieldsInfo.map(field => field.component);
+
     return (
       <div>
         <ResponsiveDialog
@@ -35,7 +39,7 @@ export default class extends FormComponent {
           title='로그인'
         >
           <DialogContent>
-            {fields.map(field => this.renderField(field))}
+            {fieldsRendered}
           </DialogContent>
           <DialogActions style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Button onClick={onRegisterClick} color="primary">
@@ -45,7 +49,7 @@ export default class extends FormComponent {
               <Button onClick={handleClose} color="primary">
                 취소
               </Button>
-              <Button onClick={onSubmit} color="primary" variant='raised'>
+              <Button onClick={onSubmit} disabled={hasErrors} color="primary" variant='raised'>
                 로그인
               </Button>
             </div>

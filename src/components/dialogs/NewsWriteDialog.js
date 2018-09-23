@@ -23,34 +23,6 @@ const styles = theme => ({
   },
 });
 
-const fields = [
-  {
-    label: '제목',
-    name: 'title'
-  },
-  {
-    label: '분류',
-    type: 'select',
-    name: 'category',
-    menuList: [
-      ['경기소식', '경기소식'],
-      ['기획연재', '기획연재'],
-      ['경대피플', '경대피플'],
-    ]
-  },
-  {
-    Component: 'quill',
-    label: '본문',
-    name: 'content'
-  },
-  {
-    Component: ImagePreview,
-    label: '섬네일',
-    name: 'imgUrl',
-    isForm: true,
-  }
-];
-
 export default withStyles(styles)(class extends FormComponent {
   state = {
     title: '',
@@ -60,8 +32,42 @@ export default withStyles(styles)(class extends FormComponent {
     imgUrl: 'https://mikesmasterclasses.com/wp-content/uploads/2017/07/no-thumbnail.png',
   };
 
+  fields = [
+    {
+      label: '제목',
+      name: 'title',
+      validate: this.validateByMinLength('제목', 10)
+    },
+    {
+      label: '분류',
+      type: 'select',
+      name: 'category',
+      menuList: [
+        ['경기소식', '경기소식'],
+        ['기획연재', '기획연재'],
+        ['경대피플', '경대피플'],
+      ],
+      validate: this.validateNotNull
+    },
+    {
+      Component: 'quill',
+      label: '본문',
+      name: 'content'
+    },
+    {
+      Component: ImagePreview,
+      label: '섬네일',
+      name: 'imgUrl',
+      isForm: true,
+    }
+  ];
+
   render() {
     const { open, handleClose, onSubmit, classes } = this.props;
+
+    const fieldsInfo = this.renderFields(this.fields);
+    const hasErrors = fieldsInfo.some(field => field.error === true);
+    const fieldsRendered = fieldsInfo.map(field => field.component);
 
     return (
       <ResponsiveDialog
@@ -72,7 +78,7 @@ export default withStyles(styles)(class extends FormComponent {
         confirmation
       >
         <DialogContent>
-          {fields.map(field => this.renderField(field))}
+          {fieldsRendered}
           <UploadBtn btnStr='업로드' />
         </DialogContent>
         <DialogActions className={classes.actions}>
@@ -83,7 +89,7 @@ export default withStyles(styles)(class extends FormComponent {
             <Button onClick={handleClose} color="primary">
               취소
             </Button>
-            <Button onClick={onSubmit} color="primary" variant='raised'>
+            <Button onClick={onSubmit} disabled={hasErrors} color="primary" variant='raised'>
               작성
             </Button>
           </div>

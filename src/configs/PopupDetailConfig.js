@@ -46,6 +46,5 @@ export default [
     Component: 'quill',
     label: '본문',
     name: 'content',
-    onChange: thisVar => thisVar.handleQuillChange,
   }
 ];

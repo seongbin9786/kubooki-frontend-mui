@@ -25,26 +25,35 @@ const styles = theme => ({
   },
 });
 
-const fields = [
-  {
-    label: '제목',
-    name: 'title',
-  },
-  {
-    Component: 'quill',
-    label: '본문',
-    name: 'content',
-  },
-];
-
 export default withStyles(styles)(class extends FormComponent {
   state = {
     title: '',
     content: '',
   };
 
+  fields = [
+    {
+      label: '제목',
+      name: 'title',
+      validate: this.validateByLength('제목', 10)
+    },
+    {
+      Component: 'quill',
+      label: '본문',
+      name: 'content',
+    },
+  ];
+
+  onSubmit = () => {
+
+  }
+
   render() {
-    const { category, open, handleClose, onSubmit, classes } = this.props;
+    const { category, open, handleClose, classes } = this.props;
+
+    const fieldsInfo = this.renderFields(this.fields);
+    const hasErrors = fieldsInfo.some(field => field.error === true);
+    const fieldsRendered = fieldsInfo.map(field => field.component);
 
     return (
       <ResponsiveDialog
@@ -54,7 +63,7 @@ export default withStyles(styles)(class extends FormComponent {
         title={category + ' 작성'}
       >
         <DialogContent>
-          {fields.map(field => this.renderField(field))}
+          {fieldsRendered}
         </DialogContent>
         <DialogActions className={classes.actions}>
           <Button onClick={handleClose} color="primary">
@@ -64,7 +73,7 @@ export default withStyles(styles)(class extends FormComponent {
             <Button onClick={handleClose} color="primary">
               취소
             </Button>
-            <Button onClick={onSubmit} color="primary" variant='raised'>
+            <Button onClick={this.onSubmit} disabled={hasErrors} color="primary" variant='raised'>
               작성
             </Button>
           </div>

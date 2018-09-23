@@ -8,7 +8,7 @@ import BoardListLarge from './BoardListLarge';
 function BoardList({ width, rows, location: { pathname } }) {
   const ListTemplate = width === 'xs' ? BoardListMobile : BoardListLarge;
 
-  return <ListTemplate rows={rows} pathname={pathname} />
+  return <ListTemplate rows={rows} pathname={pathname} />;
 }
 
 export default withWidth()(withRouter(BoardList));

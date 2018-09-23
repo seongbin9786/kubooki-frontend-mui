@@ -2,13 +2,38 @@
 
 설계에 필요한 생각들을 모아두는 메모장임
 
+## 현재 작업해야 할 순서
+
+1. Form Validation 구현
+
+2. Redux에 저장할 정보 구분
+
+3. Container, Presentational Component로 리팩토링
+
+4. Redux Store, Reducer, Action Creator 생성 (Action의 api call은 mock)
+
+5. Redux에서 API Call 적용
+
+6. User 관련해서 `redux-react-session` 적용
+
+7. 권한 정의 및 `<HasPermission>` 적용
+
+8. 자동 로그인 및 비자동 로그인의 flow 구현
+
 ### Form
 
 - 현재처럼 Material-UI 기반의 컴포넌트 + Quill + 내맘대로 컴포넌트를 렌더링할 수 있도록 직접 구현한 `renderField()`를 사용해야 될 듯
+
+#### Form Validation의 구현에 대해서
+
 - 그래서 Validation과 Error 표시를 직접해야 된다.
 - Material-UI의 컴포넌트는 `error` prop을 전달하면 알아서 빨간줄로 변경된다.
 - Material-UI의 inpt 바로 아래 Text로 부연설명하는 `<FormHelperText>` 컴포넌트도 있다. 
 - Validation 함수만 받으면 onBlur (onFocus와 반대의 이벤트) 시와 onChange시에 점검하면 된다.
+
+#### 자동 저장 기능 구현에 대해서
+
+- entityType을 
 
 ### Redux
 
@@ -57,7 +82,8 @@
 
 - 회원은 만약 자동 로그인을 사용하지 않는다면 sessionStorage가 로그아웃 과정을 구현하지 않아도 되므로 좋을 것 같다.
 - 자동 로그인이냐 아니냐에 따라서 local vs session 사용 여부가 갈리게 된다.
-- 좋은 Solution을 구했다. `redux-react-session`이라는 솔루션인데, 매우 가벼운 Service를 제공한다. 사용자의 로딩을 관리한다. 예제 소스까지 있으므로 바로 분석 후 쉽게 적용 가능할 것 같다. 가장 좋은 점은 localstorage에서 사용자를 불러오는 것이 자동화되어있다는 점이다.
+- 좋은 Solution을 구했다. `redux-react-session`이라는 솔루션인데, 매우 가벼운 Service를 제공한다. localStorage로부터 사용자 데이터를 불러온다. 
+- 예제 소스까지 있으므로 바로 분석 후 쉽게 적용 가능할 것 같다.
 - `sessionService`를 거치기만 하면 된다. Redux에서는 `session` 값에 접근하면 된다.
 
 ##### 자동 로그인 문제
@@ -65,18 +91,22 @@
 - refresh token의 문제인 것 같다.
 - refresh token이 이후 접속 시에 사용 불가능해야 한다.
 - 아래의 방법은 refresh token을 서버에서 강제로 revoke하지 않아도 되는 방법이다.
+- 참고: refresh token은 사용될 때 마다 동일한 기간으로 연장되어 갱신된다.
+- refresh token이 만료되는 경우 다시 로그인 해야 한다.
 
 ###### 자동 로그인인 경우 
 
-- 자동 로그인일 경우에만 long-term으로 refresh token을 발급한다. (6개월 정도)
-- refresh token은 재사용될 때 마다 다시 갱신된다. (기간은 동일하게)
+- 6개월 정도의 long-term으로 refresh token을 발급한다. 
+- setInterval 등의 방법으로 seamless하게 refresh 하지 않는다.
 
-###### 자동 로그인이 아닌 경우 
+###### 자동 로그인이 아닌 경우
 
-- 자동 로그인을 사용하지 않는 경우 access token의 시간을 10분으로 한정하고, refresh token의 시간을 20분으로 한정한다.
-- refresh token이 20분 내에 사용되지 않는 경우 만료되며 이후 다시 로그인 해야 한다.
+- access token의 시간을 10분으로 한정하고, refresh token의 시간을 20분으로 한정한다.
+- 단순히 글쓰기를 하는 경우 20분 이상 아무 행동을 하지 않을 수도 있는데 어떻게 해야하지?
+- 그런 경우를 위해서, 자동 로그인이 아닌 경우 setInterval을 걸면 될 것 같다. (19분 정도로)
+- `session`과 유사한 `lifecycle`이 가능할 것으로 보인다.
 
-##### 다운로드한 컨텐츠 유지 문제
+##### 다운로드한 컨텐츠 유지 문제 (현재 고려 대상 아님.)
 
 - localStorage를 직접 사용할 지 redux-persist를 사용할 지 아직은 모르겠다. 
 - 다만 redux-persist는 Redux Store를 아예 저장하는 방식이라 부하가 심할 것 같다.
@@ -88,7 +118,7 @@
 
 - React에서는 UI 권한을 다루게 된다. (메뉴 표시)
 - 이 권한을 어떻게 관리할 지가 문제이다.
-- JWT에 실려있는 authMap을 참조할 경우 authMap[B1][0] === '1' 이렇게 비교해야 한다.
+- JWT에 실려있는 authMap을 참조할 경우 `authMap['B1'][0] === '1'` 이렇게 비교해야 한다.
 - 즉 SecurityRule, SecurityRepository, SecurityJudge가 프론트엔드에서도 필요하게 된다.
 - 결국 JS에서도 권한 기반으로 가야한다.
 - Role based로 가면 좋긴한데, 물론 지금은 RoleFactory로 사실상 Role based로 운영하고 있지만, Permission-based로 언제든 전환할 수 있다.
@@ -118,4 +148,10 @@
 #### 권한의 구현 방법에 대하여 (2안)
 
 - HasPermission 컴포넌트가 필요하다.
-- 
+- 관련 클래스 및 컴포넌트는 `/security` 폴더에 보관하면 될 듯.
+- 구현 완료! (react-has-permission)
+
+#### 권한의 정의 방법
+
+- 보안 규칙은 authMap과 target에 접근할 수 있다.
+- SpEL과 거의 비슷한 기능을 가지므로 (단, 외부 객체에 접근할 순 없음.) 유사하게 사용하면 될 듯 하다.
