@@ -24,24 +24,15 @@ const styles = theme => ({
 });
 
 export default withStyles(styles)(class extends FormComponent {
-  state = {
-    title: '',
-    category: '',
-    content: '',
-    // default image
-    imgUrl: 'https://mikesmasterclasses.com/wp-content/uploads/2017/07/no-thumbnail.png',
-  };
 
-  fields = [
-    {
+  getFieldDefinitions = () => ({
+    title: {
       label: '제목',
-      name: 'title',
       validate: this.validateByMinLength('제목', 10)
     },
-    {
+    category: {
       label: '분류',
       type: 'select',
-      name: 'category',
       menuList: [
         ['경기소식', '경기소식'],
         ['기획연재', '기획연재'],
@@ -49,23 +40,22 @@ export default withStyles(styles)(class extends FormComponent {
       ],
       validate: this.validateNotNull
     },
-    {
+    content: {
       Component: 'quill',
       label: '본문',
-      name: 'content'
     },
-    {
+    imgUrl: {
       Component: ImagePreview,
       label: '섬네일',
-      name: 'imgUrl',
       isForm: true,
+      value: 'https://mikesmasterclasses.com/wp-content/uploads/2017/07/no-thumbnail.png'
     }
-  ];
+  });
 
   render() {
     const { open, handleClose, onSubmit, classes } = this.props;
 
-    const fieldsInfo = this.renderFields(this.fields);
+    const fieldsInfo = this.renderFields();
     const hasErrors = fieldsInfo.some(field => field.error === true);
     const fieldsRendered = fieldsInfo.map(field => field.component);
 

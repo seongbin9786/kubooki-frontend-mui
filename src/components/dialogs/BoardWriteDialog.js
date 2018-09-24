@@ -46,7 +46,7 @@ export default withStyles(styles)(class extends FormComponent {
 
     const { category, open, handleClose, classes } = this.props;
 
-    const fieldsInfo = this.state === null ? [] : this.renderFields();
+    const fieldsInfo = this.renderFields();
     const hasErrors = fieldsInfo.some(field => field.error === true);
     const fieldsRendered = fieldsInfo.map(field => field.component);
 
@@ -56,6 +56,7 @@ export default withStyles(styles)(class extends FormComponent {
         autoFocus='title'
         handleClose={handleClose}
         title={category + ' 작성'}
+        confirmation
       >
         <DialogContent>
           {fieldsRendered}

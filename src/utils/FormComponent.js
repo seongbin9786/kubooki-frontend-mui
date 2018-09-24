@@ -23,6 +23,8 @@ class FormComponent extends Component {
    */
   initializeFields(fieldDefinitions) {
 
+    console.log('fieldDefinitions: ', fieldDefinitions);
+
     if (!fieldDefinitions) throw Error("필드 정의가 없습니다.");
 
     const fields = this.createFieldsByDefinitions(fieldDefinitions);
@@ -171,6 +173,8 @@ class FormComponent extends Component {
    * 전체 필드를 렌더링한다.
    */
   renderFields() {
+    if (!this.state) return [];
+
     const { fields } = this.state;
 
     let renderedFields = [];

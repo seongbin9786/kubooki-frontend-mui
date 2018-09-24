@@ -74,8 +74,6 @@ class NewsWritePage extends DialogOwnerComponent {
         <NewsWriteDialog
           open={newsWrite}
           handleClose={this.toggleDialog('newsWrite')}
-          disableBackdropClick
-          disableEscapeKeyDown
         />
       </React.Fragment >
     );

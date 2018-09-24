@@ -8,42 +8,29 @@ import FormComponent from '../../utils/FormComponent';
 import PasswordInput from '../inputs/PasswordInput';
 
 export default class extends FormComponent {
-  state = {
-    registerId: '',
-    password: '',
-    passwordAgain: '',
-    name: '',
-    college: '',
-    identity: '',
-  };
 
-  fields = [
-    {
+  getFieldDefinitions = () => ({
+    registerId: {
       label: '아이디',
-      name: 'registerId',
       validate: this.validateByLength('아이디', 8)
     },
-    {
+    password: {
       Component: PasswordInput,
       label: '비밀번호',
-      name: 'password',
       validate: this.validateByLength('비밀번호', 8)
     },
-    {
+    passwordAgain: {
       Component: PasswordInput,
       label: '비밀번호 확인',
-      name: 'passwordAgain',
       validate: this.validateByLength('비밀번호', 8)
     },
-    {
+    name: {
       label: '이름',
-      name: 'name',
       validate: this.validateByLength('이름', 2)
     },
-    {
+    college: {
       label: '소속대학(소속교직)',
       type: 'select',
-      name: 'college',
       menuList: [
         ['융합교양대학', '융합교양대학'],
         ['휴면인재융합대학', '휴면인재융합대학'],
@@ -53,10 +40,9 @@ export default class extends FormComponent {
         ['관광문화대학', '관광문화대학'],
       ]
     },
-    {
+    identity: {
       label: '신분',
       type: 'select',
-      name: 'identity',
       menuList: [
         ['학생', '학생'],
         ['교직원', '교직원'],
@@ -64,12 +50,12 @@ export default class extends FormComponent {
         ['기타', '기타']
       ]
     }
-  ];
+  });
 
   render() {
     const { open, handleClose, onSubmit } = this.props;
 
-    const fieldsInfo = this.renderFields(this.fields);
+    const fieldsInfo = this.renderFields();
     const hasErrors = fieldsInfo.some(field => field.error === true);
     const fieldsRendered = fieldsInfo.map(field => field.component);
 

@@ -5,28 +5,22 @@ import ResponsiveDialog from '../../utils/ResponsiveDialog';
 import FormComponent from '../../utils/FormComponent';
 import PasswordInput from '../inputs//PasswordInput';
 
-const fields = [
-  {
-    label: '아이디',
-    name: 'loginId'
-  },
-  {
-    Component: PasswordInput,
-    label: '비밀번호',
-    name: 'password'
-  }
-];
-
 export default class extends FormComponent {
-  state = {
-    loginId: '',
-    password: '',
-  };
+
+  getFieldDefinitions = () => ({
+    loginId: {
+      label: '아이디',
+    },
+    password: {
+      Component: PasswordInput,
+      label: '비밀번호',
+    }
+  });
 
   render() {
     const { open, handleClose, onSubmit, onRegisterClick } = this.props;
 
-    const fieldsInfo = this.renderFields(fields);
+    const fieldsInfo = this.renderFields();
     const hasErrors = fieldsInfo.some(field => field.error === true);
     const fieldsRendered = fieldsInfo.map(field => field.component);
 
