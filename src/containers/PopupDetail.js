@@ -63,20 +63,22 @@ class PopupDetail extends FormComponent {
     const { editMode } = this.state;
     const title = editMode ? '팝업 관리 상세' : '팝업 생성';
 
+    const fieldsInfo = this.renderFields(popupList);
+    const hasErrors = fieldsInfo.some(field => field.error === true);
+    const fieldsRendered = fieldsInfo.map(field => field.component);
+
     return (
       <Collapse in={open} collapsedHeight='0px' >
         <div className={classes.header}>
           <Typography variant='display1'>{title}</Typography>
           {editMode && <DeleteIconBtn className={classes.headerBtn} />}
         </div>
-
-        {popupList.map(input => this.renderField(input))}
-
+        {fieldsRendered}
         <div className={classes.alignChildrenRight}>
           <Button color="primary" className={classes.marginOneUnit}>
             취소
           </Button>
-          <Button color="primary" variant='raised' className={classes.marginOneUnit}>
+          <Button color="primary" disabled={hasErrors} variant='raised' className={classes.marginOneUnit}>
             수정
           </Button>
         </div>

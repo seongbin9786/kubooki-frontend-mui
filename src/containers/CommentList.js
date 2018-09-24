@@ -31,23 +31,30 @@ const Counter = styled.b`
 
 */
 function CommentList({ list, writebox, user, myCommentView, showLoadMoreBtn }) {
-  const props = {
-    title: <span><Counter>{list ? list.length : 0}</Counter> 개의 댓글</span>,
-    noContentMsg: <span><FaIcon icon='lg-comment-dots' /> 작성된 댓글이 없습니다.</span>,
-    items: list ? list.map((comment, index) =>
-      <React.Fragment key={index}>
-        <CommentItem comment={comment} myCommentView={myCommentView} />
-        <Divider />
-      </React.Fragment>) : null
-  };
+
+  const title = <span><Counter>{list ? list.length : 0}</Counter> 개의 댓글</span>;
+
+  const subHeader = writebox ? <CommentWriteBox user={user} /> : null;
+
+  const loadMoreBtn = showLoadMoreBtn ? <LoadMoreBtn btnStr='댓글 더 불러오기' /> : null;
+
+  const noContentMsg = <span><FaIcon icon='lg-comment-dots' /> 작성된 댓글이 없습니다.</span>;
+
+  const items = list ? list.map((comment, index) => (
+    <React.Fragment key={index}>
+      <CommentItem comment={comment} myCommentView={myCommentView} />
+      <Divider />
+    </React.Fragment>)) : null;
 
   return (
     <FlatListTemplate
       titleType='title'
-      subHeader={writebox ? <CommentWriteBox user={user} /> : null}
+      title={title}
+      subHeader={subHeader}
       paperWrap
-      loadMoreBtn={showLoadMoreBtn ? <LoadMoreBtn btnStr='댓글 더 불러오기' /> : null}
-      {...props}
+      loadMoreBtn={loadMoreBtn}
+      noContentMsg={noContentMsg}
+      items={items}
     />
   );
 }

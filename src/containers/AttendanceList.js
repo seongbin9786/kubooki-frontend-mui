@@ -84,10 +84,10 @@ let EnhancedTableToolbar = props => {
             {numSelected}명 선택됨
           </Typography>
         ) : (
-            <Typography variant="title" id="tableTitle">
-              {currentDepartment + ' 출석부'}
-            </Typography>
-          )}
+          <Typography variant="title" id="tableTitle">
+            {currentDepartment + ' 출석부'}
+          </Typography>
+        )}
       </div>
       <Typography variant='caption' className={classes.today}>{today}</Typography>
       <div className={classes.spacer} />

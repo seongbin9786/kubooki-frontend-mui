@@ -4,7 +4,7 @@
 
 ## 현재 작업해야 할 순서
 
-1. Form Validation 구현
+1. Form Validation 구현 (v)
 
 2. Redux에 저장할 정보 구분
 
@@ -18,7 +18,9 @@
 
 7. 권한 정의 및 `<HasPermission>` 적용
 
-8. 자동 로그인 및 비자동 로그인의 flow 구현
+8. 소셜 로그인
+
+9. 자동 로그인 및 비자동 로그인의 flow 구현
 
 ### Form
 
