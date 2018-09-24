@@ -26,32 +26,27 @@ const styles = theme => ({
 });
 
 export default withStyles(styles)(class extends FormComponent {
-  state = {
-    title: '',
-    content: '',
-  };
 
-  fields = [
-    {
+  getFieldDefinitions = () => ({
+    title: {
       label: '제목',
-      name: 'title',
-      validate: this.validateByLength('제목', 10)
+      validate: this.validateByMinLength('제목', 10)
     },
-    {
+    content: {
       Component: 'quill',
       label: '본문',
-      name: 'content',
     },
-  ];
+  });
 
-  onSubmit = () => {
-
-  }
+  onSubmit = f => f;
 
   render() {
+
+    console.log('render!');
+
     const { category, open, handleClose, classes } = this.props;
 
-    const fieldsInfo = this.renderFields(this.fields);
+    const fieldsInfo = this.state === null ? [] : this.renderFields();
     const hasErrors = fieldsInfo.some(field => field.error === true);
     const fieldsRendered = fieldsInfo.map(field => field.component);
 

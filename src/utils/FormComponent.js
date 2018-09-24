@@ -5,11 +5,147 @@ import QuillEditor from '../components/inputs/QuillEditor';
 import ImagePreview from '../components/inputs/ImagePreview';
 
 class FormComponent extends Component {
-  handleChange = inputName => ({ target: { value } }) => this.setState({ [inputName]: value });
 
-  handleQuillChange = name => value => this.setState({ [name]: value });
+  componentDidMount() {
+    console.log('cdm!');
 
-  handleCheckboxChange = name => event => this.setState({ [name]: event.target.checked });
+    const fieldDefinitions = this.getFieldDefinitions();
+
+    this.initializeFields(fieldDefinitions);
+  }
+
+  /**
+   * 필드 정의를 기반으로 필드에 실제로 필요한 state 구조를 구축한다.
+   * 폼 사용 시 최소 1회는 호출되어야 한다.
+   * 기본값으로 componentDidMount에서 호출되고 있다.
+   * 
+   * @param {object} fieldDefinitions 
+   */
+  initializeFields(fieldDefinitions) {
+
+    if (!fieldDefinitions) throw Error("필드 정의가 없습니다.");
+
+    const fields = this.createFieldsByDefinitions(fieldDefinitions);
+
+    this.setState({ fields });
+
+    console.log('fields: ', fields);
+  }
+
+  /**
+   * 필드들을 정의한 객체를 받아 state를 초기화한다.
+   */
+  createFieldsByDefinitions(fieldDefinitions) {
+
+    let fields = {};
+
+    for (let name in fieldDefinitions) {
+
+      fields[name] = {
+
+        /* 기본 값 */
+        error: false,
+        msg: '',
+        show: true,
+        disabled: false,
+        shrink: false,
+        value: '',
+        type: 'text',
+        Component: TextField,
+        name,
+        validate: () => ({ error: false, msg: '' }),
+
+        /* field 정의했던 값으로 override */
+        /* label, validate 등은 기본값이 없음 */
+        ...fieldDefinitions[name],
+      }
+    }
+
+    return fields;
+  }
+
+  /**
+   * 필드명에 해당하는 validate 함수를 가져와 필드값을 검증한다.
+   * 검증 결과의 error, msg 값으로 state를 갱신한다.
+   * 
+   * @param {string} name 필드명
+   * @param {any} value 필드값
+   */
+  validateField = (name, value) => {
+    const { fields } = this.state;
+    const { validate } = fields[name];
+
+    // 여기서 validate가 Promise를 반환하는 경우와 아닌 경우를 분리하면 됨
+    // Promise인 경우 callback으로 updateFieldErrorState를 전달하면 됨!
+    const result = validate(value);
+    let error, msg;
+
+    if (typeof result.then === 'function') { // Promise임
+      result.then(
+        ({ error, msg }) => {
+          error = error;
+          msg = msg;
+
+          console.log('Async Validate:', name, error, msg);
+          this.updateFieldErrorState(name, error, msg);
+        }
+      );
+    } else {
+      error = result.error;
+      msg = result.msg;
+
+      console.log('Sync Validate:', name, error, msg);
+      this.updateFieldErrorState(name, error, msg);
+    }
+  }
+
+  /**
+   * 필드의 오류 상태를 갱신한다.
+   * 
+   * @param {string} name 필드명
+   * @param {boolean} error 오류 여부
+   * @param {string} msg 오류 메시지
+   */
+  updateFieldErrorState = (name, error, msg) => {
+    this.setState(({ fields }) => ({
+      fields: {
+        ...fields,
+        [name]: {
+          ...fields[name],
+          error,
+          msg
+        }
+      }
+    }));
+  }
+
+  /**
+   * 필드의 값을 갱신한다.
+   * 
+   * @param {string} name 필드명
+   * @param {any} value 필드값
+   */
+  updateFieldValue = (name, value) => {
+    this.setState(({ fields }) => ({
+      fields: {
+        ...fields,
+        [name]: {
+          ...fields[name],
+          value
+        }
+      }
+    }));
+
+    this.validateField(name, value);
+
+    console.log('state changed: ', this.state);
+  }
+
+  handleChange = name => ({ target: { value } }) => this.updateFieldValue(name, value);
+
+  handleQuillChange = name => value => this.updateFieldValue(name, value);
+
+  handleCheckboxChange = name => ({ target: { checked } }) => this.updateFieldValue(name, checked);
 
   /**
    * 필드 입력값의 최소 길이를 검증한다.
@@ -22,17 +158,32 @@ class FormComponent extends Component {
   validateNotNull = val => val === '' || val === 0 || Boolean(val) === false ? ({ error: true, msg: '반드시 입력하여야 합니다.' }) : ({ error: false, msg: '' });
 
   /**
-   * validate 함수가 정의되지 않은 경우 기본값으로 사용되는 함수이다.
+   * 비동기 validate 함수 예제이다.
+   * 실제로 사용되는 공통 validate 함수는 아니다.
    */
-  defaultValidate = () => ({ error: false, msg: '' });
+  validateAsyncExample = val => new Promise(resolve => {
+    setTimeout(() => {
+      resolve({ error: true, msg: 'Async Validated  With Value:' + val });
+    }, 500);
+  })
 
   /**
-   * 필드의 배열을 렌더링한다.
-   * 
-   * @param {array} fields 
+   * 전체 필드를 렌더링한다.
    */
-  renderFields(fields) {
-    return fields.map(field => this.renderField(field));
+  renderFields() {
+    const { fields } = this.state;
+
+    let renderedFields = [];
+
+    let fieldName, renderedField;
+    for (fieldName in fields) {
+      renderedField = this.renderField(fields[fieldName]);
+      renderedFields.push(renderedField);
+    }
+
+    console.log('renderedFields:', renderedFields);
+
+    return renderedFields;
   }
 
   /**
@@ -46,13 +197,13 @@ class FormComponent extends Component {
     const { classes } = this.props;
     const {
       label, name, value, onChange, className, menuList,
-      show = true,
-      disabled = false,
-      shrink = false,
-      Component = TextField,
-      type = 'text',
-      validate = this.defaultValidate,
+      // menuList는 options의 valueList임. 이름을 바꿔야 할 듯
+      show, disabled, shrink, Component, type, validate, error, msg,
+
       ..._props,
+      // 얜 뭐지? image와 관련이 있는 것 같은데...
+      // 이미지 전용 prop 인듯
+
     } = field;
 
     if (typeof show === 'function' && !show(state, props)) return;
@@ -60,98 +211,70 @@ class FormComponent extends Component {
 
     const onChangeFunc = typeof onChange === 'function' ? onChange(this) : this.handleChange(name);
     const disabledFunc = typeof disabled === 'function' ? disabled(state, props) : disabled;
-    const valueFunc = value ? (typeof value !== 'function' ? value : value(state, props)) : this.state[name];
+    const valueFunc = value ? (typeof value !== 'function' ? value : value(state, props)) : value;
     const classNameFunc = className ? classes[className] : null;
 
-    // validation
-    const { error, msg } = validate(valueFunc) || ({ error: false, msg: '' });
+    let component;
 
-    // 체크 박스는 흠.. 이게 되나?
     if (type === 'checkbox') {
-      return {
-        error,
-        msg,
-        component:
-          <FormControlLabel
-            className={classNameFunc}
-            label={label}
+      component =
+        <FormControlLabel
+          className={classNameFunc}
+          label={label}
+          name={name}
+          key={name}
+          control={
+            <Checkbox
+              checked={valueFunc}
+              value={name}
+              disabled={disabledFunc}
+              onChange={this.handleCheckboxChange(name)}
+            />
+          }
+        />;
+    } else if (type === 'select') {
+      component =
+        <FormControl
+          fullWidth
+          className={classNameFunc}
+          margin='dense'
+          key={name}
+          error={error}
+        >
+          <InputLabel>{label}</InputLabel>
+          <Select
             name={name}
-            key={name}
-            control={
-              <Checkbox
-                checked={valueFunc}
-                value={name}
-                disabled={disabledFunc}
-                onChange={this.handleCheckboxChange(name)}
-              />
-            }
-          />
-      };
-    }
-
-    if (type === 'select') {
-      return {
-        error,
-        msg,
-        component:
-          <FormControl
-            fullWidth
-            className={classNameFunc}
-            margin='dense'
-            key={name}
-            error={error}
+            value={valueFunc}
+            onChange={onChangeFunc}
           >
-            <InputLabel>{label}</InputLabel>
-            <Select
-              name={name}
-              value={valueFunc}
-              onChange={onChangeFunc}
-            >
-              <MenuItem value=""><em>선택해주세요...</em></MenuItem>
-              {menuList.map(([value, name]) => <MenuItem value={value} key={value}>{name}</MenuItem>)}
-            </Select>
-            {error && <FormHelperText>{msg}</FormHelperText>}
-          </FormControl>
-      };
-    }
-
-    if (Component === ImagePreview) {
-      return {
-        error,
-        msg,
-        component:
-          <Component
-            label={label}
-            name={name}
-            key={name}
-            value={valueFunc}
-            {..._props}
-          />
-      };
-    }
-
-    if (Component === 'quill') {
-      return {
-        error,
-        msg,
-        component:
-          <QuillEditor
-            type={type}
-            label={label}
-            name={name}
-            key={name}
-            value={valueFunc}
-            onChange={this.handleQuillChange(name)}
-            className={classNameFunc}
-            disabled={disabledFunc}
-          />
-      };
-    }
-
-    return {
-      error,
-      msg,
-      component:
+            <MenuItem value=""><em>선택해주세요...</em></MenuItem>
+            {menuList.map(([value, name]) => <MenuItem value={value} key={value}>{name}</MenuItem>)}
+          </Select>
+          {error && <FormHelperText>{msg}</FormHelperText>}
+        </FormControl>;
+    } else if (Component === ImagePreview) {
+      component =
+        <Component
+          label={label}
+          name={name}
+          key={name}
+          value={valueFunc}
+          {..._props}
+        />;
+    } else if (Component === 'quill') {
+      component =
+        <QuillEditor
+          type={type}
+          label={label}
+          name={name}
+          key={name}
+          value={valueFunc}
+          onChange={console.log(this.handleQuillChange(name)) || this.handleQuillChange(name)}
+          className={classNameFunc}
+          disabled={disabledFunc}
+        />;
+    } else {
+      component =
         <Component
           type={type}
           label={label}
@@ -169,7 +292,13 @@ class FormComponent extends Component {
           // QuilEditor에서는 받아들이지 못함
           InputLabelProps={shrink ? { shrink: true } : null}
           fullWidth
-        />
+        />;
+    }
+
+    return {
+      error,
+      msg,
+      component
     };
   }
 }

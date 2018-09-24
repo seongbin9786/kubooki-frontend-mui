@@ -4,7 +4,7 @@
 
 ## 현재 작업해야 할 순서
 
-1. Form Validation 구현 (v)
+1. Form Validation 구현 (v) - Async Validation까지 구현 (v)
 
 2. Redux에 저장할 정보 구분
 
@@ -32,6 +32,53 @@
 - Material-UI의 컴포넌트는 `error` prop을 전달하면 알아서 빨간줄로 변경된다.
 - Material-UI의 inpt 바로 아래 Text로 부연설명하는 `<FormHelperText>` 컴포넌트도 있다. 
 - Validation 함수만 받으면 onBlur (onFocus와 반대의 이벤트) 시와 onChange시에 점검하면 된다.
+
+##### Async Field Validation 구현에 대해서
+
+- 현재 Sync Validation 밖에 안 된다. renderField 도중 값을 받아와서 error, msg를 표시하는 방식이기 때문이다.
+- Async Validation이 가능하려면, onBlur나 onChange 시에 `setState({ })`가 가능하므로 해당 이벤트 핸들러에서 처리해야 한다.
+- value 뿐만 아니라 error, msg, 등 렌더링에 필요한 요소들을 `state`에서 직접 관리하게 되면, onChange 및 onBlur에서 validation의 실행이 가능하다.
+- 문제는, 이 때 object의 nested level이 깊어져서 setState 시에 훨씬 복잡하게 된다. (ImmutableJs를 써야 하나...)
+- state에서 관리할 객체의 형태 예시이다
+  ```js
+
+  this.registerFields({
+    title: {
+      label: '제목',
+      validate: this.validateByLength('제목', 10),
+      value: '',
+    },
+    content: {
+      Component: 'quill',
+      label: '본문',
+      value: '',
+    },
+  });
+
+  [실제로 생성될 state 객체]: {
+    fields: {
+      title: { // name을 Object의 key로 사용
+        label: '제목', // label을 그대로 사용
+        Component: TextField, // 생략 가능
+        type: 'text', // 생략 가능
+        value: '',
+        error: false,
+        msg: '',
+        validate: f => f,
+        show: true,
+        disabled: false,
+        name,
+        ...그외다수Prop
+      },
+    }
+  }
+
+  // 이후 submit 시 전달할 Object
+  this.getValues() : {
+    title: '',
+    content: '',
+  }
+  ```
 
 #### 자동 저장 기능 구현에 대해서
 

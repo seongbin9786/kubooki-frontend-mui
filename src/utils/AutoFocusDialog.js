@@ -10,7 +10,11 @@ export default class AutoFocusDialog extends Component {
     const { open: afterOpen, autoFocus } = this.props;
 
     if (autoFocus && !beforeOpen && afterOpen) {
-      setTimeout(() => document.getElementsByName(autoFocus)[0].focus(), 300);
+      try {
+        setTimeout(() => document.getElementsByName(autoFocus)[0].focus(), 300);
+      } catch (err) {
+        throw Error("autoFocus에 실패했습니다. 대상 필드명: " + autoFocus);
+      }
     }
   }
 }
