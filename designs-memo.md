@@ -22,6 +22,8 @@
 
 9. 자동 로그인 및 비자동 로그인의 flow 구현
 
+10. FabNav 위치 가변적 지정
+
 ### Form
 
 - 현재처럼 Material-UI 기반의 컴포넌트 + Quill + 내맘대로 컴포넌트를 렌더링할 수 있도록 직접 구현한 `renderField()`를 사용해야 될 듯
@@ -33,15 +35,15 @@
 - Material-UI의 inpt 바로 아래 Text로 부연설명하는 `<FormHelperText>` 컴포넌트도 있다. 
 - Validation 함수만 받으면 onBlur (onFocus와 반대의 이벤트) 시와 onChange시에 점검하면 된다.
 
-##### Async Field Validation 구현에 대해서
+##### Async Field Validation 구현에 대해서 (완료)
 
 - 현재 Sync Validation 밖에 안 된다. renderField 도중 값을 받아와서 error, msg를 표시하는 방식이기 때문이다.
 - Async Validation이 가능하려면, onBlur나 onChange 시에 `setState({ })`가 가능하므로 해당 이벤트 핸들러에서 처리해야 한다.
 - value 뿐만 아니라 error, msg, 등 렌더링에 필요한 요소들을 `state`에서 직접 관리하게 되면, onChange 및 onBlur에서 validation의 실행이 가능하다.
 - 문제는, 이 때 object의 nested level이 깊어져서 setState 시에 훨씬 복잡하게 된다. (ImmutableJs를 써야 하나...)
 - state에서 관리할 객체의 형태 예시이다
-  ```js
 
+  ```js
   this.registerFields({
     title: {
       label: '제목',
@@ -82,7 +84,17 @@
 
 #### 자동 저장 기능 구현에 대해서
 
-- entityType을 
+- entityType을 Dialog에서 지정해야 한다.
+- 임시저장 기능에 넘길건 딱 두가지이다. `submit 시의 JSON`과 `entityType`이다.
+- 자동 저장 기능 Action 정의
+
+  ```js
+  // 저장 시
+  AutoSaveActions.save(entityType, json);
+
+  // 불러오기 시
+  const json = AutoSaveActions.load(entityType);
+  ```
 
 ### Redux
 
@@ -98,17 +110,28 @@
 - 리덕스 사용 시 Redux와 connect되는 Container와 Container로부터 props를 전달받기만 하는 Presentational로 컴포넌트를 분리하게 된다.
 - 이 때 Presentational이나 Container 이더라도 local state(?)는 유지할 수 있다. Redux는 전역 상태 관리 시 적절하기 때문이다.
 
-#### Redux를 사용한 Floating Action Buttons Nav의 위치 제어하기
+##### Container vs Presentational - 컴포넌트 분리 시의 핵심
 
-##### 1안 
+- 역할 분리를 통한 단순화와 재사용성 증대가 핵심
+- 단순화 시 이해가 쉬워져 유지보수의 난도가 크게 낮아지는 장점이 있고,
+- 재사용을 하기 더 쉬워지는 경우 중복 제거를 통한 유지보수의 난도가 낮아지는 장점이 있다.
 
-- Bottom Navigation이 대시보드 페이지에서 존재하므로 이를 해결해야 한다.
-- 평소에는 Bottom Navigation이 없으므로 가장 하단에 위치하는 것이 상관이 없다.
-- 단 대시보드 페이지에 들어가는 경우 FAB이 Bottom Navigation을 가리는 문제가 생긴다.
-- 이걸 해결하기 위해 LOW와 HIGH 모드를 추가하고 싶다.
+##### Container AND Presentational - 컴포넌트 분리 전략 - 어떤 기준으로 코드를 분리할까?
 
-##### 2안 (이 방법으로 하려고 마음이 거의 정해짐)
+- 작성중
 
+#### Floating Action Buttons Nav의 위치 제어하기 - Redux 미사용!
+
+##### 1안 (어쩔 수 없이 1안으로 해야한다.)
+
+- 대시보드 페이지에 들어가는 경우 FAB이 Bottom Navigation을 가리는 문제가 생긴다.
+- 이걸 해결하기 위해 LOW와 HIGH 모드를 추가해야 한다.
+- `Layout.js`에서 `<FabNav />`를 렌더링하므로 mode 값을 넘기면 될 듯 하다. (각 Route 마다 다름)
+- `RouteFabNavModeMapping.js`에 각 Route의 `path`와 `mode`를 매핑한 후 렌더링하면 될 듯 하다.
+
+##### 2안
+
+- **아, 문제를 발견했다. 항상 Navigation이 존재하진 않는다...**
 - 또 다른 해결 방안은 애초에 Bottom Navigation을 사용하는 것이다.
 - 현재 카카오톡, 유튜브 등이 Bottom Navigation을 적용하고 있는데, 덕분에 적응하는 데 필요한 불편함은 감소될 것 같다.
 - 또한 Bottom Navigation을 매 Route 마다 체크하여 유지할지 말지 선택하여 렌더링할 필요도 없으므로 적절하다.
