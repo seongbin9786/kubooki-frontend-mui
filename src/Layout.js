@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import Header from './containers/Header';
 import FabNav from './components/navs/FabNav';
-import { globalUser } from './modules/store';
 import withLoader from './utils/withLoader';
+import LoginContainer from './containers/LoginContainer';
 
 class Layout extends Component {
 
@@ -16,12 +16,11 @@ class Layout extends Component {
   }
 
   render() {
-
     const { children } = this.props;
 
     return (
       <React.Fragment>
-        <Header user={globalUser} />
+        <LoginContainer render={Header} />
         {children}
         <FabNav />
       </React.Fragment>

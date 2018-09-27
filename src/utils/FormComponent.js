@@ -25,7 +25,7 @@ class FormComponent extends Component {
 
     console.log('fieldDefinitions: ', fieldDefinitions);
 
-    if (!fieldDefinitions) throw Error("필드 정의가 없습니다.");
+    if (!fieldDefinitions) throw Error('필드 정의가 없습니다.');
 
     const fields = this.createFieldsByDefinitions(fieldDefinitions);
 
@@ -60,7 +60,7 @@ class FormComponent extends Component {
         /* field 정의했던 값으로 override */
         /* label, validate 등은 기본값이 없음 */
         ...fieldDefinitions[name],
-      }
+      };
     }
 
     return fields;
@@ -304,6 +304,25 @@ class FormComponent extends Component {
       msg,
       component
     };
+  }
+
+  getFieldValues = () => {
+    let fieldValues = {};
+
+    const { fields } = this.state;
+
+    Object.keys(fields).forEach(fieldName => {
+      fieldValues[fieldName] = fields[fieldName].value;
+    });
+    return fieldValues;
+  }
+
+  handleSubmit = () => {
+    const { onSubmit } = this.props;
+
+    const values = this.getFieldValues();
+
+    onSubmit(values);
   }
 }
 

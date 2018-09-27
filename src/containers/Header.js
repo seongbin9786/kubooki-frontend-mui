@@ -55,12 +55,8 @@ class Header extends DialogOwnerComponent {
         reportNews: false,
         reportInconveniences: false,
       },
-
       drawer: false,
-
       menusParentEl: null,
-
-      loggedIn: props.user.isLoggedIn(),
     };
   }
 
@@ -75,19 +71,34 @@ class Header extends DialogOwnerComponent {
     history.push(link);
   }
 
-  //TODO: 로그아웃 구현
-  handleLogout = () => this.handleMenuClose();
-
   handleOpen = open => () => this.setState({ [open]: !this.state[open] });
 
-  handleLoginSubmit = data => { }
-  handleRegisterSubmit = data => { }
-  handleNewsReportSubmit = data => { }
-  handleInconvenienceReportSubmit = data => { }
+  handleLoginSubmit = input => {
+    this.props.handleLocalLogin(input)
+      .then(() => this.toggleDialog('login')())
+      .catch(() => alert('로그인에 실패하였습니다.'));
+  }
+
+  handleLogout = () => {
+    this.props.handleLogout();
+    this.handleMenuClose();
+  }
+
+  handleRegisterSubmit = data => {
+    console.log(data);
+  }
+
+  handleNewsReportSubmit = data => {
+    console.log(data);
+  }
+
+  handleInconvenienceReportSubmit = data => {
+    console.log(data);
+  }
 
   render() {
-    const { classes, width, user } = this.props;
-    const { dialogOpen: { login, register, settings, reportNews, reportInconveniences }, drawer, menusParentEl, loggedIn } = this.state;
+    const { classes, width, userInfo, isLoggedIn } = this.props;
+    const { dialogOpen: { login, register, settings, reportNews, reportInconveniences }, drawer, menusParentEl } = this.state;
     const isMobile = width === 'xs';
     const menus = Boolean(menusParentEl);
 
@@ -104,7 +115,6 @@ class Header extends DialogOwnerComponent {
               <MenuIcon />
             </IconButton>
             <NavDrawer
-              user={user}
               open={drawer}
               handleOpen={this.toggleDialog}
               handleDrawer={this.handleOpen('drawer')}
@@ -113,7 +123,7 @@ class Header extends DialogOwnerComponent {
               color="inherit"
               className={classes.flex}
               onClick={scrollToTop}
-              variant={isMobile && !loggedIn ? 'subheading' : 'title'}
+              variant={isMobile && !isLoggedIn ? 'subheading' : 'title'}
             >
               경기대학교 웹지거북이
             </Typography>
@@ -122,6 +132,7 @@ class Header extends DialogOwnerComponent {
               handleClose={this.toggleDialog('login')}
               onRegisterClick={this.toggleDialog('register')}
               onSubmit={this.handleLoginSubmit}
+              handleSocialLogin={this.props.handleSocialLogin}
             />}
             {register && <RegisterDialog
               open={register}
@@ -142,12 +153,12 @@ class Header extends DialogOwnerComponent {
               open={settings}
               handleClose={this.toggleDialog('settings')}
             />}
-            {loggedIn ?
+            {isLoggedIn ?
               <div
                 className={classes.avatar}
                 onClick={this.handleAvatarClick}
               >
-                <Avatar alt={user.getName()} src={user.getProfilePic()} />
+                <Avatar alt={userInfo.name} src={userInfo.profilePic} />
               </div>
               : <Button
                 color="inherit"
@@ -163,7 +174,7 @@ class Header extends DialogOwnerComponent {
                 open={menus}
                 onClose={this.handleMenuClose}
               >
-                {personalMenuList.map(([name, link], index) =>
+                {personalMenuList.map(([name, link]) =>
                   <MenuItem onClick={this.handleMenuClick(link)}>{name}</MenuItem>
                 )}
                 <MenuItem onClick={this.handleLogout}>로그아웃</MenuItem>

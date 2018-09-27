@@ -26,7 +26,6 @@ function NavDrawer({
   classes,
   history,
   open,
-  user,
   handleOpen,
   handleDrawer
 }) {
@@ -63,10 +62,10 @@ function NavDrawer({
         <div className={classes.list}>
           <SearchBar fullWidth />
           {renderMenus(logo, '메인')}
-          {user.is('GUEST') && renderMenus(accountList, '인증')}
+          {renderMenus(accountList, '인증')}
           {renderMenus(guestList, '거북이')}
-          {user.is('USER') && renderMenus(userList, '개인화')}
-          {user.isJournalistGroup() && renderMenus(journalistGroupList, '기자')}
+          {renderMenus(userList, '개인화')}
+          {renderMenus(journalistGroupList, '기자')}
           {families}
           {renderMenus(settings, '설정')}
         </div>

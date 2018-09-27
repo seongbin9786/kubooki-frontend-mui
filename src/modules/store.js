@@ -1,228 +1,228 @@
 import User from './User';
 
-export const globalUser = new User('김성빈', 'ADMIN');
+export const globalUser = new User('김성빈', 'USER');
 
 export const popupDetail = {
-  id: 1,
-  title: '에버랜드 썸머 스플래쉬 제휴',
-  content: '<p>Some kind of HTML here!</p>',
-  startDate: '2018-06-10',
-  endDate: '2018-07-31',
-  views: 500,
-  likes: 30,
-  noShowCount: 2000,
-  priority: 1,
-};
-
-export const popupList = [
-  {
     id: 1,
     title: '에버랜드 썸머 스플래쉬 제휴',
     content: '<p>Some kind of HTML here!</p>',
-    startDate: '2018.06.10',
-    endDate: '2018.07.31',
-  },
-  {
-    id: 2,
-    title: '이젠 롯데월드~',
-    content: '<p>Some kind of HTML here!</p>',
-    startDate: '2018.06.01',
-    endDate: '2018.06.30',
-  },
+    startDate: '2018-06-10',
+    endDate: '2018-07-31',
+    views: 500,
+    likes: 30,
+    noShowCount: 2000,
+    priority: 1,
+};
+
+export const popupList = [
+    {
+        id: 1,
+        title: '에버랜드 썸머 스플래쉬 제휴',
+        content: '<p>Some kind of HTML here!</p>',
+        startDate: '2018.06.10',
+        endDate: '2018.07.31',
+    },
+    {
+        id: 2,
+        title: '이젠 롯데월드~',
+        content: '<p>Some kind of HTML here!</p>',
+        startDate: '2018.06.01',
+        endDate: '2018.06.30',
+    },
 ];
 
 // MAX: 14
 // 웹 출석은 50% 이상=2, 50%미만=1
 // 회의는 / 3.5 의 몫 (최대 4)
 export const attendanceValues = [
-  { date: '2018-05-01', count: 1, meetingAttend: 0, webAttend: 5, },
-  { date: '2018-05-02', count: 1, meetingAttend: 0, webAttend: 5, },
-  { date: '2018-05-03', count: 4, meetingAttend: 14, webAttend: 5, }, // 회의일
-  { date: '2018-05-04', count: 2, meetingAttend: 0, webAttend: 8, },
-  { date: '2018-05-05', count: 1, meetingAttend: 0, webAttend: 6, },
-  { date: '2018-05-06', count: 2, meetingAttend: 0, webAttend: 8, },
-  { date: '2018-05-07', count: 3, meetingAttend: 14, webAttend: 5, }, // 회의일
-  { date: '2018-05-08', count: 2, meetingAttend: 0, webAttend: 8, },
-  { date: '2018-05-09', count: 2, meetingAttend: 0, webAttend: 8, },
-  { date: '2018-05-10', count: 4, meetingAttend: 14, webAttend: 5, }, // 회의일
-  { date: '2018-05-11', count: 1, meetingAttend: 0, webAttend: 3, },
-  { date: '2018-05-12', count: 2, meetingAttend: 0, webAttend: 8, },
-  { date: '2018-05-13', count: 1, meetingAttend: 0, webAttend: 4, },
-  { date: '2018-05-14', count: 2, meetingAttend: 8, webAttend: 5, }, // 회의일
-  { date: '2018-05-15', count: 1, meetingAttend: 0, webAttend: 4, },
-  { date: '2018-05-16', count: 2, meetingAttend: 0, webAttend: 10, },
-  { date: '2018-05-17', count: 1, meetingAttend: 0, webAttend: 5, }, // 회의일
-  { date: '2018-05-18', count: 1, meetingAttend: 0, webAttend: 4, },
-  { date: '2018-05-19', count: 2, meetingAttend: 0, webAttend: 10, },
-  { date: '2018-05-20', count: 1, meetingAttend: 0, webAttend: 4, },
-  { date: '2018-05-21', count: 1, meetingAttend: 0, webAttend: 5, }, // 회의일
-  { date: '2018-05-21', count: 1, meetingAttend: 0, webAttend: 4, },
-  { date: '2018-05-22', count: 2, meetingAttend: 0, webAttend: 10, },
-  { date: '2018-05-23', count: 1, meetingAttend: 0, webAttend: 4, },
-  { date: '2018-05-24', count: 3, meetingAttend: 10, webAttend: 5, }, // 회의일
-  { date: '2018-05-25', count: 1, meetingAttend: 0, webAttend: 4, },
-  { date: '2018-05-26', count: 2, meetingAttend: 0, webAttend: 10, },
-  { date: '2018-05-27', count: 1, meetingAttend: 0, webAttend: 4, },
-  { date: '2018-05-28', count: 3, meetingAttend: 13, webAttend: 5, }, // 회의일
-  { date: '2018-05-29', count: 1, meetingAttend: 0, webAttend: 4, },
-  { date: '2018-05-30', count: 2, meetingAttend: 0, webAttend: 10, },
-  { date: '2018-05-31', count: 4, meetingAttend: 14, webAttend: 5, }, // 회의일
+    { date: '2018-05-01', count: 1, meetingAttend: 0, webAttend: 5, },
+    { date: '2018-05-02', count: 1, meetingAttend: 0, webAttend: 5, },
+    { date: '2018-05-03', count: 4, meetingAttend: 14, webAttend: 5, }, // 회의일
+    { date: '2018-05-04', count: 2, meetingAttend: 0, webAttend: 8, },
+    { date: '2018-05-05', count: 1, meetingAttend: 0, webAttend: 6, },
+    { date: '2018-05-06', count: 2, meetingAttend: 0, webAttend: 8, },
+    { date: '2018-05-07', count: 3, meetingAttend: 14, webAttend: 5, }, // 회의일
+    { date: '2018-05-08', count: 2, meetingAttend: 0, webAttend: 8, },
+    { date: '2018-05-09', count: 2, meetingAttend: 0, webAttend: 8, },
+    { date: '2018-05-10', count: 4, meetingAttend: 14, webAttend: 5, }, // 회의일
+    { date: '2018-05-11', count: 1, meetingAttend: 0, webAttend: 3, },
+    { date: '2018-05-12', count: 2, meetingAttend: 0, webAttend: 8, },
+    { date: '2018-05-13', count: 1, meetingAttend: 0, webAttend: 4, },
+    { date: '2018-05-14', count: 2, meetingAttend: 8, webAttend: 5, }, // 회의일
+    { date: '2018-05-15', count: 1, meetingAttend: 0, webAttend: 4, },
+    { date: '2018-05-16', count: 2, meetingAttend: 0, webAttend: 10, },
+    { date: '2018-05-17', count: 1, meetingAttend: 0, webAttend: 5, }, // 회의일
+    { date: '2018-05-18', count: 1, meetingAttend: 0, webAttend: 4, },
+    { date: '2018-05-19', count: 2, meetingAttend: 0, webAttend: 10, },
+    { date: '2018-05-20', count: 1, meetingAttend: 0, webAttend: 4, },
+    { date: '2018-05-21', count: 1, meetingAttend: 0, webAttend: 5, }, // 회의일
+    { date: '2018-05-21', count: 1, meetingAttend: 0, webAttend: 4, },
+    { date: '2018-05-22', count: 2, meetingAttend: 0, webAttend: 10, },
+    { date: '2018-05-23', count: 1, meetingAttend: 0, webAttend: 4, },
+    { date: '2018-05-24', count: 3, meetingAttend: 10, webAttend: 5, }, // 회의일
+    { date: '2018-05-25', count: 1, meetingAttend: 0, webAttend: 4, },
+    { date: '2018-05-26', count: 2, meetingAttend: 0, webAttend: 10, },
+    { date: '2018-05-27', count: 1, meetingAttend: 0, webAttend: 4, },
+    { date: '2018-05-28', count: 3, meetingAttend: 13, webAttend: 5, }, // 회의일
+    { date: '2018-05-29', count: 1, meetingAttend: 0, webAttend: 4, },
+    { date: '2018-05-30', count: 2, meetingAttend: 0, webAttend: 10, },
+    { date: '2018-05-31', count: 4, meetingAttend: 14, webAttend: 5, }, // 회의일
 ];
 
 export const attendanceUserList = [
-  {
-    id: 1,
-    profilePic: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
-    name: '성빈',
-    role: '정기자',
-    department: '개발부',
-    attendState: {
-      webAttend: '출석',
-      meetingAttend: '출석',
+    {
+        id: 1,
+        profilePic: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
+        name: '성빈',
+        role: '정기자',
+        department: '개발부',
+        attendState: {
+            webAttend: '출석',
+            meetingAttend: '출석',
+        }
+    },
+    {
+        id: 2,
+        profilePic: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
+        name: '성빈킴',
+        role: '수습기자',
+        department: '디자인부',
+        attendState: {
+            webAttend: '결석',
+            meetingAttend: '지각',
+        }
+    },
+    {
+        id: 3,
+        profilePic: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
+        name: '김성빈',
+        role: '부장기자',
+        department: '개발부',
+        attendState: {
+            webAttend: '출석',
+            meetingAttend: '결석',
+        }
     }
-  },
-  {
-    id: 2,
-    profilePic: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
-    name: '성빈킴',
-    role: '수습기자',
-    department: '디자인부',
-    attendState: {
-      webAttend: '결석',
-      meetingAttend: '지각',
-    }
-  },
-  {
-    id: 3,
-    profilePic: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
-    name: '김성빈',
-    role: '부장기자',
-    department: '개발부',
-    attendState: {
-      webAttend: '출석',
-      meetingAttend: '결석',
-    }
-  }
 ];
 
 export const recentActivities = [
-  {
-    id: 1,
-    user: {
-      id: 1,
-      profile: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
-      name: '김성빈 수습기자'
+    {
+        id: 1,
+        user: {
+            id: 1,
+            profile: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
+            name: '김성빈 수습기자'
+        },
+        activity: {
+            id: 1,
+            detail: '기사 초안을 작성',
+            date: '10분 전',
+        }
     },
-    activity: {
-      id: 1,
-      detail: '기사 초안을 작성',
-      date: '10분 전',
-    }
-  },
-  {
-    id: 2,
-    user: {
-      id: 1,
-      profile: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
-      name: '김성빈 편집부장'
+    {
+        id: 2,
+        user: {
+            id: 1,
+            profile: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
+            name: '김성빈 편집부장'
+        },
+        activity: {
+            id: 1,
+            detail: '김성빈 기자의 기사를 피드백',
+            date: '30분 전',
+        }
     },
-    activity: {
-      id: 1,
-      detail: '김성빈 기자의 기사를 피드백',
-      date: '30분 전',
-    }
-  },
-  {
-    id: 3,
-    user: {
-      id: 1,
-      profile: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
-      name: '김성빈 국장'
+    {
+        id: 3,
+        user: {
+            id: 1,
+            profile: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
+            name: '김성빈 국장'
+        },
+        activity: {
+            id: 1,
+            detail: '공지사항을 작성',
+            date: '2시간 전',
+        }
     },
-    activity: {
-      id: 1,
-      detail: '공지사항을 작성',
-      date: '2시간 전',
-    }
-  },
-  {
-    id: 4,
-    user: {
-      id: 1,
-      profile: 'http://img.insight.co.kr/static/2017/05/23/700/1a16372410wjk3fx8pe9.jpg',
-      name: 'system',
+    {
+        id: 4,
+        user: {
+            id: 1,
+            profile: 'http://img.insight.co.kr/static/2017/05/23/700/1a16372410wjk3fx8pe9.jpg',
+            name: 'system',
+        },
+        activity: {
+            id: 1,
+            detail: '이벤트가 종료되었습니다.',
+            date: '5시간 전',
+        }
     },
-    activity: {
-      id: 1,
-      detail: '이벤트가 종료되었습니다.',
-      date: '5시간 전',
-    }
-  },
 ];
 
 export const eventDetail = {
-  // 이벤트 표시 (공통) 데이터
-  title: '에버랜드 썸머 스플래쉬 제휴',
-  startDate: '2018-06-05',
-  endDate: '2018-08-30',
-  resultDate: '',
-  prize: '학생증 제시 30% 할인',
-  questions: [
-    '평소에 거북이를 좋아하시나요?',
-    '평소에 거북이를 얼마나 이용하시나요?'
-  ],
+    // 이벤트 표시 (공통) 데이터
+    title: '에버랜드 썸머 스플래쉬 제휴',
+    startDate: '2018-06-05',
+    endDate: '2018-08-30',
+    resultDate: '',
+    prize: '학생증 제시 30% 할인',
+    questions: [
+        '평소에 거북이를 좋아하시나요?',
+        '평소에 거북이를 얼마나 이용하시나요?'
+    ],
 };
 
 export const eventDetailEmpty = {
-  // 이벤트 표시 (공통) 데이터
-  title: '',
-  startDate: '',
-  endDate: '',
-  resultDate: '',
-  prize: '',
-  questions: [],
+    // 이벤트 표시 (공통) 데이터
+    title: '',
+    startDate: '',
+    endDate: '',
+    resultDate: '',
+    prize: '',
+    questions: [],
 };
 
 export const eventParticipateDetail = {
-  // 이벤트 참여 (현재 선택된 참여하는 사람) 데이터
-  participant: {
-    id: 1,
-    name: '김성빈',
-  },
-  answerDate: '2018-06-10',
-  answers: [
-    '네 거북이 좋아합니다.',
-    '네 거북이 매일 들어옵니다.',
-  ],
-  wonPrize: false,
-  myPrize: '',
+    // 이벤트 참여 (현재 선택된 참여하는 사람) 데이터
+    participant: {
+        id: 1,
+        name: '김성빈',
+    },
+    answerDate: '2018-06-10',
+    answers: [
+        '네 거북이 좋아합니다.',
+        '네 거북이 매일 들어옵니다.',
+    ],
+    wonPrize: false,
+    myPrize: '',
 };
 
 export const eventParticipateFirstTime = {
-  participant: {
-    id: 1,
-    name: '김성빈',
-  },
-  answerDate: null,
-  answers: [],
-  wonPrize: false,
-  myPrize: '',
-}
+    participant: {
+        id: 1,
+        name: '김성빈',
+    },
+    answerDate: null,
+    answers: [],
+    wonPrize: false,
+    myPrize: '',
+};
 
 export const eventManageDetailFirstTime = {
-  // 이벤트 관리 (관리 페이지에서 필요한 정보) 데이터
-  // 관리자 Only
-  content: '',
-  views: 0,
-  likes: 0,
-  noShowCount: 0,
-  priority: -1,
+    // 이벤트 관리 (관리 페이지에서 필요한 정보) 데이터
+    // 관리자 Only
+    content: '',
+    views: 0,
+    likes: 0,
+    noShowCount: 0,
+    priority: -1,
 };
 
 export const eventManageDetail = {
-  // 이벤트 관리 (관리 페이지에서 필요한 정보) 데이터
-  // 관리자 Only
-  content: `
+    // 이벤트 관리 (관리 페이지에서 필요한 정보) 데이터
+    // 관리자 Only
+    content: `
     <h2>9월 1일, 드디어 개강이 다가왔습니다!</h2>
       <img class='img__center' src='http://www.kubooki.com/xe/files/attach/images/41253/463/202/475ac4ded41c9d0d72752fa17de793f9.jpg' />
       <p>그와 함께 경기대학교 웹지 거북이에서는 12기 수습기자를 모집합니다. 관심있는 학우들은 언제든 편하게 신청해주세요</p>
@@ -234,40 +234,40 @@ export const eventManageDetail = {
       <p>당첨자 발표일: 2018.06.30</p>
 
     `,
-  views: 5000,
-  likes: 3000,
-  noShowCount: 0,
-  priority: 1,
+    views: 5000,
+    likes: 3000,
+    noShowCount: 0,
+    priority: 1,
 };
 
 export const eventEmptyParticipant = [];
 
 export const eventManageParticipant = [
-  {
-    id: 1,
-    name: '김성빈',
-    answerDate: '2018-06-10',
-    answers: [
-      '네 거북이 좋아합니다.',
-      '네 거북이 매일 들어옵니다.',
-    ],
-  },
-  {
-    id: 2,
-    name: '김성빈',
-    answerDate: '2018-06-10',
-    answers: [
-      'hi',
-      'test dummy data',
-    ],
-  },
+    {
+        id: 1,
+        name: '김성빈',
+        answerDate: '2018-06-10',
+        answers: [
+            '네 거북이 좋아합니다.',
+            '네 거북이 매일 들어옵니다.',
+        ],
+    },
+    {
+        id: 2,
+        name: '김성빈',
+        answerDate: '2018-06-10',
+        answers: [
+            'hi',
+            'test dummy data',
+        ],
+    },
 ];
 
 export const eventItem = {
-  id: 1,
-  title: '거북이 12기 수습기자 모집',
-  writer: '관리자',
-  content: `
+    id: 1,
+    title: '거북이 12기 수습기자 모집',
+    writer: '관리자',
+    content: `
     <h2>9월 1일, 드디어 개강이 다가왔습니다!</h2>
       <img class='img__center' src='http://www.kubooki.com/xe/files/attach/images/41253/463/202/475ac4ded41c9d0d72752fa17de793f9.jpg' />
       <p>그와 함께 경기대학교 웹지 거북이에서는 12기 수습기자를 모집합니다. 관심있는 학우들은 언제든 편하게 신청해주세요</p>
@@ -279,17 +279,17 @@ export const eventItem = {
       <p>당첨자 발표일: 2018.06.30</p>
 
     `,
-  creationDate: '2018.05.28',
-  lastUpdateDate: '2018.05.28',
-  views: 1,
-  likes: 1,
+    creationDate: '2018.05.28',
+    lastUpdateDate: '2018.05.28',
+    views: 1,
+    likes: 1,
 };
 
 export const meetingLogData = {
-  id: 1,
-  title: '5.28 회의록',
-  writer: '김성빈',
-  content: `
+    id: 1,
+    title: '5.28 회의록',
+    writer: '김성빈',
+    content: `
     <h2>1. 중앙회의</h2>
       <p>신방사 종총 김성빈 기자 뺴고 모두 참석</p>
       <p>-통장 사본 안 들고 온 사람 모두 목요일 회의때 가지고 오기</p>
@@ -313,35 +313,35 @@ export const meetingLogData = {
       <h3>4) 교육부</h3>
         <p>x</p>
     `,
-  creationDate: '2018.05.28',
-  lastUpdateDate: '2018.05.28',
-  views: 1,
-  likes: 1,
+    creationDate: '2018.05.28',
+    lastUpdateDate: '2018.05.28',
+    views: 1,
+    likes: 1,
 };
 
 export const announcementData = {
-  id: 1,
-  title: '거북이 내부 규칙 안내',
-  writer: '관리자',
-  content: `
+    id: 1,
+    title: '거북이 내부 규칙 안내',
+    writer: '관리자',
+    content: `
     <h2>거북이에 가입하신 여러분 환영합니다.</h2>
       <p>거북이는 여러분의 기자 활동을 지원하는 데 최선을 다하겠습니다.</p>
 
     <h2>거북이의 내부 규칙을 읽고, 되도록 인지해주세요</h2>
       <p>귀하는 거북이 내에서 적용되는 모든 정책을 준수해야 합니다.</p>
     `,
-  creationDate: '2012.05.31',
-  lastUpdateDate: '2012.05.31',
-  views: '2,230',
-  likes: 32,
+    creationDate: '2012.05.31',
+    lastUpdateDate: '2012.05.31',
+    views: '2,230',
+    likes: 32,
 };
 
 
 export const apply = {
-  id: 1,
-  title: '수습기자 지원 안내',
-  writer: '관리자',
-  content: `
+    id: 1,
+    title: '수습기자 지원 안내',
+    writer: '관리자',
+    content: `
     <h2>거북이 안내</h2>
       <p>경기대학교의 <u>대외적인 홍보를 수행</u>하고, 기존의 언론 기관이 미약하게 가졌던 <u>독자와의 소통</u>을 커뮤니티와 연계하여 학내 소식, 중요사안, 행사 등을 학생들에게 알리고 효율적인 참여를 도모합니다.</p>
       <p>수원 캠퍼스 <u>신학생회관 508호실</u>에 위치하고 있습니다.</p>
@@ -368,18 +368,18 @@ export const apply = {
       <p>3. 채워 넣은 양식을 <u>seongbin9786@gmail.com</u>으로 보내주세요.</p>
       <p>4. 결과는 면접 이후 개별 통보해드립니다.</p>
     `,
-  creationDate: '31.05.2012',
-  lastUpdateDate: '31.05.2012',
-  views: 15230,
-  likes: 32,
+    creationDate: '31.05.2012',
+    lastUpdateDate: '31.05.2012',
+    views: 15230,
+    likes: 32,
 };
 
 
 export const termsOfUse = {
-  id: 1,
-  title: '경기대학교 웹지거북이 이용 약관',
-  writer: '관리자',
-  content: `
+    id: 1,
+    title: '경기대학교 웹지거북이 이용 약관',
+    writer: '관리자',
+    content: `
     <h2>경기대학교 웹지 거북이에 오신 것을 환영합니다.</h2>
       <p>거북이 제품 및 서비스(‘거북이’)를 이용해 주셔서 감사합니다. 거북이는 경기대학교 수원캠퍼스 신학관 508호(5층)에서 제공합니다.</p>
       <p>거북이를 이용함으로써 귀하는 본 약관에 동의하게 되므로 본 약관을 주의 깊게 읽어보시기 바랍니다.</p>
@@ -393,374 +393,374 @@ export const termsOfUse = {
       <p>거북이 이용과 관련하여 거북이는 귀하에게 서비스 고지, 관리 메시지 및 기타 정보를 발송할 수 있습니다. 귀하는 메시지 수신을 거부할 수 있습니다.</p>
       <p>일부 거북이 서비스는 휴대기기에서 사용할 수 있습니다. 트래픽 또는 보안 관련 법규 준수를 방해하거나 막는 방식으로 서비스를 사용해서는 안 됩니다.</p>
     `,
-  creationDate: '31.05.2012',
-  lastUpdateDate: '31.05.2012',
-  views: 15230,
-  likes: 32,
+    creationDate: '31.05.2012',
+    lastUpdateDate: '31.05.2012',
+    views: 15230,
+    likes: 32,
 };
 
 export const announcementListViewData = {
-  totalItems: 20,
-  list: [
-    {
-      id: 1,
-      title: '거북이 내부 규칙 사항 안내',
-      writer: {
-        id: 1,
-        name: '관리자',
-        avatar: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
-      },
-      creationDate: '5일 전',
-      views: 813,
-    }
-  ],
+    totalItems: 20,
+    list: [
+        {
+            id: 1,
+            title: '거북이 내부 규칙 사항 안내',
+            writer: {
+                id: 1,
+                name: '관리자',
+                avatar: 'https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg',
+            },
+            creationDate: '5일 전',
+            views: 813,
+        }
+    ],
 };
 
 export const meetingLogListViewData = {
-  totalItems: 20,
-  list: [
-    {
-      id: 1,
-      title: '5.28 회의록',
-      writer: '김성빈',
-      creationDate: '31.05.2018',
-      views: 3,
-    }
-  ]
+    totalItems: 20,
+    list: [
+        {
+            id: 1,
+            title: '5.28 회의록',
+            writer: '김성빈',
+            creationDate: '31.05.2018',
+            views: 3,
+        }
+    ]
 };
 
 export const myFavoriteNewsList = [
-  {
-    date: '31.05.2018',
-    list: [
-      {
-        id: 4,
-        title: '2018학년도 잔디공원 돌 줍기 행사',
-        writers: ['김성빈', '성빈킴'],
-        category: '경기 소식',
-        creationDate: '31.05.2018',
-        lastUpdateDate: '31.05.2018',
-        thumbnailUrl: 'http://www.kubooki.com/xe/files/thumbnails/151/262/320x240.crop.jpg',
-      },
-      {
-        id: 3,
-        title: '전공 선택 유연화 제도 설명회',
-        writers: ['김성빈'],
-        category: '경기 소식',
-        creationDate: '22.05.2018',
-        lastUpdateDate: null,
-        thumbnailUrl: 'http://www.kubooki.com/xe/files/thumbnails/697/261/320x240.crop.jpg',
-      },
-    ],
-  },
-  {
-    date: '30.05.2018',
-    list: [
-      {
-        id: 2,
-        title: '2018학년도 ‘봄, 소풍’ 봄 축제 3일차 거리행사',
-        writers: ['김성빈'],
-        category: '경기 소식',
-        creationDate: '17.05.2018',
-        lastUpdateDate: null,
-        thumbnailUrl: 'http://www.kubooki.com/xe/files/thumbnails/421/261/320x240.crop.jpg',
-      },
-      {
-        id: 1,
-        title: '몰래 카메라 범죄, 사각지대에 놓인 인권과 책임의 행방',
-        writers: ['김성빈'],
-        category: '기획 연재',
-        creationDate: '30.05.2018',
-        lastUpdateDate: null,
-        thumbnailUrl: 'http://www.kubooki.com/xe/files/thumbnails/129/262/320x240.crop.jpg',
-      },
-    ],
-  }
+    {
+        date: '31.05.2018',
+        list: [
+            {
+                id: 4,
+                title: '2018학년도 잔디공원 돌 줍기 행사',
+                writers: ['김성빈', '성빈킴'],
+                category: '경기 소식',
+                creationDate: '31.05.2018',
+                lastUpdateDate: '31.05.2018',
+                thumbnailUrl: 'http://www.kubooki.com/xe/files/thumbnails/151/262/320x240.crop.jpg',
+            },
+            {
+                id: 3,
+                title: '전공 선택 유연화 제도 설명회',
+                writers: ['김성빈'],
+                category: '경기 소식',
+                creationDate: '22.05.2018',
+                lastUpdateDate: null,
+                thumbnailUrl: 'http://www.kubooki.com/xe/files/thumbnails/697/261/320x240.crop.jpg',
+            },
+        ],
+    },
+    {
+        date: '30.05.2018',
+        list: [
+            {
+                id: 2,
+                title: '2018학년도 ‘봄, 소풍’ 봄 축제 3일차 거리행사',
+                writers: ['김성빈'],
+                category: '경기 소식',
+                creationDate: '17.05.2018',
+                lastUpdateDate: null,
+                thumbnailUrl: 'http://www.kubooki.com/xe/files/thumbnails/421/261/320x240.crop.jpg',
+            },
+            {
+                id: 1,
+                title: '몰래 카메라 범죄, 사각지대에 놓인 인권과 책임의 행방',
+                writers: ['김성빈'],
+                category: '기획 연재',
+                creationDate: '30.05.2018',
+                lastUpdateDate: null,
+                thumbnailUrl: 'http://www.kubooki.com/xe/files/thumbnails/129/262/320x240.crop.jpg',
+            },
+        ],
+    }
 ];
 
 export const faqList = [
-  {
-    id: 1,
-    type: '질문 분류',
-    question: '질문입니다.질문입니다.질문입니다.',
-    answer: '답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.',
-  },
-  {
-    id: 2,
-    type: '질문 분류',
-    question: '질문입니다.질문입니다.질문입니다.',
-    answer: '답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.',
-  },
-  {
-    id: 3,
-    type: '질문 분류',
-    question: '질문입니다.질문입니다.질문입니다.',
-    answer: '답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.',
-  },
-  {
-    id: 4,
-    type: '질문 분류',
-    question: '질문입니다.질문입니다.질문입니다.',
-    answer: '답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.',
-  },
+    {
+        id: 1,
+        type: '질문 분류',
+        question: '질문입니다.질문입니다.질문입니다.',
+        answer: '답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.',
+    },
+    {
+        id: 2,
+        type: '질문 분류',
+        question: '질문입니다.질문입니다.질문입니다.',
+        answer: '답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.',
+    },
+    {
+        id: 3,
+        type: '질문 분류',
+        question: '질문입니다.질문입니다.질문입니다.',
+        answer: '답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.',
+    },
+    {
+        id: 4,
+        type: '질문 분류',
+        question: '질문입니다.질문입니다.질문입니다.',
+        answer: '답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.답변입니다.',
+    },
 ];
 
 export const newsList = [
-  {
-    id: 1,
-    category: '경대피플',
-    title: 'Juno Calypso\'s new series is set in Avon cosmetics founder\'s Cold War underground home',
-    date: '15.05.2018',
-    img: 'https://www.creativeboom.com/uploads/articles/bc/bcb8dc807536164d94e7d9f77e22728c970d1bee_1100.jpg',
-  },
-  {
-    id: 2,
-    category: '기획연재',
-    title: 'Katharine Le Hardy\'s paintings of small islands found along the River Thames',
-    date: '15.05.2018',
-    img: 'https://www.creativeboom.com/uploads/articles/f0/f085f84180bca8f92e308261405ad481bec99bd3_630.jpg',
-  },
-  {
-    id: 3,
-    category: '경기소식',
-    title: 'A guide to Innsbruck: City culture and outdoor adventure in the capital of the Alps',
-    date: '15.05.2018',
-    img: 'https://www.creativeboom.com/uploads/articles/42/42b32bd3ad7e61ed3fb03d8568050d42f4c3dd78_630.jpg',
-  },
-  {
-    id: 4,
-    category: '경기소식',
-    title: 'Juno Calypso\'s new series is set in Avon cosmetics founder\'s Cold War underground home',
-    date: '15.05.2018',
-    img: 'https://www.creativeboom.com/uploads/articles/bc/bcb8dc807536164d94e7d9f77e22728c970d1bee_1100.jpg',
-  },
-  {
-    id: 5,
-    category: '기획연재',
-    title: 'Katharine Le Hardy\'s paintings of small islands found along the River Thames',
-    date: '15.05.2018',
-    img: 'https://www.creativeboom.com/uploads/articles/f0/f085f84180bca8f92e308261405ad481bec99bd3_630.jpg',
-  },
-  {
-    id: 6,
-    category: '경대피플',
-    title: 'A guide to Innsbruck: City culture and outdoor adventure in the capital of the Alps',
-    date: '15.05.2018',
-    img: 'https://www.creativeboom.com/uploads/articles/42/42b32bd3ad7e61ed3fb03d8568050d42f4c3dd78_630.jpg',
-  },
-  {
-    id: 7,
-    category: '경기소식',
-    title: 'Juno Calypso\'s new series is set in Avon cosmetics founder\'s Cold War underground home',
-    date: '15.05.2018',
-    img: 'https://www.creativeboom.com/uploads/articles/bc/bcb8dc807536164d94e7d9f77e22728c970d1bee_1100.jpg',
-  },
+    {
+        id: 1,
+        category: '경대피플',
+        title: 'Juno Calypso\'s new series is set in Avon cosmetics founder\'s Cold War underground home',
+        date: '15.05.2018',
+        img: 'https://www.creativeboom.com/uploads/articles/bc/bcb8dc807536164d94e7d9f77e22728c970d1bee_1100.jpg',
+    },
+    {
+        id: 2,
+        category: '기획연재',
+        title: 'Katharine Le Hardy\'s paintings of small islands found along the River Thames',
+        date: '15.05.2018',
+        img: 'https://www.creativeboom.com/uploads/articles/f0/f085f84180bca8f92e308261405ad481bec99bd3_630.jpg',
+    },
+    {
+        id: 3,
+        category: '경기소식',
+        title: 'A guide to Innsbruck: City culture and outdoor adventure in the capital of the Alps',
+        date: '15.05.2018',
+        img: 'https://www.creativeboom.com/uploads/articles/42/42b32bd3ad7e61ed3fb03d8568050d42f4c3dd78_630.jpg',
+    },
+    {
+        id: 4,
+        category: '경기소식',
+        title: 'Juno Calypso\'s new series is set in Avon cosmetics founder\'s Cold War underground home',
+        date: '15.05.2018',
+        img: 'https://www.creativeboom.com/uploads/articles/bc/bcb8dc807536164d94e7d9f77e22728c970d1bee_1100.jpg',
+    },
+    {
+        id: 5,
+        category: '기획연재',
+        title: 'Katharine Le Hardy\'s paintings of small islands found along the River Thames',
+        date: '15.05.2018',
+        img: 'https://www.creativeboom.com/uploads/articles/f0/f085f84180bca8f92e308261405ad481bec99bd3_630.jpg',
+    },
+    {
+        id: 6,
+        category: '경대피플',
+        title: 'A guide to Innsbruck: City culture and outdoor adventure in the capital of the Alps',
+        date: '15.05.2018',
+        img: 'https://www.creativeboom.com/uploads/articles/42/42b32bd3ad7e61ed3fb03d8568050d42f4c3dd78_630.jpg',
+    },
+    {
+        id: 7,
+        category: '경기소식',
+        title: 'Juno Calypso\'s new series is set in Avon cosmetics founder\'s Cold War underground home',
+        date: '15.05.2018',
+        img: 'https://www.creativeboom.com/uploads/articles/bc/bcb8dc807536164d94e7d9f77e22728c970d1bee_1100.jpg',
+    },
 ];
 
 export const userDemo = {
-  name: '김성빈',
-  position: '수습 기자',
-  introduction: '안녕하세요. 명함 구성 요소가 뭐가 있어야 할까요?',
-  profileImg: 'https://st.depositphotos.com/2218212/2938/i/950/depositphotos_29387653-stock-photo-facebook-profile.jpg',
+    name: '김성빈',
+    position: '수습 기자',
+    introduction: '안녕하세요. 명함 구성 요소가 뭐가 있어야 할까요?',
+    profileImg: 'https://st.depositphotos.com/2218212/2938/i/950/depositphotos_29387653-stock-photo-facebook-profile.jpg',
 };
 
 export const eventList = [
-  {
-    id: '1',
-    title: '에버랜드 썸머 스플래쉬 제휴',
-    thumbnail: 'http://cfile25.uf.tistory.com/image/24553738575E014D18A049',
-    startDate: '05.06.2018',
-    endDate: '30.08.2018',
-    prize: '학생증 제시 30% 할인',
-    resultDate: '-',
-  },
-  {
-    id: '2',
-    title: '롯데월드 삼바 카니발 퍼레이드 제휴',
-    thumbnail: 'http://file.newswire.co.kr/data/datafile2/thumb_480/2014/07/20140721120937_2606824697.jpg',
-    startDate: '05.06.2018',
-    endDate: '30.08.2018',
-    prize: '1인 입장 19,800~',
-    resultDate: '-',
-  },
-  {
-    id: '3',
-    title: '어둠속의 대화 10주년 기념 제휴',
-    thumbnail: 'http://blog.rightbrain.co.kr/CMS1/wp-content/uploads/2018/01/img.jpg',
-    startDate: '05.06.2018',
-    endDate: '30.08.2018',
-    prize: '2인 이상 입장 시 20% 할인',
-    resultDate: '-',
-  },
-  {
-    id: '4',
-    title: '11번가 취준생 일일 코디',
-    thumbnail: 'http://www.kgnews.co.kr/news/photo/201710/496869_158919_1347.jpg',
-    startDate: '05.06.2018',
-    endDate: '30.06.2018',
-    prize: '일일 무료 코디 제공',
-    resultDate: '30.06.2018',
-  },
-  {
-    id: '5',
-    title: '거북이 12기 수습기자 모집',
-    thumbnail: 'http://www.kubooki.com/xe/files/attach/images/41253/463/202/475ac4ded41c9d0d72752fa17de793f9.jpg',
-    startDate: '05.06.2018',
-    endDate: '30.06.2018',
-    prize: '문화상품권 \\100,000',
-    resultDate: '30.06.2018',
-  },
+    {
+        id: '1',
+        title: '에버랜드 썸머 스플래쉬 제휴',
+        thumbnail: 'http://cfile25.uf.tistory.com/image/24553738575E014D18A049',
+        startDate: '05.06.2018',
+        endDate: '30.08.2018',
+        prize: '학생증 제시 30% 할인',
+        resultDate: '-',
+    },
+    {
+        id: '2',
+        title: '롯데월드 삼바 카니발 퍼레이드 제휴',
+        thumbnail: 'http://file.newswire.co.kr/data/datafile2/thumb_480/2014/07/20140721120937_2606824697.jpg',
+        startDate: '05.06.2018',
+        endDate: '30.08.2018',
+        prize: '1인 입장 19,800~',
+        resultDate: '-',
+    },
+    {
+        id: '3',
+        title: '어둠속의 대화 10주년 기념 제휴',
+        thumbnail: 'http://blog.rightbrain.co.kr/CMS1/wp-content/uploads/2018/01/img.jpg',
+        startDate: '05.06.2018',
+        endDate: '30.08.2018',
+        prize: '2인 이상 입장 시 20% 할인',
+        resultDate: '-',
+    },
+    {
+        id: '4',
+        title: '11번가 취준생 일일 코디',
+        thumbnail: 'http://www.kgnews.co.kr/news/photo/201710/496869_158919_1347.jpg',
+        startDate: '05.06.2018',
+        endDate: '30.06.2018',
+        prize: '일일 무료 코디 제공',
+        resultDate: '30.06.2018',
+    },
+    {
+        id: '5',
+        title: '거북이 12기 수습기자 모집',
+        thumbnail: 'http://www.kubooki.com/xe/files/attach/images/41253/463/202/475ac4ded41c9d0d72752fa17de793f9.jpg',
+        startDate: '05.06.2018',
+        endDate: '30.06.2018',
+        prize: '문화상품권 \\100,000',
+        resultDate: '30.06.2018',
+    },
 ];
 
 export const correctionList = [
-  {
-    id: '1',
-    status: '답변대기',
-    title: '오탈자가 있습니다.',
-    writer: '김성빈',
-    reqDate: '2018.05.12',
-    resDate: '2018.05.12',
-    targetNews: {
-      id: 1,
-      title: '영문서류 클리닉 시행 안내'
-    }
-  },
-  {
-    id: '2',
-    status: '답변완료',
-    title: '학교 소개에 오류가 있습니다.',
-    writer: '김성빈',
-    reqDate: '2018.05.12',
-    resDate: '2018.05.12',
-    targetNews: {
-      id: 1,
-      title: '18학번 신입생들을 위한 학교 소개...'
-    }
-  },
+    {
+        id: '1',
+        status: '답변대기',
+        title: '오탈자가 있습니다.',
+        writer: '김성빈',
+        reqDate: '2018.05.12',
+        resDate: '2018.05.12',
+        targetNews: {
+            id: 1,
+            title: '영문서류 클리닉 시행 안내'
+        }
+    },
+    {
+        id: '2',
+        status: '답변완료',
+        title: '학교 소개에 오류가 있습니다.',
+        writer: '김성빈',
+        reqDate: '2018.05.12',
+        resDate: '2018.05.12',
+        targetNews: {
+            id: 1,
+            title: '18학번 신입생들을 위한 학교 소개...'
+        }
+    },
 ];
 
 export const feedbackList = [
-  {
-    id: '1',
-    title: '영문서류 클리닉 신청 안내',
-    writers: ['김성빈', '홍길동'],
-    short: true,
-    feedbackCount: 3,
-    lastReqDate: '12.05.2018',
-    lastResDate: '23.05.2018',
-    status: '피드백 완료됨',
-  },
-  {
-    id: '2',
-    title: '전공 선택 유연화 제도 설명회',
-    writers: ['김성빈'],
-    short: false,
-    feedbackCount: 2,
-    lastReqDate: '13.05.2018',
-    lastResDate: '-',
-    status: '피드백 요청됨',
-  },
-  {
-    id: '3',
-    title: '2018학년도 \'봄, 소풍\' 봄 축제 3일차 거리행사',
-    writers: ['김성빈'],
-    short: false,
-    feedbackCount: 2,
-    lastReqDate: '15.05.2018',
-    lastResDate: '-',
-    status: '피드백 요청됨',
-  },
+    {
+        id: '1',
+        title: '영문서류 클리닉 신청 안내',
+        writers: ['김성빈', '홍길동'],
+        short: true,
+        feedbackCount: 3,
+        lastReqDate: '12.05.2018',
+        lastResDate: '23.05.2018',
+        status: '피드백 완료됨',
+    },
+    {
+        id: '2',
+        title: '전공 선택 유연화 제도 설명회',
+        writers: ['김성빈'],
+        short: false,
+        feedbackCount: 2,
+        lastReqDate: '13.05.2018',
+        lastResDate: '-',
+        status: '피드백 요청됨',
+    },
+    {
+        id: '3',
+        title: '2018학년도 \'봄, 소풍\' 봄 축제 3일차 거리행사',
+        writers: ['김성빈'],
+        short: false,
+        feedbackCount: 2,
+        lastReqDate: '15.05.2018',
+        lastResDate: '-',
+        status: '피드백 요청됨',
+    },
 ];
 
 /* 내 댓글이므로, 좋아요/싫어요를 할 수 없음 */
 export const myCommentList = [
-  {
-    id: '1',
-    date: '7시간 전',
-    likes: '1',
-    targetNews: 1,
-    content: '댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1'.repeat(2)
-  },
-  {
-    id: '2',
-    date: '2주 전',
-    likes: '5',
-    targetNews: 1,
-    content: '댓글 테스트 2'.repeat(10)
-  },
-  {
-    id: '3',
-    date: '1달 전',
-    likes: '-1',
-    targetNews: 1,
-    content: '댓글 테스트 3'
-  },
-  {
-    id: '4',
-    date: '3개월 전',
-    likes: '0',
-    targetNews: 1,
-    content: '댓글 테스트 1'
-  },
-  {
-    id: '5',
-    date: '9개월 전',
-    likes: '0',
-    targetNews: 1,
-    content: '댓글 테스트 2'
-  },
-  {
-    id: '6',
-    date: '10개월 전',
-    likes: '0',
-    targetNews: 1,
-    content: '댓글 테스트 3'
-  },
+    {
+        id: '1',
+        date: '7시간 전',
+        likes: '1',
+        targetNews: 1,
+        content: '댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1'.repeat(2)
+    },
+    {
+        id: '2',
+        date: '2주 전',
+        likes: '5',
+        targetNews: 1,
+        content: '댓글 테스트 2'.repeat(10)
+    },
+    {
+        id: '3',
+        date: '1달 전',
+        likes: '-1',
+        targetNews: 1,
+        content: '댓글 테스트 3'
+    },
+    {
+        id: '4',
+        date: '3개월 전',
+        likes: '0',
+        targetNews: 1,
+        content: '댓글 테스트 1'
+    },
+    {
+        id: '5',
+        date: '9개월 전',
+        likes: '0',
+        targetNews: 1,
+        content: '댓글 테스트 2'
+    },
+    {
+        id: '6',
+        date: '10개월 전',
+        likes: '0',
+        targetNews: 1,
+        content: '댓글 테스트 3'
+    },
 ];
 
 export const commentList = [
-  {
-    id: '1',
-    writer: '김성빈',
-    date: '7시간 전',
-    likes: '1',
-    liked: false,
-    hated: false,
-    content: '댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1'
-  },
-  {
-    id: '2',
-    writer: '김성빈',
-    date: '8시간 전',
-    likes: '5',
-    liked: true,
-    hated: false,
-    content: '댓글 테스트 2'
-  },
-  {
-    id: '3',
-    writer: '김성빈',
-    date: '9시간 전',
-    likes: '-1',
-    liked: false,
-    hated: true,
-    content: '댓글 테스트 3'
-  },
+    {
+        id: '1',
+        writer: '김성빈',
+        date: '7시간 전',
+        likes: '1',
+        liked: false,
+        hated: false,
+        content: '댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1 댓글 테스트 1'
+    },
+    {
+        id: '2',
+        writer: '김성빈',
+        date: '8시간 전',
+        likes: '5',
+        liked: true,
+        hated: false,
+        content: '댓글 테스트 2'
+    },
+    {
+        id: '3',
+        writer: '김성빈',
+        date: '9시간 전',
+        likes: '-1',
+        liked: false,
+        hated: true,
+        content: '댓글 테스트 3'
+    },
 ];
 
 export const writerDemo = {
-  name: '김성빈',
-  position: '수습 기자',
-  introduction: '안녕하세요. 명함 구성 요소가 뭐가 있어야 할까요?',
-  profileImg: 'https://st.depositphotos.com/2218212/2938/i/950/depositphotos_29387653-stock-photo-facebook-profile.jpg',
+    name: '김성빈',
+    position: '수습 기자',
+    introduction: '안녕하세요. 명함 구성 요소가 뭐가 있어야 할까요?',
+    profileImg: 'https://st.depositphotos.com/2218212/2938/i/950/depositphotos_29387653-stock-photo-facebook-profile.jpg',
 };
 
 export const newsDetail = {
-  id: 1,
-  category: '경기소식',
-  title: '경기대학교 신입생들을 위한 새내기팁! 첫 번째, 통학버스와 고양이버스 안내',
-  writer: '김성빈',
-  lastUpdatedDate: '18.05.2018',
+    id: 1,
+    category: '경기소식',
+    title: '경기대학교 신입생들을 위한 새내기팁! 첫 번째, 통학버스와 고양이버스 안내',
+    writer: '김성빈',
+    lastUpdatedDate: '18.05.2018',
 };
 
 export const newsDetailContent = `

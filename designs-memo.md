@@ -10,7 +10,7 @@
 
 3. Container, Presentational Component로 리팩토링
 
-4. Redux Store, Reducer, Action Creator 생성 (Action의 api call은 mock)
+4. Ducks 패턴 적용하여 Module 단위로 제작하기 - 기존 프로젝트 참고
 
 5. Redux에서 API Call 적용
 
