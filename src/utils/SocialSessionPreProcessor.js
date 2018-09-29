@@ -79,7 +79,11 @@ class SocialSessionPreProcessor {
       if (status !== 'not_connected' && accessToken !== null && accessToken !== undefined) {
         resolve(accessToken);
       } else {
-        window.Kakao.Auth.login(res => console.log('success: ', res), error => console.log('login error:', error));
+        window.Kakao.Auth.login({
+          success: res => console.log('success: ', res),
+          fail: error => console.log('login error:', error),
+          always: f => f
+        });
       }
     });
   });

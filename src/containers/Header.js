@@ -86,6 +86,7 @@ class Header extends DialogOwnerComponent {
     this.props.handleSocialLogin(type)
       .then(() => this.toggleDialog('login')())
       .catch(({ status, type, accessToken, msg }) => {
+        // 소셜 추가 정보 입력하는 분기점
         if (status === 404) {
           const agreeToRegister = window.confirm(msg);
           if (agreeToRegister) {

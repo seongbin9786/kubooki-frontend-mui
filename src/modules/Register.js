@@ -44,15 +44,16 @@ class Register {
     return new Promise((resolve, reject) => {
 
       const request = {
+        accessToken,
         accountType: type,
         name: registerForm.name,
         belongTo: registerForm.belongTo, // college 값
         identityType: registerForm.identityType, // 신분 (학생, 학부모 등)
       };
 
-      const accessTokenEncoded = encodeURIComponent(accessToken);
+      console.log('request Object:', request);
 
-      axios.post(`${ROOT_URL}/users/social/${type}/${accessTokenEncoded}`, request)
+      axios.post(`${ROOT_URL}/users/social`, request)
         .then(({ status }) => {
           if (status === 200)
             resolve('회원가입에 성공했습니다.');
