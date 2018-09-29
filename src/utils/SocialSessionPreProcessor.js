@@ -80,9 +80,13 @@ class SocialSessionPreProcessor {
         resolve(accessToken);
       } else {
         window.Kakao.Auth.login({
-          success: res => console.log('success: ', res),
-          fail: error => console.log('login error:', error),
-          always: f => f
+          success: ({ access_token }) => resolve(access_token),
+          fail: error => {
+            console.log('login error:', error);
+            window.Kakao.Auth.logout();
+          },
+          always: f => f,
+          persistAccessToken: false
         });
       }
     });
