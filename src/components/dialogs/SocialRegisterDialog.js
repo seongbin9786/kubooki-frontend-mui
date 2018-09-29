@@ -5,34 +5,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 
 import ResponsiveDialog from '../../utils/ResponsiveDialog';
 import FormComponent from '../../utils/FormComponent';
-import PasswordInput from '../inputs/PasswordInput';
 
 export default class extends FormComponent {
 
   getFieldDefinitions = () => ({
-    registerId: {
-      label: '아이디',
-      validate: val => {
-        const minLengthResult = this.validateByMinLength('아이디', 4)(val);
-        const { error } = minLengthResult;
-
-        if (error) {
-          return minLengthResult;
-        } else {
-          return this.validateIdDuplicate(val);
-        }
-      }
-    },
-    password: {
-      Component: PasswordInput,
-      label: '비밀번호',
-      validate: this.validateByMinLength('비밀번호', 8)
-    },
-    passwordAgain: {
-      Component: PasswordInput,
-      label: '비밀번호 확인',
-      validate: this.validateIsSameValue('password')
-    },
     name: {
       label: '이름',
       validate: this.validateByMinLength('이름', 2)
@@ -76,7 +52,7 @@ export default class extends FormComponent {
           open={open}
           handleClose={handleClose}
           autoFocus='registerId'
-          title='회원가입'
+          title='소셜 로그인 - 추가 정보 입력'
         >
           <DialogContent>
             {fieldsRendered}
@@ -86,7 +62,7 @@ export default class extends FormComponent {
               취소
             </Button>
             <Button onClick={this.handleSubmit} disabled={hasErrors} color="primary" variant='raised'>
-              회원가입
+              완료
             </Button>
           </DialogActions>
         </ResponsiveDialog>

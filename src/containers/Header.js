@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { withWidth, AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem, Avatar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
+import Register from '../modules/Register';
 import NavDrawer from './NavDrawer';
 import LoginDialog from '../components/dialogs/LoginDialog';
 import RegisterDialog from '../components/dialogs/RegisterDialog';
@@ -14,6 +15,7 @@ import Spacing from '../styles/Spacing';
 import personalMenuList from '../configs/MyPageTabConfig';
 import DialogOwnerComponent from '../utils/DialogOwnerComponent';
 import InconvenienceReportDialog from '../components/dialogs/InconvenienceReportDialog';
+import SocialRegisterDialog from '../components/dialogs/SocialRegisterDialog';
 
 const styles = {
   root: {
@@ -51,6 +53,7 @@ class Header extends DialogOwnerComponent {
       dialogOpen: {
         login: false,
         register: false,
+        registerSocial: false,
         settings: false,
         reportNews: false,
         reportInconveniences: false,
@@ -79,14 +82,48 @@ class Header extends DialogOwnerComponent {
       .catch(() => alert('로그인에 실패하였습니다.'));
   }
 
+  handleSocialLoginSubmit = type => () => {
+    this.props.handleSocialLogin(type)
+      .then(() => this.toggleDialog('login')())
+      .catch(({ status, type, accessToken, msg }) => {
+        if (status === 404) {
+          const agreeToRegister = window.confirm(msg);
+          if (agreeToRegister) {
+            this.toggleDialog('login')();
+            this.createHandleSocialRegisterSubmit(type, accessToken);
+            this.toggleDialog('registerSocial')();
+          }
+        }
+      });
+  }
+
+  createHandleSocialRegisterSubmit = (type, accessToken) => {
+    this.handleSocialRegisterSubmit = data => {
+      Register.registerSocial(type, accessToken, data)
+        .then(msg => {
+          alert(msg);
+          this.toggleDialog('registerSocial')();
+        })
+        .catch(msg => alert(msg));
+    };
+    console.log(this.handleSocialRegisterSubmit);
+  }
+
   handleLogout = () => {
     this.props.handleLogout();
     this.handleMenuClose();
   }
 
-  handleRegisterSubmit = data => {
-    console.log(data);
+  handleLocalRegisterSubmit = data => {
+    Register.registerLocal(data)
+      .then(({ id }) => {
+        alert(`${id}로 회원가입이 완료되었습니다.`);
+        this.toggleDialog('register')();
+      })
+      .catch(msg => alert(msg));
   }
+
+  handleSocialRegisterSubmit = f => f;
 
   handleNewsReportSubmit = data => {
     console.log(data);
@@ -98,7 +135,7 @@ class Header extends DialogOwnerComponent {
 
   render() {
     const { classes, width, userInfo, isLoggedIn } = this.props;
-    const { dialogOpen: { login, register, settings, reportNews, reportInconveniences }, drawer, menusParentEl } = this.state;
+    const { dialogOpen: { login, register, registerSocial, settings, reportNews, reportInconveniences }, drawer, menusParentEl } = this.state;
     const isMobile = width === 'xs';
     const menus = Boolean(menusParentEl);
 
@@ -132,12 +169,17 @@ class Header extends DialogOwnerComponent {
               handleClose={this.toggleDialog('login')}
               onRegisterClick={this.toggleDialog('register')}
               onSubmit={this.handleLoginSubmit}
-              handleSocialLogin={this.props.handleSocialLogin}
+              handleSocialLogin={this.handleSocialLoginSubmit}
             />}
             {register && <RegisterDialog
               open={register}
               handleClose={this.toggleDialog('register')}
-              onSubmit={this.handleRegisterSubmit}
+              onSubmit={this.handleLocalRegisterSubmit}
+            />}
+            {registerSocial && <SocialRegisterDialog
+              open={registerSocial}
+              handleClose={this.toggleDialog('registerSocial')}
+              onSubmit={this.handleSocialRegisterSubmit}
             />}
             {reportNews && <NewsReportDialog
               open={reportNews}
@@ -158,7 +200,10 @@ class Header extends DialogOwnerComponent {
                 className={classes.avatar}
                 onClick={this.handleAvatarClick}
               >
-                <Avatar alt={userInfo.name} src={userInfo.profilePic} />
+                <Avatar
+                  alt={userInfo.name}
+                  src='https://cdn.cnn.com/cnnnext/dam/assets/170706100453-sophie-tatum-small-11.jpg'
+                />
               </div>
               : <Button
                 color="inherit"

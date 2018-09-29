@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { TextField, Checkbox, FormControlLabel, FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@material-ui/core';
 
 import QuillEditor from '../components/inputs/QuillEditor';
@@ -82,12 +83,11 @@ class FormComponent extends Component {
     const result = validate(value);
     let error, msg;
 
+    console.log('result: ', result);
+
     if (typeof result.then === 'function') { // Promise임
       result.then(
         ({ error, msg }) => {
-          error = error;
-          msg = msg;
-
           console.log('Async Validate:', name, error, msg);
           this.updateFieldErrorState(name, error, msg);
         }
@@ -159,15 +159,29 @@ class FormComponent extends Component {
 
   validateNotNull = val => val === '' || val === 0 || Boolean(val) === false ? ({ error: true, msg: '반드시 입력하여야 합니다.' }) : ({ error: false, msg: '' });
 
-  /**
-   * 비동기 validate 함수 예제이다.
-   * 실제로 사용되는 공통 validate 함수는 아니다.
-   */
-  validateAsyncExample = val => new Promise(resolve => {
-    setTimeout(() => {
-      resolve({ error: true, msg: 'Async Validated  With Value:' + val });
-    }, 500);
+  validateIsSameValue = targetFieldName => val => {
+    const targetField = this.state.fields[targetFieldName];
+
+    if (targetField.value !== val)
+      return { error: true, msg: `${targetField.label} 필드와 일치해야 합니다.` };
+    else
+      return { error: false, msg: '' };
+  }
+
+  validateIdDuplicate = val => new Promise(resolve => {
+
+    const ROOT_URL = 'http://localhost:8080';
+
+    axios.get(`${ROOT_URL}/users/validate/${val}`)
+      .then(({ data }) => {
+        if (Boolean(data)) { //isDuplicate
+          resolve({ error: true, msg: `${val}은(는) 이미 존재하는 ID입니다.` });
+        } else {
+          resolve({ error: false, msg: '' });
+        }
+      });
   })
+
 
   /**
    * 전체 필드를 렌더링한다.
@@ -252,7 +266,7 @@ class FormComponent extends Component {
             onChange={onChangeFunc}
           >
             <MenuItem value=""><em>선택해주세요...</em></MenuItem>
-            {menuList.map(([value, name]) => <MenuItem value={value} key={value}>{name}</MenuItem>)}
+            {menuList.map(([name, value]) => <MenuItem value={value} key={value}>{name}</MenuItem>)}
           </Select>
           {error && <FormHelperText>{msg}</FormHelperText>}
         </FormControl>;

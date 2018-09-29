@@ -6,32 +6,34 @@ import {
   loginWithIdAndPw,
   loginWithSocial,
   logout,
-  socialLogout
 } from '../modules/SessionActions';
 
 class LoginContainer extends Component {
-    handleLocalLogin = ({ id, pw }) => this.props.loginWithIdAndPw(id, pw);
 
-    handleSocialLogin = type => () => this.props.loginWithSocial(type);
+  render = () => {
+    const { userInfo,
+      isLoggedIn,
+      loginWithIdAndPw,
+      loginWithSocial,
+      socialLogout,
+      logout,
+      ...upperProps
+    } = this.props;
+    const Component = this.props.children;
 
-    handleSocialLogout = type => () => this.props.socialLogout(type);
-
-    handleLogout = () => this.props.logout();
-
-    render = () => {
-      const { userInfo, isLoggedIn } = this.props;
-      const Component = this.props.render;
-
-      return (
-        <Component
-          isLoggedIn={isLoggedIn}
-          userInfo={userInfo}
-          handleLocalLogin={this.handleLocalLogin}
-          handleSocialLogin={this.handleSocialLogin}
-          handleLogout={this.handleLogout}
-        />
-      );
-    }
+    return <div>
+      {
+        React.cloneElement(Component, {
+          isLoggedIn,
+          userInfo,
+          handleLocalLogin: loginWithIdAndPw,
+          handleSocialLogin: loginWithSocial,
+          handleLogout: logout,
+          ...upperProps
+        })
+      }
+    </div>;
+  }
 }
 
 const mapStateToProps = ({ session }) => ({
@@ -43,7 +45,6 @@ const mapDispatchToProps = {
   loginWithIdAndPw,
   loginWithSocial,
   logout,
-  socialLogout,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

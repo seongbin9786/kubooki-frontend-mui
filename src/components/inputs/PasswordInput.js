@@ -7,6 +7,12 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { FormHelperText } from '@material-ui/core';
+import styled from 'styled-components';
+
+const ErrorText = styled(FormHelperText)`
+  color: #f44336 !important;
+`;
 
 const styles = theme => ({
   root: {
@@ -44,7 +50,7 @@ class InputAdornments extends React.Component {
   };
 
   render() {
-    const { classes, name, label, value, onChange, disabled, fullWidth } = this.props;
+    const { classes, name, label, value, onChange, error, helperText, disabled, fullWidth } = this.props;
     const { showPassword } = this.state;
 
     return (
@@ -56,10 +62,10 @@ class InputAdornments extends React.Component {
         >
           <InputLabel>{label}</InputLabel>
           <Input
-
             name={name}
             type={showPassword ? 'text' : 'password'}
             value={value}
+            error={error}
             onChange={onChange}
             endAdornment={
               <InputAdornment position="end">
@@ -73,6 +79,7 @@ class InputAdornments extends React.Component {
             }
             className={classes.inputPassword}
           />
+          {error && <ErrorText>{helperText}</ErrorText>}
         </FormControl>
       </div>
     );

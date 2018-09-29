@@ -20,7 +20,9 @@ class Layout extends Component {
 
     return (
       <React.Fragment>
-        <LoginContainer render={Header} />
+        <LoginContainer>
+          <Header />
+        </LoginContainer>
         {children}
         <FabNav />
       </React.Fragment>

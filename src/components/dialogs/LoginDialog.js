@@ -11,6 +11,12 @@ const SocialLoginButton = styled(Button)`
   padding: 2px !important;
 `;
 
+const SocialLoginContainer = styled.div`
+  display: flex;
+  margin-top: 20px;
+  flex-direction: column;
+`;
+
 export default class extends FormComponent {
 
   getFieldDefinitions = () => ({
@@ -23,14 +29,8 @@ export default class extends FormComponent {
     }
   });
 
-  handleSocialLogin = type => () => {
-    this.props.handleSocialLogin(type)()
-      .then(() => this.props.handleClose())
-      .catch(() => alert('소셜 로그인 도중 오류가 발생했습니다.'));
-  }
-
   render() {
-    const { open, handleClose, onRegisterClick } = this.props;
+    const { open, handleClose, onRegisterClick, handleSocialLogin } = this.props;
 
     const fieldsInfo = this.renderFields();
     const hasErrors = fieldsInfo.some(field => field.error === true);
@@ -46,20 +46,20 @@ export default class extends FormComponent {
         >
           <DialogContent>
             {fieldsRendered}
-            <div style={{ display: 'flex', marginTop: '20px', flexDirection: 'column' }}>
+            <SocialLoginContainer>
               <Typography>소셜 로그인</Typography>
               <div>
-                <SocialLoginButton onClick={this.handleSocialLogin('FB')} >
-                  <img src="/facebook.png" width="40px" />
+                <SocialLoginButton onClick={handleSocialLogin('FB')} >
+                  <img src="/facebook.png" width="40px" alt="FB Login" />
                 </SocialLoginButton>
-                <SocialLoginButton onClick={this.handleSocialLogin('NAVER')}>
-                  <img src="/naver.png" width="40px" />
+                <SocialLoginButton onClick={handleSocialLogin('NAVER')}>
+                  <img src="/naver.png" width="40px" alt="Naver Login" />
                 </SocialLoginButton>
-                <SocialLoginButton onClick={this.handleSocialLogin('KAKAO')}>
-                  <img src="/kakao.png" width="100px" />
+                <SocialLoginButton onClick={handleSocialLogin('KAKAO')}>
+                  <img src="/kakao.png" width="100px" alt="Kakao Login" />
                 </SocialLoginButton>
               </div>
-            </div>
+            </SocialLoginContainer>
           </DialogContent>
           <DialogActions style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Button onClick={onRegisterClick} color="primary">

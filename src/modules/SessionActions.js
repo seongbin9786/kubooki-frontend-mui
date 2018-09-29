@@ -1,12 +1,8 @@
-import mockServer from '../server/mockServer';
+import axios from 'axios';
+import decodeJwt from 'jwt-decode';
 import { sessionService } from 'redux-react-session';
 import SocialSessionPreProcessor from '../utils/SocialSessionPreProcessor';
 
-// Action Types
-// Load 시 Validate는 직접 해야 한다. 단 이 작업은 Util 함수로 충분하다. (Action - Reducer까지 갈 이유가 없음)
-const REFRESH_TOKEN = '@@kubooki/session/REFRESH_TOKEN';
-
-// Action|Thunk Creators
 /**
  * ID, PW로 로그인 시 사용할 Action이다.
  * Local 계정으로 로그인 시 사용한다.
@@ -15,72 +11,173 @@ const REFRESH_TOKEN = '@@kubooki/session/REFRESH_TOKEN';
  * @param {string} id 아이디
  * @param {string} pw 비밀번호
  */
-export const loginWithIdAndPw = (id, pw) => () => {
-  return new Promise((resolve, reject) => {
-    mockServer.localLogin(id, pw)
-      .then(response => {
-        sessionService.saveSession(response)
-          .then(() => sessionService.saveUser(response))
-          .then(() => resolve())
-          .catch(error => {
+export const loginWithIdAndPw = ({ loginId, password }) => {
+  return () => {
+    return new Promise((resolve, reject) => {
+
+      const ROOT_URL = 'http://localhost:8080';
+
+      const loginDto = {
+        id: loginId,
+        pw: password
+      };
+
+      console.log('loginDto:', loginDto);
+
+      axios.post(`${ROOT_URL}/login`, loginDto)
+        .then(({ status, data }) => {
+          console.log('loginResponse:', status, data);
+
+          if (status === 200) {
+            sessionService.saveSession(data)
+              .then(() => sessionService.saveUser(data))
+              .then(() => resolve())
+              .catch(() => reject());
+          } else {
             reject();
-            throw Error('loginWithIdAndPw: ' + error);
-          });
-      });
-  });
+          }
+        })
+        .catch(() => reject());
+    });
+  };
 };
 
 /**
  * 클라이언트-사이드에서 가져온 엑세스 토큰으로 로그인 시 사용할 Action이다.
  * 네이버, 카카오, 페이스북 등의 Social 계정으로 로그인 시 사용한다.
  * Local 계정으로 로그인 시에는 `loginWithIdAndPw`를 사용한다.
- * 
- * @param {string} socialAccessToken 소셜 계정 엑세스 토큰
  */
-export const loginWithSocial = (type) => () => {
-  return new Promise((resolve, reject) => {
-    // process 과정 필요
-    SocialSessionPreProcessor.preProcessLogin(type)
-      .then(userObject => mockServer.socialLogin(userObject))
-      .then(response => {
-        sessionService.saveSession(response)
-          .then(() => sessionService.saveUser(response))
-          .then(() => resolve())
-          .catch(error => {
-            reject();
-            throw Error('loginWithSocial: ' + error);
+export const loginWithSocial = (type) => {
+  return () => {
+    return new Promise((resolve, reject) => {
+      // process 과정 필요
+      SocialSessionPreProcessor.preProcessLogin(type)
+        .then(accessToken => {
+
+          const ROOT_URL = 'http://localhost:8080';
+
+          axios.post(`${ROOT_URL}/login/social`, {
+            accountType: type,
+            accessToken
+          }).then(({ status, data }) => {
+            console.log('[loginSocial] status:', status, ' data:', data);
+
+            if (status === 200) {
+              sessionService.saveSession(data)
+                .then(() => sessionService.saveUser(data))
+                .then(() => resolve())
+                .catch(() => reject());
+            } else {
+              // 다른 status가 나오는 경우는 Bad Request
+              reject({ status, msg: '잘못된 요청입니다.' });
+            }
+          }).catch(({ response: { status } }) => {
+            if (status === 404) {
+              reject({
+                status,
+                type,
+                accessToken,
+                msg: '소셜 사용자 최초 로그인 - 추가 정보 입력이 필요합니다.'
+              });
+            }
           });
+        });
+    });
+  };
+};
+
+export const logout = () => {
+  return () => {
+    sessionService.loadUser()
+      .then(({ user: { accountType } }) => {
+
+        if (accountType !== 'LOCAL')
+          SocialSessionPreProcessor.preProcessLogout(accountType);
+
+        sessionService.deleteSession();
+        sessionService.deleteUser();
       });
-  });
-};
-
-export const socialLogout = type => () => {
-  SocialSessionPreProcessor.preRrocessLogout(type);
-  _deleteSession();
-};
-
-export const logout = () => () => _deleteSession();
-
-const _deleteSession = () => {
-  sessionService.deleteSession();
-  sessionService.deleteUser();
+  };
 };
 
 /**
- * TODO: Refresh Token을 사용하여 서버로부터 새 Access Token과 Refresh Token을 받아온다.
+ * 세션 값을 검증하는 함수이다.
+ * 최초 로딩 시 저장되어있던 세션을 불러올 때 호출된다.
  * 
- * 1. Access Token과 함께 Refresh Token도 만료 기간이 연장된다.
- * 2. 기존에 사용하던 refresh Token은 제거한다.
- * 3. localStorage에도 반영해야 한다.
- * 
- * @param {string} refreshToken 사용자가 발급받은 Refresh Token
+ * @param {object} session 현재 세션에 저장되어있는 객체
+ * @returns {boolean | Promise} 세션 값이 정상적인지 여부를 반환한다.
  */
-export const refreshToken = refreshToken => ({
-  type: REFRESH_TOKEN,
-  payload: refreshToken
-});
+export const validateSession = ({ accessToken, refreshToken }) => {
+
+  const { exp: accessTokenExp } = decodeJwt(accessToken);
+  const { exp: refreshTokenExp } = decodeJwt(refreshToken);
+
+  const currentTime = Date.now().valueOf() / 1000;
+  const accessTokenExpired = accessTokenExp < currentTime;
+  const refreshTokenExpired = refreshTokenExp < currentTime;
+
+  console.log('validateSession: ', accessTokenExpired, refreshTokenExpired);
+
+  // Access Token이 만료되지 않았으므로 그대로 사용
+  if (!accessTokenExpired) {
+    console.log('accessToken is not expired');
+    return true;
+  }
+
+  console.log('accessToken is expired');
+
+  // Refresh Token이 만료된 시점에서 Access Token이 만료되지 않았을 리 없음
+  if (refreshTokenExpired) {
+    console.log('refreshToken is expired');
+    return false;
+  }
+
+  console.log('refreshToken is not expired');
+
+  // Refresh Token으로 갱신해야 함
+  return tryRefresh(refreshToken)
+    .then(data => {
+      sessionService.deleteSession()
+        .then(() => {
+          sessionService.saveSession(data)
+            .then(() => sessionService.saveUser(data))
+            .then(() => { console.log('saveUser succeded'); return true; })
+            .catch(() => { return false; });
+        });
+    }).catch(() => { return false; });
+};
+
+const tryRefresh = refreshToken => {
+
+  console.log('trying to refresh...');
+
+  const formData = new FormData();
+  formData.append('token', refreshToken);
+
+  const ROOT_URL = 'http://localhost:8080';
+
+  return new Promise((resolve, reject) => {
+
+    console.log('about to send axios post');
+
+    axios.post(`${ROOT_URL}/refresh`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      }
+    })
+      .then(({ status, data }) => {
+        console.log('POST /refresh ----> status:', status, ', data: ', data);
+        if (status === 200)
+          resolve(data);
+        else
+          reject();
+      })
+      .catch(() => reject());
+  });
+};
+
 
 // Selectors
-export const getUserInfo = ({ user: { userInfo } }) => userInfo;
+export const getUserInfo = ({ user: { user } }) => user;
 
-export const getUserLoggedIn = ({ user: { userInfo } }) => userInfo !== undefined && userInfo !== null && !(Object.keys(userInfo).length === 0 && userInfo.constructor === Object);
+export const getUserLoggedIn = ({ user: { user } }) => user !== undefined && user !== null && !(Object.keys(user).length === 0 && user.constructor === Object);
