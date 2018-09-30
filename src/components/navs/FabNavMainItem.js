@@ -4,7 +4,7 @@ import { Button, Icon } from '@material-ui/core';
 
 import theme from '../../configs/ThemeConfig';
 
-const getCircleSize = isMobile => isMobile ? 56 : 64;
+const getCircleSize = ismobile => ismobile ? 56 : 64;
 
 const RootBtn = styled(Button)`
   && {
@@ -13,19 +13,19 @@ const RootBtn = styled(Button)`
     bottom: ${theme.spacing.unit * 2 + 'px'};
     right: ${theme.spacing.unit * 2 + 'px'};
 
-    width: ${({ isMobile }) => getCircleSize(isMobile) + 'px'};
-    height: ${({ isMobile }) => getCircleSize(isMobile) + 'px'};
+    width: ${({ ismobile }) => getCircleSize(ismobile) + 'px'};
+    height: ${({ ismobile }) => getCircleSize(ismobile) + 'px'};
   }
 `;
 
-export default function FabNavMainItem({ handleClick, isMobile }) {
+export default function FabNavMainItem({ handleClick, ismobile }) {
   return (
     <RootBtn
       variant="fab"
       color="primary"
       aria-label="navigate"
       onClick={handleClick}
-      isMobile={isMobile}
+      ismobile={ismobile}
     >
       <Icon>keyboard_arrow_right</Icon>
     </RootBtn>

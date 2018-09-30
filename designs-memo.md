@@ -14,7 +14,7 @@
 
 5. Redux에서 API Call 적용
 
-6. User 관련해서 `redux-react-session` 적용
+6. User 관련해서 `redux-react-session` 적용 (v)
 
 7. 권한 정의 및 `<HasPermission>` 적용
 
@@ -24,9 +24,17 @@
 
 10. FabNav 위치 가변적 지정
 
+### API Call
+
+- axios 사용 시 200번대 응답이 아니면 then이 아닌 catch로 들어가게 된다. 이 때 401을 어떻게..하
+
 ### Form
 
 - 현재처럼 Material-UI 기반의 컴포넌트 + Quill + 내맘대로 컴포넌트를 렌더링할 수 있도록 직접 구현한 `renderField()`를 사용해야 될 듯
+
+#### 필드 구성에서 required와 hidden, defaultValueFixed 필요함
+
+#### 폼 작성 완료 시 폼 내용은 clear 해야 함
 
 #### Form Validation의 구현에 대해서
 
@@ -47,7 +55,7 @@
   this.registerFields({
     title: {
       label: '제목',
-      validate: this.validateByLength('제목', 10),
+      validate: this.validateByMinLength('제목', 10),
       value: '',
     },
     content: {

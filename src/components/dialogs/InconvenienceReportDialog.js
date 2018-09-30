@@ -31,7 +31,7 @@ export default withStyles(styles)(class extends FormComponent {
     {
       label: '제목',
       name: 'title',
-      validate: this.validateByLength('제목', 10)
+      validate: this.validateByMinLength('제목', 10)
     },
     {
       Component: 'quill',

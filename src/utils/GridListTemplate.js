@@ -36,7 +36,7 @@ const StyledGridList = styled(GridList)`
   }
 `;
 
-const GridListTemplate = ({ title, titleType, subHeader, items, spacing, btnStr, noMoreLoadBtn, noTopMargin }) => (
+const GridListTemplate = ({ title, titleType, subHeader, items, spacing, btnStr, handleBtnClick, noMoreLoadBtn, noTopMargin }) => (
   <Root noTopMargin={noTopMargin}>
     <StyledGridList spacing={spacing || 16}>
       {title
@@ -54,7 +54,7 @@ const GridListTemplate = ({ title, titleType, subHeader, items, spacing, btnStr,
       {items}
     </StyledGridList>
 
-    {noMoreLoadBtn ? null : <LoadMoreBtn btnStr={btnStr} />}
+    {noMoreLoadBtn ? null : <LoadMoreBtn onClick={handleBtnClick} btnStr={btnStr} />}
   </Root>
 );
 

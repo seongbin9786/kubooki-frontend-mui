@@ -25,29 +25,26 @@ const styles = theme => ({
 });
 
 export default withStyles(styles)(class extends FormComponent {
-  state = {
-    title: '',
-    content: '',
-    newsId: this.props.newsId,
-  };
 
-  fields = [
-    {
+  getFieldDefinitions = () => ({
+    title: {
       label: '제목',
-      name: 'title',
-      validate: this.validateByLength('제목', 10)
+      validate: this.validateByMinLength('제목', 10)
     },
-    {
+    content: {
       Component: 'quill',
       label: '본문',
-      name: 'content',
     },
-  ];
+    newsId: {
+      label: '대상 기사의 ID',
+      value: this.props.newsId,
+    }
+  });
 
   render() {
-    const { open, handleClose, onSubmit, classes } = this.props;
+    const { open, handleClose, classes } = this.props;
 
-    const fieldsInfo = this.renderFields(this.fields);
+    const fieldsInfo = this.renderFields();
     const hasErrors = fieldsInfo.some(field => field.error === true);
     const fieldsRendered = fieldsInfo.map(field => field.component);
 
@@ -69,12 +66,12 @@ export default withStyles(styles)(class extends FormComponent {
             <Button onClick={handleClose} color="primary">
               취소
             </Button>
-            <Button onClick={onSubmit} disabled={hasErrors} color="primary" variant='raised'>
+            <Button onClick={this.handleSubmit} disabled={hasErrors} color="primary" variant='raised'>
               작성
             </Button>
           </div>
         </DialogActions>
-      </ResponsiveDialog>
+      </ResponsiveDialog >
     );
   }
 });

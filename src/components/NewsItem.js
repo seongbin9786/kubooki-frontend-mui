@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
+import NewsConstants from '../constants/NewsConstants';
 import theme from '../configs/ThemeConfig';
 import { borderBottomHighlight, marginVertical, marginBottomRoot } from '../styles/styles';
 
@@ -43,24 +44,33 @@ const styles = {
 };
 
 function NewsItem({ news, classes }) {
+
+  const { id, newsCategory, thumbnailPicId, title } = news;
+
+  const ROOT_URL = 'http://localhost:8080';
+  const thumbnailPicUrl = thumbnailPicId === 0 ? '/no-image.png' : `${ROOT_URL}/img/${thumbnailPicId}`;
+  const detailUrl = `/news/${id}`;
+  const category = NewsConstants.getCategoryNameByValue(newsCategory);
+  const date = '2018-09-30';
+
   return (
     <Grid item xs={12} sm={6} lg={4} className={classes.marginBottomRoot}>
       <div className={classes.Paper}>
-        <Link to={`/news/${news.id}`}>
-          <img src={news.img} alt="기사 이미지" className={classes.img} />
+        <Link to={detailUrl}>
+          <img src={thumbnailPicUrl} alt="기사 이미지" className={classes.img} />
         </Link>
         <div className={classes.categoryContainer}>
           <span className={classes.categoryText}>
-            {news.category}
+            {category}
           </span>
         </div>
-        <Link to={`/news/${news.id}`} className={classes.titleLink}>
+        <Link to={detailUrl} className={classes.titleLink}>
           <Typography variant="headline">
-            {news.title}
+            {title}
           </Typography>
         </Link>
         <Typography variant="caption" className={classes.date}>
-          {news.date}
+          {date}
         </Typography>
       </div>
     </Grid>

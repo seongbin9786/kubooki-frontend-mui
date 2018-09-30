@@ -119,10 +119,10 @@ class NewsHeadlineItem extends Component {
               <Content variant="headline">{news.content}</Content>
               <DateTitle variant="caption">{news.date}</DateTitle>
             </ContentContainer>
-            <ReadMoreBtn hover={hover} to={`/news/${news.id}`}>Read More</ReadMoreBtn>
+            <ReadMoreBtn hover={hover ? 'true' : undefined} to={`/news/${news.id}`}>Read More</ReadMoreBtn>
           </ImageContainer>
         </RootPaper>
-      </GridRootWithMarginBottom>
+      </GridRootWithMarginBottom >
     );
   }
 }

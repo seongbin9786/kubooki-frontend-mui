@@ -3,7 +3,7 @@ import { Prompt } from 'react-router';
 
 class DialogOwnerComponent extends Component {
   renderNavBlocker() {
-    return <Prompt when={this.checkAnyDialogOpen()} />;
+    return <Prompt when={this.checkAnyDialogOpen()} message="" />;
   }
 
   checkAnyDialogOpen() {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withStyles, Typography, Button, withWidth } from '@material-ui/core';
 
 import NewsFeedbackList from '../containers/NewsFeedbackList';
@@ -10,6 +11,8 @@ import Spacing from '../styles/Spacing';
 import FaIcon from '../components/FaIcon';
 import { smallRootWithPadding, marginVertical } from '../styles/styles';
 import DialogOwnerComponent from '../utils/DialogOwnerComponent';
+import { postNews } from '../modules/News';
+import NewsConstants from '../constants/NewsConstants';
 
 const styles = {
   smallRootWithPadding,
@@ -33,6 +36,18 @@ class NewsWritePage extends DialogOwnerComponent {
         newsWrite: false,
       },
     };
+  }
+
+  handleNewsSubmit = formData => {
+    const { postNews } = this.props;
+    const toSend = {
+      category: 1,
+      newsCategory: NewsConstants.getCategoryValueByName(formData.category),
+      title: formData.title,
+      content: formData.content
+    };
+
+    postNews(toSend);
   }
 
   render() {
@@ -73,6 +88,7 @@ class NewsWritePage extends DialogOwnerComponent {
 
         <NewsWriteDialog
           open={newsWrite}
+          onSubmit={this.handleNewsSubmit}
           handleClose={this.toggleDialog('newsWrite')}
         />
       </React.Fragment >
@@ -80,4 +96,8 @@ class NewsWritePage extends DialogOwnerComponent {
   }
 }
 
-export default withWidth()(withStyles(styles)(NewsWritePage));
+const mapDispatchToProps = {
+  postNews
+};
+
+export default connect(null, mapDispatchToProps)(withWidth()(withStyles(styles)(NewsWritePage)));

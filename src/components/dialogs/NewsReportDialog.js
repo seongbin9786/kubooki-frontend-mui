@@ -25,7 +25,7 @@ export default withStyles(styles)(class extends FormComponent {
   getFieldDefinitions = () => ({
     title: {
       label: '제목',
-      validate: this.validateByLength('제목', 10)
+      validate: this.validateByMinLength('제목', 10)
     },
     content: {
       Component: 'quill',

@@ -13,11 +13,12 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(({ classes, btnStr, className }) => (
+export default withStyles(styles)(({ classes, btnStr, className, ...props }) => (
   <Button
     variant="raised"
     color="primary"
     className={classNames(classes.moreButton, className)}
+    {...props}
   >
     {btnStr ? btnStr : '더 불러오기'}
   </Button>

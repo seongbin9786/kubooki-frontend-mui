@@ -4,29 +4,29 @@ import { Button, Typography } from '@material-ui/core';
 
 const GAP_FOR_HIDE = 20;
 
-const getCircleSize = isMobile => isMobile ? 48 : 56;
+const getCircleSize = ismobile => ismobile ? 48 : 56;
 
-const getBottomMargin = (isMobile, index, open) => {
+const getBottomMargin = (ismobile, index, open) => {
   if (!open) return GAP_FOR_HIDE;
 
   let baseMargin = 24, marginBtwCircles = 8;
 
-  return baseMargin + (getCircleSize(isMobile) + marginBtwCircles) * (index + 1);
-}
+  return baseMargin + (getCircleSize(ismobile) + marginBtwCircles) * (index + 1);
+};
 
 const RootBtn = styled(Button)`
   && {
     position: fixed;
     transition: all 0.3s;
 
-    width: ${({ isMobile }) => getCircleSize(isMobile) + 'px'};
-    height: ${({ isMobile }) => getCircleSize(isMobile) + 'px'};
+    width: ${({ ismobile }) => getCircleSize(ismobile) + 'px'};
+    height: ${({ ismobile }) => getCircleSize(ismobile) + 'px'};
 
     right: ${GAP_FOR_HIDE + 'px'};
 
-    bottom: ${({ isMobile, index, open }) => getBottomMargin(isMobile, index, open) + 'px'};
+    bottom: ${({ ismobile, index, open }) => getBottomMargin(ismobile, index, open) + 'px'};
 
-    ${({ open }) => !open && ` box-shadow: none; `};
+    ${({ open }) => !open && ' box-shadow: none; '};
   }
 `;
 
@@ -36,7 +36,7 @@ const Title = styled(Typography)`
   }
 `;
 
-function FabNavItem({ name, navigateTo, open, isMobile, index }) {
+function FabNavItem({ name, navigateTo, open, ismobile, index }) {
   return (
     <RootBtn
       variant="fab"
@@ -44,7 +44,7 @@ function FabNavItem({ name, navigateTo, open, isMobile, index }) {
       onClick={navigateTo(name)}
       open={open}
       index={index}
-      isMobile={isMobile}
+      ismobile={ismobile ? 'ismobile' : undefined}
     >
       <Title color='inherit'>{name}</Title>
     </RootBtn>

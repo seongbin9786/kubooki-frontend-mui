@@ -1,39 +1,71 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import GridListTemplate from '../utils/GridListTemplate';
 import NewsHeadlineItem from '../components/NewsHeadlineItem';
 import NewsItem from '../components/NewsItem';
-import { TabList } from '../configs/NewsTabConfig';
+import { getNewsList, loadNewsList } from '../modules/News';
+import NewsConstants from '../constants/NewsConstants';
 
-function NewsList({ location: { pathname }, index, newsList, noTopMargin }) {
-  // 1. index를 pathname의 값으로 결정한다. 
-  // 2. 뉴스 상세 페이지 등에서는 index를 category에 판단하여 props로 제공한다.
-  // 3. [2]의 경우에는 제공된 index에 맞는 기사 목록을 보인다.
-  // 4. 올바른 탭 URL이 아닌 경우 렌더링하지 않는다. (index 값이 -1인 경우)
-  if (index === undefined)
-    index = TabList.findIndex(([, tabPath]) => tabPath === pathname);
-  if (index === -1)
-    return null;
+const REQ_COUNT = 10;
 
-  const [currentTab] = TabList[index];
+class NewsList extends Component {
+  state = {
+    offset: 0,
+    limit: REQ_COUNT
+  };
 
-  const items = [
-    index === 0 ? <NewsHeadlineItem key='head' /> : null,
-    ...(newsList.map(
-      news => pathname === '/' || currentTab === news.category
-        ? <NewsItem news={news} key={news.id} />
-        : null
-    )),
-  ];
+  handleLoadMoreList = () => {
+    const { offset, limit } = this.state;
+    const { loadNewsList } = this.props;
+    const maxIdx = offset + limit;
 
-  return (
-    <GridListTemplate
-      items={items}
-      btnStr='기사 더 불러오기'
-      noTopMargin={noTopMargin}
-    />
-  );
+    loadNewsList(offset, maxIdx);
+
+    this.setState({ offset: maxIdx, limit: maxIdx + REQ_COUNT });
+  }
+
+  componentDidMount() {
+    const { newsList } = this.props;
+
+    if (newsList.length === 0) {
+      this.handleLoadMoreList();
+    }
+  }
+
+  render() {
+    const { pathname, index: indexFromProp, newsList, noTopMargin } = this.props;
+
+    const index = indexFromProp !== undefined ? indexFromProp : NewsConstants.getTabIndexByPath(pathname);
+    const currentTab = NewsConstants.getCategoryValueByIndex(index);
+    const filterNewsByCategory = news => {
+      if (currentTab === 'ALL' || currentTab === news.newsCategory)
+        return <NewsItem news={news} key={news.id} />;
+      else
+        return null;
+    };
+
+    const items = newsList.map(news => filterNewsByCategory(news));
+    if (currentTab === 'ALL')
+      items.unshift(<NewsHeadlineItem key='head' />);
+
+    return (
+      <GridListTemplate
+        items={items}
+        btnStr='기사 더 불러오기'
+        handleBtnClick={this.handleLoadMoreList}
+        noTopMargin={noTopMargin}
+      />
+    );
+  }
 }
 
-export default withRouter(NewsList);
+const mapStateToProps = ({ news }) => ({
+  newsList: getNewsList(news)
+});
+
+const mapDispatchToProps = {
+  loadNewsList
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewsList);

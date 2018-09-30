@@ -48,12 +48,12 @@ export default withStyles(styles)(class extends FormComponent {
       Component: ImagePreview,
       label: '섬네일',
       isForm: true,
-      value: 'https://mikesmasterclasses.com/wp-content/uploads/2017/07/no-thumbnail.png'
+      value: '/no-image.png'
     }
   });
 
   render() {
-    const { open, handleClose, onSubmit, classes } = this.props;
+    const { open, handleClose, classes } = this.props;
 
     const fieldsInfo = this.renderFields();
     const hasErrors = fieldsInfo.some(field => field.error === true);
@@ -79,7 +79,7 @@ export default withStyles(styles)(class extends FormComponent {
             <Button onClick={handleClose} color="primary">
               취소
             </Button>
-            <Button onClick={onSubmit} disabled={hasErrors} color="primary" variant='raised'>
+            <Button onClick={this.handleSubmit} disabled={hasErrors} color="primary" variant='raised'>
               작성
             </Button>
           </div>

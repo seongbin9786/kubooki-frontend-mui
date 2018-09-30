@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { withWidth } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
-import { TabList } from '../../configs/NewsTabConfig';
 import FabNavItem from './FabNavItem';
 import FabNavMainItem from './FabNavMainItem';
+import NewsConstants from '../../constants/NewsConstants';
 
 
 class FloatingActionButtons extends Component {
@@ -21,30 +21,28 @@ class FloatingActionButtons extends Component {
     this.handleClick();
 
     const { history } = this.props;
-    const index = TabList.findIndex(([tabName]) => tabName === name);
-    const [, link] = TabList[index];
+    const index = NewsConstants.getTabIndexByCategoryName(name);
+    const link = NewsConstants.getLinkByIndex(index);
     history.push(link);
   }
 
   render() {
     const { open } = this.state;
-    const isMobile = this.props.width === 'xs';
-
-    console.log('OPEN:', open);
+    const ismobile = this.props.width === 'xs';
 
     return (
       <React.Fragment>
-        {TabList.map(([name], index) =>
+        {NewsConstants.getCategoriesObject().map(({ name }, idx) =>
           <FabNavItem
-            key={index}
-            isMobile={isMobile}
-            index={index}
+            key={idx}
+            ismobile={ismobile}
+            index={idx}
             name={name}
             open={open}
             navigateTo={this.navigateTo}
           />
         )}
-        <FabNavMainItem handleClick={this.handleClick} isMobile={isMobile} />
+        <FabNavMainItem handleClick={this.handleClick} ismobile={ismobile ? 'ismobile' : undefined} />
       </React.Fragment>
     );
   }

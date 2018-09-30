@@ -3,6 +3,10 @@ import decodeJwt from 'jwt-decode';
 import { sessionService } from 'redux-react-session';
 import SocialSessionPreProcessor from '../utils/SocialSessionPreProcessor';
 
+const setAccessTokenForAuthorizationHeader = accessToken => {
+  axios.defaults.headers.common['Authorization'] = accessToken;
+};
+
 /**
  * ID, PW로 로그인 시 사용할 Action이다.
  * Local 계정으로 로그인 시 사용한다.
@@ -27,6 +31,8 @@ export const loginWithIdAndPw = ({ loginId, password }) => {
       axios.post(`${ROOT_URL}/login`, loginDto)
         .then(({ status, data }) => {
           console.log('loginResponse:', status, data);
+
+          setAccessTokenForAuthorizationHeader(data.accessToken);
 
           if (status === 200) {
             sessionService.saveSession(data)
@@ -61,6 +67,8 @@ export const loginWithSocial = (type) => {
             accessToken
           }).then(({ status, data }) => {
             console.log('[loginSocial] status:', status, ' data:', data);
+
+            setAccessTokenForAuthorizationHeader(data.accessToken);
 
             if (status === 200) {
               sessionService.saveSession(data)
@@ -121,6 +129,7 @@ export const validateSession = ({ accessToken, refreshToken }) => {
   // Access Token이 만료되지 않았으므로 그대로 사용
   if (!accessTokenExpired) {
     console.log('accessToken is not expired');
+    setAccessTokenForAuthorizationHeader(accessToken);
     return true;
   }
 
@@ -167,15 +176,16 @@ const tryRefresh = refreshToken => {
     })
       .then(({ status, data }) => {
         console.log('POST /refresh ----> status:', status, ', data: ', data);
-        if (status === 200)
+        if (status === 200) {
+          setAccessTokenForAuthorizationHeader(data.accessToken);
           resolve(data);
-        else
+        } else {
           reject();
+        }
       })
       .catch(() => reject());
   });
 };
-
 
 // Selectors
 export const getUserInfo = ({ user: { user } }) => user;
