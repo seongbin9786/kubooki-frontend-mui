@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
+import { ROOT_URL } from '../configs/ServerConfig';
 import NewsConstants from '../constants/NewsConstants';
 import theme from '../configs/ThemeConfig';
 import { borderBottomHighlight, marginVertical, marginBottomRoot } from '../styles/styles';
@@ -47,7 +48,6 @@ function NewsItem({ news, classes }) {
 
   const { id, newsCategory, thumbnailPicId, title } = news;
 
-  const ROOT_URL = 'http://localhost:8080';
   const thumbnailPicUrl = thumbnailPicId === 0 ? '/no-image.png' : `${ROOT_URL}/img/${thumbnailPicId}`;
   const detailUrl = `/news/${id}`;
   const category = NewsConstants.getCategoryNameByValue(newsCategory);

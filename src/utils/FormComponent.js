@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import api from '../modules/api';
 import { TextField, Checkbox, FormControlLabel, FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@material-ui/core';
 
 import QuillEditor from '../components/inputs/QuillEditor';
@@ -170,9 +170,7 @@ class FormComponent extends Component {
 
   validateIdDuplicate = val => new Promise(resolve => {
 
-    const ROOT_URL = 'http://localhost:8080';
-
-    axios.get(`${ROOT_URL}/users/validate/${val}`)
+    api.get(`/users/validate/${val}`)
       .then(({ data }) => {
         if (Boolean(data)) { //isDuplicate
           resolve({ error: true, msg: `${val}은(는) 이미 존재하는 ID입니다.` });

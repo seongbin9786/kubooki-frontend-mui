@@ -1,11 +1,7 @@
-import axios from 'axios';
 import decodeJwt from 'jwt-decode';
 import { sessionService } from 'redux-react-session';
+import api, { setAccessTokenForAuthorizationHeader } from './api';
 import SocialSessionPreProcessor from '../utils/SocialSessionPreProcessor';
-
-const setAccessTokenForAuthorizationHeader = accessToken => {
-  axios.defaults.headers.common['Authorization'] = accessToken;
-};
 
 /**
  * ID, PW로 로그인 시 사용할 Action이다.
@@ -19,29 +15,23 @@ export const loginWithIdAndPw = ({ loginId, password }) => {
   return () => {
     return new Promise((resolve, reject) => {
 
-      const ROOT_URL = 'http://localhost:8080';
-
-      const loginDto = {
+      const loginDTO = {
         id: loginId,
         pw: password
       };
 
-      console.log('loginDto:', loginDto);
+      console.log('loginDto:', loginDTO);
 
-      axios.post(`${ROOT_URL}/login`, loginDto)
+      api.post('/login', loginDTO)
         .then(({ status, data }) => {
           console.log('loginResponse:', status, data);
 
           setAccessTokenForAuthorizationHeader(data.accessToken);
 
-          if (status === 200) {
-            sessionService.saveSession(data)
-              .then(() => sessionService.saveUser(data))
-              .then(() => resolve())
-              .catch(() => reject());
-          } else {
-            reject();
-          }
+          sessionService.saveSession(data)
+            .then(() => sessionService.saveUser(data))
+            .then(() => resolve())
+            .catch(() => reject());
         })
         .catch(() => reject());
     });
@@ -60,9 +50,7 @@ export const loginWithSocial = (type) => {
       SocialSessionPreProcessor.preProcessLogin(type)
         .then(accessToken => {
 
-          const ROOT_URL = 'http://localhost:8080';
-
-          axios.post(`${ROOT_URL}/login/social`, {
+          api.post('/login/social', {
             accountType: type,
             accessToken
           }).then(({ status, data }) => {
@@ -70,15 +58,10 @@ export const loginWithSocial = (type) => {
 
             setAccessTokenForAuthorizationHeader(data.accessToken);
 
-            if (status === 200) {
-              sessionService.saveSession(data)
-                .then(() => sessionService.saveUser(data))
-                .then(() => resolve())
-                .catch(() => reject());
-            } else {
-              // 다른 status가 나오는 경우는 Bad Request
-              reject({ status, msg: '잘못된 요청입니다.' });
-            }
+            sessionService.saveSession(data)
+              .then(() => sessionService.saveUser(data))
+              .then(() => resolve())
+              .catch(() => reject());
           }).catch(({ response: { status } }) => {
             if (status === 404) {
               reject({
@@ -87,6 +70,9 @@ export const loginWithSocial = (type) => {
                 accessToken,
                 msg: '소셜 사용자 최초 로그인 - 추가 정보 입력이 필요합니다.'
               });
+            } else {
+              // 다른 status가 나오는 경우는 Bad Request
+              reject({ status, msg: '잘못된 요청입니다.' });
             }
           });
         });
@@ -117,12 +103,7 @@ export const logout = () => {
  */
 export const validateSession = ({ accessToken, refreshToken }) => {
 
-  const { exp: accessTokenExp } = decodeJwt(accessToken);
-  const { exp: refreshTokenExp } = decodeJwt(refreshToken);
-
-  const currentTime = Date.now().valueOf() / 1000;
-  const accessTokenExpired = accessTokenExp < currentTime;
-  const refreshTokenExpired = refreshTokenExp < currentTime;
+  const { accessTokenExpired, refreshTokenExpired } = calculateExpirated(accessToken, refreshToken);
 
   console.log('validateSession: ', accessTokenExpired, refreshTokenExpired);
 
@@ -147,44 +128,49 @@ export const validateSession = ({ accessToken, refreshToken }) => {
   return tryRefresh(refreshToken)
     .then(data => {
       sessionService.deleteSession()
-        .then(() => {
-          sessionService.saveSession(data)
-            .then(() => sessionService.saveUser(data))
-            .then(() => { console.log('saveUser succeded'); return true; })
-            .catch(() => { return false; });
-        });
-    }).catch(() => { return false; });
+        .then(() => sessionService.saveSession(data))
+        .then(() => sessionService.saveUser(data))
+        .then(() => { console.log('saveUser succeded'); return true; })
+        .catch(() => false);
+    })
+    .catch(() => false);
 };
 
 const tryRefresh = refreshToken => {
-
   console.log('trying to refresh...');
 
   const formData = new FormData();
   formData.append('token', refreshToken);
 
-  const ROOT_URL = 'http://localhost:8080';
-
   return new Promise((resolve, reject) => {
 
     console.log('about to send axios post');
 
-    axios.post(`${ROOT_URL}/refresh`, formData, {
+    api.post('/refresh', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       }
     })
       .then(({ status, data }) => {
         console.log('POST /refresh ----> status:', status, ', data: ', data);
-        if (status === 200) {
-          setAccessTokenForAuthorizationHeader(data.accessToken);
-          resolve(data);
-        } else {
-          reject();
-        }
+        setAccessTokenForAuthorizationHeader(data.accessToken);
+        resolve(data);
       })
       .catch(() => reject());
   });
+};
+
+// private method
+const calculateExpirated = (accessToken, refreshToken) => {
+  const { exp: accessTokenExp } = decodeJwt(accessToken);
+  const { exp: refreshTokenExp } = decodeJwt(refreshToken);
+
+  const currentTime = Date.now().valueOf() / 1000;
+
+  const accessTokenExpired = accessTokenExp < currentTime;
+  const refreshTokenExpired = refreshTokenExp < currentTime;
+
+  return { accessTokenExpired, refreshTokenExpired };
 };
 
 // Selectors

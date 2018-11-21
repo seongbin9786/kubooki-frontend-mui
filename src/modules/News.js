@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const ROOT_URL = 'http://localhost:8080';
+import api from './api';
 
 // Action Types
 const LOAD_NEWS_DETAIL = '@@kubooki/news/LOAD_NEWS_DETAIL';
@@ -11,7 +9,7 @@ const POST_NEWS_FAILED = '@@kubooki/news/POST_NEWS_FAILED';
 // Action(Thunk) Creators
 export const loadNewsDetail = id => {
   return dispatch => {
-    axios.get(`${ROOT_URL}/news/${id}`)
+    api.get(`/news/${id}`)
       .then(({ data }) => {
         dispatch({
           type: LOAD_NEWS_DETAIL,
@@ -24,7 +22,7 @@ export const loadNewsDetail = id => {
 
 export const loadNewsList = (offset, limit) => {
   return dispatch => {
-    axios.get(`${ROOT_URL}/news?offset=${offset}&limit=${limit}`)
+    api.get(`/news?offset=${offset}&limit=${limit}`)
       .then(({ data }) => {
         dispatch({
           type: LOAD_NEWS_LIST,
@@ -37,7 +35,7 @@ export const loadNewsList = (offset, limit) => {
 
 export const postNews = news => {
   return dispatch => {
-    axios.post(`${ROOT_URL}/news`, news)
+    api.post('/news', news)
       .then(({ data }) => {
         dispatch({
           type: POST_NEWS_SUCCESS,

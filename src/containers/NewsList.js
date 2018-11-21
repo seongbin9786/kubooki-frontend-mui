@@ -18,11 +18,10 @@ class NewsList extends Component {
   handleLoadMoreList = () => {
     const { offset, limit } = this.state;
     const { loadNewsList } = this.props;
-    const maxIdx = offset + limit;
 
-    loadNewsList(offset, maxIdx);
+    loadNewsList(offset, limit);
 
-    this.setState({ offset: maxIdx, limit: maxIdx + REQ_COUNT });
+    this.setState({ offset: limit, limit: limit + REQ_COUNT });
   }
 
   componentDidMount() {

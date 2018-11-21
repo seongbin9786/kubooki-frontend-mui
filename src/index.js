@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import axios from 'axios';
+import { setJwtInterceptor, setAccessTokenForAuthorizationHeader } from './modules/api';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import reduxThunk from 'redux-thunk';
@@ -12,9 +11,6 @@ import { validateSession } from './modules/SessionActions';
 import reducers from './modules';
 import theme from './configs/ThemeConfig';
 import Routes from './Routes';
-
-// axios global config
-axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const useReduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
@@ -30,6 +26,10 @@ const sessionServiceOptions = {
 sessionService.initSessionService(store, sessionServiceOptions)
   .then(() => console.log('[sessionService] LOAD successful!'))
   .catch(() => console.log('[sessionService] LOAD failed!'));
+
+setAccessTokenForAuthorizationHeader();
+
+setJwtInterceptor();
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const ROOT_URL = 'http://localhost:8080';
+import api from './api';
 
 /**
  * Register 모듈은 Redux를 사용하지 않는다.
@@ -26,7 +24,7 @@ class Register {
         identityType: registerForm.identityType, // 신분 (학생, 학부모 등)
       };
 
-      axios.post(`${ROOT_URL}/users`, request)
+      api.post('/users', request)
         .then(({ status }) => {
           if (status === 200)
             resolve({ id: registerForm.registerId });
@@ -53,7 +51,7 @@ class Register {
 
       console.log('request Object:', request);
 
-      axios.post(`${ROOT_URL}/users/social`, request)
+      api.post('/users/social', request)
         .then(({ status }) => {
           if (status === 200)
             resolve('회원가입에 성공했습니다.');
